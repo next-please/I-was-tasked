@@ -33,11 +33,11 @@ public class GameController : MonoBehaviour
     int countdownTicks;
     int currentRound;
     public readonly int maxRounds = 3; 
-    int initializationRoundLength = 10;
-    int marketRoundLength = 50;
-    int preCombatRoundLength = 50;
-    int combatRoundLength = 50;
-    int postCombatRoundLength = 50;
+    int initializationRoundLength = 100;
+    int marketRoundLength = 100;
+    int preCombatRoundLength = 100;
+    int combatRoundLength = 100;
+    int postCombatRoundLength = 100;
 
     //gold variables
     public readonly int maxFixedIncome = 5;
@@ -175,7 +175,6 @@ public class GameController : MonoBehaviour
         countdownTicks = preCombatRoundLength;
         currentPhaseText.text = "Pre-Combat";
         currentPhase = Phase.PreCombat;
-
         SummonEnemies();
     }
 
@@ -212,6 +211,11 @@ public class GameController : MonoBehaviour
     }
 
     private void WinGame()
+    {
+        winScreenCanvas.enabled = true;
+    }
+
+    public void TestButton()
     {
         winScreenCanvas.enabled = true;
     }
