@@ -19,10 +19,13 @@ public class GameController : MonoBehaviour
     int[,] player1Board;
     int[,] player2Board;
     int[,] player3Board;
-    int player1ArmySize;
-    int player2ArmySize;
-    int player3ArmySize;
-    public readonly int startingArmySize = 0;
+    int player1ArmySize; //also used as price for army size increase
+    int player2ArmySize; //also used as price for army size increase
+    int player3ArmySize; //also used as price for army size increase
+    public Text player1ArmySizeText;
+    public Text player2ArmySizeText;
+    public Text player3ArmySizeText;
+    public readonly int startingArmySize = 1;
 
     //game state variables
     public Text currentRoundText;
@@ -50,6 +53,21 @@ public class GameController : MonoBehaviour
     int player3Gold;
     public Text player3GoldText;
     public readonly int startingGold = 0;
+    public readonly int upgradeIncomeCost = 10;
+    public readonly int upgradeIncomeAmount = 1;
+    public Text passiveIncomeText;
+
+    //market variables
+    int marketTier = 1; //also used as price for market increase
+    public Text[] marketTierUpgradeText;
+    int marketSize;
+    public readonly int startingMarketSize = 5;
+    public readonly int marketSizeUpgradeCost = 2;
+    public Text player1UpgradeArmySizeCostText;
+    public Text player2UpgradeArmySizeCostText;
+    public Text player3UpgradeArmySizeCostText;
+    public Text marketSizeText;
+    public Text marketRarityText;
 
     // Start is called before the first frame update
     void Start()
@@ -76,6 +94,7 @@ public class GameController : MonoBehaviour
         player2ArmySize = startingArmySize;
         player3Gold = startingGold;
         player3ArmySize = startingArmySize;
+        marketSize = startingMarketSize;
 
         currentRoundText.text = "Round " + currentRound;
         currentPhaseText.text = "Initializing...";
@@ -135,10 +154,10 @@ public class GameController : MonoBehaviour
             WinGame();
         }
         currentRoundText.text = "Round " + currentRound;
-        generateIncome();
+        int currentIncome = generateIncome();
     }
 
-    private void generateIncome()
+    private int generateIncome()
     {
         int currentIncome = Math.Min(currentRound, maxFixedIncome);
         currentIncome += incomeFromUpgrades;
@@ -154,6 +173,8 @@ public class GameController : MonoBehaviour
         incomeFromInterest = Math.Floor(player3Gold * InterestRate);
         player3Gold += currentIncome + Convert.ToInt32(incomeFromInterest);
         player3GoldText.text = player3Gold + " Gold";
+
+        return currentIncome;
     }
 
     private void InitializeMarketPhase()
@@ -215,8 +236,168 @@ public class GameController : MonoBehaviour
         winScreenCanvas.enabled = true;
     }
 
+    /**
+     * 
+     * Player Buttons and Actions
+     *
+    **/
+
     public void TestButton()
     {
         winScreenCanvas.enabled = true;
+    }
+
+    public void Player1UpgradeArmy()
+    {
+        if (player1Gold >= player1ArmySize)
+        {
+            player1Gold -= player1ArmySize;
+            player1ArmySize++;
+            player1GoldText.text = player1Gold + " Gold";
+            player1ArmySizeText.text = "Army Size: " + player1ArmySize;
+            player1UpgradeArmySizeCostText.text = "Upgrade Army Size ($" + player1ArmySize + ")";
+        }
+    }
+
+    public void Player1UpgradeMarketSize()
+    {
+        if (player1Gold >= marketSizeUpgradeCost)
+        {
+            player1Gold -= marketSizeUpgradeCost;
+            marketSize++;
+            player1GoldText.text = player1Gold + " Gold";
+            marketSizeText.text = "Market Size: " + marketSize;
+        }
+    }
+
+    public void Player1UpgradeMarketRarity()
+    {
+        if (player1Gold >= marketTier)
+        {
+            player1Gold -= marketTier;
+            marketTier++;
+            player1GoldText.text = player1Gold + " Gold";
+
+            marketRarityText.text = "Market Rarity: Tier " + marketTier;
+            foreach (Text text in marketTierUpgradeText)
+            {
+                text.text = "Upgrade Market Rarity ($" + marketTier + ")";
+            }
+        }
+    }
+
+    public void Player1UpgradePassiveIncome()
+    {
+        if (player1Gold >= upgradeIncomeCost)
+        {
+            player1Gold -= upgradeIncomeCost;
+            incomeFromUpgrades++;
+            player1GoldText.text = player1Gold + " Gold";
+            passiveIncomeText.text = "Additional Passive Income: " + incomeFromUpgrades;
+        }
+    }
+
+    public void Player2UpgradeArmy()
+    {
+        Debug.Log("test");
+        if (player2Gold >= player2ArmySize)
+        {
+            Debug.Log("Success");
+            player2Gold -= player2ArmySize;
+            player2ArmySize++;
+            player2GoldText.text = player2Gold + " Gold";
+            Debug.Log(player2Gold);
+            player2ArmySizeText.text = "Army Size: " + player2ArmySize;
+            Debug.Log(player2ArmySize);
+            player2UpgradeArmySizeCostText.text = "Upgrade Army Size ($" + player2ArmySize + ")";
+        }
+    }
+
+    public void Player2UpgradeMarketSize()
+    {
+        if (player2Gold >= marketSizeUpgradeCost)
+        {
+            player2Gold -= marketSizeUpgradeCost;
+            marketSize++;
+            player2GoldText.text = player2Gold + " Gold";
+            marketSizeText.text = "Market Size: " + marketSize;
+        }
+    }
+
+    public void Player2UpgradeMarketRarity()
+    {
+        if (player2Gold >= marketTier)
+        {
+            player2Gold -= marketTier;
+            marketTier++;
+            player2GoldText.text = player2Gold + " Gold";
+
+            marketRarityText.text = "Market Rarity: Tier " + marketTier;
+            foreach (Text text in marketTierUpgradeText)
+            {
+                text.text = "Upgrade Market Rarity ($" + marketTier + ")";
+            }
+        }
+    }
+
+    public void Player2UpgradePassiveIncome()
+    {
+        if (player2Gold >= upgradeIncomeCost)
+        {
+            player2Gold -= upgradeIncomeCost;
+            incomeFromUpgrades++;
+            player2GoldText.text = player2Gold + " Gold";
+            passiveIncomeText.text = "Additional Passive Income: " + incomeFromUpgrades;
+        }
+    }
+
+    public void Player3UpgradeArmy()
+    {
+        if (player3Gold >= player3ArmySize)
+        {
+            player3Gold -= player3ArmySize;
+            player3ArmySize++;
+            player3GoldText.text = player3Gold + " Gold";
+            player3ArmySizeText.text = "Army Size: " + player3ArmySize;
+            player3UpgradeArmySizeCostText.text = "Upgrade Army Size ($" + player3ArmySize + ")";
+        }
+    }
+
+    public void Player3UpgradeMarketSize()
+    {
+        if (player3Gold >= marketSizeUpgradeCost)
+        {
+            player3Gold -= marketSizeUpgradeCost;
+            marketSize++;
+            player3GoldText.text = player3Gold + " Gold";
+            marketSizeText.text = "Market Size: " + marketSize;
+        }
+    }
+
+    public void Player3UpgradeMarketRarity()
+    {
+        if (player3Gold >= marketTier)
+        {
+            player3Gold -= marketTier;
+            marketTier++;
+            player3GoldText.text = player3Gold + " Gold";
+
+            marketRarityText.text = "Market Rarity: Tier " + marketTier;
+            foreach (Text text in marketTierUpgradeText)
+            {
+                text.text = "Upgrade Market Rarity ($" + marketTier + ")";
+            }
+        }
+    }
+
+    public void Player3UpgradePassiveIncome()
+    {
+        if (player3Gold >= upgradeIncomeCost)
+        {
+            player3Gold -= upgradeIncomeCost;
+            incomeFromUpgrades++;
+            player3GoldText.text = player3Gold + " Gold";
+            passiveIncomeText.text = "Additional Passive Income: " + incomeFromUpgrades;
+        }
     }
 }
