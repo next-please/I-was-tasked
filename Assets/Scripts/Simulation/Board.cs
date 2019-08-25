@@ -4,65 +4,191 @@ using UnityEngine;
 
 public class Board
 {
-	public Tile[][] tiles;
-	public Dictionary<Piece, Tile> pieceToTile;
-	public int rows;
-	public int cols;
+	private Tile[][] tiles;
+	private List<Piece> piecesOnBoard;
+	private List<Piece> activePiecesOnBoard;
+	private int numRows;
+	private int numCols;
 
-	public Board(int rows, int cols)
+	public Board(int numRows, int numCols)
 	{
-		this.rows = rows;
-		this.cols = cols;
+		SetNumRows(numRows);
+		SetNumCols(numCols);
 		InitialiseGrid();
-		pieceToTile = new Dictionary<Piece, Tile>();
 	}
 
 	private void InitialiseGrid()
 	{
-		tiles = new Tile[rows][];
-		for (int i = 0; i < rows; i++)
+		piecesOnBoard = new List<Piece>();
+		activePiecesOnBoard = new List<Piece>();
+		tiles = new Tile[numRows][];
+		for (int i = 0; i < numRows; i++)
 		{
-			tiles[i] = new Tile[cols];
-			for (int j = 0; j < cols; j++) {
+			tiles[i] = new Tile[numCols];
+			for (int j = 0; j < numCols; j++) {
 				tiles[i][j] = new Tile(i, j);
 			}
 		}
 	}
 
-	public void SetPieceAtTile(Piece piece, Tile tile)
+	public void AddPieceToBoard(Piece piece, int i, int j)
 	{
-		RemovePieceFromBoard(piece);
-		pieceToTile.Add(piece, tile);
-		tile.occupant = piece;
+		piecesOnBoard.Add(piece);
+		activePiecesOnBoard.Add(piece);
+		MovePieceToTile(piece, tiles[i][j]);
 	}
 
-	public void RemovePieceFromBoard(Piece piece)
+	public Tile GetTile(int row, int col)
 	{
-		if (HasPieceOnBoard(piece))
-		{
-			Tile previousTile = GetCurrentTileOfPiece(piece);
-			previousTile.occupant = null;
-			pieceToTile.Remove(piece);
-		}
-	}
-
-	public bool HasPieceOnBoard(Piece piece)
-	{
-		return pieceToTile.ContainsKey(piece);
-	}
-
-	public Tile GetCurrentTileOfPiece(Piece piece)
-	{
-		return pieceToTile[piece];
+		return tiles[row][col];
 	}
 
 	public List<Piece> GetPiecesOnBoard()
 	{
-		List<Piece> piecesOnBoard = new List<Piece>();
-		foreach (Piece piece in pieceToTile.Keys)
-		{
-			piecesOnBoard.Add(piece);
-		}
 		return piecesOnBoard;
+	}
+
+	public List<Piece> GetActivePiecesOnBoard()
+	{
+		return activePiecesOnBoard;
+	}
+
+	public int GetNumRows()
+	{
+		return numRows;
+	}
+
+	public int GetNumCols()
+	{
+		return numCols;
+	}
+
+	public void MovePieceToTile(Piece piece, Tile nextTile)
+	{
+		Tile previousTile = piece.GetCurrentTile();
+		if (previousTile != null)
+		{
+			previousTile.SetOccupant(null);
+			previousTile.SetLocker(null);
+		}
+		piece.SetCurrentTile(nextTile);
+		piece.SetLockedTile(null);
+		nextTile.SetOccupant(piece);
+
+		if (previousTile != null)
+		{
+			Debug.Log(piece.GetName() + " has moved from " + previousTile.ToString() + " to " + nextTile.ToString() + ".");
+		}
+		else
+		{
+			Debug.Log(piece.GetName() + " has been placed at " + nextTile.ToString() + ".");
+		}
+	}
+	public void DeterminePieceLockedTile(Piece piece)
+	{
+		// Using Modified Breadth First Search (BFS) to find the path and Tile to move to.
+		Queue<Tile> queue = new Queue<Tile>();
+		bool[][] isVisited = new bool[numRows][];
+		Tile[][] predecessors = new Tile[numRows][];
+		Piece target = piece.GetTarget();
+		Tile currentTile = piece.GetCurrentTile();
+		Tile targetTile = target.GetCurrentTile();
+		if (target.HasLockedTile())
+		{
+			targetTile = target.GetLockedTile();
+		}
+
+		for (int i = 0; i < numRows; i++)
+		{
+			isVisited[i] = new bool[numCols];
+			predecessors[i] = new Tile[numCols];
+			for (int j = 0; j < numCols; j++)
+			{
+				if (targetTile.Equals(tiles[i][j])) // Mark the Target Tile as Unvisited.
+				{
+					isVisited[i][j] = false;
+				}
+				else // Mark all other occupied and locked Tiles as Visited.
+				{
+					isVisited[i][j] = tiles[i][j].IsOccupied() || tiles[i][j].IsLocked();
+				}
+			}
+		}
+		queue.Enqueue(currentTile); // Enqueue our source Tile.
+
+		while (queue.Count > 0)
+		{
+			Tile tile = queue.Dequeue();
+			if (tile.Equals(targetTile))
+			{
+				break;
+			}
+
+			// Enqueue all surrounding tiles that are Unvisited.
+			int tileRow = tile.GetRow();
+			int tileCol = tile.GetCol();
+			for (int i = tileRow - 1; i <= tileRow + 1; i++)
+			{
+				for (int j = tileCol - 1; j <= tileCol + 1; j++)
+				{
+					if (i < 0 || j < 0 || i >= numRows || j >= numCols) // Boundary Checking.
+					{
+						continue;
+					}
+
+					if (!isVisited[i][j])
+					{
+						isVisited[i][j] = true;
+						queue.Enqueue(tiles[i][j]);
+						predecessors[i][j] = tile;
+					}
+				}
+			}
+		}
+
+		int x = targetTile.GetRow();
+		int y = targetTile.GetCol();
+		int prevX = x;
+		int prevY = y;
+		while (predecessors[x][y] != currentTile)
+		{
+			prevX = x;
+			prevY = y;
+			x = predecessors[prevX][prevY].GetRow();
+			y = predecessors[prevX][prevY].GetCol();
+		}
+		Tile tileToLock = predecessors[prevX][prevY];
+		tileToLock.SetLocker(piece);
+		piece.SetLockedTile(tileToLock);
+	}
+
+	public void SetNumRows(int numRows)
+	{
+		this.numRows = numRows;
+	}
+
+	public void SetNumCols(int numCols)
+	{
+		this.numCols = numCols;
+	}
+
+	public void DeactivatePieceOnBoard(Piece piece)
+	{
+		Tile tile = piece.GetCurrentTile();
+		if (tile != null)
+		{
+			tile.SetOccupant(null);
+			tile.SetLocker(null);
+		}
+		piece.SetTarget(null);
+		piece.SetCurrentTile(null);
+		piece.SetLockedTile(null);
+		activePiecesOnBoard.Remove(piece);
+	}
+
+	public void RemovePieceFromBoard(Piece piece)
+	{
+		DeactivatePieceOnBoard(piece);
+		piecesOnBoard.Remove(piece);
 	}
 }

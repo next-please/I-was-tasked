@@ -16,7 +16,7 @@ public sealed class FixedClock : MonoBehaviour
         {
             if (_instance == null)
             {
-                Debug.LogError("Missing FixedClock, make sure to create object in scene with FixedClock Component and only reference after Awake");
+                Debug.LogError("Missing FixedClock, make sure to create object in scene with FixedClock Component and only reference after Awake.");
             }
             return _instance;
         }

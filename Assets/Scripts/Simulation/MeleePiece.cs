@@ -4,28 +4,19 @@ using UnityEngine;
 
 public class MeleePiece : Piece
 {
-	public MeleePiece(string name, int hitPoints, int attackDamage, int attackSpeed, bool isEnemy)
+	// Placeholder Constructor; actual Melee Piece would be more complex in attributes.
+	public MeleePiece(string name, int hitPoints, int attackDamage, bool isEnemy)
 	{
-		this.name = name;
-		this.hitPoints = hitPoints;
-		this.attackDamage = attackDamage;
-		this.attackSpeed = attackSpeed;
-		this.isEnemy = isEnemy;
-		this.readyByTick = 0;
+		SetName(name);
+		SetHitPoints(hitPoints);
+		SetAttackDamage(attackDamage);
+		SetAttackRange(1);
+		SetIsEnemy(isEnemy);
 	}
 
-	public override void ProcessAction()
+	public override void AttackTarget()
 	{
-		// To be completed.
-	}
-
-	public override void MoveTo()
-	{
-		// To be completed.
-	}
-
-	public override void Attack()
-	{
-		// To be completed.
+		Piece target = GetTarget();
+		target.SetHitPoints(target.GetHitPoints() - GetAttackDamage());
 	}
 }
