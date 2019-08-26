@@ -1,14 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class PieceView : MonoBehaviour
 {
+    public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
-    IViewAction currentViewAction;
+    private IViewAction prevViewAction;
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
+    }
+
+    void OnDrawGizmos()
+    {
+        if (piece != null)
+        {
+            GUIStyle style = new GUIStyle();
+            style.fontStyle = FontStyle.Bold;
+            style.fontSize = 16;
+            Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetName(), style);
+        }
     }
 
     void Update()
@@ -17,31 +30,11 @@ public class PieceView : MonoBehaviour
         {
             return;
         }
-
         IViewAction viewAction = piece.GetViewAction();
-        if (currentViewAction != viewAction)
-        {
-            if (currentViewAction != null)
-            {
-                // previous action finished
-                currentViewAction.OnViewFinish(this);
-            }
-            currentViewAction = viewAction;
-            // new action starts
-            currentViewAction.OnViewStart(this);
-        }
-
-        // action update
-        currentViewAction.OnViewUpdate(this);
+        if (prevViewAction != null)
+            prevViewAction.CallViewFinishIfNeeded(this);
+        viewAction.CallViewStartIfNeeded(this);
+        viewAction.OnViewUpdate(this);
+        prevViewAction = viewAction;
     }
-}
-
-public class TileView
-{
-
-}
-
-public class BoardView
-{
-
 }

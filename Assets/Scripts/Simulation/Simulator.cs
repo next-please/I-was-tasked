@@ -5,7 +5,8 @@ using System.Linq;
 
 public class Simulator : Tickable
 {
-    public Board gameBoard;
+    public ViewManager viewManager;
+    private Board gameBoard;
     private bool isResolved = false;
 
     void CheckResolved()
@@ -18,6 +19,18 @@ public class Simulator : Tickable
             isResolved = true;
             Debug.Log("Game has been resolved");
         }
+    }
+
+    public void CreateBoard(int rows, int cols)
+    {
+        gameBoard = new Board(8, 8);
+        viewManager.OnBoardCreated(gameBoard);
+    }
+
+    public void AddPieceToBoard(Piece piece, int i, int j)
+    {
+        gameBoard.AddPieceToBoard(piece, i, j);
+        viewManager.OnPieceAdded(piece, i, j);
     }
 
     protected new void Start()

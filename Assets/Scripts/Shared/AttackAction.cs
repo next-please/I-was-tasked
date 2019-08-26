@@ -8,6 +8,11 @@ public class AttackAction : Action
         return (target != null && !target.IsDead() && piece.CanAttackTarget());
     }
 
+    public override void OnStart(Piece piece, Board board)
+    {
+        ticksRemaining = 75; // 1.5 second to attack
+    }
+
     public override void OnTick(Piece piece, Board board)
     {
         base.OnTick(piece, board);
@@ -30,5 +35,18 @@ public class AttackAction : Action
                 Debug.Log(target.GetName() + " has died and " + piece.GetName() + " is no longer attacking it.");
             }
         }
+    }
+
+    public override void OnViewStart(PieceView pieceView)
+    {
+        Piece target = pieceView.piece.GetTarget();
+        Tile targetTile = target.GetCurrentTile();
+        pieceView.transform.LookAt(new Vector3(targetTile.GetRow(), 1, targetTile.GetCol()));
+        pieceView.animator.Play("Attack", 0);
+    }
+
+    public override void OnViewFinish(PieceView pieceView)
+    {
+        pieceView.animator.Play("Idle", 0);
     }
 }

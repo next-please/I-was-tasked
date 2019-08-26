@@ -34,10 +34,12 @@ public class MeleePiece : Piece
         findTarget.AddNextAction(inf); // we cant find anything
 
         attack.AddNextAction(attack); // attack same target
+        // attack.AddNextAction(move); // uncomment to chase
         attack.AddNextAction(findTarget); // find new target
 
-        move.AddNextAction(attack); // attack same target
-        move.AddNextAction(move); // we may have to chase
+        // uncomment the top 2 for chasing behaviour
+        // move.AddNextAction(attack); // attack same target
+        // move.AddNextAction(move); // we may have to chase
         move.AddNextAction(findTarget); // find new target
 
         return findTarget; // our initial action is find

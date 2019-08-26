@@ -10,6 +10,8 @@ public interface IViewAction
     void OnViewStart(PieceView pieceView);
     void OnViewUpdate(PieceView pieceView);
     void OnViewFinish(PieceView pieceView);
+    void CallViewStartIfNeeded(PieceView pieceView);
+    void CallViewFinishIfNeeded(PieceView pieceView);
 }
 
 // Implement these for simulation
@@ -29,6 +31,9 @@ public abstract class Action : IViewAction, ISimAction
     public int ticksRemaining;
     private Piece piece; // Piece the action belongs to
     private List<Action> nextActions = new List<Action>();
+
+    private bool shouldCallViewFinish = false;
+    private bool shouldCallViewStart = true;
 
     public virtual void OnStart(Piece piece, Board board)
     {
@@ -53,10 +58,12 @@ public abstract class Action : IViewAction, ISimAction
 
     public Action TransitNextAction(Piece piece)
     {
+        shouldCallViewFinish = true;
         foreach (Action action in nextActions)
         {
             if (action.ShouldTransitInto(piece))
             {
+                action.shouldCallViewStart = true;
                 return action;
             }
         }
@@ -69,8 +76,25 @@ public abstract class Action : IViewAction, ISimAction
         return true;
     }
 
-    public virtual void OnFinish(Piece piece, Board board) { }
+    public void CallViewFinishIfNeeded(PieceView pieceView)
+    {
+        if (shouldCallViewFinish)
+        {
+            OnViewFinish(pieceView);
+            shouldCallViewFinish = false;
+        }
+    }
 
+    public void CallViewStartIfNeeded(PieceView pieceView)
+    {
+        if (shouldCallViewStart)
+        {
+            OnViewStart(pieceView);
+            shouldCallViewStart = false;
+        }
+    }
+
+    public virtual void OnFinish(Piece piece, Board board) { }
     public virtual void OnViewStart(PieceView pieceView) { }
     public virtual void OnViewUpdate(PieceView pieceView) { }
     public virtual void OnViewFinish(PieceView pieceView) { }
