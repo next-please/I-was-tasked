@@ -73,11 +73,6 @@ public class MoveAction : Action
         board.DeterminePieceLockedTile(piece);
     }
 
-    public override void OnTick(Piece piece, Board board)
-    {
-        base.OnTick(piece, board);
-    }
-
     public override void OnFinish(Piece piece, Board board)
     {
         board.MovePieceToTile(piece, piece.GetLockedTile());
