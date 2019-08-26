@@ -17,7 +17,12 @@ public abstract class Piece
     private int attackSpeed;
     private int movementSpeed;
     private bool isEnemy;
-    protected Action action = new Action(0);
+
+    protected Action action;
+    public IViewAction GetViewAction()
+    {
+        return action;
+    }
 
     public abstract void AttackTarget();
 
@@ -58,16 +63,17 @@ public abstract class Piece
     public void ProcessAction(Board board, long tick)
     {
         if (IsDead()) return;
-        action.OnTick(this, board);
-        if ( action.hasFinished())
+        ISimAction simAction = this.action;
+        simAction.OnTick(this, board);
+        if (simAction.hasFinished())
         {
-            action.OnFinish(this, board);
+            simAction.OnFinish(this, board);
             // find new action
-            action = DecideNextAction(board);
+            this.action = this.action.TransitNextAction(this);
+            // on start
+            this.action.OnStart(this, board);
         }
     }
-
-    public abstract Action DecideNextAction(Board board);
 
     // For now this only checks whether the piece is within attacking range of the Target Piece.
     public bool CanAttackTarget()

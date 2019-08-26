@@ -12,6 +12,8 @@ public class MeleePiece : Piece
         SetAttackDamage(attackDamage);
         SetAttackRange(1);
         SetIsEnemy(isEnemy);
+        SetMovementSpeed(1);
+        this.action = CreateAndConnectActions();
     }
 
     public override void AttackTarget()
@@ -20,42 +22,24 @@ public class MeleePiece : Piece
         target.SetHitPoints(target.GetHitPoints() - GetAttackDamage());
     }
 
-    void FindNewTarget(Board board)
+    Action CreateAndConnectActions()
     {
-        Piece currentTarget = GetTarget();
-        if (currentTarget != null && !currentTarget.IsDead())
-        {
-            SetTarget(currentTarget);
-            return;
-        }
+        FindNewTargetAction findTarget = new FindNewTargetAction();
+        MoveAction move = new MoveAction();
+        AttackAction attack = new AttackAction();
+        InfiniteAction inf = new InfiniteAction();
 
-        List<Piece> activePiecesOnBoard = board.GetActivePiecesOnBoard();
-        Piece nearestTarget = FindNearestTarget(activePiecesOnBoard); // Find a new Target (if any).
-        if (nearestTarget == null) // There are no more enemies; game is Resolved.
-        {
-            Debug.Log("There are no more enemies for " + GetName() + " to target. Game is Resolved.");
-        }
-        else
-        {
-            Debug.Log(GetName() + " now has a Target of " + nearestTarget.GetName() + " and is going to move closer to it.");
-        }
-        SetTarget(nearestTarget);
-    }
+        findTarget.AddNextAction(attack); // after finding, we try to attack
+        findTarget.AddNextAction(move); // if we cant attack, we try to move towards target
+        findTarget.AddNextAction(inf); // we cant find anything
 
-    public override Action DecideNextAction(Board board)
-    {
-        FindNewTarget(board);
-        if (GetTarget() == null || GetTarget().IsDead())
-        {
-            return new InfiniteAction();
-        }
-        if (CanAttackTarget())
-        {
-            return new AttackAction(10);
-        }
-        else
-        {
-            return new MoveAction(10, this, board);
-        }
+        attack.AddNextAction(attack); // attack same target
+        attack.AddNextAction(findTarget); // find new target
+
+        move.AddNextAction(attack); // attack same target
+        move.AddNextAction(move); // we may have to chase
+        move.AddNextAction(findTarget); // find new target
+
+        return findTarget; // our initial action is find
     }
 }
