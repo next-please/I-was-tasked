@@ -30,6 +30,13 @@ public class PieceView : MonoBehaviour
         {
             return;
         }
+
+        if (piece.IsDead())
+        {
+            animator.Play("Death", 0);
+            return;
+        }
+
         IViewAction viewAction = piece.GetViewAction();
         if (prevViewAction != null)
             prevViewAction.CallViewFinishIfNeeded(this);
