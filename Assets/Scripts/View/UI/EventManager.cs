@@ -12,7 +12,6 @@ public class EventManager : MonoBehaviour
     }
     public Piece draggedPiece;
 
-
     private void Awake()
     {
         if (instance != null && instance != this)

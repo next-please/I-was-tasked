@@ -21,8 +21,6 @@ public class TileView : MonoBehaviour
             return;
         }
 
-        MeleePiece lewis_enemy = new MeleePiece("Lewis the Jesus Koh", 100, 1, true);
-
-        vm.AddPiece(lewis_enemy, tile.GetRow(), tile.GetCol());
+        vm.AddPiece(EventManager.Instance.draggedPiece, tile.GetRow(), tile.GetCol());
     }
 }
