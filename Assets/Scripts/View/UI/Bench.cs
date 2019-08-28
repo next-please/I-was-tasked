@@ -21,7 +21,6 @@ public class Bench : MonoBehaviour
 
     public void AddItem(Piece piece)
     {
-        Debug.Log("piece added: " + piece.GetName());
         if (items.Count >= MAX_SLOTS)
         {
             return;
@@ -42,6 +41,5 @@ public class Bench : MonoBehaviour
     {
         // TODO: remove from view
         items.Remove(item);
-
     }
 }

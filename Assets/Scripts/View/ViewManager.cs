@@ -10,7 +10,8 @@ public class ViewManager : MonoBehaviour
     public Material White;
     public Material Black;
     public float TileSize = 1;
-    private Board board; // o:
+
+    private Board board;
 
     // Start is called before the first frame update
     void Start()

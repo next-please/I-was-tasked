@@ -8,6 +8,11 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 {
     private Piece piece;
 
+    public Piece GetPiece()
+    {
+        return piece;
+    }
+
     public void SetPiece(Piece piece)
     {
         this.piece = piece;
@@ -34,7 +39,7 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     {
         transform.localScale = new Vector3(50, 50, 50);
         transform.localPosition = Vector3.zero;
-        gameObject.GetComponent<Collider>().enabled = false;
+        gameObject.GetComponent<Collider>().enabled = true;
 
         EventManager.Instance.draggedPiece = null;
     }
