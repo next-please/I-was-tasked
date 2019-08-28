@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ObjectDragHandler : MonoBehaviour
 {
+    public UnityEvent onDrop;
+
     private float zPos;
 
     void OnMouseDown()
@@ -13,8 +16,8 @@ public class ObjectDragHandler : MonoBehaviour
 
     void OnMouseUp()
     {
-        Debug.Log("x: " + transform.position.x + ", z: " + transform.position.z);
-        // Drop on grid based on (x,z) pos
+        //onDrop.Invoke();
+        //Destroy(gameObject);
     }
 
     void OnMouseDrag()
