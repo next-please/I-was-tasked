@@ -36,6 +36,19 @@ public class Board
         piecesOnBoard.Add(piece);
         activePiecesOnBoard.Add(piece);
         MovePieceToTile(piece, tiles[i][j]);
+        piece.SetInitialTile(tiles[i][j]);
+    }
+
+    public void ResetBoard()
+    {
+        foreach (Piece piece in piecesOnBoard)
+        {
+            if (!activePiecesOnBoard.Contains(piece))
+            {
+                activePiecesOnBoard.Add(piece);
+            }
+            MovePieceToTile(piece, piece.GetInitialTile());
+        }
     }
 
     public Tile GetTile(int row, int col)
@@ -93,7 +106,7 @@ public class Board
         Piece target = piece.GetTarget();
         Tile currentTile = piece.GetCurrentTile();
         Tile targetTile = target.GetCurrentTile();
-        if (target.HasLockedTile())
+        if (target.HasLockedTile()) // Use the Target Tile instead if present.
         {
             targetTile = target.GetLockedTile();
         }
@@ -110,7 +123,7 @@ public class Board
                 }
                 else // Mark all other occupied and locked Tiles as Visited.
                 {
-                    isVisited[i][j] = tiles[i][j].IsOccupied() || tiles[i][j].IsLocked();
+                    isVisited[i][j] = (tiles[i][j].IsOccupied() || tiles[i][j].IsLocked());
                 }
             }
         }
@@ -119,7 +132,7 @@ public class Board
         while (queue.Count > 0)
         {
             Tile tile = queue.Dequeue();
-            if (tile.Equals(targetTile))
+            if (tile.Equals(targetTile)) // Early termination.
             {
                 break;
             }
@@ -146,18 +159,11 @@ public class Board
             }
         }
 
-        int x = targetTile.GetRow();
-        int y = targetTile.GetCol();
-        int prevX = x;
-        int prevY = y;
-        while (predecessors[x][y] != currentTile)
+        Tile tileToLock = targetTile;
+        while (predecessors[tileToLock.GetRow()][tileToLock.GetCol()] != currentTile)
         {
-            prevX = x;
-            prevY = y;
-            x = predecessors[prevX][prevY].GetRow();
-            y = predecessors[prevX][prevY].GetCol();
+            tileToLock = predecessors[tileToLock.GetRow()][tileToLock.GetCol()];
         }
-        Tile tileToLock = predecessors[prevX][prevY];
         tileToLock.SetLocker(piece);
         piece.SetLockedTile(tileToLock);
     }

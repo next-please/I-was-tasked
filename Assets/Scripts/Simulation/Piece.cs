@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Piece
 {
     private Piece target;
+    private Tile initialTile;
     private Tile currentTile;
     private Tile lockedTile;
     private string name;
@@ -87,6 +88,11 @@ public abstract class Piece
         return target;
     }
 
+    public Tile GetInitialTile()
+    {
+        return initialTile;
+    }
+
     public Tile GetCurrentTile()
     {
         return currentTile;
@@ -165,6 +171,11 @@ public abstract class Piece
     public void SetTarget(Piece piece)
     {
         target = piece;
+    }
+
+    public void SetInitialTile(Tile initialTile)
+    {
+        this.initialTile = initialTile;
     }
 
     public void SetCurrentTile(Tile currentTile)

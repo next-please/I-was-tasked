@@ -22,8 +22,12 @@ public class Tile
 	{
 		int rowDifference = Math.Abs(this.GetRow() - tile.GetRow());
 		int colDifference = Math.Abs(this.GetCol() - tile.GetCol());
-		int distance = (int) Math.Floor(Math.Sqrt(Math.Pow(rowDifference, 2) + Math.Pow(colDifference, 2)));
-		return distance;
+        int distance = rowDifference + colDifference;
+        if (rowDifference == colDifference) // The tiles are diagonal to each other.
+		{
+            distance /= 2;
+		}
+		return distance; // Manhattan Distance.
 	}
 
 	public Piece GetOccupant()
