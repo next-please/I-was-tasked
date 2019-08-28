@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 285124969}
   m_Layer: 5
   m_Name: BlueUnit
-  m_TagString: BlueUnit
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -425,7 +425,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b39d352df50418397596cdc17a6ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceDetector: {fileID: 874738486}
+  onDrop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 874738486}
+        m_MethodName: SpawnPiece
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: blue
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &285124970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,7 +682,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 562501839}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 874738486}
+        m_MethodName: SpawnPiece
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: red
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &562501839
@@ -1057,6 +1083,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d0b574e013c4f9a9099acf283488cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSize: 1
+  y: 1
 --- !u!1 &906842738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1265,7 +1293,7 @@ GameObject:
   - component: {fileID: 988866020}
   m_Layer: 5
   m_Name: RedUnit
-  m_TagString: RedUnit
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1339,7 +1367,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5b39d352df50418397596cdc17a6ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceDetector: {fileID: 0}
+  onDrop:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 874738486}
+        m_MethodName: SpawnPiece
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: red
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1003338387
 GameObject:
   m_ObjectHideFlags: 0
@@ -2230,6 +2273,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb334ab7aa914d689ec1159cb9e1d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onDrop:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1998890701
 GameObject:
   m_ObjectHideFlags: 0
