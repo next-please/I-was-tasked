@@ -50,5 +50,6 @@ public class ViewManager : MonoBehaviour
         GameObject pieceObj = Instantiate(pieceViewPrefab, new Vector3(i, 1, j) * TileSize, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
+        pieceObj.transform.parent = transform;
     }
 }

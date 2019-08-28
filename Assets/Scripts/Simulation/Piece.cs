@@ -17,6 +17,7 @@ public abstract class Piece
     private int attackSpeed;
     private int movementSpeed;
     private bool isEnemy;
+    private int rarity;
 
     protected Action action;
     public IViewAction GetViewAction()
@@ -232,5 +233,15 @@ public abstract class Piece
     public void SetIsEnemy(bool isEnemy)
     {
         this.isEnemy = isEnemy;
+    }
+
+    public void SetRarity(int rarity)
+    {
+        this.rarity = rarity;
+    }
+
+    public int GetRarity()
+    {
+        return rarity;
     }
 }

@@ -11,14 +11,15 @@ public class GameController : MonoBehaviour
     public readonly int ticksPerSecond = 50;
 
     //player variables
-    ArrayList player1Garrison;
-    ArrayList player2Garrison;
-    ArrayList player3Garrison;
+    private ArrayList player1Garrison;
+    private ArrayList player2Garrison;
+    private ArrayList player3Garrison;
     public readonly int boardWidth = 8;
     public readonly int boardLength = 8;
-    int[,] player1Board;
-    int[,] player2Board;
-    int[,] player3Board;
+    public Simulator player1Simulator;
+    public GameObject vmPrefab;
+    private Board player2Board;
+    private Board player3Board;
     int player1ArmySize; //also used as price for army size increase
     int player2ArmySize; //also used as price for army size increase
     int player3ArmySize; //also used as price for army size increase
@@ -31,15 +32,15 @@ public class GameController : MonoBehaviour
     public Text currentRoundText;
     public Text currentPhaseText;
     public Canvas winScreenCanvas;
-    enum Phase {Initialization, Market, PreCombat, Combat, PostCombat};
+    enum Phase { Initialization, Market, PreCombat, Combat, PostCombat };
     Phase currentPhase;
     int countdownTicks;
     int currentRound;
-    public readonly int maxRounds = 3; 
+    public readonly int maxRounds = 15;
     int initializationRoundLength = 100;
-    int marketRoundLength = 100;
+    int marketRoundLength = 250;
     int preCombatRoundLength = 100;
-    int combatRoundLength = 100;
+    int combatRoundLength = 500;
     int postCombatRoundLength = 100;
 
     //gold variables
@@ -68,6 +69,12 @@ public class GameController : MonoBehaviour
     public Text player3UpgradeArmySizeCostText;
     public Text marketSizeText;
     public Text marketRarityText;
+    CharacterGenerator characterGenerator;
+    EnemyGenerator enemyGenerator;
+    public Button[] marketItemsButtons;
+    private Piece[] marketItems;
+    public Canvas upgradeCanvas;
+    public Canvas marketCanvas;
 
     // Start is called before the first frame update
     void Start()
@@ -75,9 +82,10 @@ public class GameController : MonoBehaviour
         player1Garrison = new ArrayList();
         player2Garrison = new ArrayList();
         player3Garrison = new ArrayList();
-        player1Board = new int[boardLength, boardWidth];
-        player2Board = new int[boardLength, boardWidth];
-        player3Board = new int[boardLength, boardWidth];
+        //player2Board = new int[boardLength, boardWidth];todo
+        //player3Board = new int[boardLength, boardWidth];todo
+        characterGenerator = new CharacterGenerator();
+        enemyGenerator = new EnemyGenerator();
 
         Initialization();
     }
@@ -98,11 +106,20 @@ public class GameController : MonoBehaviour
 
         currentRoundText.text = "Round " + currentRound;
         currentPhaseText.text = "Initializing...";
+
+        player1Simulator.CreateBoard(8, 8);
+        DespawnEnemiesAndRespawnAllies();
+        ClearMarket();
     }
-    // Update is called once per frame
-    void Update()
+
+    void ClearMarket()
     {
-        
+        foreach (Button button in marketItemsButtons)
+        {
+            button.GetComponentInChildren<Text>().text = "-- Empty Market Slot --";
+            button.enabled = false;
+        }
+        //throw new NotImplementedException(); //need to push them back to the pool
     }
 
     void FixedUpdate()
@@ -188,7 +205,40 @@ public class GameController : MonoBehaviour
 
     private void GenerateMarket()
     {
-        throw new NotImplementedException();
+        marketCanvas.enabled = true;
+        upgradeCanvas.enabled = true;
+        ClearMarket();
+
+        marketItems = new Piece[marketSize];
+        for (int i=0; i< marketSize; i++)
+        {
+            int j = i;
+            MeleePiece piece = (MeleePiece)characterGenerator.GenerateCharacter(marketTier);
+            marketItems[i] = piece;
+            marketItemsButtons[i].enabled = true;
+            marketItemsButtons[i].GetComponentInChildren<Text>().text = piece.GetName() +
+                "\nRace: " + piece.GetRace() +
+                "\nJob: " + piece.GetClass() +
+                "\nRarity and Cost: " + piece.GetRarity();
+        }
+    }
+
+    public void PurchaseUnit(int index)
+    {
+        if (player1Garrison.Count < player1ArmySize)
+        {
+            if (player1Gold >= marketItems[index].GetRarity())
+            {
+                marketItemsButtons[index].GetComponentInChildren<Text>().text = "-- Empty Market Slot --";
+                marketItemsButtons[index].enabled = false;
+
+                player1Gold -= marketItems[index].GetRarity();
+                player1GoldText.text = player1Gold + " Gold";
+
+                player1Garrison.Add(marketItems[index]);
+                player1ArmySizeText.text = "Army Size: " + player1Garrison.Count + "/" + player1ArmySize;
+            }
+        }
     }
 
     private void InitializePreCombatPhase()
@@ -196,20 +246,33 @@ public class GameController : MonoBehaviour
         countdownTicks = preCombatRoundLength;
         currentPhaseText.text = "Pre-Combat";
         currentPhase = Phase.PreCombat;
-        SummonEnemies();
+        SummonEnemiesAndAllies();
     }
 
-    private void SummonEnemies()
+    private void SummonEnemiesAndAllies()
     {
-        throw new NotImplementedException();
+        marketCanvas.enabled = false;
+        upgradeCanvas.enabled = false;
+        player1Simulator.CreateBoard(8, 8);
+        ArrayList enemyPieces = enemyGenerator.generateEnemies(currentRound);
+        for (int i=0; i<player1Garrison.Count; i++)
+        {
+            player1Simulator.AddPieceToBoard((Piece)player1Garrison[i] ,i / 8, i % 8);
+        }
+        for (int i = 0; i < enemyPieces.Count; i++)
+        {
+            player1Simulator.AddPieceToBoard((Piece)enemyPieces[i], 7- (i / 8), 7 - (i % 8));
+        }
     }
 
     private void InitializeCombatPhase()
     {
+        player1Simulator.shouldRun = true;
+        player1Simulator.isResolved = false;
         countdownTicks = combatRoundLength;
         currentPhaseText.text = "Combat";
         currentPhase = Phase.Combat;
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void InitializePostCombatPhase()
@@ -223,12 +286,23 @@ public class GameController : MonoBehaviour
 
     private void CalculateDamageToCastle()
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void DespawnEnemiesAndRespawnAllies()
     {
-        //throw new NotImplementedException();
+        var v_ = player1Simulator.viewManager;
+
+        GameObject vm = Instantiate(vmPrefab);
+        ViewManager vmr = vm.GetComponent<ViewManager>();
+
+        vmr.TileViewPrefab = v_.TileViewPrefab;
+        vmr.White = v_.White;
+        vmr.Black = v_.Black;
+        vmr.EnemyPieceViewPrefab = v_.EnemyPieceViewPrefab;
+        vmr.FriendlyPieceViewPrefab = v_.FriendlyPieceViewPrefab;
+        Destroy(player1Simulator.viewManager.gameObject);
+        player1Simulator.viewManager = vmr;
     }
 
     private void WinGame()
@@ -242,11 +316,6 @@ public class GameController : MonoBehaviour
      *
     **/
 
-    public void TestButton()
-    {
-        winScreenCanvas.enabled = true;
-    }
-
     public void Player1UpgradeArmy()
     {
         if (player1Gold >= player1ArmySize)
@@ -254,7 +323,7 @@ public class GameController : MonoBehaviour
             player1Gold -= player1ArmySize;
             player1ArmySize++;
             player1GoldText.text = player1Gold + " Gold";
-            player1ArmySizeText.text = "Army Size: " + player1ArmySize;
+            player1ArmySizeText.text = "Army Size: " + player1Garrison.Count + "/" + player1ArmySize;
             player1UpgradeArmySizeCostText.text = "Upgrade Army Size ($" + player1ArmySize + ")";
         }
     }

@@ -6,8 +6,9 @@ using System.Linq;
 public class Simulator : Tickable
 {
     public ViewManager viewManager;
-    private Board gameBoard;
-    private bool isResolved = false;
+    public Board gameBoard;
+    public bool isResolved = false;
+    public bool shouldRun = false;
 
     void CheckResolved()
     {
@@ -17,6 +18,7 @@ public class Simulator : Tickable
         if (numEnemies == 0 || numFriends == 0)
         {
             isResolved = true;
+            shouldRun = false;
             Debug.Log("Game has been resolved");
         }
     }
@@ -39,13 +41,14 @@ public class Simulator : Tickable
         isResolved = false;
         if (gameBoard == null)
         {
-            Debug.Log("Gameboard not set before Start()!");
-            isResolved = true;
+            //Debug.Log("Gameboard not set before Start()!");
+            //isResolved = true;
         }
     }
 
     public override void Tick(long tick)
     {
+        if (!shouldRun) return;
         if (isResolved)
         {
             return;
