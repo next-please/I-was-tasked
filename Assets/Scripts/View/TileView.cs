@@ -14,13 +14,14 @@ public class TileView : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (!Input.GetMouseButtonUp(0)
-            || tile.IsOccupied()
-            || EventManager.Instance.draggedPiece == null)
+        if (Input.GetMouseButtonUp(0) && ShouldSpawnPiece())
         {
-            return;
+            vm.AddPiece(EventManager.Instance.draggedPiece, tile.GetRow(), tile.GetCol());
         }
+    }
 
-        vm.AddPiece(EventManager.Instance.draggedPiece, tile.GetRow(), tile.GetCol());
+    private bool ShouldSpawnPiece()
+    {
+        return EventManager.Instance.draggedPiece != null && !tile.IsOccupied();
     }
 }

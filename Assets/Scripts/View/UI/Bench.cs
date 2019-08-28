@@ -40,7 +40,8 @@ public class Bench : MonoBehaviour
 
     public void RemoveItem(BenchItem item)
     {
+        // TODO: remove from view
         items.Remove(item);
-        
+
     }
 }
