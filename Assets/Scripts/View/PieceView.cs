@@ -7,7 +7,10 @@ public class PieceView : MonoBehaviour
 {
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
+    public GameObject currentHPBar;
     private IViewAction prevViewAction;
+    private int prevHP;
+
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
@@ -19,8 +22,9 @@ public class PieceView : MonoBehaviour
         {
             GUIStyle style = new GUIStyle();
             style.fontStyle = FontStyle.Bold;
-            style.fontSize = 16;
+            style.fontSize = 24;
             Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetName(), style);
+            prevHP = piece.GetHitPoints();
         }
     }
 
@@ -31,6 +35,11 @@ public class PieceView : MonoBehaviour
             return;
         }
 
+        if (prevHP != piece.GetHitPoints())
+        {
+            UpdateCurrentHPBar();
+        }
+
         if (piece.IsDead())
         {
             animator.Play("Death", 0);
@@ -39,9 +48,20 @@ public class PieceView : MonoBehaviour
 
         IViewAction viewAction = piece.GetViewAction();
         if (prevViewAction != null)
+        {
             prevViewAction.CallViewFinishIfNeeded(this);
+        }
         viewAction.CallViewStartIfNeeded(this);
         viewAction.OnViewUpdate(this);
         prevViewAction = viewAction;
+    }
+
+    public void UpdateCurrentHPBar()
+    {
+        float currentHPFraction = piece.GetHitPoints() / 100.0f;
+        Vector3 temp = currentHPBar.transform.localScale;
+        temp.x = currentHPFraction;
+        currentHPBar.transform.localScale = temp;
+        prevHP = piece.GetHitPoints();
     }
 }

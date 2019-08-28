@@ -10,8 +10,15 @@ public class AttackAction : Action
 
     public override void OnStart(Piece piece, Board board)
     {
-        ticksRemaining = 75; // 1.5 second to attack
-    }
+        ticksRemaining = 50; // 1.0 second to attack
+
+        Piece target = piece.GetTarget();
+        if (!target.IsDead())
+        {
+            target.SetHitPoints(target.GetHitPoints() - piece.GetAttackDamage());
+            Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetHitPoints() + " HP.");
+        }
+     }
 
     public override void OnTick(Piece piece, Board board)
     {
@@ -25,15 +32,10 @@ public class AttackAction : Action
     public override void OnFinish(Piece piece, Board board)
     {
         Piece target = piece.GetTarget();
-        if (!target.IsDead())
+        if (target.IsDead())
         {
-            target.SetHitPoints(target.GetHitPoints() - piece.GetAttackDamage());
-            Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetHitPoints() + " HP."); ;
-            if (target.IsDead())
-            {
-                board.DeactivatePieceOnBoard(target);
-                Debug.Log(target.GetName() + " has died and " + piece.GetName() + " is no longer attacking it.");
-            }
+            board.DeactivatePieceOnBoard(target);
+            Debug.Log(target.GetName() + " has died and " + piece.GetName() + " is no longer attacking it.");
         }
     }
 
