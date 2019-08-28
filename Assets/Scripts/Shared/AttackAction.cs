@@ -27,7 +27,7 @@ public class AttackAction : Action
         Piece target = piece.GetTarget();
         if (!target.IsDead())
         {
-            piece.AttackTarget();
+            target.SetHitPoints(target.GetHitPoints() - piece.GetAttackDamage());
             Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetHitPoints() + " HP."); ;
             if (target.IsDead())
             {

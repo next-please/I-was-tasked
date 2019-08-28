@@ -41,12 +41,13 @@ public class Board
 
     public void ResetBoard()
     {
-        foreach (Piece piece in piecesOnBoard)
+        foreach (Piece piece in this.GetPiecesOnBoard())
         {
             if (!activePiecesOnBoard.Contains(piece))
             {
                 activePiecesOnBoard.Add(piece);
             }
+            piece.SetHitPoints(100);
             MovePieceToTile(piece, piece.GetInitialTile());
         }
     }
@@ -97,6 +98,7 @@ public class Board
             Debug.Log(piece.GetName() + " has been placed at " + nextTile.ToString() + ".");
         }
     }
+
     public void DeterminePieceLockedTile(Piece piece)
     {
         // Using Modified Breadth First Search (BFS) to find the path and Tile to move to.
@@ -166,6 +168,40 @@ public class Board
         }
         tileToLock.SetLocker(piece);
         piece.SetLockedTile(tileToLock);
+    }
+
+    public Piece FindNearestTarget(Piece piece)
+    {
+        List<Piece> enemyPiecesOnBoard = new List<Piece>();
+
+        // Get all enemy Pieces on the Board.
+        foreach (Piece activePiece in this.GetActivePiecesOnBoard())
+        {
+            if (activePiece.IsEnemy() != piece.IsEnemy())
+            {
+                enemyPiecesOnBoard.Add(activePiece);
+            }
+        }
+
+        // Determine the nearest enemy Piece.
+        Piece nearestEnemyPiece = null;
+
+        foreach (Piece enemyPiece in enemyPiecesOnBoard)
+        {
+            if (nearestEnemyPiece == null)
+            {
+                nearestEnemyPiece = enemyPiece;
+                continue;
+            }
+
+            Tile nearestTile = nearestEnemyPiece.GetCurrentTile();
+            Tile checkTile = enemyPiece.GetCurrentTile();
+            if (piece.GetCurrentTile().DistanceToTile(nearestTile) > piece.GetCurrentTile().DistanceToTile(checkTile))
+            {
+                nearestEnemyPiece = enemyPiece;
+            }
+        }
+        return nearestEnemyPiece;
     }
 
     public void SetNumRows(int numRows)
