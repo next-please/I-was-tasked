@@ -60,8 +60,6 @@ public class Bench : MonoBehaviour
 
     public void RemoveItem(int index)
     {
-        Debug.Log("item count: " + itemCount);
-
         if (itemCount == 0)
         {
             return;
@@ -74,12 +72,10 @@ public class Bench : MonoBehaviour
 
     private void UpdateNextEmptySlotIndex()
     {
-        Debug.Log("finding empty slot");
         for (int i = 0; i < MAX_SLOTS; i++)
         {
             if (!isOccupied[i])
             {
-                Debug.Log("next empty slot: " + nextEmptySlotIndex);
                 nextEmptySlotIndex = i;
                 return;
             }
