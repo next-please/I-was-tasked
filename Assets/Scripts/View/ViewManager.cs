@@ -12,17 +12,14 @@ public class ViewManager : MonoBehaviour
     public Material Black;
     public float TileSize = 1;
 
-
-    // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-
+        EventManager.Instance.AddListener<AddPieceToBoardEvent>(OnPieceAdded);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-
+        EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
     }
 
     public void OnBoardCreated(Board gameBoard)
@@ -40,12 +37,15 @@ public class ViewManager : MonoBehaviour
                 toggle = !toggle;
             }
             toggle = !toggle;
-
         }
     }
 
-    public void OnPieceAdded(Piece piece, int i, int j)
+    public void OnPieceAdded(AddPieceToBoardEvent e)
     {
+        Piece piece = e.piece;
+        int i = e.row;
+        int j = e.col;
+
         GameObject pieceViewPrefab = piece.IsEnemy() ? EnemyPieceViewPrefab : FriendlyPieceViewPrefab;
         GameObject pieceObj = Instantiate(pieceViewPrefab, new Vector3(i, 1, j) * TileSize, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();

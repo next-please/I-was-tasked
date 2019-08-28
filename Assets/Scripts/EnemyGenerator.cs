@@ -39,7 +39,7 @@ public class EnemyGenerator
         currentAttackSpeed = defaultAttackSpeed;
         currentMovementSpeed = defaultMovementSpeed;
     }
-    
+
     public ArrayList generateEnemies(int roundNumber)
     {
         ArrayList enemyPieces = new ArrayList();
@@ -65,7 +65,7 @@ public class EnemyGenerator
         }
         for (int i=0; i<currentPieces; i++)
         {
-            enemyPieces.Add(new MeleePiece("Enemy #" + (i+1), currentHitPoints, currentAttackDamage, true));
+            enemyPieces.Add(new Piece("Enemy #" + (i+1), currentHitPoints, currentAttackDamage, 1, true));
         }
 
         return enemyPieces;

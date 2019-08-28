@@ -20,7 +20,8 @@ public class Piece
     private bool isEnemy;
     private int rarity;
 
-    protected Action action;
+    private Action action;
+    private Action entryAction;
 
     // Placeholder Constructor; actual Melee Piece would be more complex in attributes.
     public Piece(string name, int hitPoints, int attackDamage, int attackRange, bool isEnemy)
@@ -32,6 +33,7 @@ public class Piece
         SetIsEnemy(isEnemy);
         SetMovementSpeed(1);
         this.action = CreateAndConnectActions();
+        this.entryAction = this.action;
     }
 
     public virtual void ProcessAction(Board board, long tick)
@@ -253,5 +255,11 @@ public class Piece
     public int GetRarity()
     {
         return rarity;
+    }
+
+    public void Reset()
+    {
+        SetHitPoints(100);
+        this.action = entryAction;
     }
 }

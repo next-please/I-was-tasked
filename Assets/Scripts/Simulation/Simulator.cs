@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+public class SimulationEndedEvent : GameEvent
+{
+
+}
+
 public class Simulator : Tickable
 {
     public ViewManager viewManager;
     public Board gameBoard;
-    public bool isResolved = false;
     public bool shouldRun = false;
 
     void CheckResolved()
@@ -17,9 +21,9 @@ public class Simulator : Tickable
         int numFriends = piecesOnBoard.Where(piece => !piece.IsEnemy()).Count();
         if (numEnemies == 0 || numFriends == 0)
         {
-            isResolved = true;
             shouldRun = false;
             Debug.Log("Game has been resolved");
+            EventManager.Instance.Raise(new SimulationEndedEvent {});
         }
     }
 
@@ -32,24 +36,16 @@ public class Simulator : Tickable
     public void AddPieceToBoard(Piece piece, int i, int j)
     {
         gameBoard.AddPieceToBoard(piece, i, j);
-        viewManager.OnPieceAdded(piece, i, j);
     }
 
-    protected new void Start()
+    public void StartSim()
     {
-        base.Start();
-        isResolved = false;
-        if (gameBoard == null)
-        {
-            //Debug.Log("Gameboard not set before Start()!");
-            //isResolved = true;
-        }
+        shouldRun = true;
     }
 
     public override void Tick(long tick)
     {
-        if (!shouldRun) return;
-        if (isResolved)
+        if (!shouldRun)
         {
             return;
         }

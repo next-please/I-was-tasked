@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// UNUSED BUT LEFT FOR REFERENCE!
+
 public class GameController : MonoBehaviour
 {
     //timer variables
@@ -86,7 +88,6 @@ public class GameController : MonoBehaviour
         //player3Board = new int[boardLength, boardWidth];todo
         characterGenerator = new CharacterGenerator();
         enemyGenerator = new EnemyGenerator();
-
         Initialization();
     }
 
@@ -213,7 +214,7 @@ public class GameController : MonoBehaviour
         for (int i=0; i< marketSize; i++)
         {
             int j = i;
-            MeleePiece piece = (MeleePiece)characterGenerator.GenerateCharacter(marketTier);
+            Piece piece = (Piece)characterGenerator.GenerateCharacter(marketTier);
             marketItems[i] = piece;
             marketItemsButtons[i].enabled = true;
             marketItemsButtons[i].GetComponentInChildren<Text>().text = piece.GetName() +
@@ -246,6 +247,7 @@ public class GameController : MonoBehaviour
         countdownTicks = preCombatRoundLength;
         currentPhaseText.text = "Pre-Combat";
         currentPhase = Phase.PreCombat;
+
         SummonEnemiesAndAllies();
     }
 
@@ -268,7 +270,6 @@ public class GameController : MonoBehaviour
     private void InitializeCombatPhase()
     {
         player1Simulator.shouldRun = true;
-        player1Simulator.isResolved = false;
         countdownTicks = combatRoundLength;
         currentPhaseText.text = "Combat";
         currentPhase = Phase.Combat;
@@ -311,7 +312,7 @@ public class GameController : MonoBehaviour
     }
 
     /**
-     * 
+     *
      * Player Buttons and Actions
      *
     **/

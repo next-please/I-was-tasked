@@ -7,7 +7,7 @@ public class CharacterGenerator
 {
     private string name;
     private System.Random rngesus;
-    
+
     public readonly int defaultHitPoints = 100;
     public readonly int defaultManaPoints = 100;
     public readonly int defaultAttackDamage = 10;
@@ -138,7 +138,12 @@ public class CharacterGenerator
             }
         }
 
-        Piece currentPiece = new MeleePiece(race.ToString() + " that is a " + job.ToString(), defaultHitPoints*rarityModifier[characterRarity], defaultAttackDamage*rarityModifier[characterRarity], false);
+        Piece currentPiece = new Piece (
+            race.ToString() + " that is a " + job.ToString(),
+            defaultHitPoints*rarityModifier[characterRarity],
+            defaultAttackDamage*rarityModifier[characterRarity],
+            1, // TODO: Please help to verify if this is correct, much thanks~! - Nic
+            false);
         currentPiece.SetAttackSpeed(defaultAttackSpeed);
         currentPiece.SetManaPoints(defaultManaPoints);
         currentPiece.SetMovementSpeed(defaultMovementSpeed);

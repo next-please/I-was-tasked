@@ -13,6 +13,16 @@ public class PieceView : MonoBehaviour
         this.piece = piece;
     }
 
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<RemovePieceFromBoardEvent>(OnPieceRemoved);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<RemovePieceFromBoardEvent>(OnPieceRemoved);
+    }
+
     void OnDrawGizmos()
     {
         if (piece != null)
@@ -43,5 +53,11 @@ public class PieceView : MonoBehaviour
         viewAction.CallViewStartIfNeeded(this);
         viewAction.OnViewUpdate(this);
         prevViewAction = viewAction;
+    }
+
+    void OnPieceRemoved(RemovePieceFromBoardEvent e)
+    {
+        if (e.piece == piece)
+            Destroy(gameObject);
     }
 }
