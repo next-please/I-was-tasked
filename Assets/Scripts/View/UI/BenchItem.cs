@@ -6,9 +6,12 @@ using UnityEngine.EventSystems;
 
 public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private const float Z_OFFSET = 10f; // distance of the plane from the camera
+    private const float DISTANCE_OFFSET = 10f;
+    private const float SCALE_OFFSET = 10f;
+
     private Piece piece;
     private int index;
+    private Bench bench;
 
     public Piece GetPiece()
     {
@@ -30,10 +33,15 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         this.index = index;
     }
 
+    public void SetBench(Bench bench)
+    {
+        this.bench = bench;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         gameObject.GetComponent<Collider>().enabled = false;
-        transform.localScale /= Z_OFFSET; // update to world scale
+        transform.localScale /= SCALE_OFFSET; // update to world scale
 
         EventManager.Instance.draggedPiece = piece;
     }
@@ -42,7 +50,7 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public void OnDrag(PointerEventData eventData)
     {
         var screenPoint = Input.mousePosition;
-        screenPoint.z = Z_OFFSET;
+        screenPoint.z = DISTANCE_OFFSET;
         transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
@@ -50,9 +58,17 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     // TODO: Remove item from bench instead?
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.localScale *= Z_OFFSET; // update to ui scale
-        transform.localPosition = Vector3.zero;
-        gameObject.GetComponent<Collider>().enabled = true;
+        if (EventManager.Instance.isPieceAdded)
+        {
+            Destroy(gameObject);
+            bench.RemoveItem(index);
+        }
+        else
+        {
+            transform.localScale *= SCALE_OFFSET; // update to ui scale
+            transform.localPosition = Vector3.zero;
+            gameObject.GetComponent<Collider>().enabled = true;
+        }
 
         EventManager.Instance.draggedPiece = null;
     }

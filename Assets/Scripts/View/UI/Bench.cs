@@ -28,6 +28,11 @@ public class Bench : MonoBehaviour
         AddItem(new MeleePiece("Nick Pepega Chua", 100, 4, false));
     }
 
+    public void AddPieceTest()
+    {
+        AddItem(new MeleePiece("Lewis the Jesus Koh", 100, 1, true));
+    }
+
     public void AddItem(Piece piece)
     {
         if (itemCount >= MAX_SLOTS)
@@ -40,6 +45,7 @@ public class Bench : MonoBehaviour
         BenchItem benchItem = benchItemObj.GetComponent<BenchItem>();
         benchItem.SetPiece(piece);
         benchItem.SetIndex(nextEmptySlotIndex);
+        benchItem.SetBench(this);
 
         // set item prefab as child of slot
         Transform slot = transform.GetChild(nextEmptySlotIndex);
@@ -54,15 +60,13 @@ public class Bench : MonoBehaviour
 
     public void RemoveItem(int index)
     {
+        Debug.Log("item count: " + itemCount);
+
         if (itemCount == 0)
         {
             return;
         }
 
-        // TODO: remove from view
-
-
-        // update model
         isOccupied[index] = false;
         itemCount--;
         UpdateNextEmptySlotIndex();
@@ -70,10 +74,12 @@ public class Bench : MonoBehaviour
 
     private void UpdateNextEmptySlotIndex()
     {
+        Debug.Log("finding empty slot");
         for (int i = 0; i < MAX_SLOTS; i++)
         {
             if (!isOccupied[i])
             {
+                Debug.Log("next empty slot: " + nextEmptySlotIndex);
                 nextEmptySlotIndex = i;
                 return;
             }

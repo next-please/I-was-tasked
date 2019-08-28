@@ -17,6 +17,11 @@ public class TileView : MonoBehaviour
         if (Input.GetMouseButtonUp(0) && ShouldSpawnPiece())
         {
             vm.AddPiece(EventManager.Instance.draggedPiece, tile.GetRow(), tile.GetCol());
+            EventManager.Instance.isPieceAdded = true;
+        }
+        else
+        {
+            EventManager.Instance.isPieceAdded = false;
         }
     }
 
