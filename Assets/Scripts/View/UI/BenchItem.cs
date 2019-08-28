@@ -6,7 +6,9 @@ using UnityEngine.EventSystems;
 
 public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    private const float Z_OFFSET = 10f; // distance of the plane from the camera
     private Piece piece;
+    private int index;
 
     public Piece GetPiece()
     {
@@ -18,18 +20,29 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         this.piece = piece;
     }
 
+    public int GetIndex()
+    {
+        return index;
+    }
+
+    public void SetIndex(int index)
+    {
+        this.index = index;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
-        EventManager.Instance.draggedPiece = piece;
         gameObject.GetComponent<Collider>().enabled = false;
+        transform.localScale /= Z_OFFSET; // update to world scale
+
+        EventManager.Instance.draggedPiece = piece;
     }
 
     // Moves dragged item to mouse position.
     public void OnDrag(PointerEventData eventData)
     {
         var screenPoint = Input.mousePosition;
-        screenPoint.z = 10.0f; //distance of the plane from the camera
-        transform.localScale = new Vector3(5, 5, 5);
+        screenPoint.z = Z_OFFSET;
         transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
@@ -37,7 +50,7 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     // TODO: Remove item from bench instead?
     public void OnEndDrag(PointerEventData eventData)
     {
-        transform.localScale = new Vector3(50, 50, 50);
+        transform.localScale *= Z_OFFSET; // update to ui scale
         transform.localPosition = Vector3.zero;
         gameObject.GetComponent<Collider>().enabled = true;
 
