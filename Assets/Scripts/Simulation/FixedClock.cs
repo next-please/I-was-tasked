@@ -39,7 +39,7 @@ public sealed class FixedClock : MonoBehaviour
     {
         if (_instance == null)
         {
-            lock(Instancelock)
+            lock (Instancelock)
             {
                 if (_instance == null)
                 {
@@ -57,12 +57,19 @@ public sealed class FixedClock : MonoBehaviour
 
     public void AddTickable(Tickable tickable)
     {
-        _tickables.Add(tickable);
+        Debug.Log("Adding Tickable");
+        lock (Instancelock)
+        {
+            _tickables.Add(tickable);
+        }
     }
 
     public void RemoveTickable(Tickable tickable)
     {
-        _tickables.Remove(tickable);
+        lock (Instancelock)
+        {
+            _tickables.Remove(tickable);
+        }
     }
 
     void FixedUpdate()
