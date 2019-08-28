@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Piece
+public class Piece
 {
     private Piece target;
+    private Tile initialTile;
     private Tile currentTile;
     private Tile lockedTile;
     private string name;
@@ -20,48 +21,20 @@ public abstract class Piece
     private int rarity;
 
     protected Action action;
-    public IViewAction GetViewAction()
+
+    // Placeholder Constructor; actual Melee Piece would be more complex in attributes.
+    public Piece(string name, int hitPoints, int attackDamage, int attackRange, bool isEnemy)
     {
-        return action;
+        SetName(name);
+        SetHitPoints(hitPoints);
+        SetAttackDamage(attackDamage);
+        SetAttackRange(attackRange);
+        SetIsEnemy(isEnemy);
+        SetMovementSpeed(1);
+        this.action = CreateAndConnectActions();
     }
 
-    public abstract void AttackTarget();
-
-    public Piece FindNearestTarget(List<Piece> activePiecesOnBoard)
-    {
-        List<Piece> enemyPiecesOnBoard = new List<Piece>();
-
-        // Get all enemy Pieces on the Board.
-        foreach (Piece piece in activePiecesOnBoard)
-        {
-            if (piece.IsEnemy() != this.IsEnemy())
-            {
-                enemyPiecesOnBoard.Add(piece);
-            }
-        }
-
-        // Determine the nearest enemy Piece.
-        Piece nearestEnemyPiece = null;
-
-        foreach (Piece enemyPiece in enemyPiecesOnBoard)
-        {
-            if (nearestEnemyPiece == null)
-            {
-                nearestEnemyPiece = enemyPiece;
-                continue;
-            }
-
-            Tile nearestTile = nearestEnemyPiece.GetCurrentTile();
-            Tile checkTile = enemyPiece.GetCurrentTile();
-            if (currentTile.DistanceToTile(nearestTile) > currentTile.DistanceToTile(checkTile))
-            {
-                nearestEnemyPiece = enemyPiece;
-            }
-        }
-        return nearestEnemyPiece;
-    }
-
-    public void ProcessAction(Board board, long tick)
+    public virtual void ProcessAction(Board board, long tick)
     {
         if (IsDead()) return;
         ISimAction simAction = this.action;
@@ -76,6 +49,29 @@ public abstract class Piece
         }
     }
 
+    public virtual Action CreateAndConnectActions()
+    {
+        FindNewTargetAction findTarget = new FindNewTargetAction();
+        MoveAction move = new MoveAction();
+        AttackAction attack = new AttackAction();
+        InfiniteAction inf = new InfiniteAction();
+
+        findTarget.AddNextAction(attack); // after finding, we try to attack
+        findTarget.AddNextAction(move); // if we cant attack, we try to move towards target
+        findTarget.AddNextAction(inf); // we cant find anything
+
+        attack.AddNextAction(attack); // attack same target
+        // attack.AddNextAction(move); // uncomment to chase
+        attack.AddNextAction(findTarget); // find new target
+
+        // uncomment the top 2 for chasing behaviour
+        // move.AddNextAction(attack); // attack same target
+        // move.AddNextAction(move); // we may have to chase
+        move.AddNextAction(findTarget); // find new target
+
+        return findTarget; // our initial action is find
+    }
+
     // For now this only checks whether the piece is within attacking range of the Target Piece.
     public bool CanAttackTarget()
     {
@@ -86,6 +82,11 @@ public abstract class Piece
     public Piece GetTarget()
     {
         return target;
+    }
+
+    public Tile GetInitialTile()
+    {
+        return initialTile;
     }
 
     public Tile GetCurrentTile()
@@ -142,6 +143,10 @@ public abstract class Piece
     {
         return movementSpeed;
     }
+    public IViewAction GetViewAction()
+    {
+        return action;
+    }
 
     public bool HasLockedTile()
     {
@@ -166,6 +171,11 @@ public abstract class Piece
     public void SetTarget(Piece piece)
     {
         target = piece;
+    }
+
+    public void SetInitialTile(Tile initialTile)
+    {
+        this.initialTile = initialTile;
     }
 
     public void SetCurrentTile(Tile currentTile)
