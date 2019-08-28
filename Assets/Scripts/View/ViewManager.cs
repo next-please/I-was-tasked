@@ -10,9 +10,7 @@ public class ViewManager : MonoBehaviour
     public Material White;
     public Material Black;
     public float TileSize = 1;
-
-    private Piece draggedPiece;
-    private Board board;
+    private Board board; // o:
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +21,6 @@ public class ViewManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void OnBoardCreated(Board gameBoard)

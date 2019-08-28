@@ -12,17 +12,17 @@ public class TileView : MonoBehaviour
         this.tile = tile;
     }
 
-    private void OnMouseDown()
+    private void OnMouseOver()
     {
-        if (tile.IsOccupied())
+        if (!Input.GetMouseButtonUp(0)
+            || tile.IsOccupied()
+            || EventManager.Instance.draggedPiece == null)
         {
             return;
         }
 
         MeleePiece lewis_enemy = new MeleePiece("Lewis the Jesus Koh", 100, 1, true);
-        MeleePiece jolyn_player = new MeleePiece("Jo Jo Lyn", 100, 3, false);
 
         vm.AddPiece(lewis_enemy, tile.GetRow(), tile.GetCol());
-        vm.AddPiece(jolyn_player, tile.GetRow() + 1, tile.GetCol() + 1);
     }
 }
