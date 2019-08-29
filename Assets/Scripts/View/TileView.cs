@@ -16,16 +16,16 @@ public class TileView : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0) && ShouldSpawnPiece())
         {
-            vm.AddPiece(EventManager.Instance.draggedPiece, tile.GetRow(), tile.GetCol());
+            vm.AddPiece(DragEventManager.Instance.draggedPiece, tile.GetRow(), tile.GetCol());
 
             // TODO: use event listener?
-            EventManager.Instance.draggedPiece = null;
-            EventManager.Instance.isPieceDropped = true;
+            DragEventManager.Instance.draggedPiece = null;
+            DragEventManager.Instance.isPieceDropped = true;
         }
     }
 
     private bool ShouldSpawnPiece()
     {
-        return EventManager.Instance.draggedPiece != null && !tile.IsOccupied();
+        return DragEventManager.Instance.draggedPiece != null && !tile.IsOccupied();
     }
 }

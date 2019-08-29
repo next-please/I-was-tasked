@@ -43,7 +43,7 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         gameObject.GetComponent<Collider>().enabled = false;
         transform.localScale /= SCALE_OFFSET; // update to world scale
 
-        EventManager.Instance.draggedPiece = piece;
+        DragEventManager.Instance.draggedPiece = piece;
     }
 
     // Moves dragged item to mouse position.
@@ -57,11 +57,11 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     // Returns dragged item to bench.
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (EventManager.Instance.isPieceDropped)
+        if (DragEventManager.Instance.isPieceDropped)
         {
             Destroy(gameObject);
             bench.RemoveItem(index);
-            EventManager.Instance.isPieceDropped = false;
+            DragEventManager.Instance.isPieceDropped = false;
         }
         else
         {

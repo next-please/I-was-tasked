@@ -15,7 +15,7 @@ public class ObjectDragHandler : MonoBehaviour
         originalPos = transform.position;
         zPos = Camera.main.WorldToScreenPoint(transform.position).z;
 
-        EventManager.Instance.draggedPiece = gameObject.GetComponent<PieceView>().piece;
+        DragEventManager.Instance.draggedPiece = gameObject.GetComponent<PieceView>().piece;
 
         // switch to dragging view
         gameObject.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
@@ -25,12 +25,12 @@ public class ObjectDragHandler : MonoBehaviour
     // TODO: notified by dropped event instead of using mouse up
     void OnMouseUp()
     {
-        Debug.Log("drag handler: " + EventManager.Instance.isPieceDropped);
-        if (EventManager.Instance.isPieceDropped)
+        Debug.Log("drag handler: " + DragEventManager.Instance.isPieceDropped);
+        if (DragEventManager.Instance.isPieceDropped)
         {
             Debug.Log("destroy");
             Destroy(gameObject);
-            EventManager.Instance.isPieceDropped = false;
+            DragEventManager.Instance.isPieceDropped = false;
         }
         else
         {

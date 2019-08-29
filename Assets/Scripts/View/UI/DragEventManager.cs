@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+public class DragEventManager : MonoBehaviour
 {
-    private static EventManager instance;
+    private static DragEventManager instance;
 
-    public static EventManager Instance
+    public static DragEventManager Instance
     {
         get { return instance; }
     }
