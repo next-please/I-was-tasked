@@ -55,13 +55,13 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
 
     // Returns dragged item to bench.
-    // TODO: Remove item from bench instead?
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (EventManager.Instance.isPieceAdded)
+        if (EventManager.Instance.isPieceDropped)
         {
             Destroy(gameObject);
             bench.RemoveItem(index);
+            EventManager.Instance.isPieceDropped = false;
         }
         else
         {
@@ -69,7 +69,5 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
             transform.localPosition = Vector3.zero;
             gameObject.GetComponent<Collider>().enabled = true;
         }
-
-        EventManager.Instance.draggedPiece = null;
     }
 }

@@ -11,7 +11,7 @@ public class EventManager : MonoBehaviour
         get { return instance; }
     }
     public Piece draggedPiece;
-    public bool isPieceAdded = false;
+    public bool isPieceDropped = false;
 
     private void Awake()
     {

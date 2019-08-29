@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3449940088185507131}
   - component: {fileID: 6151283179336122566}
   - component: {fileID: 8992708325297178650}
+  - component: {fileID: -1043847865989807930}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Untagged
@@ -127,6 +128,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-1043847865989807930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4604312060063897690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb334ab7aa914d689ec1159cb9e1d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onDrop:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &6390210895109802457
 GameObject:
   m_ObjectHideFlags: 0
