@@ -8,10 +8,10 @@ public class SimulationDebugger : MonoBehaviour
     void Awake()
     {
         Simulator sim = GetComponent<Simulator>();
-        MeleePiece lewis_enemy = new MeleePiece("Lewis the Jesus Koh", 100, 1, true);
-        MeleePiece junkai_enemy = new MeleePiece("Jun the Supreme Kai", 100, 2, true);
-        MeleePiece jolyn_player = new MeleePiece("Jo Jo Lyn", 100, 3, false);
-        MeleePiece nicholas_player = new MeleePiece("Nick Pepega Chua", 100, 4, false);
+        Piece lewis_enemy = new Piece("Lewis the Jesus Koh", 100, 10, 3, true);
+        Piece junkai_enemy = new Piece("Jun the Supreme Kai", 100, 20, 1, true);
+        Piece jolyn_player = new Piece("Jo Jo Lyn", 100, 25, 1, false);
+        Piece nicholas_player = new Piece("Nick Pepega Chua", 100, 30, 4, false);
         sim.CreateBoard(8, 8);
         sim.AddPieceToBoard(lewis_enemy, 7, 7);
         sim.AddPieceToBoard(junkai_enemy, 4, 4);

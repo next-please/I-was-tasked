@@ -36,6 +36,20 @@ public class Board
         piecesOnBoard.Add(piece);
         activePiecesOnBoard.Add(piece);
         MovePieceToTile(piece, tiles[i][j]);
+        piece.SetInitialTile(tiles[i][j]);
+    }
+
+    public void ResetBoard()
+    {
+        foreach (Piece piece in this.GetPiecesOnBoard())
+        {
+            if (!activePiecesOnBoard.Contains(piece))
+            {
+                activePiecesOnBoard.Add(piece);
+            }
+            piece.SetHitPoints(100);
+            MovePieceToTile(piece, piece.GetInitialTile());
+        }
     }
 
     public Tile GetTile(int row, int col)
@@ -84,6 +98,7 @@ public class Board
             Debug.Log(piece.GetName() + " has been placed at " + nextTile.ToString() + ".");
         }
     }
+
     public void DeterminePieceLockedTile(Piece piece)
     {
         // Using Modified Breadth First Search (BFS) to find the path and Tile to move to.
@@ -93,7 +108,7 @@ public class Board
         Piece target = piece.GetTarget();
         Tile currentTile = piece.GetCurrentTile();
         Tile targetTile = target.GetCurrentTile();
-        if (target.HasLockedTile())
+        if (target.HasLockedTile()) // Use the Target Tile instead if present.
         {
             targetTile = target.GetLockedTile();
         }
@@ -110,7 +125,7 @@ public class Board
                 }
                 else // Mark all other occupied and locked Tiles as Visited.
                 {
-                    isVisited[i][j] = tiles[i][j].IsOccupied() || tiles[i][j].IsLocked();
+                    isVisited[i][j] = (tiles[i][j].IsOccupied() || tiles[i][j].IsLocked());
                 }
             }
         }
@@ -119,7 +134,7 @@ public class Board
         while (queue.Count > 0)
         {
             Tile tile = queue.Dequeue();
-            if (tile.Equals(targetTile))
+            if (tile.Equals(targetTile)) // Early termination.
             {
                 break;
             }
@@ -146,20 +161,47 @@ public class Board
             }
         }
 
-        int x = targetTile.GetRow();
-        int y = targetTile.GetCol();
-        int prevX = x;
-        int prevY = y;
-        while (predecessors[x][y] != currentTile)
+        Tile tileToLock = targetTile;
+        while (predecessors[tileToLock.GetRow()][tileToLock.GetCol()] != currentTile)
         {
-            prevX = x;
-            prevY = y;
-            x = predecessors[prevX][prevY].GetRow();
-            y = predecessors[prevX][prevY].GetCol();
+            tileToLock = predecessors[tileToLock.GetRow()][tileToLock.GetCol()];
         }
-        Tile tileToLock = predecessors[prevX][prevY];
         tileToLock.SetLocker(piece);
         piece.SetLockedTile(tileToLock);
+    }
+
+    public Piece FindNearestTarget(Piece piece)
+    {
+        List<Piece> enemyPiecesOnBoard = new List<Piece>();
+
+        // Get all enemy Pieces on the Board.
+        foreach (Piece activePiece in this.GetActivePiecesOnBoard())
+        {
+            if (activePiece.IsEnemy() != piece.IsEnemy())
+            {
+                enemyPiecesOnBoard.Add(activePiece);
+            }
+        }
+
+        // Determine the nearest enemy Piece.
+        Piece nearestEnemyPiece = null;
+
+        foreach (Piece enemyPiece in enemyPiecesOnBoard)
+        {
+            if (nearestEnemyPiece == null)
+            {
+                nearestEnemyPiece = enemyPiece;
+                continue;
+            }
+
+            Tile nearestTile = nearestEnemyPiece.GetCurrentTile();
+            Tile checkTile = enemyPiece.GetCurrentTile();
+            if (piece.GetCurrentTile().DistanceToTile(nearestTile) > piece.GetCurrentTile().DistanceToTile(checkTile))
+            {
+                nearestEnemyPiece = enemyPiece;
+            }
+        }
+        return nearestEnemyPiece;
     }
 
     public void SetNumRows(int numRows)

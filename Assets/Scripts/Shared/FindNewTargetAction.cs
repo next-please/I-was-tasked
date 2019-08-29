@@ -8,8 +8,7 @@ public class FindNewTargetAction : Action
     public override void OnTick(Piece piece, Board board)
     {
         ticksRemaining = 0; // code will run once and then finish, see Piece#Process
-        List<Piece> activePiecesOnBoard = board.GetActivePiecesOnBoard();
-        Piece nearestTarget = piece.FindNearestTarget(activePiecesOnBoard); // Find a new Target (if any).
+        Piece nearestTarget = board.FindNearestTarget(piece); // Find a new Target (if any).
         if (nearestTarget == null) // There are no more enemies; game is Resolved.
         {
             Debug.Log("There are no more enemies for " + piece.GetName() + " to target. Game is Resolved.");
