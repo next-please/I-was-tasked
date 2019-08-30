@@ -166,6 +166,13 @@ public class Board
         {
             tileToLock = predecessors[tileToLock.GetRow()][tileToLock.GetCol()];
         }
+
+        if (tileToLock == targetTile) // Temporary hack for Pathfinding; will be removed later.
+        {
+            piece.SetLockedTile(null);
+            return;
+        }
+
         tileToLock.SetLocker(piece);
         piece.SetLockedTile(tileToLock);
     }
