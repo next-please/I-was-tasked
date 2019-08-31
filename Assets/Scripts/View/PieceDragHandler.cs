@@ -28,15 +28,16 @@ public class PieceDragHandler : Droppable
     {
         Tile tileHit = GetTileHit();
 
-        if (tileHit == null | tileHit.IsOccupied())
-        {
-            SetBoardState();
-            transform.position = originalPos;
-        }
-        else
+        if (IsDropSuccess(tileHit))
         {
             EventManager.Instance.Raise(new PieceDropEvent { tile = tileHit });
             Destroy(gameObject);
+        }
+        else
+        {
+            // return to board
+            SetBoardState();
+            transform.position = originalPos;
         }
     }
 

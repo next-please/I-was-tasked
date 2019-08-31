@@ -21,4 +21,9 @@ public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler
         }
         return null;
     }
+
+    protected bool IsDropSuccess(Tile tileHit)
+    {
+        return tileHit != null && !tileHit.IsOccupied();
+    }
 }
