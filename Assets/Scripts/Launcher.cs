@@ -30,24 +30,11 @@ namespace Com.Nextplease.IWT
 
         #region MonoBehaviour CallBacks
 
-
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity during early initialization phase.
-        /// </summary>
         void Awake()
         {
             // #Critical
             // this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
             PhotonNetwork.AutomaticallySyncScene = true;
-        }
-
-
-        /// <summary>
-        /// MonoBehaviour method called on GameObject by Unity during initialization phase.
-        /// </summary>
-        void Start()
-        {
-            Connect();
         }
 
 
@@ -103,7 +90,6 @@ namespace Com.Nextplease.IWT
         {
             Debug.Log("PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
 
-            // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
             // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
         }
