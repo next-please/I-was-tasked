@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Bench : MonoBehaviour
+public class Bench : MonoBehaviour, IDropHandler
 {
-    private const int MAX_SLOTS = 8;
+    private readonly int maxSlots = 8;
 
     // private List<BenchItem> items;
     private List<bool> isOccupied;
@@ -13,10 +14,20 @@ public class Bench : MonoBehaviour
 
     public GameObject BenchItemPrefab;
 
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<BenchItemRemovedEvent>(OnItemRemoved);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<BenchItemRemovedEvent>(OnItemRemoved);
+    }
+
     void Start()
     {
         isOccupied = new List<bool>();
-        for (int i = 0; i < MAX_SLOTS; i++)
+        for (int i = 0; i < maxSlots; i++)
         {
             isOccupied.Add(false);
         }
@@ -26,7 +37,6 @@ public class Bench : MonoBehaviour
         Piece junkai_enemy = new Piece("Jun the Supreme Kai", 100, 20, 1, true);
         Piece jolyn_player = new Piece("Jo Jo Lyn", 100, 25, 1, false);
         Piece nicholas_player = new Piece("Nick Pepega Chua", 100, 30, 4, false);
-
         AddItem(lewis_enemy);
         AddItem(junkai_enemy);
         AddItem(jolyn_player);
@@ -41,7 +51,7 @@ public class Bench : MonoBehaviour
 
     public void AddItem(Piece piece)
     {
-        if (itemCount >= MAX_SLOTS)
+        if (itemCount >= maxSlots)
         {
             return;
         }
@@ -51,7 +61,6 @@ public class Bench : MonoBehaviour
         BenchItem benchItem = benchItemObj.GetComponent<BenchItem>();
         benchItem.SetPiece(piece);
         benchItem.SetIndex(nextEmptySlotIndex);
-        benchItem.SetBench(this);
 
         // set item prefab as child of slot
         Transform slot = transform.GetChild(nextEmptySlotIndex);
@@ -76,9 +85,21 @@ public class Bench : MonoBehaviour
         UpdateNextEmptySlotIndex();
     }
 
+    public void OnItemRemoved(BenchItemRemovedEvent e)
+    {
+        RemoveItem(e.removedItem.GetIndex());
+        Debug.Log("removed");
+    }
+
+    // TODO: drop item to bench
+    public void OnDrop(PointerEventData eventData)
+    {
+        Debug.Log("dropped");
+    }
+
     private void UpdateNextEmptySlotIndex()
     {
-        for (int i = 0; i < MAX_SLOTS; i++)
+        for (int i = 0; i < maxSlots; i++)
         {
             if (!isOccupied[i])
             {
@@ -87,4 +108,9 @@ public class Bench : MonoBehaviour
             }
         }
     }
+}
+
+public class BenchItemRemovedEvent : GameEvent
+{
+    public BenchItem removedItem;
 }
