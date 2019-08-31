@@ -53,7 +53,7 @@ public class Simulator : Tickable
         List<Piece> piecesOnBoard = gameBoard.GetPiecesOnBoard();
         foreach (Piece currentPiece in piecesOnBoard)
         {
-            currentPiece.ProcessAction(gameBoard, tick);
+            currentPiece.ProcessState(gameBoard, tick);
         }
     }
 }

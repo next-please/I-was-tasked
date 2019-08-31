@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MoveAction : Action
+public class MoveState : State
 {
 
     public override bool ShouldTransitInto(Piece piece)

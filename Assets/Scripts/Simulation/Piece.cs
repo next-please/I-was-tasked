@@ -20,8 +20,8 @@ public class Piece
     private bool isEnemy;
     private int rarity;
 
-    private Action action;
-    private Action entryAction;
+    private State state;
+    private State entryState;
 
     // Placeholder Constructor; actual Melee Piece would be more complex in attributes.
     public Piece(string name, int hitPoints, int attackDamage, int attackRange, bool isEnemy)
@@ -32,31 +32,31 @@ public class Piece
         SetAttackRange(attackRange);
         SetIsEnemy(isEnemy);
         SetMovementSpeed(1);
-        this.action = CreateAndConnectActions();
-        this.entryAction = this.action;
+        this.state = CreateState();
+        this.entryState = this.state;
     }
 
-    public virtual void ProcessAction(Board board, long tick)
+    public virtual void ProcessState(Board board, long tick)
     {
         if (IsDead()) return;
-        ISimAction simAction = this.action;
+        ISimState simAction = this.state;
         simAction.OnTick(this, board);
         if (simAction.hasFinished())
         {
             simAction.OnFinish(this, board);
             // find new action
-            this.action = this.action.TransitNextAction(this);
+            this.state = this.state.TransitNextAction(this);
             // on start
-            this.action.OnStart(this, board);
+            this.state.OnStart(this, board);
         }
     }
 
-    public virtual Action CreateAndConnectActions()
+    public virtual State CreateState()
     {
-        FindNewTargetAction findTarget = new FindNewTargetAction();
-        MoveAction move = new MoveAction();
-        AttackAction attack = new AttackAction();
-        InfiniteAction inf = new InfiniteAction();
+        FindNewTargetState findTarget = new FindNewTargetState();
+        MoveState move = new MoveState();
+        AttackState attack = new AttackState();
+        InfiniteState inf = new InfiniteState();
 
         findTarget.AddNextAction(attack); // after finding, we try to attack
         findTarget.AddNextAction(move); // if we cant attack, we try to move towards target
@@ -145,9 +145,9 @@ public class Piece
     {
         return movementSpeed;
     }
-    public IViewAction GetViewAction()
+    public IViewState GetViewState()
     {
-        return action;
+        return state;
     }
 
     public bool HasLockedTile()
@@ -260,6 +260,6 @@ public class Piece
     public void Reset()
     {
         SetHitPoints(100);
-        this.action = entryAction;
+        this.state = entryState;
     }
 }

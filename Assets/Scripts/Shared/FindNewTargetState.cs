@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class FindNewTargetAction : Action
+public class FindNewTargetState : State
 {
     // Hack, use OnTick for the case when this is the first action to be called, to be improved
     // this allows this action to be run once and also as the first action

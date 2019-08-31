@@ -8,7 +8,7 @@ public class PieceView : MonoBehaviour
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
     public GameObject currentHPBar;
-    private IViewAction prevViewAction;
+    private IViewState prevViewAction;
     private int prevHP;
 
     public void TrackPiece(Piece piece)
@@ -56,7 +56,7 @@ public class PieceView : MonoBehaviour
             return;
         }
 
-        IViewAction viewAction = piece.GetViewAction();
+        IViewState viewAction = piece.GetViewState();
         if (prevViewAction != null)
         {
             prevViewAction.CallViewFinishIfNeeded(this);
