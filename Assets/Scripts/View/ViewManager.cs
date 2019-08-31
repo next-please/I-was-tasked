@@ -11,8 +11,6 @@ public class ViewManager : MonoBehaviour
     public Material Black;
     public float TileSize = 1;
 
-    private Board board;
-
     void OnEnable()
     {
         EventManager.Instance.AddListener<AddPieceToBoardEvent>(OnPieceAdded);
@@ -35,7 +33,6 @@ public class ViewManager : MonoBehaviour
                 GameObject tile = Instantiate(TileViewPrefab, new Vector3(i, 0, j) * TileSize, Quaternion.identity);
                 TileView tileView = tile.GetComponent<TileView>();
                 tileView.TrackTile(gameBoard.GetTile(i, j));
-                tileView.vm = this;
 
                 Renderer rend = tile.GetComponent<Renderer>();
                 rend.material = toggle ? White : Black;
@@ -43,8 +40,6 @@ public class ViewManager : MonoBehaviour
             }
             toggle = !toggle;
         }
-
-        this.board = gameBoard;
     }
 
     public void OnPieceAdded(AddPieceToBoardEvent e)
@@ -58,11 +53,5 @@ public class ViewManager : MonoBehaviour
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
         pieceObj.transform.parent = transform;
-    }
-
-    public void AddPiece(Piece piece, int i, int j)
-    {
-        board.AddPieceToBoard(piece, i, j);
-        OnPieceAdded(piece, i, j);
     }
 }

@@ -22,15 +22,21 @@ public class Bench : MonoBehaviour
         }
 
         // testing
-        AddItem(new MeleePiece("Lewis the Jesus Koh", 100, 1, true));
-        AddItem(new MeleePiece("Jun the Supreme Kai", 100, 2, true));
-        AddItem(new MeleePiece("Jo Jo Lyn", 100, 3, false));
-        AddItem(new MeleePiece("Nick Pepega Chua", 100, 4, false));
+        Piece lewis_enemy = new Piece("Lewis the Jesus Koh", 100, 10, 3, true);
+        Piece junkai_enemy = new Piece("Jun the Supreme Kai", 100, 20, 1, true);
+        Piece jolyn_player = new Piece("Jo Jo Lyn", 100, 25, 1, false);
+        Piece nicholas_player = new Piece("Nick Pepega Chua", 100, 30, 4, false);
+
+        AddItem(lewis_enemy);
+        AddItem(junkai_enemy);
+        AddItem(jolyn_player);
+        AddItem(nicholas_player);
     }
 
     public void AddPieceTest()
     {
-        AddItem(new MeleePiece("Lewis the Jesus Koh", 100, 1, true));
+        Piece lewis_enemy = new Piece("Lewis the Jesus Koh", 100, 10, 3, true);
+        AddItem(lewis_enemy);
     }
 
     public void AddItem(Piece piece)

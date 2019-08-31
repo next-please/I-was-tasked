@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class BenchItem : Droppable
 {
     private const float DISTANCE_OFFSET = 10f;
     private const float SCALE_OFFSET = 10f;
@@ -38,36 +38,36 @@ public class BenchItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         this.bench = bench;
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public override void OnBeginDrag(PointerEventData eventData)
     {
         gameObject.GetComponent<Collider>().enabled = false;
         transform.localScale /= SCALE_OFFSET; // update to world scale
 
-        DragEventManager.Instance.draggedPiece = piece;
+        EventManager.Instance.Raise(new PieceDragEvent { piece = piece });
     }
 
-    // Moves dragged item to mouse position.
-    public void OnDrag(PointerEventData eventData)
+    public override void OnDrag(PointerEventData eventData)
     {
         var screenPoint = Input.mousePosition;
         screenPoint.z = DISTANCE_OFFSET;
         transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
-    // Returns dragged item to bench.
-    public void OnEndDrag(PointerEventData eventData)
+    public override void OnEndDrag(PointerEventData eventData)
     {
-        if (DragEventManager.Instance.isPieceDropped)
-        {
-            Destroy(gameObject);
-            bench.RemoveItem(index);
-            DragEventManager.Instance.isPieceDropped = false;
-        }
-        else
+        Tile tileHit = GetTileHit();
+
+        if (tileHit == null | tileHit.IsOccupied())
         {
             transform.localScale *= SCALE_OFFSET; // update to ui scale
             transform.localPosition = Vector3.zero;
             gameObject.GetComponent<Collider>().enabled = true;
+        }
+        else
+        {
+            EventManager.Instance.Raise(new PieceDropEvent { tile = tileHit });
+            Destroy(gameObject);
+            bench.RemoveItem(index);
         }
     }
 }
