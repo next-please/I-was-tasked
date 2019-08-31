@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Launcher.unity
+    guid: 6e669acb1e79d3746bdcdda12be9b4f0
+  - enabled: 1
+    path: Assets/Scenes/DragAndDropNetwork.unity
+    guid: 04218a0f94c6c461f832ec45d38b8c94
+  - enabled: 1
     path: Assets/Scenes/HDRPDemo/samplescene.unity
     guid: cbfe36cfddfde964d9dfce63a355d5dd
   m_configObjects: {}
