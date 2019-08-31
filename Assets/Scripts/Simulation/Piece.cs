@@ -58,18 +58,18 @@ public class Piece
         AttackState attack = new AttackState();
         InfiniteState inf = new InfiniteState();
 
-        findTarget.AddNextAction(attack); // after finding, we try to attack
-        findTarget.AddNextAction(move); // if we cant attack, we try to move towards target
-        findTarget.AddNextAction(inf); // we cant find anything
+        findTarget.AddNextState(attack); // after finding, we try to attack
+        findTarget.AddNextState(move); // if we cant attack, we try to move towards target
+        findTarget.AddNextState(inf); // we cant find anything
 
-        attack.AddNextAction(attack); // attack same target
+        attack.AddNextState(attack); // attack same target
         // attack.AddNextAction(move); // uncomment to chase
-        attack.AddNextAction(findTarget); // find new target
+        attack.AddNextState(findTarget); // find new target
 
         // uncomment the top 2 for chasing behaviour
         // move.AddNextAction(attack); // attack same target
         // move.AddNextAction(move); // we may have to chase
-        move.AddNextAction(findTarget); // find new target
+        move.AddNextState(findTarget); // find new target
 
         return findTarget; // our initial action is find
     }

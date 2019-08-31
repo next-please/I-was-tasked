@@ -29,7 +29,7 @@ public abstract class State : IViewState, ISimState
 {
     public int ticksRemaining;
     private Piece piece; // Piece the action belongs to
-    private List<State> nextActions = new List<State>();
+    private List<State> nextStates = new List<State>();
 
     private bool shouldCallViewFinish = false;
     private bool shouldCallViewStart = true;
@@ -49,16 +49,16 @@ public abstract class State : IViewState, ISimState
         return ticksRemaining <= 0;
     }
 
-    public void AddNextAction(State action)
+    public void AddNextState(State state)
     {
         // perhaps do priority sorting here
-        nextActions.Add(action);
+        nextStates.Add(state);
     }
 
     public State TransitNextAction(Piece piece)
     {
         shouldCallViewFinish = true;
-        foreach (State action in nextActions)
+        foreach (State action in nextStates)
         {
             if (action.ShouldTransitInto(piece))
             {
