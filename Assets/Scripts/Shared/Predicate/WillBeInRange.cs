@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WillBeInRange : Predicate
 {
-    public bool IsTrue(Piece piece)
+    public bool IsTrue(Piece piece, Board board)
     {
         Tile targetTile = piece.GetTarget().GetLockedTile();
         if (targetTile == null)

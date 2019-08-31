@@ -57,7 +57,9 @@ public abstract class State : IViewState, ISimState
     {
         shouldCallViewFinish = true;
         if (nextState == null)
+        {
             return null;
+        }
         nextState.shouldCallViewStart = true;
         return nextState;
     }

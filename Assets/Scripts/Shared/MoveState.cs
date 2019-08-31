@@ -5,7 +5,6 @@ public class MoveState : State
     public override void OnStart(Piece piece, Board board)
     {
         ticksRemaining = 50 / piece.GetMovementSpeed();
-        board.CanDeterminePieceLockedTile(piece);
     }
 
     public override void OnFinish(Piece piece, Board board)

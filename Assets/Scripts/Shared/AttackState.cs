@@ -5,22 +5,21 @@ public class AttackState : State
     public override void OnStart(Piece piece, Board board)
     {
         ticksRemaining = 50; // 1.0 second to attack
-
         Piece target = piece.GetTarget();
         if (!target.IsDead())
         {
             target.SetHitPoints(target.GetHitPoints() - piece.GetAttackDamage());
             Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetHitPoints() + " HP.");
         }
+        else
+        {
+            ticksRemaining = 0;
+        }
      }
 
     public override void OnTick(Piece piece, Board board)
     {
         base.OnTick(piece, board);
-        if (piece.GetTarget().IsDead())
-        {
-            ticksRemaining = 0;
-        }
     }
 
     public override void OnFinish(Piece piece, Board board)

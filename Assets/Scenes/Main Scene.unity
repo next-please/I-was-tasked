@@ -6762,7 +6762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeCanvas: {fileID: 555785224}
   marketCanvas: {fileID: 1941897617}
-  StartingMarketSize: 5
+  StartingMarketSize: 10
   playerInventory: {fileID: 11400000, guid: d1f8fdb8dbb43a5489dee67f9cf086d9, type: 2}
 --- !u!4 &1554020331
 Transform:

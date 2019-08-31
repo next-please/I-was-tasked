@@ -19,7 +19,6 @@ public class Piece
     private int movementSpeed;
     private bool isEnemy;
     private int rarity;
-
     private State state;
     private State entryState;
 
@@ -64,41 +63,50 @@ public class Piece
         AttackState attack = new AttackState();
         InfiniteState inf = new InfiniteState();
 
-        WaitState wait = new WaitState(1);
+        WaitState waitOneSecond = new WaitState(50);
+        WaitState waitOneFifthSeconds = new WaitState(10);
 
         HasTarget hasTarget = new HasTarget();
-        InRange canAttack = new InRange();
-        WillBeInRange canAttackSoon = new WillBeInRange();
+        InRange inRange = new InRange();
+        WillBeInRange willBeInRange = new WillBeInRange();
+        CanFindNextTile canFindNextTile = new CanFindNextTile();
 
-        Transition foundTarget = new Transition(hasTarget);
-        Transition inRange = new Transition(canAttack);
+        Transition wasTargetFound = new Transition(hasTarget);
+        Transition currentlyInRange = new Transition(inRange);
+        Transition willTargetBeInRange = new Transition(willBeInRange);
         Transition stillHasTarget = new Transition(hasTarget);
-        Transition willBeInRange = new Transition(canAttackSoon);
+        Transition tryToFindNextTile = new Transition(canFindNextTile);
 
-        findTarget.SetNextState(foundTarget);
+        findTarget.SetNextState(wasTargetFound);
 
-        foundTarget.SetNextStates(
-            inRange, // check if in range
+        wasTargetFound.SetNextStates(
+            currentlyInRange, // check if in range
             inf // do nothing
         );
 
-        inRange.SetNextStates(
+        currentlyInRange.SetNextStates(
             attack, // attack
-            willBeInRange // move to target
+            willTargetBeInRange // move to target
         );
 
-        willBeInRange.SetNextStates(
-            wait, // wait until in range
-            move
+        willTargetBeInRange.SetNextStates(
+            waitOneFifthSeconds, // wait until in range
+            tryToFindNextTile
         );
 
-        wait.SetNextState(inRange);
+        tryToFindNextTile.SetNextStates(
+            move,
+            waitOneSecond
+        );
+
+        waitOneSecond.SetNextState(findTarget);
+        waitOneFifthSeconds.SetNextState(currentlyInRange);
 
         attack.SetNextState(stillHasTarget); // do we still have a target?
         move.SetNextState(findTarget); // find a new target
 
         stillHasTarget.SetNextStates(
-            inRange, // check if still in range
+            currentlyInRange, // check if still in range
             findTarget // find new target
         );
 

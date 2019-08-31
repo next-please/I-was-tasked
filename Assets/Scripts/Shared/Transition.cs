@@ -20,6 +20,6 @@ public class Transition : State
     public override void OnStart(Piece piece, Board board)
     {
         ticksRemaining = 0;
-        nextState = predicate.IsTrue(piece) ? onTrue : onFalse;
+        nextState = predicate.IsTrue(piece, board) ? onTrue : onFalse;
     }
 }

@@ -1,7 +1,9 @@
 ﻿public class InRange : Predicate
 {
-  public bool IsTrue(Piece piece)
+  public bool IsTrue(Piece piece, Board board)
     {
-        return piece.CanAttackTarget();
+        Piece target = piece.GetTarget();
+        Tile targetTile = target.GetCurrentTile();
+        return (piece.GetCurrentTile().DistanceToTile(targetTile) <= piece.GetAttackRange());
     }
 }

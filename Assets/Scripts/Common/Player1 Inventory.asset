@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e1eea913dd472544a410384286153ce, type: 3}
   m_Name: Player1 Inventory
   m_EditorClassIdentifier: 
+  StartingGold: 368
   owner: 0
-  gold: 8
+  gold: 478
