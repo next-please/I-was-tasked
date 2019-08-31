@@ -132,7 +132,7 @@ public class Board
         }
     }
 
-    public void DeterminePieceLockedTile(Piece piece)
+    public bool CanDeterminePieceLockedTile(Piece piece)
     {
         // Using Modified Breadth First Search (BFS) to find the path and Tile to move to.
         Queue<Tile> queue = new Queue<Tile>();
@@ -194,6 +194,12 @@ public class Board
             }
         }
 
+        if (!isVisited[targetTile.GetRow()][targetTile.GetCol()]) // No unobstructed path to the Target.
+        {
+            piece.SetLockedTile(null);
+            return false;
+        }
+
         Tile tileToLock = targetTile;
         while (predecessors[tileToLock.GetRow()][tileToLock.GetCol()] != currentTile)
         {
@@ -203,11 +209,12 @@ public class Board
         if (tileToLock == targetTile) // Temporary hack for Pathfinding; will be removed later.
         {
             piece.SetLockedTile(null);
-            return;
+            return true;
         }
 
         tileToLock.SetLocker(piece);
         piece.SetLockedTile(tileToLock);
+        return true;
     }
 
     public Piece FindNearestTarget(Piece piece)
