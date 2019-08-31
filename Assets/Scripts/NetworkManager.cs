@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+
+using UnityEngine;
 
 using Photon.Pun;
 using Photon.Realtime;
@@ -22,6 +24,10 @@ namespace Com.Nextplease.IWT
 
         // Setting for TCP Preference 
         private readonly SendOptions SEND_OPTIONS = new SendOptions { Reliability = true };
+
+        // Ready State Variables - Only Used by Master Client
+        private int readyCount = 0;
+        private HashSet<string> readyIds = new HashSet<string>();
         #endregion
 
         #region Monobehaviour Methods
@@ -34,9 +40,18 @@ namespace Com.Nextplease.IWT
         {
             PhotonNetwork.RemoveCallbackTarget(this);
         }
+
+        void Start()
+        {
+
+        }
         #endregion
 
         #region Public Methods
+        /// <summary>
+        /// Trigger a state update without permission from master client.
+        /// </summary>
+        /// <param name="state"></param>
         public void updateState(string state)
         {
             Debug.LogFormat("NetworkManager: {0} has called updateState()", PhotonNetwork.LocalPlayer.NickName);
@@ -47,6 +62,10 @@ namespace Com.Nextplease.IWT
             RaiseEvent(UPDATE_STATE, state);
         }
 
+        /// <summary>
+        /// Trigger a state update only after permission from master client is granted.
+        /// </summary>
+        /// <param name="state"></param>
         public void updateStateWithPermission(string state)
         {
             Debug.LogFormat("NetworkManager: {0} has called updateStateWithPermission()", PhotonNetwork.LocalPlayer.NickName);
@@ -56,12 +75,35 @@ namespace Com.Nextplease.IWT
 
             if (PhotonNetwork.IsMasterClient)
             {
+                // TODO: Change UpdateStateIfPermissionGranted to actual permission check
                 bool updated = UpdateStateIfPermissionGranted(state);
                 if (!updated) { Debug.LogFormat("NetworkManager: {0}'s request has been rejected. Current state is {1}.", PhotonNetwork.LocalPlayer.NickName, this.state); }
                 return;
             }
 
             RaiseEvent(UPDATE_STATE_WITH_PERMISSION, state);
+        }
+
+        /// <summary>
+        /// Trigger an ready state update. 
+        /// </summary>
+        public void updateReady()
+        {
+            string myPlayerId = PhotonNetwork.LocalPlayer.NickName;
+            Debug.LogFormat("NetworkManager: {0} has indicated ready", myPlayerId);
+
+            if (PhotonNetwork.IsMasterClient)
+            {
+                CheckReady(myPlayerId);
+
+                if (IsAllReady())
+                {
+                    // TODO: Proceed with next phase
+                    ResetReadyState();
+                }
+                return;
+            }
+            RaiseEvent(UPDATE_READY, myPlayerId);
         }
         #endregion
 
@@ -86,9 +128,9 @@ namespace Com.Nextplease.IWT
             PhotonNetwork.RaiseEvent(code, eventContent, raiseEventOptions, SEND_OPTIONS);
         }
 
+        // TODO: Remove method after replacement
         bool UpdateStateIfPermissionGranted(string newState)
         {
-            // TODO: Replace with actual permission check
             Random rnd = new Random();
             bool permission = rnd.Next(100) < 50;
 
@@ -102,6 +144,35 @@ namespace Com.Nextplease.IWT
 
             return false;
         }
+
+        void ResetReadyState()
+        {
+            Debug.Log("NetworkManager: Resetting ready state..");
+            this.readyCount = 0;
+            this.readyIds.Clear();
+        }
+
+        void CheckReady(string playerId)
+        {
+            if (!readyIds.Contains(playerId))
+            {
+                readyCount++;
+                readyIds.Add(playerId);
+            }
+        }
+
+        bool IsAllReady()
+        {
+            bool isAllReady = readyCount >= 3;
+            Debug.LogFormat("NetworkManager: Master Client {0} - all ready status: {1}, number of ready players: {2}", PhotonNetwork.LocalPlayer.NickName, isAllReady, readyCount);
+
+            if (isAllReady)
+            {
+                return true;
+            }
+            return false;
+        }
+
         #endregion
 
         #region Photon Callbacks
@@ -133,7 +204,22 @@ namespace Com.Nextplease.IWT
                         if (!updated) { Debug.LogFormat("NetworkManager: {0}'s request has been rejected. Current state is {1}.", requester, this.state); }
                     }
                     break;
-                default: break;
+                case UPDATE_READY:
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        Debug.LogFormat("NetworkManager: Non Master Client {0} is indicating ready...", requester);
+                        CheckReady(newState);
+
+                        if (IsAllReady())
+                        {
+                            // TODO: Proceed with next phase
+                            ResetReadyState();
+                        }
+                    }
+                    break;
+                default:
+                    Debug.LogError("NetworkManager: OnEvent() received photonEvent with invalid event code.");
+                    break;
             }
         }
         #endregion
