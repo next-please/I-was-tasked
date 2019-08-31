@@ -13,7 +13,7 @@ public enum Player
 public class PlayerInventory : ScriptableObject
 {
     [SerializeField]
-    private int StartingGold = 1;
+    private int StartingGold = 999;
     [SerializeField]
     private Player owner;
     [SerializeField]

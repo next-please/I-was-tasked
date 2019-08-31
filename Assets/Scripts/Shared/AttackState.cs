@@ -2,12 +2,6 @@
 
 public class AttackState : State
 {
-    public override bool ShouldTransitInto(Piece piece)
-    {
-        Piece target = piece.GetTarget();
-        return (target != null && !target.IsDead() && piece.CanAttackTarget());
-    }
-
     public override void OnStart(Piece piece, Board board)
     {
         ticksRemaining = 50; // 1.0 second to attack

@@ -28,11 +28,10 @@ public interface ISimState
 public abstract class State : IViewState, ISimState
 {
     public int ticksRemaining;
-    private Piece piece; // Piece the action belongs to
-    private List<State> nextStates = new List<State>();
+    protected State nextState;
 
-    private bool shouldCallViewFinish = false;
-    private bool shouldCallViewStart = true;
+    protected bool shouldCallViewFinish = false;
+    protected bool shouldCallViewStart = true;
 
     public virtual void OnStart(Piece piece, Board board)
     {
@@ -49,30 +48,18 @@ public abstract class State : IViewState, ISimState
         return ticksRemaining <= 0;
     }
 
-    public void AddNextState(State state)
+    public void SetNextState(State state)
     {
-        // perhaps do priority sorting here
-        nextStates.Add(state);
+        nextState = state;
     }
 
-    public State TransitNextAction(Piece piece)
+    public State TransitNextState(Piece piece)
     {
         shouldCallViewFinish = true;
-        foreach (State action in nextStates)
-        {
-            if (action.ShouldTransitInto(piece))
-            {
-                action.shouldCallViewStart = true;
-                return action;
-            }
-        }
-        return null;
-    }
-
-    public virtual bool ShouldTransitInto(Piece piece)
-    {
-        // we could do a checking, eg: Mana Check before spell
-        return true;
+        if (nextState == null)
+            return null;
+        nextState.shouldCallViewStart = true;
+        return nextState;
     }
 
     public void CallViewFinishIfNeeded(PieceView pieceView)

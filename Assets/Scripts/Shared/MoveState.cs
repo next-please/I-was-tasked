@@ -2,13 +2,6 @@
 
 public class MoveState : State
 {
-
-    public override bool ShouldTransitInto(Piece piece)
-    {
-        Piece target = piece.GetTarget();
-        return (target != null && !target.IsDead());
-    }
-
     public override void OnStart(Piece piece, Board board)
     {
         ticksRemaining = 50 / piece.GetMovementSpeed();

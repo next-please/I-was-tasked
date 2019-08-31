@@ -141,7 +141,8 @@ public class CharacterGenerator
         Piece currentPiece = new Piece (
             race.ToString() + " that is a " + job.ToString(),
             defaultHitPoints*rarityModifier[characterRarity],
-            defaultAttackDamage*rarityModifier[characterRarity],
+            1,
+            // defaultAttackDamage*rarityModifier[characterRarity],
             1, // TODO: Please help to verify if this is correct, much thanks~! - Nic
             false);
         currentPiece.SetAttackSpeed(defaultAttackSpeed);

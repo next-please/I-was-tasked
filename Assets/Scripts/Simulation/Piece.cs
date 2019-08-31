@@ -45,9 +45,15 @@ public class Piece
         {
             simAction.OnFinish(this, board);
             // find new action
-            this.state = this.state.TransitNextAction(this);
+            this.state = this.state.TransitNextState(this);
             // on start
             this.state.OnStart(this, board);
+            while (this.state.hasFinished())
+            {
+                this.state.OnFinish(this, board);
+                this.state = this.state.TransitNextState(this);
+                this.state.OnStart(this, board);
+            }
         }
     }
 
@@ -58,18 +64,43 @@ public class Piece
         AttackState attack = new AttackState();
         InfiniteState inf = new InfiniteState();
 
-        findTarget.AddNextState(attack); // after finding, we try to attack
-        findTarget.AddNextState(move); // if we cant attack, we try to move towards target
-        findTarget.AddNextState(inf); // we cant find anything
+        WaitState wait = new WaitState(1);
 
-        attack.AddNextState(attack); // attack same target
-        // attack.AddNextAction(move); // uncomment to chase
-        attack.AddNextState(findTarget); // find new target
+        HasTarget hasTarget = new HasTarget();
+        InRange canAttack = new InRange();
+        WillBeInRange canAttackSoon = new WillBeInRange();
 
-        // uncomment the top 2 for chasing behaviour
-        // move.AddNextAction(attack); // attack same target
-        // move.AddNextAction(move); // we may have to chase
-        move.AddNextState(findTarget); // find new target
+        Transition foundTarget = new Transition(hasTarget);
+        Transition inRange = new Transition(canAttack);
+        Transition stillHasTarget = new Transition(hasTarget);
+        Transition willBeInRange = new Transition(canAttackSoon);
+
+        findTarget.SetNextState(foundTarget);
+
+        foundTarget.SetNextStates(
+            inRange, // check if in range
+            inf // do nothing
+        );
+
+        inRange.SetNextStates(
+            attack, // attack
+            willBeInRange // move to target
+        );
+
+        willBeInRange.SetNextStates(
+            wait, // wait until in range
+            move
+        );
+
+        wait.SetNextState(inRange);
+
+        attack.SetNextState(stillHasTarget); // do we still have a target?
+        move.SetNextState(findTarget); // find a new target
+
+        stillHasTarget.SetNextStates(
+            inRange, // check if still in range
+            findTarget // find new target
+        );
 
         return findTarget; // our initial action is find
     }
