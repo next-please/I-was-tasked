@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ViewManager : MonoBehaviour
 {
-
     public GameObject FriendlyPieceViewPrefab;
     public GameObject EnemyPieceViewPrefab;
     public GameObject TileViewPrefab;
@@ -32,6 +31,9 @@ public class ViewManager : MonoBehaviour
             for (int j = 0; j < rows; ++j)
             {
                 GameObject tile = Instantiate(TileViewPrefab, new Vector3(i, 0, j) * TileSize, Quaternion.identity);
+                TileView tileView = tile.GetComponent<TileView>();
+                tileView.TrackTile(gameBoard.GetTile(i, j));
+
                 Renderer rend = tile.GetComponent<Renderer>();
                 rend.material = toggle ? White : Black;
                 toggle = !toggle;
