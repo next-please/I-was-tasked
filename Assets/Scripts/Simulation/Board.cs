@@ -1,6 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
+public class AddPieceToBoardEvent : GameEvent
+{
+    public Piece piece;
+    public int row;
+    public int col;
+}
+
+public class RemovePieceFromBoardEvent : GameEvent
+{
+    public Piece piece;
+}
 
 public class Board
 {
@@ -37,6 +50,7 @@ public class Board
         activePiecesOnBoard.Add(piece);
         MovePieceToTile(piece, tiles[i][j]);
         piece.SetInitialTile(tiles[i][j]);
+        EventManager.Instance.Raise(new AddPieceToBoardEvent { piece = piece, row = i, col = j });
     }
 
     public void ResetBoard()
@@ -47,8 +61,27 @@ public class Board
             {
                 activePiecesOnBoard.Add(piece);
             }
-            piece.SetHitPoints(100);
+            piece.Reset();
             MovePieceToTile(piece, piece.GetInitialTile());
+        }
+    }
+
+    public void RemoveAllPiecesFromBoard()
+    {
+        var pieces = this.GetPiecesOnBoard().ToArray();
+        foreach (Piece piece in pieces)
+        {
+            RemovePieceFromBoard(piece);
+        }
+    }
+
+    public void RemoveEnemies()
+    {
+        // must make a copy before removing enemies
+        var enemyPieces = this.GetPiecesOnBoard().Where(piece => piece.IsEnemy()).ToArray();
+        foreach (Piece enemy in enemyPieces)
+        {
+            RemovePieceFromBoard(enemy);
         }
     }
 
@@ -99,7 +132,7 @@ public class Board
         }
     }
 
-    public void DeterminePieceLockedTile(Piece piece)
+    public bool CanDeterminePieceLockedTile(Piece piece)
     {
         // Using Modified Breadth First Search (BFS) to find the path and Tile to move to.
         Queue<Tile> queue = new Queue<Tile>();
@@ -161,13 +194,27 @@ public class Board
             }
         }
 
+        if (!isVisited[targetTile.GetRow()][targetTile.GetCol()]) // No unobstructed path to the Target.
+        {
+            piece.SetLockedTile(null);
+            return false;
+        }
+
         Tile tileToLock = targetTile;
         while (predecessors[tileToLock.GetRow()][tileToLock.GetCol()] != currentTile)
         {
             tileToLock = predecessors[tileToLock.GetRow()][tileToLock.GetCol()];
         }
+
+        if (tileToLock == targetTile) // Temporary hack for Pathfinding; will be removed later.
+        {
+            piece.SetLockedTile(null);
+            return true;
+        }
+
         tileToLock.SetLocker(piece);
         piece.SetLockedTile(tileToLock);
+        return true;
     }
 
     public Piece FindNearestTarget(Piece piece)
@@ -232,5 +279,6 @@ public class Board
     {
         DeactivatePieceOnBoard(piece);
         piecesOnBoard.Remove(piece);
+        EventManager.Instance.Raise(new RemovePieceFromBoardEvent{ piece = piece });
     }
 }

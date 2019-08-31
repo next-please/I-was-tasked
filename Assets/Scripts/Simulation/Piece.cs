@@ -18,8 +18,9 @@ public class Piece
     private int attackSpeed;
     private int movementSpeed;
     private bool isEnemy;
-
-    protected Action action;
+    private int rarity;
+    private State state;
+    private State entryState;
 
     // Placeholder Constructor; actual Melee Piece would be more complex in attributes.
     public Piece(string name, int hitPoints, int attackDamage, int attackRange, bool isEnemy)
@@ -30,43 +31,84 @@ public class Piece
         SetAttackRange(attackRange);
         SetIsEnemy(isEnemy);
         SetMovementSpeed(1);
-        this.action = CreateAndConnectActions();
+        this.state = CreateState();
+        this.entryState = this.state;
     }
 
-    public virtual void ProcessAction(Board board, long tick)
+    public virtual void ProcessState(Board board, long tick)
     {
         if (IsDead()) return;
-        ISimAction simAction = this.action;
+        ISimState simAction = this.state;
         simAction.OnTick(this, board);
         if (simAction.hasFinished())
         {
             simAction.OnFinish(this, board);
             // find new action
-            this.action = this.action.TransitNextAction(this);
+            this.state = this.state.TransitNextState(this);
             // on start
-            this.action.OnStart(this, board);
+            this.state.OnStart(this, board);
+            while (this.state.hasFinished())
+            {
+                this.state.OnFinish(this, board);
+                this.state = this.state.TransitNextState(this);
+                this.state.OnStart(this, board);
+            }
         }
     }
 
-    public virtual Action CreateAndConnectActions()
+    public virtual State CreateState()
     {
-        FindNewTargetAction findTarget = new FindNewTargetAction();
-        MoveAction move = new MoveAction();
-        AttackAction attack = new AttackAction();
-        InfiniteAction inf = new InfiniteAction();
+        FindNewTargetState findTarget = new FindNewTargetState();
+        MoveState move = new MoveState();
+        AttackState attack = new AttackState();
+        InfiniteState inf = new InfiniteState();
 
-        findTarget.AddNextAction(attack); // after finding, we try to attack
-        findTarget.AddNextAction(move); // if we cant attack, we try to move towards target
-        findTarget.AddNextAction(inf); // we cant find anything
+        WaitState waitOneSecond = new WaitState(50);
+        WaitState waitOneFifthSeconds = new WaitState(10);
 
-        attack.AddNextAction(attack); // attack same target
-        // attack.AddNextAction(move); // uncomment to chase
-        attack.AddNextAction(findTarget); // find new target
+        HasTarget hasTarget = new HasTarget();
+        InRange inRange = new InRange();
+        WillBeInRange willBeInRange = new WillBeInRange();
+        CanFindNextTile canFindNextTile = new CanFindNextTile();
 
-        // uncomment the top 2 for chasing behaviour
-        // move.AddNextAction(attack); // attack same target
-        // move.AddNextAction(move); // we may have to chase
-        move.AddNextAction(findTarget); // find new target
+        Transition wasTargetFound = new Transition(hasTarget);
+        Transition currentlyInRange = new Transition(inRange);
+        Transition willTargetBeInRange = new Transition(willBeInRange);
+        Transition stillHasTarget = new Transition(hasTarget);
+        Transition tryToFindNextTile = new Transition(canFindNextTile);
+
+        findTarget.SetNextState(wasTargetFound);
+
+        wasTargetFound.SetNextStates(
+            currentlyInRange, // check if in range
+            inf // do nothing
+        );
+
+        currentlyInRange.SetNextStates(
+            attack, // attack
+            willTargetBeInRange // move to target
+        );
+
+        willTargetBeInRange.SetNextStates(
+            waitOneFifthSeconds, // wait until in range
+            tryToFindNextTile
+        );
+
+        tryToFindNextTile.SetNextStates(
+            move,
+            waitOneSecond
+        );
+
+        waitOneSecond.SetNextState(findTarget);
+        waitOneFifthSeconds.SetNextState(currentlyInRange);
+
+        attack.SetNextState(stillHasTarget); // do we still have a target?
+        move.SetNextState(findTarget); // find a new target
+
+        stillHasTarget.SetNextStates(
+            currentlyInRange, // check if still in range
+            findTarget // find new target
+        );
 
         return findTarget; // our initial action is find
     }
@@ -142,9 +184,9 @@ public class Piece
     {
         return movementSpeed;
     }
-    public IViewAction GetViewAction()
+    public IViewState GetViewState()
     {
-        return action;
+        return state;
     }
 
     public bool HasLockedTile()
@@ -242,5 +284,21 @@ public class Piece
     public void SetIsEnemy(bool isEnemy)
     {
         this.isEnemy = isEnemy;
+    }
+
+    public void SetRarity(int rarity)
+    {
+        this.rarity = rarity;
+    }
+
+    public int GetRarity()
+    {
+        return rarity;
+    }
+
+    public void Reset()
+    {
+        SetHitPoints(100);
+        this.state = entryState;
     }
 }

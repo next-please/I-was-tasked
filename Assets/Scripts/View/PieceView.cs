@@ -7,10 +7,23 @@ public class PieceView : MonoBehaviour
 {
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
-    private IViewAction prevViewAction;
+    public GameObject currentHPBar;
+    private IViewState prevViewAction;
+    private int prevHP;
+
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
+    }
+
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<RemovePieceFromBoardEvent>(OnPieceRemoved);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<RemovePieceFromBoardEvent>(OnPieceRemoved);
     }
 
     void OnDrawGizmos()
@@ -19,8 +32,9 @@ public class PieceView : MonoBehaviour
         {
             GUIStyle style = new GUIStyle();
             style.fontStyle = FontStyle.Bold;
-            style.fontSize = 16;
+            style.fontSize = 24;
             Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetName(), style);
+            prevHP = piece.GetHitPoints();
         }
     }
 
@@ -31,17 +45,39 @@ public class PieceView : MonoBehaviour
             return;
         }
 
+        if (prevHP != piece.GetHitPoints())
+        {
+            UpdateCurrentHPBar();
+        }
+
         if (piece.IsDead())
         {
             animator.Play("Death", 0);
             return;
         }
 
-        IViewAction viewAction = piece.GetViewAction();
+        IViewState viewAction = piece.GetViewState();
         if (prevViewAction != null)
+        {
             prevViewAction.CallViewFinishIfNeeded(this);
+        }
         viewAction.CallViewStartIfNeeded(this);
         viewAction.OnViewUpdate(this);
         prevViewAction = viewAction;
+    }
+
+    void OnPieceRemoved(RemovePieceFromBoardEvent e)
+    {
+        if (e.piece == piece)
+            Destroy(gameObject);
+    }
+
+    public void UpdateCurrentHPBar()
+    {
+        float currentHPFraction = piece.GetHitPoints() / 100.0f;
+        Vector3 temp = currentHPBar.transform.localScale;
+        temp.x = currentHPFraction;
+        currentHPBar.transform.localScale = temp;
+        prevHP = piece.GetHitPoints();
     }
 }

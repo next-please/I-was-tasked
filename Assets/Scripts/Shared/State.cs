@@ -5,7 +5,7 @@ using UnityEngine;
 // Implement these to allow view to update
 // Floating Point Math is allowed
 // Update ran every MonoBehaviour.Update
-public interface IViewAction
+public interface IViewState
 {
     void OnViewStart(PieceView pieceView);
     void OnViewUpdate(PieceView pieceView);
@@ -17,7 +17,7 @@ public interface IViewAction
 // Implement these for simulation
 // Floating Point Math is not allowed
 // Update ran every FixedClock.Tick
-public interface ISimAction
+public interface ISimState
 {
     void OnStart(Piece piece, Board board);
     void OnTick(Piece piece, Board board);
@@ -25,15 +25,13 @@ public interface ISimAction
     bool hasFinished();
 }
 
-// Idea: Action is just State in FSM that can only transit after its duration ends
-public abstract class Action : IViewAction, ISimAction
+public abstract class State : IViewState, ISimState
 {
     public int ticksRemaining;
-    private Piece piece; // Piece the action belongs to
-    private List<Action> nextActions = new List<Action>();
+    protected State nextState;
 
-    private bool shouldCallViewFinish = false;
-    private bool shouldCallViewStart = true;
+    protected bool shouldCallViewFinish = false;
+    protected bool shouldCallViewStart = true;
 
     public virtual void OnStart(Piece piece, Board board)
     {
@@ -50,30 +48,20 @@ public abstract class Action : IViewAction, ISimAction
         return ticksRemaining <= 0;
     }
 
-    public void AddNextAction(Action action)
+    public void SetNextState(State state)
     {
-        // perhaps do priority sorting here
-        nextActions.Add(action);
+        nextState = state;
     }
 
-    public Action TransitNextAction(Piece piece)
+    public State TransitNextState(Piece piece)
     {
         shouldCallViewFinish = true;
-        foreach (Action action in nextActions)
+        if (nextState == null)
         {
-            if (action.ShouldTransitInto(piece))
-            {
-                action.shouldCallViewStart = true;
-                return action;
-            }
+            return null;
         }
-        return null;
-    }
-
-    public virtual bool ShouldTransitInto(Piece piece)
-    {
-        // we could do a checking, eg: Mana Check before spell
-        return true;
+        nextState.shouldCallViewStart = true;
+        return nextState;
     }
 
     public void CallViewFinishIfNeeded(PieceView pieceView)
