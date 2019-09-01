@@ -49,7 +49,7 @@ namespace Com.Nextplease.IWT
             Debug.Log("UI: Updating Player List...");
 
             StringBuilder sb = new StringBuilder("Players: ");
-            foreach (Player player in PhotonNetwork.PlayerList)
+            foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
             {
                 sb.Append(player.NickName + ", ");
             }
@@ -79,7 +79,7 @@ namespace Com.Nextplease.IWT
             SceneManager.LoadScene(0);
         }
 
-        public override void OnPlayerEnteredRoom(Player other)
+        public override void OnPlayerEnteredRoom(Photon.Realtime.Player other)
         {
             Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
             UpdatePlayerList();
@@ -96,7 +96,7 @@ namespace Com.Nextplease.IWT
         }
 
 
-        public override void OnPlayerLeftRoom(Player other)
+        public override void OnPlayerLeftRoom(Photon.Realtime.Player other)
         {
             Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
             UpdatePlayerList();
