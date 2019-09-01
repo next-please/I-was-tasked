@@ -7,18 +7,19 @@ public enum HitTarget
 {
     Empty = 0,
     Tile = 1,
-    BenchSlot = 2
+    BenchSlot = 2,
+    Trash = 3
 }
 
 public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    protected bool isDragged;
     protected GameObject targetObject;
 
-    public virtual void OnBeginDrag(PointerEventData eventData) { isDragged = true; }
+    public virtual void OnBeginDrag(PointerEventData eventData) { }
     public virtual void OnDrag(PointerEventData eventData) { }
     public virtual void OnBenchDrop(BenchSlot slot) { }
     public virtual void OnTileDrop(Tile tile) { }
+    public virtual void OnTrashDrop() { }
     public virtual void OnEmptyDrop() { }
 
     protected HitTarget GetHitTarget()
@@ -41,6 +42,10 @@ public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler
                 targetObject = h.gameObject;
                 return HitTarget.BenchSlot;
             }
+            if (h.gameObject.name == "Trash")
+            {
+                return HitTarget.Trash;
+            }
         }
         targetObject = null;
         return HitTarget.Empty;
@@ -48,8 +53,6 @@ public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        isDragged = false;
-
         HitTarget target = GetHitTarget();
         switch (target)
         {
@@ -58,6 +61,9 @@ public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler
                 break;
             case HitTarget.BenchSlot:
                 OnBenchDrop(targetObject.GetComponent<BenchSlot>());
+                break;
+            case HitTarget.Trash:
+                OnTrashDrop();
                 break;
             case HitTarget.Empty:
                 OnEmptyDrop();

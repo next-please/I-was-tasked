@@ -19,8 +19,6 @@ public class PieceDragHandler : Droppable
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        base.OnBeginDrag(eventData);
-
         originalPos = transform.position;
         // zPos = Camera.main.WorldToScreenPoint(transform.position).z;
 
@@ -51,6 +49,12 @@ public class PieceDragHandler : Droppable
         }
         EventManager.Instance.Raise(new PieceDropOnBoardEvent { tile = tile });
         Destroy(gameObject);
+    }
+
+    public override void OnTrashDrop()
+    {
+        // Todo: remove piece from board properly
+        EventManager.Instance.Raise(new RemovePieceFromBoardEvent { piece = piece });
     }
 
     public override void OnEmptyDrop()

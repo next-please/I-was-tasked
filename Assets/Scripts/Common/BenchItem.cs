@@ -14,8 +14,6 @@ public class BenchItem : Droppable
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        base.OnBeginDrag(eventData);
-
         gameObject.GetComponent<Collider>().enabled = false;
         transform.localScale /= scaleOffset; // update to world scale
 
@@ -47,6 +45,12 @@ public class BenchItem : Droppable
             return;
         }
         EventManager.Instance.Raise(new PieceDropOnBoardEvent { tile = tile });
+        EventManager.Instance.Raise(new RemovePieceFromBenchEvent { slotIndex = index });
+        Destroy(gameObject);
+    }
+
+    public override void OnTrashDrop()
+    {
         EventManager.Instance.Raise(new RemovePieceFromBenchEvent { slotIndex = index });
         Destroy(gameObject);
     }
