@@ -17,7 +17,6 @@ public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     public virtual void OnBeginDrag(PointerEventData eventData) { isDragged = true; }
     public virtual void OnDrag(PointerEventData eventData) { }
-    // public virtual void OnEndDrag(PointerEventData eventData) { isDragged = false; }
     public virtual void OnBenchDrop(BenchSlot slot) { }
     public virtual void OnTileDrop(Tile tile) { }
     public virtual void OnEmptyDrop() { }
@@ -66,23 +65,5 @@ public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler
             default:
                 break;
         }
-    }
-
-    protected Tile GetTileHit()
-    {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out hit) && hit.collider != null)
-        {
-            TileView tileView = hit.collider.gameObject.GetComponent<TileView>();
-            return tileView == null ? null : tileView.tile;
-        }
-        return null;
-    }
-
-    protected bool IsDropSuccess(Tile tileHit)
-    {
-        return tileHit != null && !tileHit.IsOccupied();
     }
 }

@@ -45,6 +45,10 @@ public class PieceDragHandler : Droppable
 
     public override void OnTileDrop(Tile tile)
     {
+        if (tile.IsOccupied())
+        {
+            return;
+        }
         EventManager.Instance.Raise(new PieceDropOnBoardEvent { tile = tile });
         Destroy(gameObject);
     }
