@@ -19,6 +19,8 @@ public class PieceDragHandler : Droppable
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        base.OnBeginDrag(eventData);
+
         originalPos = transform.position;
         // zPos = Camera.main.WorldToScreenPoint(transform.position).z;
 
@@ -26,26 +28,31 @@ public class PieceDragHandler : Droppable
         SetDraggedState();
     }
 
-    public override void OnEndDrag(PointerEventData eventData)
-    {
-        Tile tileHit = GetTileHit();
-
-        if (IsDropSuccess(tileHit))
-        {
-            EventManager.Instance.Raise(new PieceDropEvent { tile = tileHit });
-            Destroy(gameObject);
-        }
-        else
-        {
-            // return to board
-            SetBoardState();
-            transform.position = originalPos;
-        }
-    }
-
     public override void OnDrag(PointerEventData eventData)
     {
         transform.position = GetMouseWorldPosition();
+    }
+
+    public override void OnBenchDrop(BenchSlot slot)
+    {
+        EventManager.Instance.Raise(new AddPieceToBenchEvent
+        {
+            piece = piece,
+            slotIndex = slot.index
+        });
+        Destroy(gameObject);
+    }
+
+    public override void OnTileDrop(Tile tile)
+    {
+        EventManager.Instance.Raise(new PieceDropOnBoardEvent { tile = tile });
+        Destroy(gameObject);
+    }
+
+    public override void OnEmptyDrop()
+    {
+        SetBoardState();
+        transform.position = originalPos;
     }
 
     private void SetBoardState()

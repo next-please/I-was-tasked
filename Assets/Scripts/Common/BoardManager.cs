@@ -13,14 +13,14 @@ public class BoardManager : MonoBehaviour
     {
         EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.AddListener<PieceDragEvent>(OnPieceDrag);
-        EventManager.Instance.AddListener<PieceDropEvent>(OnPieceDrop);
+        EventManager.Instance.AddListener<PieceDropOnBoardEvent>(OnPieceDrop);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.RemoveListener<PieceDragEvent>(OnPieceDrag);
-        EventManager.Instance.RemoveListener<PieceDropEvent>(OnPieceDrop);
+        EventManager.Instance.RemoveListener<PieceDropOnBoardEvent>(OnPieceDrop);
     }
 
     void OnEnterPhase(EnterPhaseEvent e)
@@ -76,7 +76,7 @@ public class BoardManager : MonoBehaviour
         draggedPiece = e.piece;
     }
 
-    public void OnPieceDrop(PieceDropEvent e)
+    public void OnPieceDrop(PieceDropOnBoardEvent e)
     {
         if (e.tile == null || e.tile.IsOccupied())
         {
@@ -92,7 +92,7 @@ public class PieceDragEvent : GameEvent
     public Piece piece;
 }
 
-public class PieceDropEvent : GameEvent
+public class PieceDropOnBoardEvent : GameEvent
 {
     public Tile tile;
 }

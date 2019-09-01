@@ -9,31 +9,13 @@ public class BenchItem : Droppable
     private readonly float distanceOffset = 10f;
     private readonly float scaleOffset = 10f;
 
-    private Piece piece;
-    private int index;
-
-    public Piece GetPiece()
-    {
-        return piece;
-    }
-
-    public void SetPiece(Piece piece)
-    {
-        this.piece = piece;
-    }
-
-    public int GetIndex()
-    {
-        return index;
-    }
-
-    public void SetIndex(int index)
-    {
-        this.index = index;
-    }
+    public Piece piece;
+    public int index;
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        base.OnBeginDrag(eventData);
+
         gameObject.GetComponent<Collider>().enabled = false;
         transform.localScale /= scaleOffset; // update to world scale
 
@@ -47,28 +29,30 @@ public class BenchItem : Droppable
         transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
     }
 
-    public override void OnEndDrag(PointerEventData eventData)
+    public override void OnBenchDrop(BenchSlot targetSlot)
     {
-        Tile tileHit = GetTileHit();
-
-        if (IsDropSuccess(tileHit))
+        EventManager.Instance.Raise(new AddPieceToBenchEvent
         {
-            EventManager.Instance.Raise(new PieceDropEvent { tile = tileHit });
-            Destroy();
-        }
-        else
-        {
-            ReturnToBench();
-        }
-    }
-
-    private void Destroy()
-    {
+            piece = piece,
+            slotIndex = targetSlot.index
+        });
+        EventManager.Instance.Raise(new RemovePieceFromBenchEvent { slotIndex = index });
         Destroy(gameObject);
-        EventManager.Instance.Raise(new BenchItemRemovedEvent { removedItem = this });
     }
 
-    private void ReturnToBench()
+    public override void OnTileDrop(Tile tile)
+    {
+        if (tile.IsOccupied())
+        {
+            return;
+        }
+        EventManager.Instance.Raise(new PieceDropOnBoardEvent { tile = tile });
+        EventManager.Instance.Raise(new RemovePieceFromBenchEvent { slotIndex = index });
+        Destroy(gameObject);
+    }
+
+    // Returns piece to bench
+    public override void OnEmptyDrop()
     {
         transform.localScale *= scaleOffset; // update to ui scale
         transform.localPosition = Vector3.zero;
