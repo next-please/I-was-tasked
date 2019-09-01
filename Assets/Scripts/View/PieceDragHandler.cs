@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class PieceDragHandler : Droppable
 {
+    // Fix z to avoid piece clipping into board, have to adjust later (also consider adjusting scale)
+    public readonly float zPosOnDrag = 10f;
     private float zPos;
     private Vector3 originalPos;
     private Piece piece;
@@ -18,7 +20,7 @@ public class PieceDragHandler : Droppable
     public override void OnBeginDrag(PointerEventData eventData)
     {
         originalPos = transform.position;
-        zPos = Camera.main.WorldToScreenPoint(transform.position).z;
+        // zPos = Camera.main.WorldToScreenPoint(transform.position).z;
 
         EventManager.Instance.Raise(new PieceDragEvent { piece = piece });
         SetDraggedState();
@@ -61,7 +63,8 @@ public class PieceDragHandler : Droppable
     private Vector3 GetMouseWorldPosition()
     {
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = zPos;
+        // mousePosition.z = zPos;
+        mousePosition.z = zPosOnDrag;
         return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 }
