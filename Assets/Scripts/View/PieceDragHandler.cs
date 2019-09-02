@@ -4,14 +4,21 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class PieceDragEvent : GameEvent
+public class MoveFromBoardToBenchEvent : GameEvent
 {
     public Piece piece;
+    public int slotIndex;
 }
 
-public class PieceDropOnBoardEvent : GameEvent
+public class MoveOnBoardEvent : GameEvent
 {
+    public Piece piece;
     public Tile tile;
+}
+
+public class TrashPieceOnBoardEvent : GameEvent
+{
+    public Piece piece;
 }
 
 public class PieceDragHandler : Droppable
@@ -25,14 +32,14 @@ public class PieceDragHandler : Droppable
     void Start()
     {
         piece = gameObject.GetComponent<PieceView>().piece;
+        if (piece.IsEnemy())
+            Destroy(this);
     }
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
         originalPos = transform.position;
         // zPos = Camera.main.WorldToScreenPoint(transform.position).z;
-
-        EventManager.Instance.Raise(new PieceDragEvent { piece = piece });
         SetDraggedState();
     }
 
@@ -43,7 +50,8 @@ public class PieceDragHandler : Droppable
 
     public override void OnBenchDrop(BenchSlot slot)
     {
-        EventManager.Instance.Raise(new AddPieceToBenchEvent
+        Debug.Log(slot.index);
+        EventManager.Instance.Raise(new MoveFromBoardToBenchEvent
         {
             piece = piece,
             slotIndex = slot.index
@@ -57,14 +65,14 @@ public class PieceDragHandler : Droppable
         {
             return;
         }
-        EventManager.Instance.Raise(new PieceDropOnBoardEvent { tile = tile });
+        EventManager.Instance.Raise(new MoveOnBoardEvent { piece = piece, tile = tile });
         Destroy(gameObject);
     }
 
     public override void OnTrashDrop()
     {
         // Todo: remove piece from board properly
-        EventManager.Instance.Raise(new RemovePieceFromBoardEvent { piece = piece });
+        EventManager.Instance.Raise(new TrashPieceOnBoardEvent { piece = piece });
     }
 
     public override void OnEmptyDrop()

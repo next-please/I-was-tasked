@@ -4,9 +4,27 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+public class MoveFromBenchToBoardEvent : GameEvent
+{
+    public Piece piece;
+    public Tile tile;
+    public int slotIndex;
+}
+
+public class MoveOnBenchEvent : GameEvent
+{
+    public Piece piece;
+    public int slotIndex;
+}
+
+public class TrashPieceOnBenchEvent : GameEvent
+{
+    public Piece piece;
+}
+
 public class BenchItem : Droppable
 {
-    private readonly float distanceOffset = 20f;
+    private readonly float distanceOffset = 10f;
     private readonly float scaleOffset = 10f;
 
     public Piece piece;
@@ -14,11 +32,8 @@ public class BenchItem : Droppable
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("here");
         gameObject.GetComponent<Collider>().enabled = false;
         transform.localScale /= scaleOffset; // update to world scale
-
-        EventManager.Instance.Raise(new PieceDragEvent { piece = piece });
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -30,12 +45,7 @@ public class BenchItem : Droppable
 
     public override void OnBenchDrop(BenchSlot targetSlot)
     {
-        EventManager.Instance.Raise(new AddPieceToBenchEvent
-        {
-            piece = piece,
-            slotIndex = targetSlot.index
-        });
-        EventManager.Instance.Raise(new RemovePieceFromBenchEvent { slotIndex = index });
+        EventManager.Instance.Raise(new MoveOnBenchEvent { piece = piece, slotIndex = targetSlot.index });
         Destroy(gameObject);
     }
 
@@ -45,14 +55,13 @@ public class BenchItem : Droppable
         {
             return;
         }
-        EventManager.Instance.Raise(new PieceDropOnBoardEvent { tile = tile });
-        EventManager.Instance.Raise(new RemovePieceFromBenchEvent { slotIndex = index });
+        EventManager.Instance.Raise(new MoveFromBenchToBoardEvent { piece = piece, tile = tile, slotIndex = index });
         Destroy(gameObject);
     }
 
     public override void OnTrashDrop()
     {
-        EventManager.Instance.Raise(new RemovePieceFromBenchEvent { slotIndex = index });
+        EventManager.Instance.Raise(new TrashPieceOnBenchEvent { piece = piece });
         Destroy(gameObject);
     }
 

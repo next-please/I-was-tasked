@@ -55,6 +55,22 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void RemoveFromBench(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        bool success = playerInv.RemovePieceFromBench(piece);
+        if (success)
+        {
+            EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+        }
+    }
+
+    public bool BenchContainsPiece(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        return playerInv.BenchContainsPiece(piece);
+    }
+
     public int GetGold(Player player)
     {
         var playerInv = GetPlayerInventory(player);
@@ -78,10 +94,15 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public List<Piece> GetBench(Player player)
+    public void MoveBenchPieceToIndex(Player player, Piece piece, int index)
     {
         var playerInv = GetPlayerInventory(player);
-        return playerInv.GetBench();
+        int originalIndex = playerInv.GetIndexOfBenchPiece(piece);
+        if (originalIndex < 0)
+            return;
+        playerInv.SetBenchPieceAtIndex(null, originalIndex);
+        playerInv.SetBenchPieceAtIndex(piece, index);
+        EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
     }
 }
 

@@ -26,4 +26,11 @@ public class TransactionManager : MonoBehaviour
         inventoryManager.AddToBench(player, piece);
         inventoryManager.DeductGold(player, price);
     }
+
+    public void TrySellBenchPiece(Player player, Piece piece)
+    {
+        // if i'm master
+        inventoryManager.RemoveFromBench(player, piece);
+    }
+
 }

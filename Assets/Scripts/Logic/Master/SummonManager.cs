@@ -20,9 +20,22 @@ public class SummonManager : MonoBehaviour
 
     void OnEnterPhase(EnterPhaseEvent e)
     {
+        if (e.phase == Phase.Market)
+        {
+            ResetBoard();
+        }
         if (e.phase == Phase.PreCombat)
         {
             ResetBoardAndSummonEnemies(e.round);
+        }
+   }
+
+   void ResetBoard()
+   {
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            Player player = (Player) i;
+            boardManager.ResetBoard(player);
         }
    }
 
@@ -31,7 +44,6 @@ public class SummonManager : MonoBehaviour
         for (int i = 0; i < numPlayers; ++i)
         {
             Player player = (Player) i;
-            boardManager.ResetBoard(player);
             boardManager.RemoveAllEnemies(player);
             ArrayList enemyPieces = enemyGenerator.generateEnemies(currentRound);
             for (int _i = 0; _i < enemyPieces.Count; _i++)

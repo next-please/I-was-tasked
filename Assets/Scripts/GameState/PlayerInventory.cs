@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 public enum Player
@@ -16,13 +16,15 @@ public class PlayerInventory : ScriptableObject
     private Player owner;
     [SerializeField]
     private int gold;
-    private List<Piece> bench = new List<Piece>();
-    private int armySize = 10;
+    private Piece[] bench; // bench represented as an array with potential nulls for rearrangement
+    private int benchCount = 0; // number of pieces on the bench
+    private int armySize = 8;
 
-    public void Reset(int startingGold)
+    public void Reset(int startingGold, int startingBench = 8)
     {
         gold = startingGold;
-        bench = new List<Piece>();
+        bench = new Piece[startingBench];
+        benchCount = 0;
     }
 
     public Player GetOwner()
@@ -55,7 +57,7 @@ public class PlayerInventory : ScriptableObject
 
     public bool IsBenchFull()
     {
-        return bench.Count >= armySize;
+        return benchCount >= armySize;
     }
 
     public bool AddToBench(Piece piece)
@@ -63,13 +65,23 @@ public class PlayerInventory : ScriptableObject
         if (IsBenchFull())
             return false;
 
-        bench.Add(piece);
+        for (int i = 0; i < bench.Length; ++i)
+        {
+            Piece benchPiece = bench[i];
+            if (benchPiece == null)
+            {
+                bench[i] = piece;
+                benchCount++;
+                break;
+            }
+
+        }
         return true;
     }
 
     public int GetBenchCount()
     {
-        return bench.Count;
+        return benchCount;
     }
 
     public int GetArmySize()
@@ -77,9 +89,59 @@ public class PlayerInventory : ScriptableObject
         return armySize;
     }
 
-    // should be removed soon but for convenience for debugger in board manager
-    public List<Piece> GetBench()
+    public bool BenchContainsPiece(Piece piece)
     {
-        return bench;
+        for (int i = 0; i < bench.Length; ++i)
+        {
+            Piece benchPiece = bench[i];
+            if (benchPiece == piece)
+                return true;
+        }
+        return false;
+    }
+
+    public bool RemovePieceFromBench(Piece piece)
+    {
+        for (int i = 0; i < bench.Length; ++i)
+        {
+            Piece benchPiece = bench[i];
+            if (benchPiece == piece)
+            {
+                bench[i] = null;
+                benchCount--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool BenchVacantAtIndex(int index)
+    {
+        if (index <= 0 || index >= GetBenchCount())
+        {
+            return false;
+        }
+        return bench[index] == null;
+    }
+
+    public int GetIndexOfBenchPiece(Piece piece)
+    {
+        for (int i = 0; i < bench.Length; ++i)
+        {
+            Piece benchPiece = bench[i];
+            if (benchPiece == piece)
+                return i;
+        }
+        return -1;
+    }
+
+    public void SetBenchPieceAtIndex(Piece piece, int index)
+    {
+        bench[index] = piece;
+    }
+
+    public ReadOnlyCollection<Piece> GetBench()
+    {
+        return Array.AsReadOnly(bench);
     }
 }

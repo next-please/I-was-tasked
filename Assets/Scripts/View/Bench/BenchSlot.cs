@@ -7,6 +7,7 @@ public class BenchSlot : MonoBehaviour
     public GameObject BenchItemPrefab;
     public bool isOccupied;
     public int index;
+    public BenchItem benchItem;
 
     public void SetOccupant(Piece piece)
     {
@@ -14,7 +15,7 @@ public class BenchSlot : MonoBehaviour
 
         // create item prefab
         GameObject benchItemObj = Instantiate(BenchItemPrefab) as GameObject;
-        BenchItem benchItem = benchItemObj.GetComponent<BenchItem>();
+        benchItem = benchItemObj.GetComponent<BenchItem>();
         benchItem.piece = piece;
         benchItem.index = index;
 
@@ -26,5 +27,7 @@ public class BenchSlot : MonoBehaviour
     public void SetEmpty()
     {
         isOccupied = false;
+        if (benchItem)
+            Destroy(benchItem.gameObject);
     }
 }
