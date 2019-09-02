@@ -10,8 +10,7 @@ public class SimulationEndedEvent : GameEvent
 
 public class Simulator : Tickable
 {
-    public ViewManager viewManager;
-    public Board gameBoard;
+    private Board gameBoard;
     public bool shouldRun = false;
 
     void CheckResolved()
@@ -27,15 +26,9 @@ public class Simulator : Tickable
         }
     }
 
-    public void CreateBoard(int rows, int cols)
+    public void SetGameBoard(Board board)
     {
-        gameBoard = new Board(8, 8);
-        viewManager.OnBoardCreated(gameBoard);
-    }
-
-    public void AddPieceToBoard(Piece piece, int i, int j)
-    {
-        gameBoard.AddPieceToBoard(piece, i, j);
+        gameBoard = board;
     }
 
     public void StartSim()

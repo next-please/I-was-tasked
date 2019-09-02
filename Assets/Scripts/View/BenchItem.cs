@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class BenchItem : Droppable
 {
-    private readonly float distanceOffset = 10f;
+    private readonly float distanceOffset = 20f;
     private readonly float scaleOffset = 10f;
 
     public Piece piece;
@@ -14,6 +14,7 @@ public class BenchItem : Droppable
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("here");
         gameObject.GetComponent<Collider>().enabled = false;
         transform.localScale /= scaleOffset; // update to world scale
 

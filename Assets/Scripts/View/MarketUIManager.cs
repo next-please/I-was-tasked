@@ -3,44 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MarketManager : MonoBehaviour
+public class MarketUIManager : MonoBehaviour
 {
     public Canvas upgradeCanvas;
     public Canvas marketCanvas;
-    public int StartingMarketSize = 5;
-    public PlayerInventory playerInventory;
-
-    Piece[] marketItems;
-    int marketSize;
-    int marketTier = 1; //also used as price for market increase
-    CharacterGenerator characterGenerator;
+    public TransactionManager transactionManager;
     Button[] marketItemsButtons;
-
+    IReadOnlyList<Piece> marketPieces;
     void OnEnable()
     {
         EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
+        EventManager.Instance.AddListener<MarketUpdateEvent>(UpdateMarketButtons);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
+        EventManager.Instance.RemoveListener<MarketUpdateEvent>(UpdateMarketButtons);
     }
 
     void Awake()
     {
-        characterGenerator = new CharacterGenerator();
-        marketSize = StartingMarketSize;
-        SetUpMarketItemButtons();
-    }
-
-    void SetUpMarketItemButtons()
-    {
-
+        marketPieces = new List<Piece>();
         marketItemsButtons = marketCanvas.GetComponentsInChildren<Button>(true);
         ClearMarketButtons();
-
         for (int i = 0; i < marketItemsButtons.Length; ++i)
         {
             int capturedIndex = i;
@@ -49,17 +37,11 @@ public class MarketManager : MonoBehaviour
         }
     }
 
-    void SetCanvasVisibility(bool visibility)
-    {
-        marketCanvas.enabled = visibility;
-        upgradeCanvas.enabled = visibility;
-    }
-
     void OnEnterPhase(EnterPhaseEvent e)
     {
         if (e.phase == Phase.Market)
         {
-            GenerateAndDisplayMarket();
+            SetCanvasVisibility(true);
         }
     }
 
@@ -71,37 +53,23 @@ public class MarketManager : MonoBehaviour
         }
     }
 
-    void GenerateAndDisplayMarket()
+    void SetCanvasVisibility(bool visibility)
     {
-        SetCanvasVisibility(true);
+        marketCanvas.enabled = visibility;
+        upgradeCanvas.enabled = visibility;
+    }
+
+    void UpdateMarketButtons(MarketUpdateEvent e)
+    {
         ClearMarketButtons();
-        GenerateMarketItems();
-        UpdateMarketButtons();
-    }
-
-    void ClearMarketButtons()
-    {
-        foreach (Button button in marketItemsButtons)
+        marketPieces = e.readOnlyMarket.GetMarketPieces();
+        for (int i = 0; i < marketPieces.Count; ++i)
         {
-            ClearButton(button);
-        }
-    }
-
-    void GenerateMarketItems()
-    {
-        marketItems = new Piece[marketSize];
-        for (int i = 0; i < marketSize; ++i)
-        {
-            Piece piece = characterGenerator.GenerateCharacter(marketTier);
-            marketItems[i] = piece;
-        }
-    }
-
-    void UpdateMarketButtons()
-    {
-        for (int i = 0; i < marketSize; ++i)
-        {
-            Piece piece = marketItems[i];
+            Piece piece = marketPieces[i]; // please don't modify the piece here T_T
+            if (piece == null)
+            {
+                continue;
+            }
             Button marketItemButton = marketItemsButtons[i];
             marketItemButton.GetComponentInChildren<Text>().text =
                 piece.GetName() +
@@ -109,6 +77,14 @@ public class MarketManager : MonoBehaviour
                 "\nJob: " + piece.GetClass() +
                 "\nRarity and Cost: " + piece.GetRarity();
             marketItemButton.enabled = true;
+        }
+    }
+
+    void ClearMarketButtons()
+    {
+        foreach (Button button in marketItemsButtons)
+        {
+            ClearButton(button);
         }
     }
 
@@ -120,16 +96,9 @@ public class MarketManager : MonoBehaviour
 
     void Purchase(int itemIndex)
     {
-        Piece pieceToPurchase = marketItems[itemIndex];
-        int price = pieceToPurchase.GetRarity();
-        if (playerInventory.IsGarrisonFull())
-            return;
-        bool managedToBuy = playerInventory.TryToPurchase(price);
-        if (managedToBuy)
-        {
-            playerInventory.AddToGarrison(pieceToPurchase);
-            Button button = marketItemsButtons[itemIndex];
-            ClearButton(button);
-        }
+        Piece pieceToPurchase = marketPieces[itemIndex];
+        // TODO: FIX THIS!
+        Player player = Player.Zero;
+        transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
     }
 }

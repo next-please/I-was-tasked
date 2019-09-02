@@ -43,6 +43,7 @@ public class PhaseManager : MonoBehaviour
 
     IEnumerator MarketToCombat()
     {
+        round++;
         ChangePhase(Phase.Market);
         SetTime(5);
         yield return new WaitForSecondsRealtime(5);

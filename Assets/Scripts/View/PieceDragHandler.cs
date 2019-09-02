@@ -4,6 +4,16 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+public class PieceDragEvent : GameEvent
+{
+    public Piece piece;
+}
+
+public class PieceDropOnBoardEvent : GameEvent
+{
+    public Tile tile;
+}
+
 public class PieceDragHandler : Droppable
 {
     // Fix z to avoid piece clipping into board, have to adjust later (also consider adjusting scale)

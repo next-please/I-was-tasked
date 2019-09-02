@@ -13,18 +13,16 @@ public enum Player
 public class PlayerInventory : ScriptableObject
 {
     [SerializeField]
-    private int StartingGold = 999;
-    [SerializeField]
     private Player owner;
     [SerializeField]
     private int gold;
-    private List<Piece> garrison = new List<Piece>();
+    private List<Piece> bench = new List<Piece>();
     private int armySize = 10;
 
-    void OnEnable()
+    public void Reset(int startingGold)
     {
-        gold = StartingGold;
-        garrison = new List<Piece>();
+        gold = startingGold;
+        bench = new List<Piece>();
     }
 
     public Player GetOwner()
@@ -37,39 +35,41 @@ public class PlayerInventory : ScriptableObject
         return gold;
     }
 
-    public bool TryToPurchase(int amount)
+    public bool CanPurchase(float price)
+    {
+        return gold - price >= 0;
+    }
+
+    public bool DeductGold(int amount)
     {
         if (gold - amount < 0)
             return false;
         gold -= amount;
-        RaiseInventoryChangeEvent();
         return true;
     }
 
     public void AddGold(int amount)
     {
         gold += amount;
-        RaiseInventoryChangeEvent();
     }
 
-    public bool IsGarrisonFull()
+    public bool IsBenchFull()
     {
-        return garrison.Count > armySize;
+        return bench.Count >= armySize;
     }
 
-    public bool AddToGarrison(Piece piece)
+    public bool AddToBench(Piece piece)
     {
-        if (IsGarrisonFull())
+        if (IsBenchFull())
             return false;
 
-        garrison.Add(piece);
-        RaiseInventoryChangeEvent();
+        bench.Add(piece);
         return true;
     }
 
-    public int GetGarrisonCount()
+    public int GetBenchCount()
     {
-        return garrison.Count;
+        return bench.Count;
     }
 
     public int GetArmySize()
@@ -78,18 +78,8 @@ public class PlayerInventory : ScriptableObject
     }
 
     // should be removed soon but for convenience for debugger in board manager
-    public List<Piece> GetGarrison()
+    public List<Piece> GetBench()
     {
-        return garrison;
+        return bench;
     }
-
-    void RaiseInventoryChangeEvent()
-    {
-        EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = this });
-    }
-}
-
-public class InventoryChangeEvent : GameEvent
-{
-    public PlayerInventory inventory;
 }

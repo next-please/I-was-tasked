@@ -25,6 +25,6 @@ public class InventoryUIManager : MonoBehaviour
 
         int index = (int) owner; // TODO: Fix/Address assumption
         GoldTexts[index].text = inv.GetGold() + " Gold";
-        ArmySizeTexts[index].text = "Army Size: " + inv.GetGarrisonCount() + "/" + inv.GetArmySize();
+        ArmySizeTexts[index].text = "Army Size: " + inv.GetBenchCount() + "/" + inv.GetArmySize();
     }
 }

@@ -19,11 +19,13 @@ public class PieceView : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<RemovePieceFromBoardEvent>(OnPieceRemoved);
+        EventManager.Instance.AddListener<PieceMoveEvent>(OnPieceMove);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<RemovePieceFromBoardEvent>(OnPieceRemoved);
+        EventManager.Instance.RemoveListener<PieceMoveEvent>(OnPieceMove);
     }
 
     void OnDrawGizmos()
@@ -70,6 +72,17 @@ public class PieceView : MonoBehaviour
     {
         if (e.piece == piece)
             Destroy(gameObject);
+    }
+
+    void OnPieceMove(PieceMoveEvent e)
+    {
+        if (e.piece == piece)
+        {
+            int i = e.tile.GetRow();
+            int j = e.tile.GetCol();
+            transform.position = new Vector3(i, transform.position.y, j);
+            transform.rotation = Quaternion.identity;
+        }
     }
 
     public void UpdateCurrentHPBar()

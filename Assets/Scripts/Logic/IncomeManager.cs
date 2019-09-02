@@ -9,7 +9,7 @@ public class IncomeManager : MonoBehaviour
     public int MaxFixedIncome = 5;
     public int IncomeFromUpgrades = 1;
     public readonly decimal InterestRate = 1m / 10;
-    public List<PlayerInventory> pInventories;
+    public InventoryManager inventoryManager;
 
     void OnEnable()
     {
@@ -31,13 +31,16 @@ public class IncomeManager : MonoBehaviour
 
     void GenerateIncome(int currentRound)
     {
+        // if I'm master client
         int currentIncome = Math.Min(currentRound, MaxFixedIncome);
         currentIncome += IncomeFromUpgrades;
-        foreach (PlayerInventory inventory in pInventories)
+        for (int i = 0; i < 3; ++i)
         {
-            decimal incomeFromInterest = Math.Floor(inventory.GetGold() * InterestRate);
+            Player player = (Player) i;
+            int playerGold = inventoryManager.GetGold(player);
+            decimal incomeFromInterest = Math.Floor(playerGold * InterestRate);
             int income = currentIncome + Convert.ToInt32(incomeFromInterest);
-            inventory.AddGold(income);
+            inventoryManager.AddGold(player, income);
         }
     }
 }

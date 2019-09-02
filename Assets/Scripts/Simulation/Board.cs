@@ -1,19 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-
-public class AddPieceToBoardEvent : GameEvent
-{
-    public Piece piece;
-    public int row;
-    public int col;
-}
-
-public class RemovePieceFromBoardEvent : GameEvent
-{
-    public Piece piece;
-}
 
 public class Board
 {
@@ -50,39 +37,6 @@ public class Board
         activePiecesOnBoard.Add(piece);
         MovePieceToTile(piece, tiles[i][j]);
         piece.SetInitialTile(tiles[i][j]);
-        EventManager.Instance.Raise(new AddPieceToBoardEvent { piece = piece, row = i, col = j });
-    }
-
-    public void ResetBoard()
-    {
-        foreach (Piece piece in this.GetPiecesOnBoard())
-        {
-            if (!activePiecesOnBoard.Contains(piece))
-            {
-                activePiecesOnBoard.Add(piece);
-            }
-            piece.Reset();
-            MovePieceToTile(piece, piece.GetInitialTile());
-        }
-    }
-
-    public void RemoveAllPiecesFromBoard()
-    {
-        var pieces = this.GetPiecesOnBoard().ToArray();
-        foreach (Piece piece in pieces)
-        {
-            RemovePieceFromBoard(piece);
-        }
-    }
-
-    public void RemoveEnemies()
-    {
-        // must make a copy before removing enemies
-        var enemyPieces = this.GetPiecesOnBoard().Where(piece => piece.IsEnemy()).ToArray();
-        foreach (Piece enemy in enemyPieces)
-        {
-            RemovePieceFromBoard(enemy);
-        }
     }
 
     public Tile GetTile(int row, int col)
@@ -279,6 +233,5 @@ public class Board
     {
         DeactivatePieceOnBoard(piece);
         piecesOnBoard.Remove(piece);
-        EventManager.Instance.Raise(new RemovePieceFromBoardEvent{ piece = piece });
     }
 }
