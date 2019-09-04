@@ -52,6 +52,23 @@ public class MarketManager : MonoBehaviour
         marketPieces.Insert(index, null);
         EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
     }
+
+    public void IncreaseMarketTier()
+    {
+        market.MarketTier++;
+        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+    }
+
+    public int GetMarketTier()
+    {
+        return market.MarketTier;
+    }
+
+    public void IncreaseMarketSize()
+    {
+        market.MarketSize++;
+        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+    }
 }
 
 public class MarketUpdateEvent : GameEvent

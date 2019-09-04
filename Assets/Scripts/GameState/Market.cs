@@ -5,6 +5,8 @@ using UnityEngine;
 public interface IReadOnlyMarket
 {
     IReadOnlyList<Piece> GetMarketPieces();
+    int GetMarketSize();
+    int GetMarketTier();
 }
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Market", order = 1)]
@@ -17,5 +19,15 @@ public class Market : ScriptableObject, IReadOnlyMarket
     public IReadOnlyList<Piece> GetMarketPieces()
     {
         return MarketPieces;
+    }
+
+    public int GetMarketSize()
+    {
+        return MarketSize;
+    }
+
+    public int GetMarketTier()
+    {
+        return MarketTier;
     }
 }

@@ -7,7 +7,13 @@ public class MarketUIManager : MonoBehaviour
 {
     public Canvas upgradeCanvas;
     public Canvas marketCanvas;
+
+    public Text MarketSizeText;
+    public Text MarketRarityText;
+    public Text PassiveIncomeText;
+
     public TransactionManager transactionManager;
+
     Button[] marketItemsButtons;
     IReadOnlyList<Piece> marketPieces;
     private bool visibility = true;
@@ -19,19 +25,20 @@ public class MarketUIManager : MonoBehaviour
             SetCanvasVisibility(!visibility);
         }
     }
-
     void OnEnable()
     {
         EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
-        EventManager.Instance.AddListener<MarketUpdateEvent>(UpdateMarketButtons);
+        EventManager.Instance.AddListener<MarketUpdateEvent>(OnMarketUpdate);
+        EventManager.Instance.AddListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
-        EventManager.Instance.RemoveListener<MarketUpdateEvent>(UpdateMarketButtons);
+        EventManager.Instance.RemoveListener<MarketUpdateEvent>(OnMarketUpdate);
+        EventManager.Instance.RemoveListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
     }
 
     void Awake()
@@ -43,7 +50,7 @@ public class MarketUIManager : MonoBehaviour
         {
             int capturedIndex = i;
             Button marketItemButton = marketItemsButtons[i];
-            marketItemButton.onClick.AddListener(() => Purchase(capturedIndex));
+            marketItemButton.onClick.AddListener(() => PurchasePiece(capturedIndex));
         }
     }
 
@@ -68,6 +75,18 @@ public class MarketUIManager : MonoBehaviour
         marketCanvas.enabled = visibility;
         upgradeCanvas.enabled = visibility;
         this.visibility = visibility;
+    }
+
+    void OnMarketUpdate(MarketUpdateEvent e)
+    {
+        MarketRarityText.text = "Market Rarity: Tier " + e.readOnlyMarket.GetMarketTier().ToString();
+        MarketSizeText.text = "Market Size: " + e.readOnlyMarket.GetMarketSize().ToString();
+        UpdateMarketButtons(e);
+    }
+
+    void OnPassiveIncomeUpdate(PassiveIncomeUpdateEvent e)
+    {
+        PassiveIncomeText.text = "Additional Passive Income: "  + e.PassiveIncome.ToString();
     }
 
     void UpdateMarketButtons(MarketUpdateEvent e)
@@ -105,11 +124,13 @@ public class MarketUIManager : MonoBehaviour
         button.enabled = false;
     }
 
-    void Purchase(int itemIndex)
+    void PurchasePiece(int itemIndex)
     {
         Piece pieceToPurchase = marketPieces[itemIndex];
         // TODO: FIX THIS!
         Player player = Player.Zero;
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
     }
+
+
 }

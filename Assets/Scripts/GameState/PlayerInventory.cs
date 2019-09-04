@@ -18,12 +18,13 @@ public class PlayerInventory : ScriptableObject
     private int gold;
     private Piece[] bench; // bench represented as an array with potential nulls for rearrangement
     private int benchCount = 0; // number of pieces on the bench
-    private int armySize = 8;
+    private int armySize = 4;
+    private static int MaxBenchSize = 8;
 
-    public void Reset(int startingGold, int startingBench = 8)
+    public void Reset(int startingGold)
     {
         gold = startingGold;
-        bench = new Piece[startingBench];
+        bench = new Piece[MaxBenchSize];
         benchCount = 0;
     }
 
@@ -57,7 +58,7 @@ public class PlayerInventory : ScriptableObject
 
     public bool IsBenchFull()
     {
-        return benchCount >= armySize;
+        return benchCount >= MaxBenchSize;
     }
 
     public bool AddToBench(Piece piece)
@@ -87,6 +88,11 @@ public class PlayerInventory : ScriptableObject
     public int GetArmySize()
     {
         return armySize;
+    }
+
+    public void IncreaseArmySize()
+    {
+        armySize++;
     }
 
     public bool BenchContainsPiece(Piece piece)

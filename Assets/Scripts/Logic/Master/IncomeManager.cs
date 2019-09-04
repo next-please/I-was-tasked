@@ -2,12 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
+public class PassiveIncomeUpdateEvent : GameEvent
+{
+    public int PassiveIncome;
+}
 
 public class IncomeManager : MonoBehaviour
 {
     public int MaxFixedIncome = 5;
-    public int IncomeFromUpgrades = 1;
+    [SerializeField]
+    private int incomeFromUpgrades = 1;
     public readonly decimal InterestRate = 1m / 10;
     public InventoryManager inventoryManager;
 
@@ -33,7 +38,7 @@ public class IncomeManager : MonoBehaviour
     {
         // if I'm master client
         int currentIncome = Math.Min(currentRound, MaxFixedIncome);
-        currentIncome += IncomeFromUpgrades;
+        currentIncome += incomeFromUpgrades;
         for (int i = 0; i < 3; ++i)
         {
             Player player = (Player) i;
@@ -42,5 +47,13 @@ public class IncomeManager : MonoBehaviour
             int income = currentIncome + Convert.ToInt32(incomeFromInterest);
             inventoryManager.AddGold(player, income);
         }
+        // for now
+        EventManager.Instance.Raise(new PassiveIncomeUpdateEvent{ PassiveIncome = incomeFromUpgrades });
+    }
+
+    public void IncreasePassiveIncome()
+    {
+        incomeFromUpgrades++;
+        EventManager.Instance.Raise(new PassiveIncomeUpdateEvent{ PassiveIncome = incomeFromUpgrades });
     }
 }

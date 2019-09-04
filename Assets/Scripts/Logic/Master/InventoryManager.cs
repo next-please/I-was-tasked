@@ -104,6 +104,19 @@ public class InventoryManager : MonoBehaviour
         playerInv.SetBenchPieceAtIndex(piece, index);
         EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
     }
+
+    public void IncreaseArmySize(Player player)
+    {
+        var playerInv = GetPlayerInventory(player);
+        playerInv.IncreaseArmySize();
+        EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+    }
+
+    public int GetArmySize(Player player)
+    {
+        var playerInv = GetPlayerInventory(player);
+        return playerInv.GetArmySize();
+    }
 }
 
 public class InventoryChangeEvent : GameEvent
