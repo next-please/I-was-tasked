@@ -42,6 +42,8 @@ public class EnemyGenerator
 
     public ArrayList generateEnemies(int roundNumber)
     {
+        resetEnemyStats();
+
         ArrayList enemyPieces = new ArrayList();
 
         int randomValue;
@@ -69,5 +71,16 @@ public class EnemyGenerator
         }
 
         return enemyPieces;
+    }
+
+    public void resetEnemyStats()
+    {
+        currentPieces = defaultStartingPieces;
+        currentHitPoints = defaultHitPoints;
+        currentManaPoints = defaultManaPoints;
+        currentAttackDamage = defaultAttackDamage;
+        currentAttackRange = defaultAttackRange;
+        currentAttackSpeed = defaultAttackSpeed;
+        currentMovementSpeed = defaultMovementSpeed;
     }
 }
