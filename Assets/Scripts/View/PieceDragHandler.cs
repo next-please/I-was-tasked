@@ -50,7 +50,6 @@ public class PieceDragHandler : Droppable
 
     public override void OnBenchDrop(BenchSlot slot)
     {
-        Debug.Log(slot.index);
         EventManager.Instance.Raise(new MoveFromBoardToBenchEvent
         {
             piece = piece,
@@ -63,10 +62,11 @@ public class PieceDragHandler : Droppable
     {
         if (tile.IsOccupied())
         {
+            OnEmptyDrop();
             return;
         }
         EventManager.Instance.Raise(new MoveOnBoardEvent { piece = piece, tile = tile });
-        Destroy(gameObject);
+        SetBoardState();
     }
 
     public override void OnTrashDrop()

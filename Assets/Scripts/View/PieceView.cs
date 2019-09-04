@@ -80,7 +80,7 @@ public class PieceView : MonoBehaviour
         {
             int i = e.tile.GetRow();
             int j = e.tile.GetCol();
-            transform.position = new Vector3(i, transform.position.y, j);
+            transform.position = new Vector3(i, 1, j);
             transform.rotation = Quaternion.identity;
         }
     }
