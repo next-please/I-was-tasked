@@ -42,7 +42,7 @@ public class MarketManager : MonoBehaviour
         market.MarketPieces = new List<Piece>();
         for (int i = 0; i < market.MarketSize; ++i)
         {
-            Piece piece = characterGenerator.GenerateCharacter(market.MarketTier);
+            Piece piece = characterGenerator.GenerateCharacter(8);
             market.MarketPieces.Add(piece);
             EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
         }
