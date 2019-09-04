@@ -47,10 +47,8 @@ public class ViewManager : MonoBehaviour
     // public GameObject DwarfRogueViewPrefab;
 
     // Temporary
-    public GameObject DwarfPrefab;
     public GameObject ElfPrefab;
     public GameObject HumanPrefab;
-    public GameObject NagaPrefab;
     public GameObject OrcPrefab;
     public GameObject UndeadPrefab;
 
@@ -133,6 +131,7 @@ public class ViewManager : MonoBehaviour
         GameObject pieceObj = Instantiate(pieceViewPrefab, new Vector3(i, 1, j) * TileSize, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
+        pieceView.SetJobText(piece.GetClass().ToString(), piece.GetRace().ToString()); // todo: placeholder, remove later
         pieceObj.transform.parent = transform;
     }
 

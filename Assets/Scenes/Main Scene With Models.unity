@@ -2313,6 +2313,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upgradeCanvas: {fileID: 555785224}
   marketCanvas: {fileID: 1941897617}
+  MarketSizeText: {fileID: 0}
+  MarketRarityText: {fileID: 0}
+  PassiveIncomeText: {fileID: 0}
   transactionManager: {fileID: 596478379}
 --- !u!4 &473649707
 Transform:
@@ -3012,6 +3015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 1315935871}
   marketManager: {fileID: 1554020330}
+  incomeManager: {fileID: 0}
 --- !u!4 &596478380
 Transform:
   m_ObjectHideFlags: 0
@@ -5375,12 +5379,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ceaeb5295dfb04a8c44ddd94ffa99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DwarfPrefab: {fileID: 0}
-  ElfPrefab: {fileID: 0}
-  HumanPrefab: {fileID: 0}
-  NagaPrefab: {fileID: 0}
-  OrcPrefab: {fileID: 0}
-  UndeadPrefab: {fileID: 0}
+  ElfPrefab: {fileID: 4604312060063897690, guid: f07eaecda28944acd9a9ebd0f35ea9ff,
+    type: 3}
+  HumanPrefab: {fileID: 4604312060063897690, guid: 17ecbf2067988454db3ee6a96af17051,
+    type: 3}
+  OrcPrefab: {fileID: 4604312060063897690, guid: 17ecbf2067988454db3ee6a96af17051,
+    type: 3}
+  UndeadPrefab: {fileID: 4604312060063897690, guid: ea4dcaf9c31a94f39bfd3e80d5b6ad30,
+    type: 3}
   FriendlyPieceViewPrefab: {fileID: 4604312060063897690, guid: 17ecbf2067988454db3ee6a96af17051,
     type: 3}
   EnemyPieceViewPrefab: {fileID: -959395047986324141, guid: 0b91bc29dcb2c6f48a4c2c51e44ee717,
@@ -8981,7 +8987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxFixedIncome: 5
-  IncomeFromUpgrades: 1
+  incomeFromUpgrades: 1
   inventoryManager: {fileID: 1315935871}
 --- !u!4 &2017883521
 Transform:
@@ -9465,6 +9471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 1931400389}
+  marketManager: {fileID: 0}
   inventoryManager: {fileID: 1315935871}
 --- !u!4 &2146546347
 Transform:

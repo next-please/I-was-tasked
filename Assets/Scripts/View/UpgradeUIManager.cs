@@ -29,7 +29,7 @@ public class UpgradeUIManager : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         SetMarketRarityButtons();
         SetArmySizeButtons();
@@ -55,7 +55,7 @@ public class UpgradeUIManager : MonoBehaviour
         for (int i = 0; i < 3; ++i)
         {
             Button button = armyButtons[i];
-            Player player = (Player) i;
+            Player player = (Player)i;
             Text text = button.GetComponentInChildren<Text>();
             text.text = "Upgrade Army Size ($" + transactionManager.GetArmySizeCost(player) + ")";
         }
@@ -67,7 +67,7 @@ public class UpgradeUIManager : MonoBehaviour
         for (int i = 0; i < rarityButtons.Length; ++i)
         {
             Button rarityButton = rarityButtons[i];
-            Player player = (Player) i;
+            Player player = (Player)i;
             rarityButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketRarity(player));
         }
     }
@@ -78,7 +78,7 @@ public class UpgradeUIManager : MonoBehaviour
         for (int i = 0; i < sizeButtons.Length; ++i)
         {
             Button sizeButton = sizeButtons[i];
-            Player player = (Player) i;
+            Player player = (Player)i;
             sizeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketSize(player));
             Text text = sizeButton.GetComponentInChildren<Text>();
             text.text = "Upgrade Market Size $(" + transactionManager.UpgradeMarketSizeCost + ")";
@@ -91,7 +91,7 @@ public class UpgradeUIManager : MonoBehaviour
         for (int i = 0; i < incomeButtons.Length; ++i)
         {
             Button incomeButton = incomeButtons[i];
-            Player player = (Player) i;
+            Player player = (Player)i;
             incomeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreasePassiveIncome(player));
             Text text = incomeButton.GetComponentInChildren<Text>();
             text.text = "Upgrade Passive Income $(" + transactionManager.UpgradeIncomeCost + ")";
@@ -104,7 +104,7 @@ public class UpgradeUIManager : MonoBehaviour
         for (int i = 0; i < armyButtons.Length; ++i)
         {
             Button armyButton = armyButtons[i];
-            Player player = (Player) i;
+            Player player = (Player)i;
             armyButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseArmySize(player));
         }
     }

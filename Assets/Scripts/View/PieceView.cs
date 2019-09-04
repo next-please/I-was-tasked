@@ -2,18 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using TMPro;
 
 public class PieceView : MonoBehaviour
 {
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
     public GameObject currentHPBar;
+    public TextMeshPro jobTextMesh; // todo: placeholder, remove later
     private IViewState prevViewAction;
     private int prevHP;
 
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
+    }
+
+    // todo: placeholder, remove later
+    public void SetJobText(string job, string race)
+    {
+        if (jobTextMesh == null)
+        {
+            return;
+        }
+        jobTextMesh.text = job + " " + race;
     }
 
     void OnEnable()
@@ -37,6 +49,22 @@ public class PieceView : MonoBehaviour
             style.fontSize = 24;
             Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetName(), style);
             prevHP = piece.GetHitPoints();
+        }
+    }
+
+    // todo: move to utility
+    void LateUpdate()
+    {
+        if (jobTextMesh != null)
+        {
+            //     jobTextMesh.transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
+            //    Camera.main.transform.rotation * Vector3.up);
+
+            //     currentHPBar.transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
+            //     Camera.main.transform.rotation * Vector3.up);
+
+            jobTextMesh.transform.rotation = Camera.main.transform.rotation;
+            currentHPBar.transform.rotation = Camera.main.transform.rotation;
         }
     }
 
