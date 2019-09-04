@@ -35,6 +35,10 @@ public class MarketManager : MonoBehaviour
 
     void GenerateMarketItems()
     {
+        if (market.MarketPieces != null)
+        {
+            characterGenerator.ReturnPieces(market.MarketPieces);
+        }
         market.MarketPieces = new List<Piece>();
         for (int i = 0; i < market.MarketSize; ++i)
         {
