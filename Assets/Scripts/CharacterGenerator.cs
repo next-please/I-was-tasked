@@ -139,7 +139,7 @@ public class CharacterGenerator
         }
 
         Piece currentPiece = new Piece (
-            race.ToString() + " that is a " + job.ToString(),
+            NameGenerator.GenerateName(job, race),
             defaultHitPoints*rarityModifier[characterRarity],
             defaultAttackDamage*rarityModifier[characterRarity],
             1, // TODO: Please help to verify if this is correct, much thanks~! - Nic
