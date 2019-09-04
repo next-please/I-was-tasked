@@ -902,9 +902,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1461752331462573196}
   - component: {fileID: 8992708325297178650}
-  - component: {fileID: 2496848405952871457}
   - component: {fileID: 6151283179336122566}
   - component: {fileID: 2064829842896871211}
+  - component: {fileID: -8019879357087893272}
   m_Layer: 0
   m_Name: Piece
   m_TagString: Untagged
@@ -919,7 +919,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4604312060063897690}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 109.65, y: 1124.8253, z: -1362.0009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -945,30 +945,10 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed by
-    Humanoid clips.\n\tTransform 'Bip001 R Foot'\n\tTransform 'Bip001 R UpperArm'\n\tTransform
-    'Bip001 R Calf'\n\tTransform 'Bip001 L Hand'\n\tTransform 'Bip001 L UpperArm'\n\tTransform
-    'Bip001 Neck'\n\tTransform 'Bip001 Spine'\n\tTransform 'Bip001 R Thigh'\n\tTransform
-    'Bip001 L Foot'\n\tTransform 'Bip001'\n\tand more ...\n\tFrom animation clip 'WK_heavy_infantry_08_attack_B'\n\tFrom
-    animation clip 'WK_heavy_infantry_05_combat_idle'\n\tFrom animation clip 'WK_heavy_infantry_06_combat_walk'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!64 &2496848405952871457
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4604312060063897690}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 0}
 --- !u!114 &6151283179336122566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,6 +975,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2df74e147c364fd18b83603b981b59b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &-8019879357087893272
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4604312060063897690}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1 &6172478644358226173
 GameObject:
   m_ObjectHideFlags: 0
