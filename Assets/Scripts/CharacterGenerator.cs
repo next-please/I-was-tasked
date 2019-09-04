@@ -199,8 +199,8 @@ public class CharacterGenerator
             }
         } while (rangeUpgrade);
 
-        tiers[currentRarityTier].JobPoolSize[(int)job]--;
-        tiers[currentRarityTier].RacePoolSize[(int)race]--;
+        tiers[characterRarity].JobPoolSize[(int)job]--;
+        tiers[characterRarity].RacePoolSize[(int)race]--;
         Piece currentPiece = new Piece (
             NameGenerator.GenerateName(job, race),
             currentHitPoints,
