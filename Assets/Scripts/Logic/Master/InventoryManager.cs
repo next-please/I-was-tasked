@@ -55,7 +55,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void RemoveFromBench(Player player, Piece piece)
+    public bool RemoveFromBench(Player player, Piece piece)
     {
         var playerInv = GetPlayerInventory(player);
         bool success = playerInv.RemovePieceFromBench(piece);
@@ -63,6 +63,7 @@ public class InventoryManager : MonoBehaviour
         {
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
+        return success;
     }
 
     public bool BenchContainsPiece(Player player, Piece piece)

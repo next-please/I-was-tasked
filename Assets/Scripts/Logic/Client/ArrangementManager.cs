@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArrangementManager : MonoBehaviour
 {
     public BoardManager boardManager;
+    public MarketManager marketManager;
     public InventoryManager inventoryManager;
 
     public void TryMovePieceOnBoard(Player player, Piece piece, Tile nextTile)
@@ -46,5 +47,6 @@ public class ArrangementManager : MonoBehaviour
     public void TryRemovePieceOnBoard(Player player, Piece piece)
     {
         boardManager.RemovePieceFromBoard(player, piece);
+        marketManager.characterGenerator.ReturnPiece(piece);
     }
 }

@@ -30,7 +30,10 @@ public class TransactionManager : MonoBehaviour
     public void TrySellBenchPiece(Player player, Piece piece)
     {
         // if i'm master
-        inventoryManager.RemoveFromBench(player, piece);
+        if (inventoryManager.RemoveFromBench(player, piece))
+        {
+            marketManager.characterGenerator.ReturnPiece(piece);
+        }
     }
 
 }

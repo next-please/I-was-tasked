@@ -7,7 +7,7 @@ public class MarketManager : MonoBehaviour
     public int StartingMarketSize = 5;
     public InventoryManager inventoryManager;
     public Market market;
-    CharacterGenerator characterGenerator;
+    public CharacterGenerator characterGenerator;
 
     void OnEnable()
     {
