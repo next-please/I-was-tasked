@@ -23,6 +23,7 @@ public class MoveState : State
         float timeToReachTile = ticksRemaining * FixedClock.Instance.deltaTime;
         speedToTranslate = distanceTotile / timeToReachTile;
         pieceView.transform.LookAt(tilePos);
+        pieceView.animator.Play("Walk", 0);
     }
 
     public override void OnViewUpdate(PieceView pieceView)
@@ -37,5 +38,6 @@ public class MoveState : State
         // estimate how fast we need to move
         Vector3 tilePos = new Vector3(destination.GetRow(), 1, destination.GetCol());
         pieceView.transform.position = tilePos;
+        pieceView.animator.Play("Idle", 0);
     }
 }
