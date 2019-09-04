@@ -54,6 +54,7 @@ public class BenchItem : Droppable
     {
         if (tile.IsOccupied())
         {
+            OnEmptyDrop();
             return;
         }
         EventManager.Instance.Raise(new MoveFromBenchToBoardEvent { piece = piece, tile = tile, slotIndex = index });

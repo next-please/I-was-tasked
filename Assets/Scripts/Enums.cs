@@ -6,11 +6,10 @@ public class Enums
 {
     public enum Job
     {
-        Warrior,
+        Knight,
         Mage,
         Druid,
         Priest,
-        Ranger,
         Rogue
     }
     public enum Race
@@ -18,8 +17,6 @@ public class Enums
         Human,
         Elf,
         Orc,
-        Undead,
-        Naga,
-        Dwarf
+        Undead
     }
 }

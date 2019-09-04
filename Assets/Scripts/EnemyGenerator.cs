@@ -15,7 +15,9 @@ public class EnemyGenerator
     public readonly int defaultMovementSpeed = 5;
     public readonly int minimumMovementSpeed = 1;
     public readonly int maximumMovementSpeed = 10;
-    public readonly int upgradePowerModifier = 2;
+    public readonly int upgradePowerModifier = 5;
+    public readonly int upgradeHealthModifier = 50;
+    public readonly int upgradePieceModifier = 1;
 
     private int currentPieces;
     private int currentHitPoints;
@@ -42,6 +44,8 @@ public class EnemyGenerator
 
     public ArrayList generateEnemies(int roundNumber)
     {
+        resetEnemyStats();
+
         ArrayList enemyPieces = new ArrayList();
 
         int randomValue;
@@ -51,13 +55,13 @@ public class EnemyGenerator
             switch (randomValue)
             {
                 case 1:
-                    currentHitPoints *= upgradePowerModifier;
+                    currentHitPoints += upgradeHealthModifier;
                     break;
                 case 2:
-                    currentAttackDamage *= upgradePowerModifier;
+                    currentAttackDamage += upgradePowerModifier;
                     break;
                 case 3:
-                    currentPieces *= upgradePowerModifier;
+                    currentPieces += upgradePieceModifier;
                     break;
                 default:
                     break;
@@ -66,8 +70,20 @@ public class EnemyGenerator
         for (int i=0; i<currentPieces; i++)
         {
             enemyPieces.Add(new Piece("Enemy #" + (i+1), currentHitPoints, currentAttackDamage, 1, true));
+            ((Piece)enemyPieces[i]).SetMovementSpeed(defaultMovementSpeed);
         }
 
         return enemyPieces;
+    }
+
+    public void resetEnemyStats()
+    {
+        currentPieces = defaultStartingPieces;
+        currentHitPoints = defaultHitPoints;
+        currentManaPoints = defaultManaPoints;
+        currentAttackDamage = defaultAttackDamage;
+        currentAttackRange = defaultAttackRange;
+        currentAttackSpeed = defaultAttackSpeed;
+        currentMovementSpeed = defaultMovementSpeed;
     }
 }

@@ -7,7 +7,7 @@ public class MarketManager : MonoBehaviour
     public int StartingMarketSize = 5;
     public InventoryManager inventoryManager;
     public Market market;
-    CharacterGenerator characterGenerator;
+    public CharacterGenerator characterGenerator;
 
     void OnEnable()
     {
@@ -22,7 +22,7 @@ public class MarketManager : MonoBehaviour
     void Awake()
     {
         characterGenerator = new CharacterGenerator();
-        market.MarketSize = StartingMarketSize;
+        market.SetMarketSize(StartingMarketSize);
     }
 
     void OnEnterPhase(EnterPhaseEvent e)
@@ -35,10 +35,14 @@ public class MarketManager : MonoBehaviour
 
     void GenerateMarketItems()
     {
-        market.MarketPieces = new List<Piece>();
-        for (int i = 0; i < market.MarketSize; ++i)
+        if (market.MarketPieces != null)
         {
-            Piece piece = characterGenerator.GenerateCharacter(market.MarketTier);
+            characterGenerator.ReturnPieces(market.MarketPieces);
+        }
+        market.MarketPieces = new List<Piece>();
+        for (int i = 0; i < market.GetMarketSize(); ++i)
+        {
+            Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
             market.MarketPieces.Add(piece);
             EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
         }
@@ -51,6 +55,27 @@ public class MarketManager : MonoBehaviour
         marketPieces.RemoveAt(index);
         marketPieces.Insert(index, null);
         EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+    }
+
+    public void IncreaseMarketTier()
+    {
+        market.MarketTier++;
+        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+    }
+
+    public int GetMarketTier()
+    {
+        return market.MarketTier;
+    }
+
+    public bool IncreaseMarketSize()
+    {
+        bool success = market.IncreaseMarketSize();
+        if (success)
+        {
+            EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+        }
+        return success;
     }
 }
 

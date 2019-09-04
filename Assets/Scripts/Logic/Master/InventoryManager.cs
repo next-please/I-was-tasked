@@ -55,7 +55,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void RemoveFromBench(Player player, Piece piece)
+    public bool RemoveFromBench(Player player, Piece piece)
     {
         var playerInv = GetPlayerInventory(player);
         bool success = playerInv.RemovePieceFromBench(piece);
@@ -63,6 +63,7 @@ public class InventoryManager : MonoBehaviour
         {
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
+        return success;
     }
 
     public bool BenchContainsPiece(Player player, Piece piece)
@@ -103,6 +104,19 @@ public class InventoryManager : MonoBehaviour
         playerInv.SetBenchPieceAtIndex(null, originalIndex);
         playerInv.SetBenchPieceAtIndex(piece, index);
         EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+    }
+
+    public void IncreaseArmySize(Player player)
+    {
+        var playerInv = GetPlayerInventory(player);
+        playerInv.IncreaseArmySize();
+        EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+    }
+
+    public int GetArmySize(Player player)
+    {
+        var playerInv = GetPlayerInventory(player);
+        return playerInv.GetArmySize();
     }
 }
 
