@@ -68,6 +68,7 @@ public class EnemyGenerator
         for (int i=0; i<currentPieces; i++)
         {
             enemyPieces.Add(new Piece("Enemy #" + (i+1), currentHitPoints, currentAttackDamage, 1, true));
+            ((Piece)enemyPieces[i]).SetMovementSpeed(defaultMovementSpeed);
         }
 
         return enemyPieces;
