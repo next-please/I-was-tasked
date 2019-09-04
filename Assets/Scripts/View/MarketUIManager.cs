@@ -10,6 +10,16 @@ public class MarketUIManager : MonoBehaviour
     public TransactionManager transactionManager;
     Button[] marketItemsButtons;
     IReadOnlyList<Piece> marketPieces;
+    private bool visibility = true;
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Toggle Market"))
+        {
+            SetCanvasVisibility(!visibility);
+        }
+    }
+
     void OnEnable()
     {
         EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
@@ -57,6 +67,7 @@ public class MarketUIManager : MonoBehaviour
     {
         marketCanvas.enabled = visibility;
         upgradeCanvas.enabled = visibility;
+        this.visibility = visibility;
     }
 
     void UpdateMarketButtons(MarketUpdateEvent e)
