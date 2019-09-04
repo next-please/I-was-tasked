@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -105,7 +106,8 @@ public class MarketUIManager : MonoBehaviour
                 piece.GetName() +
                 "\nRace: " + piece.GetRace() +
                 "\nJob: " + piece.GetClass() +
-                "\nRarity and Cost: " + piece.GetRarity();
+                "\nRarity: " + piece.GetRarity() +
+                "  Cost: " + Math.Pow(2, piece.GetRarity()-1);
             marketItemButton.enabled = true;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class TransactionManager : MonoBehaviour
@@ -13,7 +14,7 @@ public class TransactionManager : MonoBehaviour
 
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
     {
-        int price = piece.GetRarity();
+        int price = (int)Math.Pow(2, piece.GetRarity()-1);
 
         // check locally if we can do this transaction for immediate feedback
         if (inventoryManager.IsBenchFull(player) ||
@@ -35,7 +36,10 @@ public class TransactionManager : MonoBehaviour
     public void TrySellBenchPiece(Player player, Piece piece)
     {
         // if i'm master
-        inventoryManager.RemoveFromBench(player, piece);
+        if (inventoryManager.RemoveFromBench(player, piece))
+        {
+            marketManager.characterGenerator.ReturnPiece(piece);
+        }
     }
 
     public void TryPurchaseIncreaseMarketRarity(Player player)

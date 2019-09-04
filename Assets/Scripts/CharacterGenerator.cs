@@ -18,6 +18,10 @@ public class CharacterGenerator
     public readonly int defaultMovementSpeed = 5;
     public readonly int minimumMovementSpeed = 1;
     public readonly int maximumMovementSpeed = 10;
+    public readonly double hitPointMultiplier = 1.5;
+    public readonly double attackDamageMultiplier = 1.5;
+    public readonly int rangeAdditor = 2;
+    public readonly int movementVariationRange = 2;
 
     public readonly int numberOfRarityTiers = 4;
     public readonly int[] tiersRacePoolMax = new int[] { 15, 15, 10, 6 };
@@ -47,8 +51,7 @@ public class CharacterGenerator
                                             { 0, 30, 30, 40 },
                                             { 0, 20, 40, 40 }
                                         };
-    public readonly int[] rarityModifier = { 1, 2, 4, 8 };
-
+    public readonly int[] rarityBonusUpgrades = new int[] { 0, 3, 6, 9 };
     private Tier[] tiers;
 
     public struct Tier
@@ -83,6 +86,13 @@ public class CharacterGenerator
 
     public Piece GenerateCharacter(int currentRarityTier)
     {
+        int currentHitPoints = defaultHitPoints;
+        int currentManaPoints = defaultManaPoints;
+        int currentAttackDamage = defaultAttackDamage;
+        int currentAttackRange = defaultAttackRange;
+        int currentAttackSpeed = defaultAttackSpeed;
+        int currentMovementSpeed = defaultMovementSpeed;
+
         //calculate character rarity
         currentRarityTier = Math.Min(currentRarityTier - 1, rarityUpgradeTiers.GetLength(0));
         int rarityTotalPool = 0;
@@ -138,15 +148,68 @@ public class CharacterGenerator
             }
         }
 
+        //randomize movement
+        int randomValue = rngesus.Next(-movementVariationRange, movementVariationRange + 1);
+        currentMovementSpeed += randomValue;
+
+        //calculate stats
+        for (int i=0; i< rarityBonusUpgrades[characterRarity]; i++)
+        {
+            randomValue = rngesus.Next(1, 3);
+            switch (randomValue)
+            {
+                case 1:
+                    currentHitPoints = (int)Math.Floor(currentHitPoints * hitPointMultiplier);
+                    break;
+                case 2:
+                    currentAttackDamage = (int)Math.Floor(currentAttackDamage * attackDamageMultiplier);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //randomize range unit
+        bool rangeUpgrade = false;
+        do
+        {
+            randomValue = rngesus.Next(0, 11);
+            if (randomValue < 3)
+            {
+                rangeUpgrade = true;
+                currentAttackRange += rangeAdditor;
+
+                //decrease another stat to compensate
+                randomValue = rngesus.Next(1, 3);
+                switch (randomValue)
+                {
+                    case 1:
+                        currentHitPoints = (int)Math.Ceiling(currentHitPoints / hitPointMultiplier);
+                        break;
+                    case 2:
+                        currentAttackDamage = (int)Math.Ceiling(currentAttackDamage / attackDamageMultiplier);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                rangeUpgrade = false;
+            }
+        } while (rangeUpgrade);
+
+        tiers[characterRarity].JobPoolSize[(int)job]--;
+        tiers[characterRarity].RacePoolSize[(int)race]--;
         Piece currentPiece = new Piece (
             NameGenerator.GenerateName(job, race),
-            defaultHitPoints*rarityModifier[characterRarity],
-            defaultAttackDamage*rarityModifier[characterRarity],
-            1, // TODO: Please help to verify if this is correct, much thanks~! - Nic
+            currentHitPoints,
+            currentAttackDamage,
+            currentAttackRange, // TODO: Please help to verify if this is correct, much thanks~! - Nic
             false);
-        currentPiece.SetAttackSpeed(defaultAttackSpeed);
-        currentPiece.SetManaPoints(defaultManaPoints);
-        currentPiece.SetMovementSpeed(defaultMovementSpeed);
+        currentPiece.SetAttackSpeed(currentAttackSpeed);
+        currentPiece.SetManaPoints(currentManaPoints);
+        currentPiece.SetMovementSpeed(currentMovementSpeed);
         currentPiece.SetRace(race);
         currentPiece.SetClass(job);
         currentPiece.SetRarity(characterRarity+1);
@@ -154,8 +217,21 @@ public class CharacterGenerator
         //throw not implemented //still need to remove from pool and do stat adjustments
     }
 
-    public void UpdateCharacterPoolFromReturn(Piece returned)
+    public void ReturnPiece(Piece piece)
     {
-        //throw not implemented
+        int rarityTier = piece.GetRarity()-1;
+        tiers[rarityTier].JobPoolSize[(int)piece.GetClass()]++;
+        tiers[rarityTier].RacePoolSize[(int)piece.GetRace()]++;
+    }
+
+    public void ReturnPieces(List<Piece> returnedPieces)
+    {
+        foreach (Piece piece in returnedPieces)
+        {
+            if (piece != null)
+            {
+                ReturnPiece(piece);
+            }
+        }
     }
 }

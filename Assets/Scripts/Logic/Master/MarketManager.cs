@@ -7,7 +7,7 @@ public class MarketManager : MonoBehaviour
     public int StartingMarketSize = 5;
     public InventoryManager inventoryManager;
     public Market market;
-    CharacterGenerator characterGenerator;
+    public CharacterGenerator characterGenerator;
 
     void OnEnable()
     {
@@ -35,10 +35,14 @@ public class MarketManager : MonoBehaviour
 
     void GenerateMarketItems()
     {
+        if (market.MarketPieces != null)
+        {
+            characterGenerator.ReturnPieces(market.MarketPieces);
+        }
         market.MarketPieces = new List<Piece>();
         for (int i = 0; i < market.MarketSize; ++i)
         {
-            Piece piece = characterGenerator.GenerateCharacter(market.MarketTier);
+            Piece piece = characterGenerator.GenerateCharacter(8);
             market.MarketPieces.Add(piece);
             EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
         }

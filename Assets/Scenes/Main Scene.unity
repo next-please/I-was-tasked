@@ -9384,6 +9384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 1931400389}
+  marketManager: {fileID: 1554020330}
   inventoryManager: {fileID: 1315935871}
 --- !u!4 &2146546347
 Transform:
