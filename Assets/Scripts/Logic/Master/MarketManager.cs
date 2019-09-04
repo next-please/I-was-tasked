@@ -22,7 +22,7 @@ public class MarketManager : MonoBehaviour
     void Awake()
     {
         characterGenerator = new CharacterGenerator();
-        market.MarketSize = StartingMarketSize;
+        market.SetMarketSize(StartingMarketSize);
     }
 
     void OnEnterPhase(EnterPhaseEvent e)
@@ -40,9 +40,9 @@ public class MarketManager : MonoBehaviour
             characterGenerator.ReturnPieces(market.MarketPieces);
         }
         market.MarketPieces = new List<Piece>();
-        for (int i = 0; i < market.MarketSize; ++i)
+        for (int i = 0; i < market.GetMarketSize(); ++i)
         {
-            Piece piece = characterGenerator.GenerateCharacter(8);
+            Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
             market.MarketPieces.Add(piece);
             EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
         }
@@ -68,10 +68,14 @@ public class MarketManager : MonoBehaviour
         return market.MarketTier;
     }
 
-    public void IncreaseMarketSize()
+    public bool IncreaseMarketSize()
     {
-        market.MarketSize++;
-        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+        bool success = market.IncreaseMarketSize();
+        if (success)
+        {
+            EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+        }
+        return success;
     }
 }
 

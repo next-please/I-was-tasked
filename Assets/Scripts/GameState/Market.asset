@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01161e3951674f418b3a4e921c469e2, type: 3}
   m_Name: Market
   m_EditorClassIdentifier: 
-  MarketSize: 0
-  MarketTier: 1
+  MarketTier: 13

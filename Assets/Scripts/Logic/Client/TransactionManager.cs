@@ -71,8 +71,11 @@ public class TransactionManager : MonoBehaviour
         {
             return;
         }
-        marketManager.IncreaseMarketSize();
-        inventoryManager.DeductGold(player, price);
+        bool success = marketManager.IncreaseMarketSize();
+        if (success)
+        {
+            inventoryManager.DeductGold(player, price);
+        }
     }
 
     public void TryPurchaseIncreaseArmySize(Player player)
