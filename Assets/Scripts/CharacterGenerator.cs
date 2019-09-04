@@ -147,8 +147,8 @@ public class CharacterGenerator
         currentPiece.SetAttackSpeed(defaultAttackSpeed);
         currentPiece.SetManaPoints(defaultManaPoints);
         currentPiece.SetMovementSpeed(defaultMovementSpeed);
-        currentPiece.SetRace(race.ToString());
-        currentPiece.SetClass(job.ToString());
+        currentPiece.SetRace(race);
+        currentPiece.SetClass(job);
         currentPiece.SetRarity(characterRarity+1);
         return currentPiece;
         //throw not implemented //still need to remove from pool and do stat adjustments
