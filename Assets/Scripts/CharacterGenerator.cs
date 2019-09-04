@@ -66,10 +66,10 @@ public class CharacterGenerator
 
         //creating pools for race and job limits
         tiers = new Tier[numberOfRarityTiers];
-        for (int i=0; i<tiers.Length; i++)
+        for (int i = 0; i < tiers.Length; i++)
         {
             tiers[i].RacePoolSize = new int[Enum.GetNames(typeof(Enums.Race)).Length];
-            for (int j=0; j<tiers[i].RacePoolSize.Length; j++)
+            for (int j = 0; j < tiers[i].RacePoolSize.Length; j++)
             {
                 tiers[i].RacePoolSize[j] = tiersRacePoolMax[i];
             }
@@ -108,9 +108,9 @@ public class CharacterGenerator
         {
             raceTotalPool += tiers[characterRarity].RacePoolSize[i];
         }
-        int raceNumber = rngesus.Next(1, raceTotalPool+1);
+        int raceNumber = rngesus.Next(1, raceTotalPool + 1);
         Enums.Race race = 0;
-        for (int i=0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
+        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
         {
             raceNumber -= tiers[characterRarity].RacePoolSize[i];
             if (raceNumber <= 0)
@@ -126,7 +126,7 @@ public class CharacterGenerator
         {
             jobTotalPool += tiers[characterRarity].JobPoolSize[i];
         }
-        int jobNumber = rngesus.Next(1, jobTotalPool+1);
+        int jobNumber = rngesus.Next(1, jobTotalPool + 1);
         Enums.Job job = 0;
         for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
         {
@@ -138,18 +138,18 @@ public class CharacterGenerator
             }
         }
 
-        Piece currentPiece = new Piece (
+        Piece currentPiece = new Piece(
             race.ToString() + " that is a " + job.ToString(),
-            defaultHitPoints*rarityModifier[characterRarity],
-            defaultAttackDamage*rarityModifier[characterRarity],
+            defaultHitPoints * rarityModifier[characterRarity],
+            defaultAttackDamage * rarityModifier[characterRarity],
             1, // TODO: Please help to verify if this is correct, much thanks~! - Nic
             false);
         currentPiece.SetAttackSpeed(defaultAttackSpeed);
         currentPiece.SetManaPoints(defaultManaPoints);
         currentPiece.SetMovementSpeed(defaultMovementSpeed);
-        currentPiece.SetRace(race.ToString());
-        currentPiece.SetClass(job.ToString());
-        currentPiece.SetRarity(characterRarity+1);
+        currentPiece.SetRace(race);
+        currentPiece.SetClass(job);
+        currentPiece.SetRarity(characterRarity + 1);
         return currentPiece;
         //throw not implemented //still need to remove from pool and do stat adjustments
     }

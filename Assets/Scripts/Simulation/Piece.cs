@@ -9,8 +9,8 @@ public class Piece
     private Tile currentTile;
     private Tile lockedTile;
     private string name;
-    private string race;
-    private string job;
+    private Enums.Race race;
+    private Enums.Job job;
     private int hitPoints;
     private int manaPoints;
     private int attackDamage;
@@ -145,12 +145,12 @@ public class Piece
         return name;
     }
 
-    public string GetRace()
+    public Enums.Race GetRace()
     {
         return race;
     }
 
-    public string GetClass()
+    public Enums.Job GetClass()
     {
         return job;
     }
@@ -234,12 +234,12 @@ public class Piece
         this.name = name;
     }
 
-    public void SetRace(string race)
+    public void SetRace(Enums.Race race)
     {
         this.race = race;
     }
 
-    public void SetClass(string job)
+    public void SetClass(Enums.Job job)
     {
         this.job = job;
     }

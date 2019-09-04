@@ -27,6 +27,7 @@ public class BenchItem : Droppable
     private readonly float distanceOffset = 10f;
     private readonly float scaleOffset = 10f;
 
+    public GameObject piecePrefab;
     public Piece piece;
     public int index;
 
