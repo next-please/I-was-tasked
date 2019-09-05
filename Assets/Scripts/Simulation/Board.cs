@@ -72,6 +72,7 @@ public class Board
             previousTile.SetOccupant(null);
             previousTile.SetLocker(null);
         }
+        nextTile.SetLocker(null);
         piece.SetCurrentTile(nextTile);
         piece.SetLockedTile(null);
         nextTile.SetOccupant(piece);

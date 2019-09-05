@@ -4,7 +4,8 @@ public class MoveState : State
 {
     public override void OnStart(Piece piece, Board board)
     {
-        ticksRemaining = 50 / piece.GetMovementSpeed();
+        ticksRemaining = 150 / piece.GetMovementSpeed();
+        piece.GetCurrentTile().SetOccupant(null);
     }
 
     public override void OnFinish(Piece piece, Board board)

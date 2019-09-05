@@ -68,7 +68,7 @@ public class Piece
         AttackState attack = new AttackState();
         InfiniteState inf = new InfiniteState();
 
-        WaitState waitOneSecond = new WaitState(50);
+        WaitState waitOneTick = new WaitState(1);
         WaitState waitOneFifthSeconds = new WaitState(10);
 
         HasTarget hasTarget = new HasTarget();
@@ -101,10 +101,10 @@ public class Piece
 
         tryToFindNextTile.SetNextStates(
             move,
-            waitOneSecond
+            waitOneTick
         );
 
-        waitOneSecond.SetNextState(findTarget);
+        waitOneTick.SetNextState(findTarget);
         waitOneFifthSeconds.SetNextState(currentlyInRange);
 
         attack.SetNextState(stillHasTarget); // do we still have a target?
