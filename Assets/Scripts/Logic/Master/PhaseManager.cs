@@ -36,6 +36,7 @@ public class PhaseManager : MonoBehaviour
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<SimulationEndedEvent>(OnSimulationEnd);
+        EventManager.Instance.RemoveListener<GameOverEvent>(OnGameOver);
     }
 
     void Start()

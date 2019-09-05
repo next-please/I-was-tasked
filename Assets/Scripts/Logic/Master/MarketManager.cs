@@ -21,6 +21,7 @@ public class MarketManager : MonoBehaviour
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
+        EventManager.Instance.RemoveListener<SimulationEndedEvent>(OnSimulationEnd);
     }
 
     void Awake()
