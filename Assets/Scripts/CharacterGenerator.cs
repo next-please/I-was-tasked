@@ -26,6 +26,7 @@ public class CharacterGenerator
     public readonly int numberOfRarityTiers = 4;
     public readonly int[] tiersRacePoolMax = new int[] { 15, 15, 10, 6 };
     public readonly int[] tiersJobPoolMax = new int[] { 15, 15, 10, 6 };
+    public readonly int characterUpgradeDifferencePercentage = 20;
     public readonly int[,] rarityUpgradeTiers = {
                                             { 100, 0, 0, 0 },
                                             { 90, 10, 0, 0 },
@@ -231,6 +232,32 @@ public class CharacterGenerator
             if (piece != null)
             {
                 ReturnPiece(piece);
+            }
+        }
+    }
+
+    public void UpgradeCharacter(Piece piece, int currentMarketTier)
+    {
+        //if character rarity can be found in the new market tier
+        if (rarityUpgradeTiers[currentMarketTier - 1, piece.GetRarity()] > 0)
+        {
+            piece.SetRarity(piece.GetRarity() + 1);
+
+            int randomValue = 0;
+            for (int i = rarityBonusUpgrades[piece.GetRarity() - 1]; i < rarityBonusUpgrades[piece.GetRarity()]; i++)
+            {
+                randomValue = rngesus.Next(1, 3);
+                switch (randomValue)
+                {
+                    case 1:
+                        piece.SetMaximumHitPoints((int)Math.Floor(piece.GetMaximumHitPoints() * hitPointMultiplier));
+                        break;
+                    case 2:
+                        piece.SetAttackDamage((int)Math.Floor(piece.GetAttackDamage() * attackDamageMultiplier));
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }

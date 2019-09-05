@@ -54,6 +54,15 @@ public class IncomeManager : MonoBehaviour
     public void IncreasePassiveIncome()
     {
         incomeFromUpgrades++;
+
+        //retroactive upgrades
+        int income = 1;
+        for (int i = 0; i < 3; ++i)
+        {
+            Player player = (Player)i;
+            inventoryManager.AddGold(player, income);
+        }
+
         EventManager.Instance.Raise(new PassiveIncomeUpdateEvent{ PassiveIncome = incomeFromUpgrades });
     }
 }

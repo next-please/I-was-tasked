@@ -10,6 +10,7 @@ public class MarketManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public Market market;
     public CharacterGenerator characterGenerator;
+    private System.Random rngesus = new System.Random();
 
     void OnEnable()
     {
@@ -85,6 +86,19 @@ public class MarketManager : MonoBehaviour
     public void IncreaseMarketTier()
     {
         market.MarketTier++;
+
+        //reactive upgrades
+        for (int i = 0; i < market.GetMarketSize(); ++i)
+        {
+            if (market.MarketPieces[i] != null)
+            {
+                if (rngesus.Next(1, 101) <= characterGenerator.characterUpgradeDifferencePercentage)
+                {
+                    characterGenerator.UpgradeCharacter(market.MarketPieces[i], market.MarketTier);
+                }
+            }
+        }
+
         EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
     }
 
@@ -98,6 +112,10 @@ public class MarketManager : MonoBehaviour
         bool success = market.IncreaseMarketSize();
         if (success)
         {
+            //reactive upgrades
+            Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
+            market.MarketPieces.Add(piece);
+
             EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
         }
         return success;
