@@ -78,15 +78,15 @@ public static class NameGenerator
         raceLastNames.Add(Enums.Race.Undead,
             new string[] { "", "", "", "" });
         jobFlavors.Add(Enums.Job.Knight,
-            new string[] { "Dragon", "Chaos", "White", "Black" });
+            new string[] { "Dragon", "Chaos", "White", "Black", "Crusader", "Templar", "Berserker", "Barbarian", "Primal", "Armoured", "Reckless", "Intimidating", "Relentness", "Indomitable", "Spirit", "Eldritch" });
         jobFlavors.Add(Enums.Job.Druid,
-            new string[] { "Moon", "Stars", "Waves", "Earth" });
+            new string[] { "Moon", "Stars", "Waves", "Earth", "Sun", "Valley", "Forest", "Wild", "Desert", "Mountain", "Swamp", "Claw", "Swarm", "Flame", "Elements", "Ocean", "Plains", "Canyon", "River" });
         jobFlavors.Add(Enums.Job.Mage,
-            new string[] { "Arcane", "Frost", "Fire", "Freeze" });
+            new string[] { "Arcane", "Frost", "Fire", "Wind", "Earth", "Water", "Illusion", "Elemental", "Mystic", "Wild", "Draconic", "Lightning", "Poison", "Chaos", "Eldritch", "Dark", "Shadow", "Blast" });
         jobFlavors.Add(Enums.Job.Priest,
-            new string[] { "Light", "Shadow", "Fallen", "Damned" });
+            new string[] { "Light", "Shadow", "Fallen", "Damned", "Forsaken", "Forgotten", "Forlorn", "Famine", "Feast", "Lost", "Darkness", "Pious", "Faithful", "Pasture", "Spirit", "Father", "Pitied" });
         jobFlavors.Add(Enums.Job.Rogue,
-            new string[] { "Silent", "Deadly", "Patient", "Cruel" });
+            new string[] { "Silent", "Deadly", "Patient", "Cruel", "Restrained", "Hushed", "Muted", "Reserved", "Reserved", "Reticent", "Savage", "Poisonous", "Toxic", "Violent", "Grim", "Horrid", "Bitter", "Heartless", "Merciless", "Wicked", "Vicious" });
 
         titles = new string[] { "Lord", "Pontious", "Baron", "Count", "Countess", "Viscount", "Earl", "Duke", "Prince", "Marquess", "Marquis", "Princess", "Duchess", "Marchioness", "King", "Queen", "Emperor", "Empress", "Viscountess", "Baroness", "Baronet", "Baronetess", "Knight", "Esquire", "Chevalier", "Squire", "Kaiser", "Kaiserin", "Monarch" };
 
