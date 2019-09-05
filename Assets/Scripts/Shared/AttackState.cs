@@ -8,8 +8,8 @@ public class AttackState : State
         Piece target = piece.GetTarget();
         if (!target.IsDead())
         {
-            target.SetHitPoints(target.GetHitPoints() - piece.GetAttackDamage());
-            Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetHitPoints() + " HP.");
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - piece.GetAttackDamage());
+            Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
         }
         else
         {

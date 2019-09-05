@@ -11,7 +11,8 @@ public class Piece
     private string name;
     private Enums.Race race;
     private Enums.Job job;
-    private int hitPoints;
+    private int currentHitPoints;
+    private int maximumHitPoints;
     private int manaPoints;
     private int attackDamage;
     private int attackRange;
@@ -23,10 +24,11 @@ public class Piece
     private State entryState;
 
     // Placeholder Constructor; actual Melee Piece would be more complex in attributes.
-    public Piece(string name, int hitPoints, int attackDamage, int attackRange, bool isEnemy)
+    public Piece(string name, int maximumHitPoints, int attackDamage, int attackRange, bool isEnemy)
     {
         SetName(name);
-        SetHitPoints(hitPoints);
+        SetCurrentHitPoints(maximumHitPoints);
+        SetMaximumHitPoints(maximumHitPoints);
         SetAttackDamage(attackDamage);
         SetAttackRange(attackRange);
         SetIsEnemy(isEnemy);
@@ -155,9 +157,14 @@ public class Piece
         return job;
     }
 
-    public int GetHitPoints()
+    public int GetMaximumHitPoints()
     {
-        return hitPoints;
+        return maximumHitPoints;
+    }
+
+    public int GetCurrentHitPoints()
+    {
+        return currentHitPoints;
     }
 
     public int GetManaPoints()
@@ -201,7 +208,7 @@ public class Piece
 
     public bool IsDead()
     {
-        return (hitPoints <= 0);
+        return (currentHitPoints <= 0);
     }
 
     public bool IsOnBoard()
@@ -244,16 +251,21 @@ public class Piece
         this.job = job;
     }
 
-    public void SetHitPoints(int hitPoints)
+    public void SetCurrentHitPoints(int currentHitPoints)
     {
-        if (hitPoints < 0)
+        if (currentHitPoints < 0)
         {
-            this.hitPoints = 0;
+            this.currentHitPoints = 0;
         }
         else
         {
-            this.hitPoints = hitPoints;
+            this.currentHitPoints = currentHitPoints;
         }
+    }
+
+    public void SetMaximumHitPoints(int maximumHitPoints)
+    {
+        this.maximumHitPoints = maximumHitPoints;
     }
 
     public void SetManaPoints(int manaPoints)
@@ -298,7 +310,7 @@ public class Piece
 
     public void Reset()
     {
-        SetHitPoints(100);
+        SetCurrentHitPoints(GetMaximumHitPoints());
         this.state = entryState;
     }
 }

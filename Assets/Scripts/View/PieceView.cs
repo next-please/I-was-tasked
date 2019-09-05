@@ -36,7 +36,7 @@ public class PieceView : MonoBehaviour
             style.fontStyle = FontStyle.Bold;
             style.fontSize = 24;
             Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetName(), style);
-            prevHP = piece.GetHitPoints();
+            prevHP = piece.GetCurrentHitPoints();
         }
     }
 
@@ -47,7 +47,7 @@ public class PieceView : MonoBehaviour
             return;
         }
 
-        if (prevHP != piece.GetHitPoints())
+        if (prevHP != piece.GetCurrentHitPoints())
         {
             UpdateCurrentHPBar();
         }
@@ -87,10 +87,10 @@ public class PieceView : MonoBehaviour
 
     public void UpdateCurrentHPBar()
     {
-        float currentHPFraction = piece.GetHitPoints() / 100.0f;
+        float currentHPFraction = (float) piece.GetCurrentHitPoints() / piece.GetMaximumHitPoints();
         Vector3 temp = currentHPBar.transform.localScale;
         temp.x = currentHPFraction;
         currentHPBar.transform.localScale = temp;
-        prevHP = piece.GetHitPoints();
+        prevHP = piece.GetCurrentHitPoints();
     }
 }
