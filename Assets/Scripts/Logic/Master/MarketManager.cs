@@ -6,6 +6,7 @@ public class MarketManager : MonoBehaviour
 {
     public int StartingMarketSize = 5;
     public int StartingMarketTier = 1;
+    public int StartingCastleHealth = 10;
     public InventoryManager inventoryManager;
     public Market market;
     public CharacterGenerator characterGenerator;
@@ -13,6 +14,7 @@ public class MarketManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
+        EventManager.Instance.AddListener<OnDamageEvent>(OnDamageEvent);
     }
 
     void OnDisable()
@@ -25,6 +27,7 @@ public class MarketManager : MonoBehaviour
         characterGenerator = new CharacterGenerator();
         market.SetMarketSize(StartingMarketSize);
         market.MarketTier = StartingMarketTier;
+        market.CastleHealth = StartingCastleHealth;
     }
 
     void OnEnterPhase(EnterPhaseEvent e)
@@ -33,6 +36,12 @@ public class MarketManager : MonoBehaviour
         {
             GenerateMarketItems();
         }
+    }
+
+    void OnDamageEvent(OnDamageEvent e)
+    {
+        market.CastleHealth -= e.damage;
+        EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
     }
 
     void GenerateMarketItems()

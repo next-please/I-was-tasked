@@ -7,6 +7,7 @@ public interface IReadOnlyMarket
     IReadOnlyList<Piece> GetMarketPieces();
     int GetMarketSize();
     int GetMarketTier();
+    int GetCastleHealth();
 }
 
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/Market", order = 1)]
@@ -15,6 +16,7 @@ public class Market : ScriptableObject, IReadOnlyMarket
     public List<Piece> MarketPieces;
     private int marketSize = 0;
     public int MarketTier = 1; //also used as price for market increase, don't know if here or what
+    public int CastleHealth = 10;
     public readonly int MaxMarketSize = 12;
 
     public IReadOnlyList<Piece> GetMarketPieces()
@@ -30,6 +32,11 @@ public class Market : ScriptableObject, IReadOnlyMarket
     public int GetMarketTier()
     {
         return MarketTier;
+    }
+
+    public int GetCastleHealth()
+    {
+        return CastleHealth;
     }
 
     public bool IncreaseMarketSize()

@@ -12,6 +12,7 @@ public class MarketUIManager : MonoBehaviour
     public Text MarketSizeText;
     public Text MarketRarityText;
     public Text PassiveIncomeText;
+    public Text CastleHealthText;
 
     public TransactionManager transactionManager;
 
@@ -82,6 +83,7 @@ public class MarketUIManager : MonoBehaviour
     {
         MarketRarityText.text = "Market Rarity: Tier " + e.readOnlyMarket.GetMarketTier().ToString();
         MarketSizeText.text = "Market Size: " + e.readOnlyMarket.GetMarketSize().ToString();
+        CastleHealthText.text = "Castle Health: " + e.readOnlyMarket.GetCastleHealth().ToString();
         UpdateMarketButtons(e);
     }
 
