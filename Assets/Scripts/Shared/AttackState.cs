@@ -9,6 +9,7 @@ public class AttackState : State
         if (!target.IsDead())
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - piece.GetAttackDamage());
+            target.SetCurrentManaPoints(target.GetCurrentManaPoints() + 10); // Placeholder Increment.
             Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
         }
         else

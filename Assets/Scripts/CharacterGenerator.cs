@@ -208,7 +208,7 @@ public class CharacterGenerator
             currentAttackRange, // TODO: Please help to verify if this is correct, much thanks~! - Nic
             false);
         currentPiece.SetAttackSpeed(currentAttackSpeed);
-        currentPiece.SetManaPoints(currentManaPoints);
+        currentPiece.SetMaximumManaPoints(currentManaPoints);
         currentPiece.SetMovementSpeed(currentMovementSpeed);
         currentPiece.SetRace(race);
         currentPiece.SetClass(job);

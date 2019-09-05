@@ -13,7 +13,8 @@ public class Piece
     private Enums.Job job;
     private int currentHitPoints;
     private int maximumHitPoints;
-    private int manaPoints;
+    private int currentManaPoints;
+    private int maximumManaPoints;
     private int attackDamage;
     private int attackRange;
     private int attackSpeed;
@@ -29,6 +30,7 @@ public class Piece
         SetName(name);
         SetCurrentHitPoints(maximumHitPoints);
         SetMaximumHitPoints(maximumHitPoints);
+        SetCurrentManaPoints(0);
         SetAttackDamage(attackDamage);
         SetAttackRange(attackRange);
         SetIsEnemy(isEnemy);
@@ -167,9 +169,14 @@ public class Piece
         return currentHitPoints;
     }
 
-    public int GetManaPoints()
+    public int GetCurrentManaPoints()
     {
-        return manaPoints;
+        return currentManaPoints;
+    }
+
+    public int GetMaximumManaPoints()
+    {
+        return maximumManaPoints;
     }
 
     public int GetAttackDamage()
@@ -268,9 +275,21 @@ public class Piece
         this.maximumHitPoints = maximumHitPoints;
     }
 
-    public void SetManaPoints(int manaPoints)
+    public void SetCurrentManaPoints(int currentManaPoints)
     {
-        this.manaPoints = manaPoints;
+        if (currentManaPoints < 0)
+        {
+            this.currentManaPoints = 0;
+        }
+        else
+        {
+            this.currentManaPoints = currentManaPoints;
+        }
+    }
+
+    public void SetMaximumManaPoints(int maximumManaPoints)
+    {
+        this.maximumManaPoints = maximumManaPoints;
     }
 
     public void SetAttackDamage(int attackDamage)
@@ -311,6 +330,7 @@ public class Piece
     public void Reset()
     {
         SetCurrentHitPoints(GetMaximumHitPoints());
+        SetCurrentManaPoints(0);
         this.state = entryState;
     }
 }

@@ -8,9 +8,15 @@ public class PieceView : MonoBehaviour
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
     public GameObject currentHPBar;
+    public GameObject currentMPBar;
     private IViewState prevViewAction;
     private int prevHP;
+    private int prevMP;
 
+    private void Start()
+    {
+        SetCurrentMPBar(0.0f);
+    }
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
@@ -36,7 +42,6 @@ public class PieceView : MonoBehaviour
             style.fontStyle = FontStyle.Bold;
             style.fontSize = 24;
             Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetName(), style);
-            prevHP = piece.GetCurrentHitPoints();
         }
     }
 
@@ -50,6 +55,11 @@ public class PieceView : MonoBehaviour
         if (prevHP != piece.GetCurrentHitPoints())
         {
             UpdateCurrentHPBar();
+        }
+
+        if (prevMP != piece.GetCurrentManaPoints())
+        {
+            UpdateCurrentMPBar();
         }
 
         if (piece.IsDead())
@@ -85,12 +95,30 @@ public class PieceView : MonoBehaviour
         }
     }
 
-    public void UpdateCurrentHPBar()
+    public void SetCurrentHPBar(float hp)
     {
-        float currentHPFraction = (float) piece.GetCurrentHitPoints() / piece.GetMaximumHitPoints();
+        float currentHPFraction = hp / piece.GetMaximumHitPoints();
         Vector3 temp = currentHPBar.transform.localScale;
         temp.x = currentHPFraction;
         currentHPBar.transform.localScale = temp;
         prevHP = piece.GetCurrentHitPoints();
+    }
+    public void SetCurrentMPBar(float mp)
+    {
+        float currentMPFraction = mp / piece.GetMaximumManaPoints();
+        Vector3 temp = currentMPBar.transform.localScale;
+        temp.x = currentMPFraction;
+        currentMPBar.transform.localScale = temp;
+        prevMP = piece.GetCurrentManaPoints();
+    }
+
+    public void UpdateCurrentHPBar()
+    {
+        SetCurrentHPBar(piece.GetCurrentHitPoints());
+    }
+
+    public void UpdateCurrentMPBar()
+    {
+        SetCurrentMPBar(piece.GetCurrentManaPoints());
     }
 }
