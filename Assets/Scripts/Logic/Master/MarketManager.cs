@@ -14,7 +14,7 @@ public class MarketManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-        EventManager.Instance.AddListener<OnDamageEvent>(OnDamageEvent);
+        EventManager.Instance.AddListener<SimulationEndedEvent>(OnSimulationEnd);
     }
 
     void OnDisable()
@@ -38,10 +38,24 @@ public class MarketManager : MonoBehaviour
         }
     }
 
-    void OnDamageEvent(OnDamageEvent e)
+    void OnDamageEvent(int damage)
     {
-        market.CastleHealth -= e.damage;
+        market.CastleHealth -= damage;
+        if (market.CastleHealth <= 0)
+        {
+            EventManager.Instance.Raise(new GameOverEvent { });
+        }
         EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
+    }
+
+    void OnSimulationEnd(SimulationEndedEvent e)
+    {
+        int totalDamage = 0;
+        foreach (Piece piece in e.piecesOnBoard)
+        {
+            totalDamage += piece.GetDamageIfSurvive();
+        }
+        OnDamageEvent(totalDamage);
     }
 
     void GenerateMarketItems()
@@ -93,4 +107,9 @@ public class MarketManager : MonoBehaviour
 public class MarketUpdateEvent : GameEvent
 {
     public IReadOnlyMarket readOnlyMarket;
+}
+
+public class GameOverEvent : GameEvent
+{
+
 }

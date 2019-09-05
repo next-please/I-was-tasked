@@ -5,7 +5,7 @@ using System.Linq;
 
 public class SimulationEndedEvent : GameEvent
 {
-
+    public List<Piece> piecesOnBoard;
 }
 
 public class Simulator : Tickable
@@ -22,7 +22,7 @@ public class Simulator : Tickable
         {
             shouldRun = false;
             Debug.Log("Game has been resolved");
-            EventManager.Instance.Raise(new SimulationEndedEvent {});
+            EventManager.Instance.Raise(new SimulationEndedEvent {piecesOnBoard = piecesOnBoard});
         }
     }
 

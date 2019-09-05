@@ -710,6 +710,7 @@ MonoBehaviour:
   CurrentPhaseText: {fileID: 2144146077}
   CurrentTimeText: {fileID: 1279031746}
   CurrentRoundText: {fileID: 892779247}
+  WinScreen: {fileID: 761928977}
 --- !u!4 &72740323
 Transform:
   m_ObjectHideFlags: 0

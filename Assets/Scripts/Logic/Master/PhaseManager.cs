@@ -20,14 +20,17 @@ public class PhaseManager : MonoBehaviour
     public Text CurrentPhaseText;
     public Text CurrentTimeText;
     public Text CurrentRoundText;
+    public Canvas WinScreen;
 
     Phase currentPhase = Phase.NIL;
     int round = 0;
+    private int RoundsNeededToSurvive = 15;
     float countdown = 0;
 
     void OnEnable()
     {
         EventManager.Instance.AddListener<SimulationEndedEvent>(OnSimulationEnd);
+        EventManager.Instance.AddListener<GameOverEvent>(OnGameOver);
     }
 
     void OnDisable()
@@ -42,13 +45,31 @@ public class PhaseManager : MonoBehaviour
         StartCoroutine(MarketToCombat());
     }
 
+    void OnGameOver(GameOverEvent e)
+    {
+        if (round <= RoundsNeededToSurvive)
+        {
+            WinScreen.GetComponentInChildren<Text>().text = "You Lose!";
+        }
+        else
+        {
+            WinScreen.GetComponentInChildren<Text>().text = "You Win!";
+        }
+        WinScreen.enabled = true;
+    }
+
     IEnumerator MarketToCombat()
     {
         round++;
+        Debug.Log("Rounds remaining: " + (round - RoundsNeededToSurvive));
+        if (round > RoundsNeededToSurvive)
+        {
+            EventManager.Instance.Raise(new GameOverEvent { });
+        }
         CurrentRoundText.text = "Round " + round;
         ChangePhase(Phase.Market);
-        SetTime(10);
-        yield return new WaitForSecondsRealtime(10);
+        SetTime(5);
+        yield return new WaitForSecondsRealtime(5);
         ChangePhase(Phase.PreCombat);
         SetTime(2);
         yield return new WaitForSecondsRealtime(2);
