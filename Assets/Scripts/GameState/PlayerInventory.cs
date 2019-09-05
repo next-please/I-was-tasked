@@ -18,14 +18,15 @@ public class PlayerInventory : ScriptableObject
     private int gold;
     private Piece[] bench; // bench represented as an array with potential nulls for rearrangement
     private int benchCount = 0; // number of pieces on the bench
-    private int armySize = 4;
+    private int armySize;
     private static int MaxBenchSize = 8;
 
-    public void Reset(int startingGold)
+    public void Reset(int startingGold, int startingArmySize)
     {
         gold = startingGold;
         bench = new Piece[MaxBenchSize];
         benchCount = 0;
+        armySize = startingArmySize;
     }
 
     public Player GetOwner()

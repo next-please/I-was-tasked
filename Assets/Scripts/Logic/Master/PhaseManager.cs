@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
@@ -44,9 +45,10 @@ public class PhaseManager : MonoBehaviour
     IEnumerator MarketToCombat()
     {
         round++;
+        CurrentRoundText.text = "Round " + round;
         ChangePhase(Phase.Market);
-        SetTime(5);
-        yield return new WaitForSecondsRealtime(5);
+        SetTime(10);
+        yield return new WaitForSecondsRealtime(10);
         ChangePhase(Phase.PreCombat);
         SetTime(2);
         yield return new WaitForSecondsRealtime(2);
@@ -73,11 +75,11 @@ public class PhaseManager : MonoBehaviour
         if (countdown <= 0)
         {
             countdown = 0;
-            CurrentTimeText.text = countdown.ToString();
+            CurrentTimeText.text = ((int)Math.Ceiling(countdown)).ToString();
             return;
         }
         countdown -= Time.deltaTime;
-        CurrentTimeText.text = countdown.ToString();
+        CurrentTimeText.text = ((int)Math.Ceiling(countdown)).ToString();
     }
 
     void SetTime(float time)

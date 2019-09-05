@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public int StartingGold = 999;
+    public int StartingGold = 0;
+    public int StartingArmySize = 1;
     [SerializeField]
     PlayerInventory[] playerInventories;
 
@@ -24,7 +25,7 @@ public class InventoryManager : MonoBehaviour
         {
             foreach (var p in playerInventories)
             {
-                p.Reset(StartingGold);
+                p.Reset(StartingGold, StartingArmySize);
             }
         }
     }

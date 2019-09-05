@@ -6116,7 +6116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f6b94174aadd34a961d9b41daebc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingGold: 999
+  StartingGold: 0
+  StartingArmySize: 1
   playerInventories:
   - {fileID: 11400000, guid: 9b4ba8980ec952445aabd51853afb1a7, type: 2}
   - {fileID: 11400000, guid: d1f8fdb8dbb43a5489dee67f9cf086d9, type: 2}
@@ -7245,6 +7246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartingMarketSize: 5
+  StartingMarketTier: 1
   inventoryManager: {fileID: 1315935871}
   market: {fileID: 11400000, guid: 12979e3894380db4c94804c82523077a, type: 2}
 --- !u!4 &1554020331
@@ -9097,7 +9099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxFixedIncome: 5
-  incomeFromUpgrades: 1
+  incomeFromUpgrades: 0
   inventoryManager: {fileID: 1315935871}
 --- !u!4 &2017883521
 Transform:

@@ -12,7 +12,7 @@ public class IncomeManager : MonoBehaviour
 {
     public int MaxFixedIncome = 5;
     [SerializeField]
-    private int incomeFromUpgrades = 1;
+    private int incomeFromUpgrades = 0;
     public readonly decimal InterestRate = 1m / 10;
     public InventoryManager inventoryManager;
 
@@ -28,7 +28,7 @@ public class IncomeManager : MonoBehaviour
 
     void OnEnterPhase(EnterPhaseEvent e)
     {
-        if (e.phase == Phase.Initialization || e.phase == Phase.PostCombat)
+        if (e.phase == Phase.Market)
         {
             GenerateIncome(e.round);
         }

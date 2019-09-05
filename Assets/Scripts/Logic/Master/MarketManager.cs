@@ -5,6 +5,7 @@ using UnityEngine;
 public class MarketManager : MonoBehaviour
 {
     public int StartingMarketSize = 5;
+    public int StartingMarketTier = 1;
     public InventoryManager inventoryManager;
     public Market market;
     public CharacterGenerator characterGenerator;
@@ -23,6 +24,7 @@ public class MarketManager : MonoBehaviour
     {
         characterGenerator = new CharacterGenerator();
         market.SetMarketSize(StartingMarketSize);
+        market.MarketTier = StartingMarketTier;
     }
 
     void OnEnterPhase(EnterPhaseEvent e)

@@ -94,7 +94,7 @@ public class CharacterGenerator
         int currentMovementSpeed = defaultMovementSpeed;
 
         //calculate character rarity
-        currentRarityTier = Math.Min(currentRarityTier - 1, rarityUpgradeTiers.GetLength(0));
+        currentRarityTier = Math.Min(currentRarityTier - 1, rarityUpgradeTiers.GetLength(0) - 1);
         int rarityTotalPool = 0;
         for (int i = 0; i < numberOfRarityTiers; i++)
         {
