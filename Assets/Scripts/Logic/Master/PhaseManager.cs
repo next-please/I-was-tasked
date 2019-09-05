@@ -51,10 +51,12 @@ public class PhaseManager : MonoBehaviour
         if (round <= RoundsNeededToSurvive)
         {
             WinScreen.GetComponentInChildren<Text>().text = "You Lose!";
+            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Game is over, you lost!" });
         }
         else
         {
             WinScreen.GetComponentInChildren<Text>().text = "You Win!";
+            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Game is over, you won!" });
         }
         WinScreen.enabled = true;
     }
@@ -63,6 +65,7 @@ public class PhaseManager : MonoBehaviour
     {
         round++;
         Debug.Log("Rounds remaining: " + (round - RoundsNeededToSurvive));
+        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
         if (round > RoundsNeededToSurvive)
         {
             EventManager.Instance.Raise(new GameOverEvent { });

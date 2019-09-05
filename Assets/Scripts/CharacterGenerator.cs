@@ -236,7 +236,7 @@ public class CharacterGenerator
         }
     }
 
-    public void UpgradeCharacter(Piece piece, int currentMarketTier)
+    public bool TryUpgradeCharacter(Piece piece, int currentMarketTier)
     {
         //if character rarity can be found in the new market tier
         if (rarityUpgradeTiers[currentMarketTier - 1, piece.GetRarity()] > 0)
@@ -259,6 +259,8 @@ public class CharacterGenerator
                         break;
                 }
             }
+            return true;
         }
+        return false;
     }
 }

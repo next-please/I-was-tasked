@@ -89,13 +89,17 @@ public class MarketManager : MonoBehaviour
         market.MarketTier++;
 
         //reactive upgrades
+        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Market tier has been upgraded! New mercenaries may be stronger!" });
         for (int i = 0; i < market.GetMarketSize(); ++i)
         {
             if (market.MarketPieces[i] != null)
             {
                 if (rngesus.Next(1, 101) <= characterGenerator.characterUpgradeDifferencePercentage)
                 {
-                    characterGenerator.UpgradeCharacter(market.MarketPieces[i], market.MarketTier);
+                    if (characterGenerator.TryUpgradeCharacter(market.MarketPieces[i], market.MarketTier))
+                    {
+                        EventManager.Instance.Raise(new GlobalMessageEvent { message = market.MarketPieces[i].GetName() + " has grown stronger from the market upgrades!" });
+                    }
                 }
             }
         }
@@ -114,6 +118,7 @@ public class MarketManager : MonoBehaviour
         if (success)
         {
             //reactive upgrades
+            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Market space increased! A new mercenary has entered the market." });
             Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
             market.MarketPieces.Add(piece);
 

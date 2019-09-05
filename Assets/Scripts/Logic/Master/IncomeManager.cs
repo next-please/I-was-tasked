@@ -63,6 +63,7 @@ public class IncomeManager : MonoBehaviour
             inventoryManager.AddGold(player, income);
         }
 
+        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Passive Income Purchased! Everyone received 1 gold." });
         EventManager.Instance.Raise(new PassiveIncomeUpdateEvent{ PassiveIncome = incomeFromUpgrades });
     }
 }
