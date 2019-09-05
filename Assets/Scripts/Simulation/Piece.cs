@@ -21,6 +21,7 @@ public class Piece
     private int movementSpeed;
     private bool isEnemy;
     private int rarity;
+    private int damageIfSurvive = 0;
     private State state;
     private State entryState;
 
@@ -325,6 +326,16 @@ public class Piece
     public int GetRarity()
     {
         return rarity;
+    }
+
+    public void SetDamageIfSurvive(int damageIfSurvive)
+    {
+        this.damageIfSurvive = damageIfSurvive;
+    }
+
+    public int GetDamageIfSurvive()
+    {
+        return damageIfSurvive;
     }
 
     public void Reset()
