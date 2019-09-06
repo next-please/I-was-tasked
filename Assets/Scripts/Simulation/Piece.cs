@@ -282,6 +282,10 @@ public class Piece
         {
             this.currentManaPoints = 0;
         }
+        else if (currentManaPoints >= this.maximumManaPoints)
+        {
+            this.currentManaPoints = this.maximumManaPoints;
+        }
         else
         {
             this.currentManaPoints = currentManaPoints;
