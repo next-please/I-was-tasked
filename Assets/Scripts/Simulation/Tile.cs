@@ -30,6 +30,14 @@ public class Tile
 		return distance; // Manhattan Distance.
 	}
 
+    public int ManhattanDistanceToTile(Tile tile)
+    {
+        int rowDifference = Math.Abs(this.GetRow() - tile.GetRow());
+        int colDifference = Math.Abs(this.GetCol() - tile.GetCol());
+        int distance = rowDifference + colDifference;
+        return distance;
+    }
+
 	public Piece GetOccupant()
 	{
 		return occupant;
