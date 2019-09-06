@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class SummonManager : MonoBehaviour
 {
-    public int numPlayers = 1;
     public BoardManager boardManager;
 
     EnemyGenerator enemyGenerator = new EnemyGenerator();
-    public void GenerateAndSummonEnemies(int currentRound)
+    public void GenerateAndSummonEnemies(int currentRound, int numPlayers = 1)
     {
         for (int i = 0; i < numPlayers; ++i)
         {
@@ -20,5 +19,4 @@ public class SummonManager : MonoBehaviour
             }
         }
     }
-
 }

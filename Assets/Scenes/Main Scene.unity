@@ -707,6 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b23a73ddf6e85424ba6a33ae9ac0bc3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NumPlayers: 1
   CurrentPhaseText: {fileID: 2144146077}
   CurrentTimeText: {fileID: 1279031746}
   CurrentRoundText: {fileID: 892779247}
@@ -1872,6 +1873,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361455487}
   m_CullTransparentMesh: 0
+--- !u!1 &364237583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 364237584}
+  - component: {fileID: 364237585}
+  m_Layer: 0
+  m_Name: Simulator (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &364237584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364237583}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1660975747}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &364237585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364237583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d655cc7a9e2aa478755b79ae09e98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phaseManager: {fileID: 72740322}
+  shouldRun: 0
 --- !u!1 &372287686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,7 +2032,7 @@ Transform:
   - {fileID: 2017883521}
   - {fileID: 72740323}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &446050088
 GameObject:
@@ -2272,6 +2318,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d655cc7a9e2aa478755b79ae09e98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  phaseManager: {fileID: 72740322}
   shouldRun: 0
 --- !u!4 &456028917
 Transform:
@@ -2280,12 +2327,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456028913}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_Father: {fileID: 1660975747}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &472602603
 GameObject:
@@ -2542,7 +2589,7 @@ Transform:
   - {fileID: 1817546871}
   - {fileID: 1535132307}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &555785221
 GameObject:
@@ -3439,6 +3486,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 714772635}
   m_CullTransparentMesh: 0
+--- !u!1 &726692630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 726692632}
+  - component: {fileID: 726692631}
+  m_Layer: 0
+  m_Name: Simulator (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &726692631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726692630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d655cc7a9e2aa478755b79ae09e98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  phaseManager: {fileID: 72740322}
+  shouldRun: 0
+--- !u!4 &726692632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 726692630}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1660975747}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &755006746
 GameObject:
   m_ObjectHideFlags: 0
@@ -3468,7 +3560,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ac42d16a148ea4c8aeb6e34e14f5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlayers: 1
   boardManager: {fileID: 1931400389}
 --- !u!4 &755006748
 Transform:
@@ -4964,7 +5055,7 @@ RectTransform:
   - {fileID: 1766610597}
   - {fileID: 1563111258}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7862,6 +7953,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627001330}
   m_CullTransparentMesh: 0
+--- !u!1 &1660975746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1660975747}
+  m_Layer: 0
+  m_Name: Simulators
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1660975747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660975746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 456028917}
+  - {fileID: 726692632}
+  - {fileID: 364237584}
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1686181974
 GameObject:
   m_ObjectHideFlags: 0
@@ -9063,9 +9187,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2450a262876e9147acd0d0e7133c367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numPlayers: 1
   Simulators:
   - {fileID: 456028916}
+  - {fileID: 726692631}
+  - {fileID: 364237585}
   viewManager: {fileID: 1063249072}
 --- !u!4 &1931400390
 Transform:
@@ -9379,7 +9504,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2017883519
 GameObject:

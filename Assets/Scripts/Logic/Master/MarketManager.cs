@@ -12,16 +12,6 @@ public class MarketManager : MonoBehaviour
     public CharacterGenerator characterGenerator;
     private System.Random rngesus = new System.Random();
 
-    void OnEnable()
-    {
-        EventManager.Instance.AddListener<SimulationEndedEvent>(OnSimulationEnd);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<SimulationEndedEvent>(OnSimulationEnd);
-    }
-
     void Awake()
     {
         characterGenerator = new CharacterGenerator();
@@ -30,24 +20,21 @@ public class MarketManager : MonoBehaviour
         market.CastleHealth = StartingCastleHealth;
     }
 
-    void OnDamageEvent(int damage)
-    {
-        market.CastleHealth -= damage;
-        if (market.CastleHealth <= 0)
-        {
-            EventManager.Instance.Raise(new GameOverEvent { });
-        }
-        EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
-    }
-
-    void OnSimulationEnd(SimulationEndedEvent e)
+    public void CalculateAndApplyDamageToCastle(List<Piece> piecesOnBoard)
     {
         int totalDamage = 0;
-        foreach (Piece piece in e.piecesOnBoard)
+        foreach (Piece piece in piecesOnBoard)
         {
             totalDamage += piece.GetDamageIfSurvive();
         }
-        OnDamageEvent(totalDamage);
+        market.CastleHealth -= totalDamage;
+        EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
+    }
+
+    // probably migrate this? - nic
+    public int GetCastleHealth()
+    {
+        return market.GetCastleHealth();
     }
 
     public void GenerateMarketItems()
@@ -121,9 +108,4 @@ public class MarketManager : MonoBehaviour
 public class MarketUpdateEvent : GameEvent
 {
     public IReadOnlyMarket readOnlyMarket;
-}
-
-public class GameOverEvent : GameEvent
-{
-
 }

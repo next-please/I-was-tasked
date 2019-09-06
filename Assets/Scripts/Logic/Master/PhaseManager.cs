@@ -17,6 +17,7 @@ public enum Phase
 
 public class PhaseManager : MonoBehaviour
 {
+    public int NumPlayers = 1;
     public Text CurrentPhaseText;
     public Text CurrentTimeText;
     public Text CurrentRoundText;
@@ -29,21 +30,10 @@ public class PhaseManager : MonoBehaviour
     public SummonManager summonManager;
 
     Phase currentPhase = Phase.NIL;
-    int round = 0;
+    private int round = 0;
     private int RoundsNeededToSurvive = 15;
-    float countdown = 0;
-
-    void OnEnable()
-    {
-        EventManager.Instance.AddListener<SimulationEndedEvent>(OnSimulationEnd);
-        EventManager.Instance.AddListener<GameOverEvent>(OnGameOver);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<SimulationEndedEvent>(OnSimulationEnd);
-        EventManager.Instance.RemoveListener<GameOverEvent>(OnGameOver);
-    }
+    private float countdown = 0;
+    private int simulationPlayerCount = 0;
 
     void Start()
     {
@@ -52,7 +42,7 @@ public class PhaseManager : MonoBehaviour
         StartCoroutine(MarketToCombat());
     }
 
-    void OnGameOver(GameOverEvent e)
+    void OnGameOver()
     {
         if (round <= RoundsNeededToSurvive)
         {
@@ -74,7 +64,8 @@ public class PhaseManager : MonoBehaviour
         EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
         if (round > RoundsNeededToSurvive)
         {
-            EventManager.Instance.Raise(new GameOverEvent { });
+            OnGameOver();
+            yield break;
         }
         CurrentRoundText.text = "Round " + round;
         yield return MarketPhase();
@@ -82,16 +73,26 @@ public class PhaseManager : MonoBehaviour
         Combat();
     }
 
+    public void SimulationEnded(Player player, List<Piece> piecesOnBoard)
+    {
+        simulationPlayerCount++;
+        Assert.IsTrue(currentPhase == Phase.Combat);
+        marketManager.CalculateAndApplyDamageToCastle(piecesOnBoard);
+        if (marketManager.GetCastleHealth() < 0)
+        {
+            OnGameOver();
+        }
+        else if (simulationPlayerCount == NumPlayers)
+        {
+            simulationPlayerCount = 0;
+            StartCoroutine(PostCombatToCombat());
+        }
+    }
+
     IEnumerator PostCombatToCombat()
     {
         yield return PostCombat();
         yield return MarketToCombat();
-    }
-
-    void OnSimulationEnd(SimulationEndedEvent e)
-    {
-        Assert.IsTrue(currentPhase == Phase.Combat);
-        StartCoroutine(PostCombatToCombat());
     }
 
     IEnumerator Countdown(int time)
@@ -108,14 +109,14 @@ public class PhaseManager : MonoBehaviour
     void Initialize()
     {
         ChangePhase(Phase.Initialization);
-        boardManager.CreateBoards();
+        boardManager.CreateBoards(NumPlayers);
         inventoryManager.ResetInventories();
     }
 
     IEnumerator MarketPhase()
     {
         ChangePhase(Phase.Market);
-        boardManager.ResetBoards();
+        boardManager.ResetBoards(NumPlayers);
         incomeManager.GenerateIncome(round);
         marketManager.GenerateMarketItems();
         yield return Countdown(5);
@@ -124,7 +125,7 @@ public class PhaseManager : MonoBehaviour
     IEnumerator PreCombat()
     {
         ChangePhase(Phase.PreCombat);
-        summonManager.GenerateAndSummonEnemies(round);
+        summonManager.GenerateAndSummonEnemies(round, NumPlayers);
         yield return Countdown(2);
     }
 
@@ -132,7 +133,7 @@ public class PhaseManager : MonoBehaviour
     {
         ChangePhase(Phase.Combat);
         CurrentTimeText.text = "Combat In Progress";
-        boardManager.StartSim();
+        boardManager.StartSim(NumPlayers);
     }
 
     IEnumerator PostCombat()

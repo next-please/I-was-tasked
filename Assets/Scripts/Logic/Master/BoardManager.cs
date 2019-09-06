@@ -23,12 +23,11 @@ public class PieceMoveEvent : GameEvent
 
 public class BoardManager : MonoBehaviour
 {
-    public int numPlayers = 1;
     public Simulator[] Simulators;
     public ViewManager viewManager;
     Board[] boards;
 
-    public void CreateBoards()
+    public void CreateBoards(int numPlayers = 1)
     {
         boards = new Board[numPlayers];
         for (int i = 0; i < numPlayers; ++i)
@@ -41,7 +40,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void StartSim()
+    public void StartSim(int numPlayers = 1)
     {
         for (int i = 0; i < numPlayers; ++i)
         {
@@ -56,7 +55,7 @@ public class BoardManager : MonoBehaviour
         return boards[index];
     }
 
-    public void ResetBoards()
+    public void ResetBoards(int numPlayers = 1)
     {
         for (int i = 0; i < numPlayers; ++i)
         {

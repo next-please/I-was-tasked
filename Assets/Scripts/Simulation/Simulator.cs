@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class SimulationEndedEvent : GameEvent
-{
-    public List<Piece> piecesOnBoard;
-}
-
 public class Simulator : Tickable
 {
+    public PhaseManager phaseManager;
+    private Player player;
     private Board gameBoard;
     public bool shouldRun = false;
 
@@ -22,11 +19,11 @@ public class Simulator : Tickable
         {
             shouldRun = false;
             Debug.Log("Game has been resolved");
-            EventManager.Instance.Raise(new SimulationEndedEvent {piecesOnBoard = piecesOnBoard});
+            phaseManager.SimulationEnded(player, piecesOnBoard);
         }
     }
 
-    public void SetGameBoard(Board board)
+    public void SetGameBoard(Board board, Player player = Player.Zero)
     {
         gameBoard = board;
     }
