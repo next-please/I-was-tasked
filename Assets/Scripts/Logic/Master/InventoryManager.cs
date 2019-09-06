@@ -9,24 +9,11 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     PlayerInventory[] playerInventories;
 
-    void OnEnable()
+    public void ResetInventories()
     {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Initialization)
+        foreach (var p in playerInventories)
         {
-            foreach (var p in playerInventories)
-            {
-                p.Reset(StartingGold, StartingArmySize);
-            }
+            p.Reset(StartingGold, StartingArmySize);
         }
     }
 

@@ -22,6 +22,12 @@ public class PhaseManager : MonoBehaviour
     public Text CurrentRoundText;
     public Canvas WinScreen;
 
+    public IncomeManager incomeManager;
+    public BoardManager boardManager;
+    public MarketManager marketManager;
+    public InventoryManager inventoryManager;
+    public SummonManager summonManager;
+
     Phase currentPhase = Phase.NIL;
     int round = 0;
     private int RoundsNeededToSurvive = 15;
@@ -42,7 +48,7 @@ public class PhaseManager : MonoBehaviour
     void Start()
     {
         round = 0;
-        ChangePhase(Phase.Initialization);
+        Initialize();
         StartCoroutine(MarketToCombat());
     }
 
@@ -71,20 +77,14 @@ public class PhaseManager : MonoBehaviour
             EventManager.Instance.Raise(new GameOverEvent { });
         }
         CurrentRoundText.text = "Round " + round;
-        ChangePhase(Phase.Market);
-        SetTime(5);
-        yield return new WaitForSecondsRealtime(5);
-        ChangePhase(Phase.PreCombat);
-        SetTime(2);
-        yield return new WaitForSecondsRealtime(2);
-        ChangePhase(Phase.Combat);
+        yield return MarketPhase();
+        yield return PreCombat();
+        Combat();
     }
 
     IEnumerator PostCombatToCombat()
     {
-        ChangePhase(Phase.PostCombat);
-        SetTime(5);
-        yield return new WaitForSecondsRealtime(5);
+        yield return PostCombat();
         yield return MarketToCombat();
     }
 
@@ -94,22 +94,51 @@ public class PhaseManager : MonoBehaviour
         StartCoroutine(PostCombatToCombat());
     }
 
-    void Update()
+    IEnumerator Countdown(int time)
     {
-        // Not the best...
-        if (countdown <= 0)
+        while (time > 0)
         {
-            countdown = 0;
-            CurrentTimeText.text = ((int)Math.Ceiling(countdown)).ToString();
-            return;
+            CurrentTimeText.text = time.ToString();
+            yield return new WaitForSecondsRealtime(1);
+            time -= 1;
         }
-        countdown -= Time.deltaTime;
-        CurrentTimeText.text = ((int)Math.Ceiling(countdown)).ToString();
     }
 
-    void SetTime(float time)
+    // PHASES
+    void Initialize()
     {
-        countdown = time;
+        ChangePhase(Phase.Initialization);
+        boardManager.CreateBoards();
+        inventoryManager.ResetInventories();
+    }
+
+    IEnumerator MarketPhase()
+    {
+        ChangePhase(Phase.Market);
+        boardManager.ResetBoards();
+        incomeManager.GenerateIncome(round);
+        marketManager.GenerateMarketItems();
+        yield return Countdown(5);
+    }
+
+    IEnumerator PreCombat()
+    {
+        ChangePhase(Phase.PreCombat);
+        summonManager.GenerateAndSummonEnemies(round);
+        yield return Countdown(2);
+    }
+
+    void Combat()
+    {
+        ChangePhase(Phase.Combat);
+        CurrentTimeText.text = "Combat In Progress";
+        boardManager.StartSim();
+    }
+
+    IEnumerator PostCombat()
+    {
+        ChangePhase(Phase.PostCombat);
+        yield return Countdown(5);
     }
 
     void ChangePhase(Phase phase)

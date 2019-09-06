@@ -28,30 +28,7 @@ public class BoardManager : MonoBehaviour
     public ViewManager viewManager;
     Board[] boards;
 
-    void OnEnable()
-    {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Initialization)
-        {
-            CreateBoards();
-        }
-
-        if (e.phase == Phase.Combat)
-        {
-            StartSim();
-        }
-    }
-
-    void CreateBoards()
+    public void CreateBoards()
     {
         boards = new Board[numPlayers];
         for (int i = 0; i < numPlayers; ++i)
@@ -64,7 +41,7 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    void StartSim()
+    public void StartSim()
     {
         for (int i = 0; i < numPlayers; ++i)
         {
@@ -77,6 +54,15 @@ public class BoardManager : MonoBehaviour
     {
         int index = (int) player;
         return boards[index];
+    }
+
+    public void ResetBoards()
+    {
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            Player player = (Player) i;
+            ResetBoard(player);
+        }
     }
 
     public void ResetBoard(Player player)

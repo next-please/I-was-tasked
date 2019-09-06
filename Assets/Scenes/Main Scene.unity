@@ -711,6 +711,11 @@ MonoBehaviour:
   CurrentTimeText: {fileID: 1279031746}
   CurrentRoundText: {fileID: 892779247}
   WinScreen: {fileID: 761928977}
+  incomeManager: {fileID: 2017883520}
+  boardManager: {fileID: 1931400389}
+  marketManager: {fileID: 1554020330}
+  inventoryManager: {fileID: 1315935871}
+  summonManager: {fileID: 755006747}
 --- !u!4 &72740323
 Transform:
   m_ObjectHideFlags: 0
@@ -3465,7 +3470,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numPlayers: 1
   boardManager: {fileID: 1931400389}
-  inventoryManager: {fileID: 1315935871}
 --- !u!4 &755006748
 Transform:
   m_ObjectHideFlags: 0

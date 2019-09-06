@@ -14,13 +14,11 @@ public class MarketManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.AddListener<SimulationEndedEvent>(OnSimulationEnd);
     }
 
     void OnDisable()
     {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.RemoveListener<SimulationEndedEvent>(OnSimulationEnd);
     }
 
@@ -30,14 +28,6 @@ public class MarketManager : MonoBehaviour
         market.SetMarketSize(StartingMarketSize);
         market.MarketTier = StartingMarketTier;
         market.CastleHealth = StartingCastleHealth;
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Market)
-        {
-            GenerateMarketItems();
-        }
     }
 
     void OnDamageEvent(int damage)
@@ -60,7 +50,7 @@ public class MarketManager : MonoBehaviour
         OnDamageEvent(totalDamage);
     }
 
-    void GenerateMarketItems()
+    public void GenerateMarketItems()
     {
         if (market.MarketPieces != null)
         {

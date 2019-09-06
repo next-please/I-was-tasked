@@ -16,25 +16,7 @@ public class IncomeManager : MonoBehaviour
     public readonly decimal InterestRate = 1m / 10;
     public InventoryManager inventoryManager;
 
-    void OnEnable()
-    {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Market)
-        {
-            GenerateIncome(e.round);
-        }
-    }
-
-    void GenerateIncome(int currentRound)
+    public void GenerateIncome(int currentRound)
     {
         // if I'm master client
         int currentIncome = Math.Min(currentRound, MaxFixedIncome);
