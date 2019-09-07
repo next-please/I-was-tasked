@@ -12,7 +12,7 @@ namespace Com.Nextplease.IWT
     {
 
         #region Private Fields
-        private RequestHandler reqHandler;
+        private readonly RequestHandler reqHandler;
 
         private const byte VALIDATE_ACTION_WITH_MASTER = 0;
         private const byte UPDATE_STATE = 1;
@@ -33,7 +33,7 @@ namespace Com.Nextplease.IWT
             if (PhotonNetwork.IsMasterClient)
             {
                 Request processedReq = reqHandler.ValidateRequest(req);
-                RaiseEvent(UPDATE_STATE, req);
+                RaiseEvent(UPDATE_STATE, processedReq);
                 return;
             }
 
@@ -62,17 +62,6 @@ namespace Com.Nextplease.IWT
             Debug.Assert(raiseEventOptions != null);
 
             PhotonNetwork.RaiseEvent(code, content, raiseEventOptions, SEND_OPTIONS);
-        }
-
-        // TODO: Implement validity check with for requests given action type @nicholaschuayunzhi 
-        bool IsValidRequest(Request r)
-        {
-            Random rnd = new Random();
-
-            bool isValid = rnd.Next(100) < 50;
-            Debug.LogFormat("NetworkManager: Master Client {0} permission result for request from {1}: {2}",
-                PhotonNetwork.LocalPlayer.NickName, r.GetRequester(), isValid);
-            return isValid;
         }
         #endregion
 

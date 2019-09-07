@@ -10,6 +10,7 @@
 
         public Request(string requester, byte actionType, Data data)
         {
+            this.requester = requester;
             this.actionType = actionType;
             this.approved = false;
             this.data = data;
