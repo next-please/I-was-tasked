@@ -73,6 +73,34 @@ public class InventoryManager : MonoBehaviour
         EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
     }
 
+    public bool IsArmyFull(Player player)
+    {
+        var playerInv = GetPlayerInventory(player);
+        return playerInv.IsArmyFull();
+    }
+
+    public bool AddToArmy(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        var success = playerInv.AddToArmy(piece);
+        if (success)
+        {
+            EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+        }
+        return success;
+    }
+
+     public bool RemoveFromArmy(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        var success = playerInv.RemoveFromArmy(piece);
+        if (success)
+        {
+            EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+        }
+        return success;
+    }
+
     public void DeductGold(Player player, int amount)
     {
         var playerInv = GetPlayerInventory(player);
@@ -105,6 +133,13 @@ public class InventoryManager : MonoBehaviour
     {
         var playerInv = GetPlayerInventory(player);
         return playerInv.GetArmySize();
+    }
+
+    public List<Piece> GetExcessPieces(Player player)
+    {
+        var playerInv = GetPlayerInventory(player);
+        int size = playerInv.GetArmySize();
+        return playerInv.GetExcessArmyPieces();
     }
 }
 

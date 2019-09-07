@@ -10,17 +10,17 @@ public class Simulator : Tickable
     private Board gameBoard;
     public bool shouldRun = false;
 
-    void CheckResolved()
+    bool IsResolved()
     {
         List<Piece> piecesOnBoard = gameBoard.GetActivePiecesOnBoard();
         int numEnemies = piecesOnBoard.Where(piece => piece.IsEnemy()).Count();
         int numFriends = piecesOnBoard.Where(piece => !piece.IsEnemy()).Count();
         if (numEnemies == 0 || numFriends == 0)
         {
-            shouldRun = false;
             Debug.Log("Game has been resolved");
-            phaseManager.SimulationEnded(player, piecesOnBoard);
+            return true;
         }
+        return false;
     }
 
     public void SetGameBoard(Board board, Player player = Player.Zero)
@@ -39,7 +39,19 @@ public class Simulator : Tickable
         {
             return;
         }
-        CheckResolved();
+        // copy because list gets sorted
+        List<Piece> activePiecesOnBoard = new List<Piece>(gameBoard.GetActivePiecesOnBoard());
+        if (IsResolved())
+        {
+            shouldRun = false;
+            foreach (Piece activePiece in activePiecesOnBoard)
+            {
+                // this forces all states to end (move will finish)
+                activePiece.TransitIntoState(gameBoard, new InfiniteState());
+            }
+            phaseManager.SimulationEnded(player, activePiecesOnBoard);
+            return;
+        }
         List<Piece> piecesOnBoard = gameBoard.GetPiecesOnBoard();
         foreach (Piece currentPiece in piecesOnBoard)
         {

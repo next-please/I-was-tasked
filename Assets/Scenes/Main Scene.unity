@@ -3606,6 +3606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardManager: {fileID: 1931400389}
+  inventoryManager: {fileID: 1315935871}
 --- !u!4 &755006748
 Transform:
   m_ObjectHideFlags: 0
@@ -6437,7 +6438,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f6b94174aadd34a961d9b41daebc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingGold: 0
+  StartingGold: 11
   StartingArmySize: 1
   playerInventories:
   - {fileID: 11400000, guid: 9b4ba8980ec952445aabd51853afb1a7, type: 2}
