@@ -29,16 +29,15 @@ namespace Com.Nextplease.IWT
         #region Public Methods
         public void ProcessRequest(Request req)
         {
+            // If MasterClient, validate and update all
             if (PhotonNetwork.IsMasterClient)
             {
-                if (IsValidRequest(req))
-                {
-                    req.Approve();
-                }
+                Request processedReq = reqHandler.ValidateRequest(req);
                 RaiseEvent(UPDATE_STATE, req);
                 return;
             }
 
+            // Else, validate with MasterClient
             RaiseEvent(VALIDATE_ACTION_WITH_MASTER, req);
             return;
         }

@@ -25,13 +25,33 @@ namespace Com.Nextplease.IWT
             this.networkManager.ProcessRequest(req);            
         }
 
+        public Request ValidateRequest(Request req)
+        {
+           switch(req.GetActionType())
+            {
+                case MOVE_FROM_BENCH_TO_BOARD:
+                    PieceMovementData data = (PieceMovementData)req.GetData();
+                    if(arrangementManager.IsValidBenchToBoard(data.player, data.piece, data.tile))
+                    {
+                        req.Approve();
+                    }
+                    return req;
+
+                default:
+                    Debug.LogErrorFormat("RequestHandler: {0} issued request of invalid action type {1}", req.GetRequester(), req.GetActionType());
+                    return null;
+            }
+        }
+
         public void ExecuteRequest(Request req)
         {
+            if(!req.IsApproved()) { return; }
+
             switch(req.GetActionType())
             {
                 case MOVE_FROM_BENCH_TO_BOARD:
                     PieceMovementData data = (PieceMovementData)req.GetData();
-                    arrangementManager.TryMoveBenchToBoard(data.player, data.piece, data.tile);
+                    arrangementManager.MoveBenchToBoard(data.player, data.piece, data.tile);
                     break;
                 default:
                     Debug.LogErrorFormat("RequestHandler: {0} issued request of invalid action type {1}", req.GetRequester(), req.GetActionType());
@@ -40,6 +60,5 @@ namespace Com.Nextplease.IWT
 
         }
         #endregion
-
     }
 }

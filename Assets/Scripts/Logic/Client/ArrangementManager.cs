@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Com.Nextplease.IWT;
 
 public class ArrangementManager : MonoBehaviour
 {
     public BoardManager boardManager;
     public MarketManager marketManager;
     public InventoryManager inventoryManager;
+    public RequestHandler requestHandler;
 
     public void TryMovePieceOnBoard(Player player, Piece piece, Tile nextTile)
     {
@@ -15,15 +17,9 @@ public class ArrangementManager : MonoBehaviour
 
     public void TryMoveBenchToBoard(Player player, Piece piece, Tile tile)
     {
-        if (!inventoryManager.BenchContainsPiece(player, piece) ||
-             tile.IsOccupied())
-        {
-            return;
-        }
-
-        // must be master client
-        inventoryManager.RemoveFromBench(player, piece);
-        boardManager.AddPieceToBoard(player, piece, tile.GetRow(), tile.GetCol());
+        Data data = new PieceMovementData(player, piece, tile);
+        Request req = new Request(player.ToString(), 0, data);
+        requestHandler.SendRequest(req);
     }
 
     public void TryMoveBoardToBench(Player player, Piece piece, int slotIndex)
@@ -48,5 +44,17 @@ public class ArrangementManager : MonoBehaviour
     {
         boardManager.RemovePieceFromBoard(player, piece);
         marketManager.characterGenerator.ReturnPiece(piece);
+    }
+
+    public void MoveBenchToBoard(Player player, Piece piece, Tile tile)
+    {
+         // must be master client
+        inventoryManager.RemoveFromBench(player, piece);
+        boardManager.AddPieceToBoard(player, piece, tile.GetRow(), tile.GetCol());
+    }
+
+    public bool IsValidBenchToBoard(Player player, Piece piece, Tile tile)
+    {
+        return !inventoryManager.BenchContainsPiece(player, piece) || tile.IsOccupied();
     }
 }
