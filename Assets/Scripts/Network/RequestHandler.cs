@@ -4,28 +4,35 @@ using UnityEngine;
 
 namespace Com.Nextplease.IWT
 {
-    public class RequestHandler : MonoBehaviour
-    {
+    public class RequestHandler {
+        #region Manager References
+
+        private readonly NetworkManager networkManager;
+
+        #endregion
+
+        public RequestHandler()
+        {
+            this.networkManager = new NetworkManager(this);
+        }
+
         #region Public Methods
-        public void SendRequest(Request r)
+        public void SendRequest(Request req)
         {
-            
+            this.networkManager.ProcessRequest(req);            
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void ExecuteRequest(Request r)
+        public void ExecuteRequest(Request req)
         {
-
-        }
-        #endregion
-
-        #region Initialisation
-        void Start()
-        {
+            switch(req.GetActionType())
+            {
+                default:
+                    Debug.LogErrorFormat("RequestHandler: {0} issued request of invalid action type {1}", req.GetRequester(), req.GetActionType());
+                    break;
+            }
 
         }
         #endregion
+
     }
 }
