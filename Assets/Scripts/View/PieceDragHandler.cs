@@ -50,6 +50,12 @@ public class PieceDragHandler : Droppable
 
     public override void OnBenchDrop(BenchSlot slot)
     {
+        if (slot.isOccupied)
+        {
+            OnEmptyDrop();
+            return;
+        }
+
         EventManager.Instance.Raise(new MoveFromBoardToBenchEvent
         {
             piece = piece,

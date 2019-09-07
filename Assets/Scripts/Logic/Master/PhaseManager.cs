@@ -126,6 +126,7 @@ public class PhaseManager : MonoBehaviour
     {
         ChangePhase(Phase.PreCombat);
         summonManager.GenerateAndSummonEnemies(round, NumPlayers);
+        summonManager.RemoveExcessPlayerPieces(NumPlayers);
         yield return Countdown(2);
     }
 
