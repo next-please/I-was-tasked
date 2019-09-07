@@ -11,8 +11,13 @@ using Photon.Realtime;
 
 namespace Com.Nextplease.IWT
 {
-    public class GameManager : MonoBehaviourPunCallbacks
+    public class RoomManager : MonoBehaviourPunCallbacks
     {
+        #region Public Fields
+        public int NumPlayersToStart = 1;
+        public static Player LocalPlayer = Player.Two;
+        public PhaseManager phaseManager;
+        #endregion
         #region Private Serializable Fields
         [SerializeField]
         private Text playerList;
@@ -34,7 +39,7 @@ namespace Com.Nextplease.IWT
                 Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
             }
             Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-            PhotonNetwork.LoadLevel("DragAndDropNetwork");
+            PhotonNetwork.LoadLevel("Main Scene");
             UpdatePlayerList();
         }
 
@@ -60,13 +65,27 @@ namespace Com.Nextplease.IWT
             playerList.text = sb.ToString();
         }
 
-
+        public Player PhotonPlayerToPlayer(Photon.Realtime.Player photonPlayer)
+        {
+            int index = 0;
+            foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
+            {
+                if (p == photonPlayer)
+                {
+                    return (Player) index;
+                }
+                index++;
+            }
+            return Player.Zero; // for debug
+        }
         #endregion
 
         #region Monobehaviour Methods
         void Start()
         {
             UpdatePlayerList();
+            LocalPlayer = PhotonPlayerToPlayer(PhotonNetwork.LocalPlayer);
+
         }
         #endregion
 
@@ -83,15 +102,10 @@ namespace Com.Nextplease.IWT
         {
             Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
             UpdatePlayerList();
-
-
-            // TODO: Remove
-            if (PhotonNetwork.IsMasterClient)
+            if (PhotonNetwork.PlayerList.Length >= NumPlayersToStart &&
+                PhotonNetwork.IsMasterClient)
             {
-                Debug.LogFormat("OnPlayerEnteredRoom IsMasterClient {0}", PhotonNetwork.IsMasterClient); // called before OnPlayerLeftRoom
-
-
-                LoadArena();
+                phaseManager.StartPhases(NumPlayersToStart);
             }
         }
 
@@ -111,8 +125,6 @@ namespace Com.Nextplease.IWT
                 LoadArena();
             }
         }
-
-
         #endregion
     }
 }

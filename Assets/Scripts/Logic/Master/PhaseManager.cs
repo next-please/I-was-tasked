@@ -17,7 +17,6 @@ public enum Phase
 
 public class PhaseManager : MonoBehaviour
 {
-    public int NumPlayers = 1;
     public Text CurrentPhaseText;
     public Text CurrentTimeText;
     public Text CurrentRoundText;
@@ -35,8 +34,14 @@ public class PhaseManager : MonoBehaviour
     private float countdown = 0;
     private int simulationPlayerCount = 0;
 
-    void Start()
+    private int numPlayers = 1;
+    private bool phasesRunning = false;
+
+    public void StartPhases(int numPlayers = 1)
     {
+        this.numPlayers = numPlayers;
+        if (phasesRunning) return;
+        phasesRunning = true;
         round = 0;
         Initialize();
         StartCoroutine(MarketToCombat());
@@ -82,7 +87,7 @@ public class PhaseManager : MonoBehaviour
         {
             OnGameOver();
         }
-        else if (simulationPlayerCount == NumPlayers)
+        else if (simulationPlayerCount == numPlayers)
         {
             simulationPlayerCount = 0;
             StartCoroutine(PostCombatToCombat());
@@ -109,14 +114,14 @@ public class PhaseManager : MonoBehaviour
     void Initialize()
     {
         ChangePhase(Phase.Initialization);
-        boardManager.CreateBoards(NumPlayers);
+        boardManager.CreateBoards(numPlayers);
         inventoryManager.ResetInventories();
     }
 
     IEnumerator MarketPhase()
     {
         ChangePhase(Phase.Market);
-        boardManager.ResetBoards(NumPlayers);
+        boardManager.ResetBoards(numPlayers);
         incomeManager.GenerateIncome(round);
         marketManager.GenerateMarketItems();
         yield return Countdown(5);
@@ -125,8 +130,8 @@ public class PhaseManager : MonoBehaviour
     IEnumerator PreCombat()
     {
         ChangePhase(Phase.PreCombat);
-        summonManager.GenerateAndSummonEnemies(round, NumPlayers);
-        summonManager.RemoveExcessPlayerPieces(NumPlayers);
+        summonManager.GenerateAndSummonEnemies(round, numPlayers);
+        summonManager.RemoveExcessPlayerPieces(numPlayers);
         yield return Countdown(2);
     }
 
@@ -134,7 +139,7 @@ public class PhaseManager : MonoBehaviour
     {
         ChangePhase(Phase.Combat);
         CurrentTimeText.text = "Combat In Progress";
-        boardManager.StartSim(NumPlayers);
+        boardManager.StartSim(numPlayers);
     }
 
     IEnumerator PostCombat()

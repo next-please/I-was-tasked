@@ -21,16 +21,17 @@ public class ViewManager : MonoBehaviour
         EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
     }
 
-    public void OnBoardCreated(Board gameBoard)
+    public void OnBoardCreated(Board gameBoard, Player player)
     {
         int rows = gameBoard.GetNumRows();
         int cols = gameBoard.GetNumCols();
         bool toggle = false;
+        Vector3 startPos = (Vector3.right * rows * TileSize + Vector3.right * 2) * (int)player; // board + offset
         for (int i = 0; i < rows; ++i)
         {
             for (int j = 0; j < rows; ++j)
             {
-                GameObject tile = Instantiate(TileViewPrefab, new Vector3(i, 0, j) * TileSize, Quaternion.identity);
+                GameObject tile = Instantiate(TileViewPrefab, startPos + new Vector3(i, 0, j) * TileSize, Quaternion.identity);
                 TileView tileView = tile.GetComponent<TileView>();
                 tileView.TrackTile(gameBoard.GetTile(i, j));
 

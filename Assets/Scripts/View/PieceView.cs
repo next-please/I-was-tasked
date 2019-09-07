@@ -41,7 +41,7 @@ public class PieceView : MonoBehaviour
             GUIStyle style = new GUIStyle();
             style.fontStyle = FontStyle.Bold;
             style.fontSize = 24;
-            Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetViewState().ToString(), style);
+            // Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetViewState().ToString(), style);
         }
     }
 
