@@ -20,11 +20,20 @@ namespace Com.Nextplease.IWT
         }
 
         #region Public Methods
+        /// <summary>
+        /// SendRequest sends an incoming request to the NetworkManager for synchronisation between clients.
+        /// </summary>
+        /// <param name="req"></param>
         public void SendRequest(Request req)
         {
             this.networkManager.ProcessRequest(req);            
         }
 
+        /// <summary>
+        /// ValidateRequest validates requests using the various Managers. Only for MasterClient.
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         public Request ValidateRequest(Request req)
         {
            switch(req.GetActionType())
@@ -43,6 +52,10 @@ namespace Com.Nextplease.IWT
             }
         }
 
+        /// <summary>
+        /// ExecuteRequest utilises various Managers to execute a request given if it is approved. For all clients.
+        /// </summary>
+        /// <param name="req"></param>
         public void ExecuteRequest(Request req)
         {
             if(!req.IsApproved()) { return; }
