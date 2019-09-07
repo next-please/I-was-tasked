@@ -1,5 +1,7 @@
-﻿namespace Com.Nextplease.IWT
+﻿using System;
+namespace Com.Nextplease.IWT
 {
+    [Serializable]
     public class PieceMovementData : Data
     {
         public Player player;
@@ -12,6 +14,5 @@
             this.piece = piece;
             this.tile = tile;
         }
-
     }
 }

@@ -12,19 +12,14 @@ namespace Com.Nextplease.IWT
     {
 
         #region Private Fields
-        private readonly RequestHandler reqHandler;
+        public RequestHandler reqHandler;
 
         private const byte VALIDATE_ACTION_WITH_MASTER = 0;
         private const byte UPDATE_STATE = 1;
 
-        // Setting for TCP Preference 
+        // Setting for TCP Preference
         private readonly SendOptions SEND_OPTIONS = new SendOptions { Reliability = true };
         #endregion
-
-        public NetworkManager(RequestHandler reqHandler)
-        {
-            this.reqHandler = reqHandler;
-        }
 
         #region Public Methods
         public void ProcessRequest(Request req)
@@ -46,7 +41,7 @@ namespace Com.Nextplease.IWT
         #region Private Methods
         private void RaiseEvent(byte code, Request r)
         {
-            object[] content = { r };
+            byte[] content = Serialization.serializeObject(r);
             RaiseEventOptions raiseEventOptions;
             switch (code)
             {
@@ -58,10 +53,10 @@ namespace Com.Nextplease.IWT
                     break;
             }
 
-            // TODO: Remove            
+            // TODO: Remove
             Debug.Assert(raiseEventOptions != null);
-
             PhotonNetwork.RaiseEvent(code, content, raiseEventOptions, SEND_OPTIONS);
+            Debug.Log("EVENT RAISED");
         }
         #endregion
 
@@ -72,9 +67,9 @@ namespace Com.Nextplease.IWT
 
             Debug.LogFormat("NetworkManager: {0} has received photon event.", PhotonNetwork.LocalPlayer.NickName);
 
-            object[] content = (object[])photonEvent.CustomData;
+            byte[] content = (byte[])photonEvent.CustomData;
 
-            Request req = (Request)content[0];
+            Request req = (Request)Serialization.deserializeData(content);
 
             switch (photonEvent.Code)
             {
@@ -89,7 +84,7 @@ namespace Com.Nextplease.IWT
                     }
                     else
                     {
-                        Debug.LogErrorFormat("NetworkHandler: Validate action sent to non-master client '{0}' from '{1}'.", 
+                        Debug.LogErrorFormat("NetworkHandler: Validate action sent to non-master client '{0}' from '{1}'.",
                             PhotonNetwork.LocalPlayer.NickName, req.GetRequester());
                     }
                     break;

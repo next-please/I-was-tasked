@@ -9,15 +9,10 @@ namespace Com.Nextplease.IWT
 
         #region Manager References
 
-        private readonly NetworkManager networkManager;
+        public NetworkManager networkManager;
         public ArrangementManager arrangementManager;
 
         #endregion
-
-        RequestHandler()
-        {
-            this.networkManager = new NetworkManager(this);
-        }
 
         #region Public Methods
         /// <summary>
@@ -26,7 +21,7 @@ namespace Com.Nextplease.IWT
         /// <param name="req"></param>
         public void SendRequest(Request req)
         {
-            this.networkManager.ProcessRequest(req);            
+            this.networkManager.ProcessRequest(req);
         }
 
         /// <summary>
@@ -36,20 +31,21 @@ namespace Com.Nextplease.IWT
         /// <returns></returns>
         public Request ValidateRequest(Request req)
         {
-           switch(req.GetActionType())
-            {
-                case MOVE_FROM_BENCH_TO_BOARD:
-                    PieceMovementData data = (PieceMovementData)req.GetData();
-                    if(arrangementManager.IsValidBenchToBoard(data.player, data.piece, data.tile))
-                    {
-                        req.Approve();
-                    }
-                    return req;
+            switch(req.GetActionType())
+                {
+                    case MOVE_FROM_BENCH_TO_BOARD:
+                        PieceMovementData data = (PieceMovementData)req.GetData();
+                        if(arrangementManager.IsValidBenchToBoard(data.player, data.piece, data.tile))
+                        {
+                            req.Approve();
+                        }
+                        Debug.Log("here me dude");
+                        return req;
 
-                default:
-                    Debug.LogErrorFormat("RequestHandler: {0} issued request of invalid action type {1}", req.GetRequester(), req.GetActionType());
-                    return null;
-            }
+                    default:
+                        Debug.LogErrorFormat("RequestHandler: {0} issued request of invalid action type {1}", req.GetRequester(), req.GetActionType());
+                        return null;
+                }
         }
 
         /// <summary>
@@ -58,8 +54,8 @@ namespace Com.Nextplease.IWT
         /// <param name="req"></param>
         public void ExecuteRequest(Request req)
         {
+            Debug.Log(req.IsApproved());
             if(!req.IsApproved()) { return; }
-
             switch(req.GetActionType())
             {
                 case MOVE_FROM_BENCH_TO_BOARD:

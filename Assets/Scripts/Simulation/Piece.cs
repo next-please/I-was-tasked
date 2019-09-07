@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Runtime.Serialization;
 
-public class Piece
+[Serializable]
+public class Piece : ISerializable
 {
-    private Piece target;
-    private Tile initialTile;
-    private Tile currentTile;
-    private Tile lockedTile;
+    #region Serializable Fields
+    private string guid;
     private string name;
     private Enums.Race race;
     private Enums.Job job;
@@ -22,6 +23,12 @@ public class Piece
     private bool isEnemy;
     private int rarity;
     private int damageIfSurvive = 0;
+    private Tile initialTile;
+    private Tile currentTile;
+    private Tile lockedTile;
+    #endregion
+
+    private Piece target;
     private State state;
     private State entryState;
 
@@ -38,6 +45,74 @@ public class Piece
         SetMovementSpeed(1);
         this.state = CreateState();
         this.entryState = this.state;
+        this.guid = Guid.NewGuid().ToString();
+    }
+
+    public override bool Equals(object obj)
+    {
+        if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
+        {
+            return false;
+        }
+        else
+        {
+            Piece p = (Piece) obj;
+            return p.guid == this.guid;
+        }
+    }
+
+    public override int GetHashCode()
+    {
+        return guid.GetHashCode();
+    }
+
+    // The special constructor is used to deserialize values.
+    public Piece(SerializationInfo info, StreamingContext context)
+    {
+        // In Order of Declaration
+        guid = (string) info.GetValue("guid", typeof(string));
+        name = (string) info.GetValue("name", typeof(string));
+        race = (Enums.Race) info.GetValue("race", typeof(Enums.Race));
+        job = (Enums.Job) info.GetValue("job", typeof(Enums.Job));
+        currentHitPoints = (int) info.GetValue("currentHitPoints", typeof(int));
+        maximumHitPoints = (int) info.GetValue("maximumHitPoints", typeof(int));
+        currentManaPoints = (int) info.GetValue("currentManaPoints", typeof(int));
+        maximumManaPoints = (int) info.GetValue("maximumManaPoints", typeof(int));
+        attackDamage = (int) info.GetValue("attackDamage", typeof(int));
+        attackRange = (int) info.GetValue("attackRange", typeof(int));
+        attackSpeed = (int) info.GetValue("attackSpeed", typeof(int));
+        movementSpeed = (int) info.GetValue("movementSpeed", typeof(int));
+        isEnemy = (bool) info.GetValue("isEnemy", typeof(bool));
+        rarity = (int) info.GetValue("rarity", typeof(int));
+        damageIfSurvive = (int) info.GetValue("damageIfSurvive", typeof(int));
+        initialTile = (Tile) info.GetValue("initialTile", typeof(Tile));
+        currentTile = (Tile) info.GetValue("currentTile", typeof(Tile));
+        lockedTile = (Tile) info.GetValue("lockedTile", typeof(Tile));
+        this.state = CreateState();
+        this.entryState = this.state;
+    }
+
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
+    {
+        // In Order of Declaration
+        info.AddValue("guid", guid, typeof(string));
+        info.AddValue("name", name, typeof(string));
+        info.AddValue("race", race, typeof(Enums.Race));
+        info.AddValue("job", job, typeof(Enums.Job));
+        info.AddValue("currentHitPoints", currentHitPoints, typeof(int));
+        info.AddValue("maximumHitPoints", maximumHitPoints, typeof(int));
+        info.AddValue("currentManaPoints", currentManaPoints, typeof(int));
+        info.AddValue("maximumManaPoints", maximumManaPoints, typeof(int));
+        info.AddValue("attackDamage", attackDamage, typeof(int));
+        info.AddValue("attackRange", attackRange, typeof(int));
+        info.AddValue("attackSpeed", attackSpeed, typeof(int));
+        info.AddValue("movementSpeed", movementSpeed, typeof(int));
+        info.AddValue("isEnemy", isEnemy, typeof(bool));
+        info.AddValue("rarity", rarity, typeof(int));
+        info.AddValue("damageIfSurvive", damageIfSurvive, typeof(int));
+        info.AddValue("initialTile", initialTile, typeof(Tile));
+        info.AddValue("currentTile", currentTile, typeof(Tile));
+        info.AddValue("lockedTile", lockedTile, typeof(Tile));
     }
 
     public virtual void ProcessState(Board board, long tick)

@@ -58,6 +58,6 @@ public class ArrangementManager : MonoBehaviour
 
     public bool IsValidBenchToBoard(Player player, Piece piece, Tile tile)
     {
-        return !inventoryManager.BenchContainsPiece(player, piece) || tile.IsOccupied();
+        return inventoryManager.BenchContainsPiece(player, piece) && !tile.IsOccupied();
     }
 }
