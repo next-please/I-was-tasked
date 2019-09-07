@@ -47,18 +47,21 @@ public class Piece
         simAction.OnTick(this, board);
         if (simAction.hasFinished())
         {
-            simAction.OnFinish(this, board);
-            // find new action
-            this.state = this.state.TransitNextState(this);
-            // on start
-            this.state.OnStart(this, board);
+            State nextState = this.state.TransitNextState(this);
+            TransitIntoState(board, nextState);
             while (this.state.hasFinished())
             {
-                this.state.OnFinish(this, board);
-                this.state = this.state.TransitNextState(this);
-                this.state.OnStart(this, board);
+                nextState = this.state.TransitNextState(this);
+                TransitIntoState(board, nextState);
             }
         }
+    }
+
+    public void TransitIntoState(Board board, State state)
+    {
+        this.state.OnFinish(this, board);
+        this.state = state;
+        this.state.OnStart(this, board);
     }
 
     public virtual State CreateState()

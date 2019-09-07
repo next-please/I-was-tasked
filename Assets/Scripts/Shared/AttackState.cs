@@ -37,6 +37,15 @@ public class AttackState : State
     {
         Piece target = pieceView.piece.GetTarget();
         Tile targetTile = target.GetCurrentTile();
+        if (targetTile == null)
+        {
+            target.GetLockedTile();
+        }
+        if (targetTile == null)
+        {
+            Debug.Log("No target to look at, See AttackState.cs");
+            return;
+        }
         pieceView.transform.LookAt(new Vector3(targetTile.GetRow(), 1, targetTile.GetCol()));
         pieceView.animator.Play("Attack", 0);
     }
