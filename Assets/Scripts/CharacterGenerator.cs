@@ -139,7 +139,7 @@ public class CharacterGenerator
         }
         int jobNumber = rngesus.Next(1, jobTotalPool+1);
         Enums.Job job = 0;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
+        for (int i = 0; i < Enum.GetNames(typeof(Enums.Job)).Length; i++)
         {
             jobNumber -= tiers[characterRarity].JobPoolSize[i];
             if (jobNumber <= 0)
