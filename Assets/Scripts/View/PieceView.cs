@@ -6,6 +6,7 @@ using TMPro;
 
 public class PieceView : MonoBehaviour
 {
+    [HideInInspector]
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
     public GameObject currentHPBar;

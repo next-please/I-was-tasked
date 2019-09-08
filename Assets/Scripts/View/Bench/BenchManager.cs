@@ -13,9 +13,6 @@ public class BenchManager : MonoBehaviour
     private List<BenchSlot> slots = new List<BenchSlot>();
     private int nextEmptySlotIndex = 0;
 
-
-    public GameObject ModelPrefab; // temp
-
     void OnEnable()
     {
         EventManager.Instance.AddListener<InventoryChangeEvent>(OnInventoryChange);

@@ -9,7 +9,7 @@ public class CharacterPrefabLoader : MonoBehaviour
     public GameObject OrcPrefab;
     public GameObject UndeadPrefab;
 
-    public GameObject EnemyPieceViewPrefab;
+    public GameObject EnemyPrefab;
 
     // public GameObject HumanWarriorViewPrefab;
     // public GameObject HumanMageViewPrefab;
@@ -87,6 +87,10 @@ public class CharacterPrefabLoader : MonoBehaviour
 
     public GameObject GetPrefab(Piece piece)
     {
+        if (piece.IsEnemy())
+        {
+            return EnemyPrefab;
+        }
         return characterTypeMap[(piece.GetRace(), piece.GetClass())];
     }
 }
