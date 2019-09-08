@@ -18,6 +18,16 @@ public class PieceView : MonoBehaviour
         this.piece = piece;
     }
 
+    public void InstantiateModelPrefab(GameObject characterModel)
+    {
+        GameObject modelPrefab = Instantiate(characterModel) as GameObject;
+        modelPrefab.transform.SetParent(this.transform);
+        modelPrefab.transform.localPosition = Vector3.zero;
+        modelPrefab.transform.rotation = transform.rotation;
+
+        animator = modelPrefab.GetComponent<Animator>();
+    }
+
     // todo: placeholder, remove later
     public void SetJobText(string job, string race)
     {

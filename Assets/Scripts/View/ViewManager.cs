@@ -4,89 +4,13 @@ using UnityEngine;
 
 public class ViewManager : MonoBehaviour
 {
-    // public GameObject HumanWarriorViewPrefab;
-    // public GameObject HumanMageViewPrefab;
-    // public GameObject HumanDruidViewPrefab;
-    // public GameObject HumanPriestViewPrefab;
-    // public GameObject HumanRangerViewPrefab;
-    // public GameObject HumanRogueViewPrefab;
-
-    // public GameObject ElfWarriorViewPrefab;
-    // public GameObject ElfMageViewPrefab;
-    // public GameObject ElfDruidViewPrefab;
-    // public GameObject ElfPriestViewPrefab;
-    // public GameObject ElfRangerViewPrefab;
-    // public GameObject ElfRogueViewPrefab;
-
-    // public GameObject OrcWarriorViewPrefab;
-    // public GameObject OrcMageViewPrefab;
-    // public GameObject OrcDruidViewPrefab;
-    // public GameObject OrcPriestViewPrefab;
-    // public GameObject OrcRangerViewPrefab;
-    // public GameObject OrcRogueViewPrefab;
-
-    // public GameObject UndeadWarriorViewPrefab;
-    // public GameObject UndeadMageViewPrefab;
-    // public GameObject UndeadDruidViewPrefab;
-    // public GameObject UndeadPriestViewPrefab;
-    // public GameObject UndeadRangerViewPrefab;
-    // public GameObject UndeadRogueViewPrefab;
-
-    // public GameObject NagaWarriorViewPrefab;
-    // public GameObject NagaMageViewPrefab;
-    // public GameObject NagaDruidViewPrefab;
-    // public GameObject NagaPriestViewPrefab;
-    // public GameObject NagaRangerViewPrefab;
-    // public GameObject NagaRogueViewPrefab;
-
-    // public GameObject DwarfWarriorViewPrefab;
-    // public GameObject DwarfDruidViewPrefab;
-    // public GameObject DwarfMageViewPrefab;
-    // public GameObject DwarfPriestViewPrefab;
-    // public GameObject DwarfRangerViewPrefab;
-    // public GameObject DwarfRogueViewPrefab;
-
-    // Temporary
-    public GameObject ElfPrefab;
-    public GameObject HumanPrefab;
-    public GameObject OrcPrefab;
-    public GameObject UndeadPrefab;
-
+    public CharacterPrefabLoader characterPrefabLoader;
     public GameObject FriendlyPieceViewPrefab;
     public GameObject EnemyPieceViewPrefab;
-
     public GameObject TileViewPrefab;
     public Material White;
     public Material Black;
     public float TileSize = 1;
-
-    private Dictionary<(Enums.Race, Enums.Job), GameObject> PieceViewTypeMap;
-
-    void Awake()
-    {
-        PieceViewTypeMap = new Dictionary<(Enums.Race, Enums.Job), GameObject>()
-        {
-            {(Enums.Race.Elf, Enums.Job.Druid), ElfPrefab},
-            {(Enums.Race.Elf, Enums.Job.Mage), ElfPrefab},
-            {(Enums.Race.Elf, Enums.Job.Priest), ElfPrefab},
-            {(Enums.Race.Elf, Enums.Job.Rogue), ElfPrefab},
-
-            {(Enums.Race.Human, Enums.Job.Druid), HumanPrefab},
-            {(Enums.Race.Human, Enums.Job.Mage), HumanPrefab},
-            {(Enums.Race.Human, Enums.Job.Priest), HumanPrefab},
-            {(Enums.Race.Human, Enums.Job.Rogue), HumanPrefab},
-
-            {(Enums.Race.Orc, Enums.Job.Druid), OrcPrefab},
-            {(Enums.Race.Orc, Enums.Job.Mage), OrcPrefab},
-            {(Enums.Race.Orc, Enums.Job.Priest), OrcPrefab},
-            {(Enums.Race.Orc, Enums.Job.Rogue), OrcPrefab},
-
-            {(Enums.Race.Undead, Enums.Job.Druid), UndeadPrefab},
-            {(Enums.Race.Undead, Enums.Job.Mage), UndeadPrefab},
-            {(Enums.Race.Undead, Enums.Job.Priest), UndeadPrefab},
-            {(Enums.Race.Undead, Enums.Job.Rogue), UndeadPrefab},
-        };
-    }
 
     void OnEnable()
     {
@@ -125,27 +49,12 @@ public class ViewManager : MonoBehaviour
         int i = e.row;
         int j = e.col;
 
-        GameObject pieceViewPrefab = piece.IsEnemy()
-            ? EnemyPieceViewPrefab
-            : GetPiece(piece);
+        GameObject pieceViewPrefab = piece.IsEnemy() ? EnemyPieceViewPrefab : FriendlyPieceViewPrefab;
         GameObject pieceObj = Instantiate(pieceViewPrefab, new Vector3(i, 1, j) * TileSize, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
+        pieceView.InstantiateModelPrefab(characterPrefabLoader.GetPrefab(piece));
         pieceView.SetJobText(piece.GetClass().ToString(), piece.GetRace().ToString()); // todo: placeholder, remove later
         pieceObj.transform.parent = transform;
-    }
-
-    // Temporary method
-    private GameObject GetPiece(Piece piece)
-    {
-        try
-        {
-            GameObject pieceObj = PieceViewTypeMap[(piece.GetRace(), piece.GetClass())];
-            return pieceObj;
-        }
-        catch (KeyNotFoundException)
-        {
-            return FriendlyPieceViewPrefab;
-        }
     }
 }

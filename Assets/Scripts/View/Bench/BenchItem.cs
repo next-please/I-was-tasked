@@ -27,9 +27,20 @@ public class BenchItem : Droppable
     private readonly float distanceOffset = 10f;
     private readonly float scaleOffset = 10f;
 
-    public GameObject piecePrefab;
     public Piece piece;
     public int index;
+
+    public void InstantiateModelPrefab(GameObject characterModel)
+    {
+        GameObject modelPrefab = Instantiate(characterModel) as GameObject;
+        modelPrefab.transform.SetParent(this.transform);
+        modelPrefab.transform.localPosition = Vector3.zero;
+        modelPrefab.transform.localScale = Vector3.one;
+
+        Quaternion cameraRotation = Camera.main.transform.rotation;
+        modelPrefab.transform.rotation = Camera.main.transform.rotation;
+        modelPrefab.transform.Rotate(0, 180, 0); // face forward
+    }
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
