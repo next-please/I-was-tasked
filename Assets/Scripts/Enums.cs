@@ -6,9 +6,9 @@ public class Enums
 {
     public enum Job
     {
+        Druid,
         Knight,
         Mage,
-        Druid,
         Priest,
         Rogue
     }

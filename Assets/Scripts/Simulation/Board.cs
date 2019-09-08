@@ -78,6 +78,16 @@ public class Board
         return activePiecesOnBoard;
     }
 
+    public List<Piece> GetEnemiesOnBoard()
+    {
+        return piecesOnBoard.FindAll(p => p.IsEnemy());
+    }
+
+    public List<Piece> GetFriendliesOnBoard()
+    {
+        return piecesOnBoard.FindAll(p => !p.IsEnemy());
+    }
+
     public int GetNumRows()
     {
         return numRows;

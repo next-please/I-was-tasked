@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class AttackState : State
 {
@@ -9,6 +10,15 @@ public class AttackState : State
         if (!target.IsDead())
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - piece.GetAttackDamage());
+            if (piece.GetLifestealPercentage() > 0) //undead synergy
+            {
+                piece.SetCurrentHitPoints(Math.Min(piece.GetMaximumHitPoints(),
+                    (int)Math.Floor((piece.GetCurrentHitPoints() + piece.GetAttackDamage()*piece.GetLifestealPercentage()))));
+            }
+            if (target.GetRecoilPercentage() > 0) //knight synergy
+            {
+                piece.SetCurrentHitPoints((int)Math.Ceiling(piece.GetCurrentHitPoints() - piece.GetAttackDamage() * target.GetRecoilPercentage()));
+            }
             target.SetCurrentManaPoints(target.GetCurrentManaPoints() + 10); // Placeholder Increment.
             Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
         }

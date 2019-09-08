@@ -209,10 +209,10 @@ public class CharacterGenerator
             currentHitPoints,
             currentAttackDamage,
             currentAttackRange, // TODO: Please help to verify if this is correct, much thanks~! - Nic
+            currentMovementSpeed,
             false);
         currentPiece.SetAttackSpeed(currentAttackSpeed);
         currentPiece.SetMaximumManaPoints(currentManaPoints);
-        currentPiece.SetMovementSpeed(currentMovementSpeed);
         currentPiece.SetRace(race);
         currentPiece.SetClass(job);
         currentPiece.SetRarity(characterRarity+1);
