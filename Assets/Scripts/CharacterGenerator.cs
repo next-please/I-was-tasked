@@ -172,11 +172,13 @@ public class CharacterGenerator
 
         //randomize range unit
         bool rangeUpgrade = false;
+        int count = 0;
         do
         {
             randomValue = rngesus.Next(0, 11);
             if (randomValue < 3)
             {
+                count++;
                 rangeUpgrade = true;
                 currentAttackRange += rangeAdditor;
 
@@ -198,7 +200,7 @@ public class CharacterGenerator
             {
                 rangeUpgrade = false;
             }
-        } while (rangeUpgrade);
+        } while (rangeUpgrade && count < 5);
 
         tiers[characterRarity].JobPoolSize[(int)job]--;
         tiers[characterRarity].RacePoolSize[(int)race]--;
