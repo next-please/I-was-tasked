@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1461752331462573196}
   - component: {fileID: 2554624008111726652}
   - component: {fileID: 5168965004713969326}
-  - component: {fileID: 3449940088185507131}
   - component: {fileID: 6151283179336122566}
   - component: {fileID: 8992708325297178650}
   - component: {fileID: 2064829842896871211}
@@ -85,19 +84,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &3449940088185507131
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4604312060063897690}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6151283179336122566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +99,7 @@ MonoBehaviour:
   animator: {fileID: 8992708325297178650}
   currentHPBar: {fileID: 4352300658661225759}
   currentMPBar: {fileID: 3001698986698778033}
+  jobTextMesh: {fileID: 0}
 --- !u!95 &8992708325297178650
 Animator:
   serializedVersion: 3
@@ -260,11 +247,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1461752331462573196}
     m_Modifications:
-    - target: {fileID: 1359021304896469787, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_Name
-      value: MP Bar
-      objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -320,6 +302,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1359021304896469787, guid: 00c39b6a602bbaa418d85a75d8569eb7,
+        type: 3}
+      propertyPath: m_Name
+      value: MP Bar
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00c39b6a602bbaa418d85a75d8569eb7, type: 3}
 --- !u!4 &893792778952063043 stripped
@@ -341,6 +328,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1461752331462573196}
     m_Modifications:
+    - target: {fileID: 4855660549573039490, guid: 6955271da4d2a0645bbdcca176b2b47c,
+        type: 3}
+      propertyPath: m_Name
+      value: HP Bar
+      objectReference: {fileID: 0}
     - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -395,11 +387,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4855660549573039490, guid: 6955271da4d2a0645bbdcca176b2b47c,
-        type: 3}
-      propertyPath: m_Name
-      value: HP Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6955271da4d2a0645bbdcca176b2b47c, type: 3}

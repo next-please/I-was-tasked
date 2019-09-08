@@ -36,13 +36,13 @@ public class PieceView : MonoBehaviour
     }
 
     // todo: placeholder, remove later
-    public void SetJobText(string job, string race)
+    public void SetHeaderText(string job, string race)
     {
         if (jobTextMesh == null)
         {
             return;
         }
-        jobTextMesh.text = job + " " + race;
+        jobTextMesh.text = race + " " + job;
     }
 
     void OnEnable()
@@ -81,6 +81,7 @@ public class PieceView : MonoBehaviour
 
             jobTextMesh.transform.rotation = Camera.main.transform.rotation;
             currentHPBar.transform.rotation = Camera.main.transform.rotation;
+            currentMPBar.transform.rotation = Camera.main.transform.rotation;
         }
     }
 

@@ -44,7 +44,7 @@ public class BenchItem : Droppable
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        gameObject.GetComponent<Collider>().enabled = false;
+        // gameObject.GetComponent<Collider>().enabled = false;
         transform.localScale /= scaleOffset; // update to world scale
     }
 
@@ -88,6 +88,6 @@ public class BenchItem : Droppable
     {
         transform.localScale *= scaleOffset; // update to ui scale
         transform.localPosition = Vector3.zero;
-        gameObject.GetComponent<Collider>().enabled = true;
+        // gameObject.GetComponent<Collider>().enabled = true;
     }
 }

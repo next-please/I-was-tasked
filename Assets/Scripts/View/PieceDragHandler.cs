@@ -86,13 +86,13 @@ public class PieceDragHandler : Droppable
     private void SetBoardState()
     {
         // gameObject.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-        gameObject.GetComponent<Collider>().enabled = true;
+        // gameObject.GetComponent<Collider>().enabled = true;
     }
 
     private void SetDraggedState()
     {
         // gameObject.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        gameObject.GetComponent<Collider>().enabled = false;
+        // gameObject.GetComponent<Collider>().enabled = false;
     }
 
     private Vector3 GetMouseWorldPosition()

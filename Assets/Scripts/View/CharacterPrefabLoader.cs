@@ -53,11 +53,11 @@ public class CharacterPrefabLoader : MonoBehaviour
     // public GameObject DwarfRangerViewPrefab;
     // public GameObject DwarfRogueViewPrefab;
 
-    private Dictionary<(Enums.Race, Enums.Job), GameObject> characterTypeMap;
+    private Dictionary<(Enums.Race, Enums.Job), GameObject> characterPrefabMap;
 
     void Awake()
     {
-        characterTypeMap = new Dictionary<(Enums.Race, Enums.Job), GameObject>()
+        characterPrefabMap = new Dictionary<(Enums.Race, Enums.Job), GameObject>()
         {
             {(Enums.Race.Elf, Enums.Job.Druid), ElfPrefab},
             {(Enums.Race.Elf, Enums.Job.Knight), ElfPrefab},
@@ -91,6 +91,6 @@ public class CharacterPrefabLoader : MonoBehaviour
         {
             return EnemyPrefab;
         }
-        return characterTypeMap[(piece.GetRace(), piece.GetClass())];
+        return characterPrefabMap[(piece.GetRace(), piece.GetClass())];
     }
 }
