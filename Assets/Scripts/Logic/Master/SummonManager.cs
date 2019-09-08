@@ -3,43 +3,11 @@ using UnityEngine;
 
 public class SummonManager : MonoBehaviour
 {
-    public int numPlayers = 1;
     public BoardManager boardManager;
     public InventoryManager inventoryManager;
 
     EnemyGenerator enemyGenerator = new EnemyGenerator();
-    void OnEnable()
-    {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Market)
-        {
-            ResetBoard();
-        }
-        if (e.phase == Phase.PreCombat)
-        {
-            ResetBoardAndSummonEnemies(e.round);
-        }
-   }
-
-   void ResetBoard()
-   {
-        for (int i = 0; i < numPlayers; ++i)
-        {
-            Player player = (Player) i;
-            boardManager.ResetBoard(player);
-        }
-   }
-
-    void ResetBoardAndSummonEnemies(int currentRound)
+    public void GenerateAndSummonEnemies(int currentRound, int numPlayers = 1)
     {
         for (int i = 0; i < numPlayers; ++i)
         {
@@ -53,4 +21,18 @@ public class SummonManager : MonoBehaviour
         }
     }
 
+    public void RemoveExcessPlayerPieces(int numPlayers = 1)
+    {
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            Player player = (Player) i;
+            var excess = inventoryManager.GetExcessPieces(player);
+            foreach (Piece piece in excess)
+            {
+                boardManager.RemovePieceFromBoard(player, piece);
+                inventoryManager.AddToBench(player, piece);
+                inventoryManager.RemoveFromArmy(player, piece);
+            }
+        }
+    }
 }

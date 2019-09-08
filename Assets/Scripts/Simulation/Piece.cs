@@ -11,22 +11,27 @@ public class Piece
     private string name;
     private Enums.Race race;
     private Enums.Job job;
-    private int hitPoints;
-    private int manaPoints;
+    private int currentHitPoints;
+    private int maximumHitPoints;
+    private int currentManaPoints;
+    private int maximumManaPoints;
     private int attackDamage;
     private int attackRange;
     private int attackSpeed;
     private int movementSpeed;
     private bool isEnemy;
     private int rarity;
+    private int damageIfSurvive = 0;
     private State state;
     private State entryState;
 
     // Placeholder Constructor; actual Melee Piece would be more complex in attributes.
-    public Piece(string name, int hitPoints, int attackDamage, int attackRange, bool isEnemy)
+    public Piece(string name, int maximumHitPoints, int attackDamage, int attackRange, bool isEnemy)
     {
         SetName(name);
-        SetHitPoints(hitPoints);
+        SetCurrentHitPoints(maximumHitPoints);
+        SetMaximumHitPoints(maximumHitPoints);
+        SetCurrentManaPoints(0);
         SetAttackDamage(attackDamage);
         SetAttackRange(attackRange);
         SetIsEnemy(isEnemy);
@@ -42,18 +47,21 @@ public class Piece
         simAction.OnTick(this, board);
         if (simAction.hasFinished())
         {
-            simAction.OnFinish(this, board);
-            // find new action
-            this.state = this.state.TransitNextState(this);
-            // on start
-            this.state.OnStart(this, board);
+            State nextState = this.state.TransitNextState(this);
+            TransitIntoState(board, nextState);
             while (this.state.hasFinished())
             {
-                this.state.OnFinish(this, board);
-                this.state = this.state.TransitNextState(this);
-                this.state.OnStart(this, board);
+                nextState = this.state.TransitNextState(this);
+                TransitIntoState(board, nextState);
             }
         }
+    }
+
+    public void TransitIntoState(Board board, State state)
+    {
+        this.state.OnFinish(this, board);
+        this.state = state;
+        this.state.OnStart(this, board);
     }
 
     public virtual State CreateState()
@@ -63,7 +71,7 @@ public class Piece
         AttackState attack = new AttackState();
         InfiniteState inf = new InfiniteState();
 
-        WaitState waitOneSecond = new WaitState(50);
+        WaitState waitOneTick = new WaitState(1);
         WaitState waitOneFifthSeconds = new WaitState(10);
 
         HasTarget hasTarget = new HasTarget();
@@ -96,10 +104,10 @@ public class Piece
 
         tryToFindNextTile.SetNextStates(
             move,
-            waitOneSecond
+            waitOneTick
         );
 
-        waitOneSecond.SetNextState(findTarget);
+        waitOneTick.SetNextState(findTarget);
         waitOneFifthSeconds.SetNextState(currentlyInRange);
 
         attack.SetNextState(stillHasTarget); // do we still have a target?
@@ -155,14 +163,24 @@ public class Piece
         return job;
     }
 
-    public int GetHitPoints()
+    public int GetMaximumHitPoints()
     {
-        return hitPoints;
+        return maximumHitPoints;
     }
 
-    public int GetManaPoints()
+    public int GetCurrentHitPoints()
     {
-        return manaPoints;
+        return currentHitPoints;
+    }
+
+    public int GetCurrentManaPoints()
+    {
+        return currentManaPoints;
+    }
+
+    public int GetMaximumManaPoints()
+    {
+        return maximumManaPoints;
     }
 
     public int GetAttackDamage()
@@ -201,7 +219,7 @@ public class Piece
 
     public bool IsDead()
     {
-        return (hitPoints <= 0);
+        return (currentHitPoints <= 0);
     }
 
     public bool IsOnBoard()
@@ -244,21 +262,42 @@ public class Piece
         this.job = job;
     }
 
-    public void SetHitPoints(int hitPoints)
+    public void SetCurrentHitPoints(int currentHitPoints)
     {
-        if (hitPoints < 0)
+        if (currentHitPoints < 0)
         {
-            this.hitPoints = 0;
+            this.currentHitPoints = 0;
         }
         else
         {
-            this.hitPoints = hitPoints;
+            this.currentHitPoints = currentHitPoints;
         }
     }
 
-    public void SetManaPoints(int manaPoints)
+    public void SetMaximumHitPoints(int maximumHitPoints)
     {
-        this.manaPoints = manaPoints;
+        this.maximumHitPoints = maximumHitPoints;
+    }
+
+    public void SetCurrentManaPoints(int currentManaPoints)
+    {
+        if (currentManaPoints < 0)
+        {
+            this.currentManaPoints = 0;
+        }
+        else if (currentManaPoints >= this.maximumManaPoints)
+        {
+            this.currentManaPoints = this.maximumManaPoints;
+        }
+        else
+        {
+            this.currentManaPoints = currentManaPoints;
+        }
+    }
+
+    public void SetMaximumManaPoints(int maximumManaPoints)
+    {
+        this.maximumManaPoints = maximumManaPoints;
     }
 
     public void SetAttackDamage(int attackDamage)
@@ -296,9 +335,20 @@ public class Piece
         return rarity;
     }
 
+    public void SetDamageIfSurvive(int damageIfSurvive)
+    {
+        this.damageIfSurvive = damageIfSurvive;
+    }
+
+    public int GetDamageIfSurvive()
+    {
+        return damageIfSurvive;
+    }
+
     public void Reset()
     {
-        SetHitPoints(100);
+        SetCurrentHitPoints(GetMaximumHitPoints());
+        SetCurrentManaPoints(0);
         this.state = entryState;
     }
 }

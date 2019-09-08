@@ -7,7 +7,6 @@ public class DragManager : MonoBehaviour
     public ArrangementManager arrangementManager;
     public TransactionManager transactionManager;
     public Player player;
-    private Piece draggedPiece;
     void OnEnable()
     {
         EventManager.Instance.AddListener<MoveOnBoardEvent>(OnMovePieceOnBoard);
@@ -39,7 +38,6 @@ public class DragManager : MonoBehaviour
         {
             return;
         }
-        Debug.Log("event received");
         arrangementManager.TryMoveBoardToBench(player, e.piece, e.slotIndex);
     }
 

@@ -42,6 +42,8 @@ public class UpgradeUIManager : MonoBehaviour
 
     void UpdateMarketRarityButtonsText(MarketUpdateEvent e /*unused and is a hack*/)
     {
+        if (rarityButtons == null)
+            return;
         for (int i = 0; i < 3; ++i)
         {
             Button button = rarityButtons[i];
@@ -52,6 +54,8 @@ public class UpgradeUIManager : MonoBehaviour
 
     void UpdateArmySizeButtonsText(InventoryChangeEvent e /*unused and is a hack*/)
     {
+        if (armyButtons == null)
+            return;
         for (int i = 0; i < 3; ++i)
         {
             Button button = armyButtons[i];

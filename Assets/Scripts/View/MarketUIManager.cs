@@ -12,6 +12,7 @@ public class MarketUIManager : MonoBehaviour
     public Text MarketSizeText;
     public Text MarketRarityText;
     public Text PassiveIncomeText;
+    public Text CastleHealthText;
 
     public TransactionManager transactionManager;
 
@@ -82,6 +83,7 @@ public class MarketUIManager : MonoBehaviour
     {
         MarketRarityText.text = "Market Rarity: Tier " + e.readOnlyMarket.GetMarketTier().ToString();
         MarketSizeText.text = "Market Size: " + e.readOnlyMarket.GetMarketSize().ToString();
+        CastleHealthText.text = "Castle Health: " + e.readOnlyMarket.GetCastleHealth().ToString();
         UpdateMarketButtons(e);
     }
 
@@ -103,9 +105,9 @@ public class MarketUIManager : MonoBehaviour
             }
             Button marketItemButton = marketItemsButtons[i];
             marketItemButton.GetComponentInChildren<Text>().text =
-                piece.GetName() +
+                piece.GetName().Split(',')[0] + "\n" + piece.GetName().Split(',')[1] +
                 "\nRace: " + piece.GetRace() +
-                "\nJob: " + piece.GetClass() +
+                "  Job: " + piece.GetClass() +
                 "\nRarity: " + piece.GetRarity() +
                 "  Cost: " + Math.Pow(2, piece.GetRarity()-1);
             marketItemButton.enabled = true;

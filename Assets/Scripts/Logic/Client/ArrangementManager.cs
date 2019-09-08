@@ -15,6 +15,7 @@ public class ArrangementManager : MonoBehaviour
 
     public void TryMoveBenchToBoard(Player player, Piece piece, Tile tile)
     {
+        // NOTE inventoryManager.IsArmyFull(player) not checked for arrangement
         if (!inventoryManager.BenchContainsPiece(player, piece) ||
              tile.IsOccupied())
         {
@@ -23,6 +24,7 @@ public class ArrangementManager : MonoBehaviour
 
         // must be master client
         inventoryManager.RemoveFromBench(player, piece);
+        inventoryManager.AddToArmy(player, piece);
         boardManager.AddPieceToBoard(player, piece, tile.GetRow(), tile.GetCol());
     }
 
@@ -34,6 +36,7 @@ public class ArrangementManager : MonoBehaviour
         }
         // must be master client
         boardManager.RemovePieceFromBoard(player, piece);
+        inventoryManager.RemoveFromArmy(player, piece);
         inventoryManager.AddToBench(player, piece);
         inventoryManager.MoveBenchPieceToIndex(player, piece, slotIndex);
     }

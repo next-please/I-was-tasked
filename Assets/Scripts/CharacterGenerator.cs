@@ -26,6 +26,7 @@ public class CharacterGenerator
     public readonly int numberOfRarityTiers = 4;
     public readonly int[] tiersRacePoolMax = new int[] { 15, 15, 10, 6 };
     public readonly int[] tiersJobPoolMax = new int[] { 15, 15, 10, 6 };
+    public readonly int characterUpgradeDifferencePercentage = 20;
     public readonly int[,] rarityUpgradeTiers = {
                                             { 100, 0, 0, 0 },
                                             { 90, 10, 0, 0 },
@@ -94,7 +95,7 @@ public class CharacterGenerator
         int currentMovementSpeed = defaultMovementSpeed;
 
         //calculate character rarity
-        currentRarityTier = Math.Min(currentRarityTier - 1, rarityUpgradeTiers.GetLength(0));
+        currentRarityTier = Math.Min(currentRarityTier - 1, rarityUpgradeTiers.GetLength(0) - 1);
         int rarityTotalPool = 0;
         for (int i = 0; i < numberOfRarityTiers; i++)
         {
@@ -208,7 +209,7 @@ public class CharacterGenerator
             currentAttackRange, // TODO: Please help to verify if this is correct, much thanks~! - Nic
             false);
         currentPiece.SetAttackSpeed(currentAttackSpeed);
-        currentPiece.SetManaPoints(currentManaPoints);
+        currentPiece.SetMaximumManaPoints(currentManaPoints);
         currentPiece.SetMovementSpeed(currentMovementSpeed);
         currentPiece.SetRace(race);
         currentPiece.SetClass(job);
@@ -233,5 +234,33 @@ public class CharacterGenerator
                 ReturnPiece(piece);
             }
         }
+    }
+
+    public bool TryUpgradeCharacter(Piece piece, int currentMarketTier)
+    {
+        //if character rarity can be found in the new market tier
+        if (rarityUpgradeTiers[currentMarketTier - 1, piece.GetRarity()] > 0)
+        {
+            piece.SetRarity(piece.GetRarity() + 1);
+
+            int randomValue = 0;
+            for (int i = rarityBonusUpgrades[piece.GetRarity() - 1]; i < rarityBonusUpgrades[piece.GetRarity()]; i++)
+            {
+                randomValue = rngesus.Next(1, 3);
+                switch (randomValue)
+                {
+                    case 1:
+                        piece.SetMaximumHitPoints((int)Math.Floor(piece.GetMaximumHitPoints() * hitPointMultiplier));
+                        break;
+                    case 2:
+                        piece.SetAttackDamage((int)Math.Floor(piece.GetAttackDamage() * attackDamageMultiplier));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

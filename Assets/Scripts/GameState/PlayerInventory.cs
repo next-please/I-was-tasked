@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum Player
@@ -18,14 +20,17 @@ public class PlayerInventory : ScriptableObject
     private int gold;
     private Piece[] bench; // bench represented as an array with potential nulls for rearrangement
     private int benchCount = 0; // number of pieces on the bench
-    private int armySize = 4;
+    private List<Piece> army; // pieces on board
+    private int armySize; // max pieces on board
     private static int MaxBenchSize = 8;
 
-    public void Reset(int startingGold)
+    public void Reset(int startingGold, int startingArmySize)
     {
         gold = startingGold;
         bench = new Piece[MaxBenchSize];
+        army = new List<Piece>();
         benchCount = 0;
+        armySize = startingArmySize;
     }
 
     public Player GetOwner()
@@ -85,16 +90,6 @@ public class PlayerInventory : ScriptableObject
         return benchCount;
     }
 
-    public int GetArmySize()
-    {
-        return armySize;
-    }
-
-    public void IncreaseArmySize()
-    {
-        armySize++;
-    }
-
     public bool BenchContainsPiece(Piece piece)
     {
         for (int i = 0; i < bench.Length; ++i)
@@ -149,5 +144,42 @@ public class PlayerInventory : ScriptableObject
     public ReadOnlyCollection<Piece> GetBench()
     {
         return Array.AsReadOnly(bench);
+    }
+
+   public int GetArmySize()
+    {
+        return armySize;
+    }
+
+    public void IncreaseArmySize()
+    {
+        armySize++;
+    }
+
+    public bool AddToArmy(Piece piece)
+    {
+        army.Add(piece);
+        return true;
+    }
+
+    public bool RemoveFromArmy(Piece piece)
+    {
+        return army.Remove(piece);
+    }
+
+    public bool IsArmyFull()
+    {
+        return army.Count >= armySize;
+    }
+
+    public int GetArmyCount()
+    {
+        return army.Count;
+    }
+
+    public List<Piece> GetExcessArmyPieces()
+    {
+        int excessCount = GetArmyCount() - GetArmySize();
+        return army.Skip(GetArmySize()).Take(excessCount).ToList();
     }
 }

@@ -57,6 +57,11 @@ public class BenchItem : Droppable
 
     public override void OnBenchDrop(BenchSlot targetSlot)
     {
+        if (targetSlot.isOccupied)
+        {
+            OnEmptyDrop();
+            return;
+        }
         EventManager.Instance.Raise(new MoveOnBenchEvent { piece = piece, slotIndex = targetSlot.index });
         Destroy(gameObject);
     }

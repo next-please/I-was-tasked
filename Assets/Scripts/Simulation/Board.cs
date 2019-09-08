@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,26 @@ public class Board
     private List<Piece> activePiecesOnBoard;
     private int numRows;
     private int numCols;
+
+    // Sort the Pieces by their positions on the Board. Let The rightmost piece be first.
+    class PieceSort : IComparer<Piece> {
+        public int Compare(Piece x, Piece y)
+        {
+            Tile tileX = x.GetCurrentTile();
+            Tile tileY = y.GetCurrentTile();
+
+            // The Rightmost Piece.
+            if (tileX.GetCol() > tileY.GetCol())
+            {
+                return -1;
+            }
+            else if (tileX.GetCol() < tileY.GetCol())
+            {
+                return 1;
+            }
+            return 0;
+        }
+    }
 
     public Board(int numRows, int numCols)
     {
@@ -37,6 +58,9 @@ public class Board
         activePiecesOnBoard.Add(piece);
         MovePieceToTile(piece, tiles[i][j]);
         piece.SetInitialTile(tiles[i][j]);
+        piece.SetCurrentTile(tiles[i][j]);
+        activePiecesOnBoard.Sort(new PieceSort());
+        piecesOnBoard.Sort(new PieceSort());
     }
 
     public Tile GetTile(int row, int col)
@@ -72,9 +96,10 @@ public class Board
             previousTile.SetOccupant(null);
             previousTile.SetLocker(null);
         }
+        nextTile.SetLocker(null);
+        nextTile.SetOccupant(piece);
         piece.SetCurrentTile(nextTile);
         piece.SetLockedTile(null);
-        nextTile.SetOccupant(piece);
 
         if (previousTile != null)
         {
@@ -88,10 +113,6 @@ public class Board
 
     public bool CanDeterminePieceLockedTile(Piece piece)
     {
-        // Using Modified Breadth First Search (BFS) to find the path and Tile to move to.
-        Queue<Tile> queue = new Queue<Tile>();
-        bool[][] isVisited = new bool[numRows][];
-        Tile[][] predecessors = new Tile[numRows][];
         Piece target = piece.GetTarget();
         Tile currentTile = piece.GetCurrentTile();
         Tile targetTile = target.GetCurrentTile();
@@ -99,6 +120,11 @@ public class Board
         {
             targetTile = target.GetLockedTile();
         }
+
+        // Using Modified Breadth First Search (BFS) to find the path and Tile to move to.
+        List<Tile> queue = new List<Tile>();
+        bool[][] isVisited = new bool[numRows][];
+        Tile[][] predecessors = new Tile[numRows][];
 
         for (int i = 0; i < numRows; i++)
         {
@@ -116,15 +142,12 @@ public class Board
                 }
             }
         }
-        queue.Enqueue(currentTile); // Enqueue our source Tile.
+        queue.Add(currentTile); // Enqueue our source Tile.
 
         while (queue.Count > 0)
         {
-            Tile tile = queue.Dequeue();
-            if (tile.Equals(targetTile)) // Early termination.
-            {
-                break;
-            }
+            Tile tile = queue[0];
+            queue.Remove(tile);
 
             // Enqueue all surrounding tiles that are Unvisited.
             int tileRow = tile.GetRow();
@@ -141,29 +164,67 @@ public class Board
                     if (!isVisited[i][j])
                     {
                         isVisited[i][j] = true;
-                        queue.Enqueue(tiles[i][j]);
+                        queue.Add(tiles[i][j]);
                         predecessors[i][j] = tile;
+
+                        if (tile.Equals(targetTile)) // Early termination.
+                        {
+                            break;
+                        }
                     }
                 }
             }
+            queue.Sort((x, y) => x.ManhattanDistanceToTile(targetTile) - y.ManhattanDistanceToTile(targetTile));
         }
 
-        if (!isVisited[targetTile.GetRow()][targetTile.GetCol()]) // No unobstructed path to the Target.
+        // No unobstructed path to the Target; attempt to naively move closer to it.
+        if (!isVisited[targetTile.GetRow()][targetTile.GetCol()])
         {
+            int rowDifference = targetTile.GetRow() - currentTile.GetRow();
+            if (rowDifference != 0)
+            {
+                rowDifference /= Math.Abs(rowDifference);
+            }
+
+            int colDifference = targetTile.GetCol() - currentTile.GetCol();
+            if (colDifference != 0)
+            {
+                colDifference /= Math.Abs(colDifference);
+            }
+
+            Tile naiveTileToLock = tiles[currentTile.GetRow() + rowDifference][currentTile.GetCol() + colDifference];
+            if (!naiveTileToLock.IsLocked() && !naiveTileToLock.IsOccupied())
+            {
+                naiveTileToLock.SetLocker(piece);
+                piece.SetLockedTile(naiveTileToLock);
+                return true;
+            }   
+
+            naiveTileToLock = tiles[currentTile.GetRow()][currentTile.GetCol() + colDifference];
+            if (!naiveTileToLock.IsLocked() && !naiveTileToLock.IsOccupied())
+            {
+                naiveTileToLock.SetLocker(piece);
+                piece.SetLockedTile(naiveTileToLock);
+                return true;
+            }
+
+            naiveTileToLock = tiles[currentTile.GetRow() + rowDifference][currentTile.GetCol()];
+            if (!naiveTileToLock.IsLocked() && !naiveTileToLock.IsOccupied())
+            {
+                naiveTileToLock.SetLocker(piece);
+                piece.SetLockedTile(naiveTileToLock);
+                return true;
+            }
+
             piece.SetLockedTile(null);
             return false;
         }
 
+        // Backtracking to find the Tile we should move the Piece to.
         Tile tileToLock = targetTile;
         while (predecessors[tileToLock.GetRow()][tileToLock.GetCol()] != currentTile)
         {
             tileToLock = predecessors[tileToLock.GetRow()][tileToLock.GetCol()];
-        }
-
-        if (tileToLock == targetTile) // Temporary hack for Pathfinding; will be removed later.
-        {
-            piece.SetLockedTile(null);
-            return true;
         }
 
         tileToLock.SetLocker(piece);
@@ -225,13 +286,22 @@ public class Board
         }
         piece.SetTarget(null);
         piece.SetCurrentTile(null);
+
+        Tile lockedTile = piece.GetLockedTile();
+        if (lockedTile != null)
+        {
+            lockedTile.SetLocker(null);
+        }
         piece.SetLockedTile(null);
+
         activePiecesOnBoard.Remove(piece);
+        activePiecesOnBoard.Sort(new PieceSort());
     }
 
     public void RemovePieceFromBoard(Piece piece)
     {
         DeactivatePieceOnBoard(piece);
         piecesOnBoard.Remove(piece);
+        piecesOnBoard.Sort(new PieceSort());
     }
 }

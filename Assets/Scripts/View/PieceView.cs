@@ -9,10 +9,16 @@ public class PieceView : MonoBehaviour
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
     public GameObject currentHPBar;
+    public GameObject currentMPBar;
     public TextMeshPro jobTextMesh; // todo: placeholder, remove later
     private IViewState prevViewAction;
     private int prevHP;
+    private int prevMP;
 
+    private void Start()
+    {
+        SetCurrentMPBar(0.0f);
+    }
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
@@ -57,8 +63,7 @@ public class PieceView : MonoBehaviour
             GUIStyle style = new GUIStyle();
             style.fontStyle = FontStyle.Bold;
             style.fontSize = 24;
-            Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetName(), style);
-            prevHP = piece.GetHitPoints();
+            Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetViewState().ToString(), style);
         }
     }
 
@@ -85,9 +90,14 @@ public class PieceView : MonoBehaviour
             return;
         }
 
-        if (prevHP != piece.GetHitPoints())
+        if (prevHP != piece.GetCurrentHitPoints())
         {
             UpdateCurrentHPBar();
+        }
+
+        if (prevMP != piece.GetCurrentManaPoints())
+        {
+            UpdateCurrentMPBar();
         }
 
         if (piece.IsDead())
@@ -123,12 +133,30 @@ public class PieceView : MonoBehaviour
         }
     }
 
-    public void UpdateCurrentHPBar()
+    public void SetCurrentHPBar(float hp)
     {
-        float currentHPFraction = piece.GetHitPoints() / 100.0f;
+        float currentHPFraction = hp / piece.GetMaximumHitPoints();
         Vector3 temp = currentHPBar.transform.localScale;
         temp.x = currentHPFraction;
         currentHPBar.transform.localScale = temp;
-        prevHP = piece.GetHitPoints();
+        prevHP = piece.GetCurrentHitPoints();
+    }
+    public void SetCurrentMPBar(float mp)
+    {
+        float currentMPFraction = mp / piece.GetMaximumManaPoints();
+        Vector3 temp = currentMPBar.transform.localScale;
+        temp.x = currentMPFraction;
+        currentMPBar.transform.localScale = temp;
+        prevMP = piece.GetCurrentManaPoints();
+    }
+
+    public void UpdateCurrentHPBar()
+    {
+        SetCurrentHPBar(piece.GetCurrentHitPoints());
+    }
+
+    public void UpdateCurrentMPBar()
+    {
+        SetCurrentMPBar(piece.GetCurrentManaPoints());
     }
 }

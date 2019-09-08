@@ -12,29 +12,11 @@ public class IncomeManager : MonoBehaviour
 {
     public int MaxFixedIncome = 5;
     [SerializeField]
-    private int incomeFromUpgrades = 1;
+    private int incomeFromUpgrades = 0;
     public readonly decimal InterestRate = 1m / 10;
     public InventoryManager inventoryManager;
 
-    void OnEnable()
-    {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Initialization || e.phase == Phase.PostCombat)
-        {
-            GenerateIncome(e.round);
-        }
-    }
-
-    void GenerateIncome(int currentRound)
+    public void GenerateIncome(int currentRound)
     {
         // if I'm master client
         int currentIncome = Math.Min(currentRound, MaxFixedIncome);
@@ -54,6 +36,16 @@ public class IncomeManager : MonoBehaviour
     public void IncreasePassiveIncome()
     {
         incomeFromUpgrades++;
+
+        //retroactive upgrades
+        int income = 1;
+        for (int i = 0; i < 3; ++i)
+        {
+            Player player = (Player)i;
+            inventoryManager.AddGold(player, income);
+        }
+
+        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Passive Income Purchased! Everyone received 1 gold." });
         EventManager.Instance.Raise(new PassiveIncomeUpdateEvent{ PassiveIncome = incomeFromUpgrades });
     }
 }

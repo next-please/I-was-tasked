@@ -18,6 +18,7 @@ public class EnemyGenerator
     public readonly int upgradePowerModifier = 5;
     public readonly int upgradeHealthModifier = 50;
     public readonly int upgradePieceModifier = 1;
+    public readonly int defaultDamage = 1;
 
     private int currentPieces;
     private int currentHitPoints;
@@ -26,6 +27,7 @@ public class EnemyGenerator
     private int currentAttackRange;
     private int currentAttackSpeed;
     private int currentMovementSpeed;
+    private int currentDamage;
     private System.Random rngesus;
 
     // Constructor
@@ -40,6 +42,7 @@ public class EnemyGenerator
         currentAttackRange = defaultAttackRange;
         currentAttackSpeed = defaultAttackSpeed;
         currentMovementSpeed = defaultMovementSpeed;
+        currentDamage = defaultDamage;
     }
 
     public ArrayList generateEnemies(int roundNumber)
@@ -69,8 +72,11 @@ public class EnemyGenerator
         }
         for (int i=0; i<currentPieces; i++)
         {
-            enemyPieces.Add(new Piece("Enemy #" + (i+1), currentHitPoints, currentAttackDamage, 1, true));
+            Piece enemy = new Piece("Enemy #" + (i + 1), currentHitPoints, currentAttackDamage, 1, true);
+            enemy.SetMaximumManaPoints(defaultManaPoints);
+            enemyPieces.Add(enemy);
             ((Piece)enemyPieces[i]).SetMovementSpeed(defaultMovementSpeed);
+            ((Piece)enemyPieces[i]).SetDamageIfSurvive(defaultDamage);
         }
 
         return enemyPieces;
@@ -85,5 +91,6 @@ public class EnemyGenerator
         currentAttackRange = defaultAttackRange;
         currentAttackSpeed = defaultAttackSpeed;
         currentMovementSpeed = defaultMovementSpeed;
+        currentDamage = defaultDamage;
     }
 }

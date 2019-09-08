@@ -4,28 +4,16 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public int StartingGold = 999;
+    public int StartingGold = 0;
+    public int StartingArmySize = 1;
     [SerializeField]
     PlayerInventory[] playerInventories;
 
-    void OnEnable()
+    public void ResetInventories()
     {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Initialization)
+        foreach (var p in playerInventories)
         {
-            foreach (var p in playerInventories)
-            {
-                p.Reset(StartingGold);
-            }
+            p.Reset(StartingGold, StartingArmySize);
         }
     }
 
@@ -85,6 +73,34 @@ public class InventoryManager : MonoBehaviour
         EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
     }
 
+    public bool IsArmyFull(Player player)
+    {
+        var playerInv = GetPlayerInventory(player);
+        return playerInv.IsArmyFull();
+    }
+
+    public bool AddToArmy(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        var success = playerInv.AddToArmy(piece);
+        if (success)
+        {
+            EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+        }
+        return success;
+    }
+
+     public bool RemoveFromArmy(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        var success = playerInv.RemoveFromArmy(piece);
+        if (success)
+        {
+            EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+        }
+        return success;
+    }
+
     public void DeductGold(Player player, int amount)
     {
         var playerInv = GetPlayerInventory(player);
@@ -117,6 +133,13 @@ public class InventoryManager : MonoBehaviour
     {
         var playerInv = GetPlayerInventory(player);
         return playerInv.GetArmySize();
+    }
+
+    public List<Piece> GetExcessPieces(Player player)
+    {
+        var playerInv = GetPlayerInventory(player);
+        int size = playerInv.GetArmySize();
+        return playerInv.GetExcessArmyPieces();
     }
 }
 
