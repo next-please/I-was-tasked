@@ -54,7 +54,6 @@ public class ViewManager : MonoBehaviour
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
         pieceView.InstantiateModelPrefab(characterPrefabLoader.GetPrefab(piece));
-        pieceView.SetHeaderText(piece.GetClass().ToString(), piece.GetRace().ToString()); // todo: placeholder, remove later
         pieceObj.transform.parent = transform;
     }
 }

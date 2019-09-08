@@ -11,7 +11,7 @@ public class PieceView : MonoBehaviour
     public Piece piece = null; // piece that I'm trying to display
     public GameObject currentHPBar;
     public GameObject currentMPBar;
-    public TextMeshPro jobTextMesh; // todo: placeholder, remove later
+    public TextMeshPro nameText; // todo: remove later
     private IViewState prevViewAction;
     private int prevHP;
     private int prevMP;
@@ -23,6 +23,12 @@ public class PieceView : MonoBehaviour
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
+
+        // todo: remove later
+        if (nameText != null)
+        {
+            nameText.text = piece.GetRace().ToString() + " " + piece.GetClass().ToString();
+        }
     }
 
     public void InstantiateModelPrefab(GameObject characterModel)
@@ -33,16 +39,6 @@ public class PieceView : MonoBehaviour
         modelPrefab.transform.rotation = transform.rotation;
 
         animator = modelPrefab.GetComponent<Animator>();
-    }
-
-    // todo: placeholder, remove later
-    public void SetHeaderText(string job, string race)
-    {
-        if (jobTextMesh == null)
-        {
-            return;
-        }
-        jobTextMesh.text = race + " " + job;
     }
 
     void OnEnable()
@@ -65,23 +61,6 @@ public class PieceView : MonoBehaviour
             style.fontStyle = FontStyle.Bold;
             style.fontSize = 24;
             Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetViewState().ToString(), style);
-        }
-    }
-
-    // todo: move to utility
-    void LateUpdate()
-    {
-        if (jobTextMesh != null)
-        {
-            //     jobTextMesh.transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
-            //    Camera.main.transform.rotation * Vector3.up);
-
-            //     currentHPBar.transform.LookAt(transform.position + Camera.main.transform.rotation * Vector3.forward,
-            //     Camera.main.transform.rotation * Vector3.up);
-
-            jobTextMesh.transform.rotation = Camera.main.transform.rotation;
-            currentHPBar.transform.rotation = Camera.main.transform.rotation;
-            currentMPBar.transform.rotation = Camera.main.transform.rotation;
         }
     }
 

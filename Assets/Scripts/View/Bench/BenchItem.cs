@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class MoveFromBenchToBoardEvent : GameEvent
 {
@@ -27,8 +28,10 @@ public class BenchItem : Droppable
     private readonly float distanceOffset = 10f;
     private readonly float scaleOffset = 10f;
 
-    public Piece piece;
+    [HideInInspector]
     public int index;
+    public Piece piece;
+    public TextMeshPro nameText; // TODO: prob remove later
 
     public void InstantiateModelPrefab(GameObject characterModel)
     {
@@ -36,10 +39,12 @@ public class BenchItem : Droppable
         modelPrefab.transform.SetParent(this.transform);
         modelPrefab.transform.localPosition = Vector3.zero;
         modelPrefab.transform.localScale = Vector3.one;
-
-        Quaternion cameraRotation = Camera.main.transform.rotation;
         modelPrefab.transform.rotation = Camera.main.transform.rotation;
         modelPrefab.transform.Rotate(0, 180, 0); // face forward
+
+        // TODO: remove later
+        nameText.text = piece.GetRace().ToString() + " " + piece.GetClass().ToString();
+        nameText.transform.rotation = Camera.main.transform.rotation;
     }
 
     public override void OnBeginDrag(PointerEventData eventData)
