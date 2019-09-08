@@ -47,9 +47,9 @@ public class ArrangementManager : MonoBehaviour
         inventoryManager.MoveBenchPieceToIndex(player, piece, index);
     }
 
-    public void TryRemovePieceOnBoard(Player player, Piece piece)
+    public bool TryRemovePieceOnBoard(Player player, Piece piece)
     {
         boardManager.RemovePieceFromBoard(player, piece);
-        marketManager.characterGenerator.ReturnPiece(piece);
+        return true;
     }
 }

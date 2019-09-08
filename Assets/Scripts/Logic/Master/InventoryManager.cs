@@ -33,7 +33,7 @@ public class InventoryManager : MonoBehaviour
         return GetPlayerInventory(player).IsBenchFull();
     }
 
-    public void AddToBench(Player player, Piece piece)
+    public bool AddToBench(Player player, Piece piece)
     {
         var playerInv = GetPlayerInventory(player);
         bool success = playerInv.AddToBench(piece);
@@ -41,6 +41,7 @@ public class InventoryManager : MonoBehaviour
         {
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
+        return success;
     }
 
     public bool RemoveFromBench(Player player, Piece piece)

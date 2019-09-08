@@ -14,11 +14,10 @@ public class TransactionManager : MonoBehaviour
 
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
     {
-        int price = (int)Math.Pow(2, piece.GetRarity()-1);
 
         // check locally if we can do this transaction for immediate feedback
         if (inventoryManager.IsBenchFull(player) ||
-            !inventoryManager.EnoughGoldToPurchase(player, price))
+            !inventoryManager.EnoughGoldToPurchase(player, piece.GetPrice()))
         {
             return;
         }
@@ -30,7 +29,7 @@ public class TransactionManager : MonoBehaviour
         // if i'm master
         marketManager.RemoveMarketPiece(piece);
         inventoryManager.AddToBench(player, piece);
-        inventoryManager.DeductGold(player, price);
+        inventoryManager.DeductGold(player, piece.GetPrice());
     }
 
     public void TrySellBenchPiece(Player player, Piece piece)
@@ -39,7 +38,14 @@ public class TransactionManager : MonoBehaviour
         if (inventoryManager.RemoveFromBench(player, piece))
         {
             marketManager.characterGenerator.ReturnPiece(piece);
+            inventoryManager.AddGold(player, piece.GetPrice());
         }
+    }
+
+    public void SellPiece(Player player, Piece piece)
+    {
+        marketManager.characterGenerator.ReturnPiece(piece);
+        inventoryManager.AddGold(player, piece.GetPrice());
     }
 
     public void TryPurchaseIncreaseMarketRarity(Player player)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Piece
 {
@@ -350,5 +351,10 @@ public class Piece
         SetCurrentHitPoints(GetMaximumHitPoints());
         SetCurrentManaPoints(0);
         this.state = entryState;
+    }
+
+    public int GetPrice()
+    {
+        return (int)Math.Pow(2, rarity-1);
     }
 }
