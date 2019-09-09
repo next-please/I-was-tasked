@@ -78,6 +78,11 @@ namespace Com.Nextplease.IWT
             }
             return Player.Zero; // for debug
         }
+
+        public bool IsRoomFull()
+        {
+            return PhotonNetwork.PlayerList.Length == 3;
+        }
         #endregion
 
         #region Monobehaviour Methods
