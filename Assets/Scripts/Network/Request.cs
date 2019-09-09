@@ -4,14 +4,13 @@ namespace Com.Nextplease.IWT
     [Serializable]
     public class Request
     {
-        private readonly string requester;
+        private string requester;
         private readonly byte actionType;
         private bool approved;
         private readonly Data data;
 
-        public Request(string requester, byte actionType, Data data)
+        public Request(byte actionType, Data data)
         {
-            this.requester = requester;
             this.actionType = actionType;
             this.approved = false;
             this.data = data;
@@ -30,6 +29,11 @@ namespace Com.Nextplease.IWT
         public string GetRequester()
         {
             return this.requester;
+        }
+
+        public void SetRequester(string requester)
+        {
+            this.requester = requester;
         }
 
         public byte GetActionType()

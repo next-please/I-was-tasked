@@ -36,6 +36,11 @@ namespace Com.Nextplease.IWT
             RaiseEvent(VALIDATE_ACTION_WITH_MASTER, req);
             return;
         }
+
+        public string GetLocalPlayerID()
+        {
+            return PhotonNetwork.LocalPlayer.NickName;
+        }
         #endregion
 
         #region Private Methods

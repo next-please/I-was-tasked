@@ -5,10 +5,12 @@ namespace Com.Nextplease.IWT
     public class RequestHandler : MonoBehaviour {
         #region Action Types (move out when too large)
         private const int MOVE_FROM_BENCH_TO_BOARD = 0;
+        private const int INIT_PHASE = 10;
         #endregion
 
         #region Manager References
 
+        public PhaseManager phaseManager;
         public NetworkManager networkManager;
         public ArrangementManager arrangementManager;
 
@@ -21,6 +23,7 @@ namespace Com.Nextplease.IWT
         /// <param name="req"></param>
         public void SendRequest(Request req)
         {
+            req.SetRequester(this.networkManager.GetLocalPlayerID());
             this.networkManager.ProcessRequest(req);
         }
 
@@ -42,6 +45,10 @@ namespace Com.Nextplease.IWT
                         Debug.Log("here me dude");
                         return req;
 
+                case INIT_PHASE:
+                    req.Approve();
+                    return req;
+
                     default:
                         Debug.LogErrorFormat("RequestHandler: {0} issued request of invalid action type {1}", req.GetRequester(), req.GetActionType());
                         return null;
@@ -59,9 +66,15 @@ namespace Com.Nextplease.IWT
             switch(req.GetActionType())
             {
                 case MOVE_FROM_BENCH_TO_BOARD:
-                    PieceMovementData data = (PieceMovementData)req.GetData();
-                    arrangementManager.MoveBenchToBoard(data.player, data.piece, data.tile);
+                    PieceMovementData data_0 = (PieceMovementData)req.GetData();
+                    arrangementManager.MoveBenchToBoard(data_0.player, data_0.piece, data_0.tile);
                     break;
+                case INIT_PHASE:
+                    PhaseManagementData data_10 = (PhaseManagementData)req.GetData();
+                    phaseManager.SetNumPlayers(data_10.numPlayers);
+                    phaseManager.TryIntialize();
+                    break;
+
                 default:
                     Debug.LogErrorFormat("RequestHandler: {0} issued request of invalid action type {1}", req.GetRequester(), req.GetActionType());
                     break;

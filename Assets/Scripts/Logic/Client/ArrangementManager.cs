@@ -18,7 +18,7 @@ public class ArrangementManager : MonoBehaviour
     public void TryMoveBenchToBoard(Player player, Piece piece, Tile tile)
     {
         Data data = new PieceMovementData(player, piece, tile);
-        Request req = new Request(player.ToString(), 0, data);
+        Request req = new Request(0, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 

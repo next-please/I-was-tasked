@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
 
+using Com.Nextplease.IWT;
+
 public enum Phase
 {
     NIL,
@@ -27,6 +29,7 @@ public class PhaseManager : MonoBehaviour
     public MarketManager marketManager;
     public InventoryManager inventoryManager;
     public SummonManager summonManager;
+    public RequestHandler requestHandler;
 
     Phase currentPhase = Phase.NIL;
     private int round = 0;
@@ -43,7 +46,7 @@ public class PhaseManager : MonoBehaviour
         if (phasesRunning) return;
         phasesRunning = true;
         round = 0;
-        Initialize();
+        TryIntialize();
         StartCoroutine(MarketToCombat());
     }
 
@@ -110,9 +113,22 @@ public class PhaseManager : MonoBehaviour
         }
     }
 
+
     // PHASES
-    void Initialize()
+    public void TryIntialize()
     {
+        Data data = new PhaseManagementData(this.numPlayers, 0);
+        Request req = new Request(10, data);
+        this.requestHandler.SendRequest(req);
+
+    }
+
+    public void SetNumPlayers(int numPlayers)
+    {
+        this.numPlayers = numPlayers;
+    }
+
+    public void Initialize() {
         ChangePhase(Phase.Initialization);
         boardManager.CreateBoards(numPlayers);
         inventoryManager.ResetInventories();
