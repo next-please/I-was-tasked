@@ -8,6 +8,8 @@ namespace Com.Nextplease.IWT
         private const string CLASS_NAME = "RequestHandler";
         private const int MOVE_FROM_BENCH_TO_BOARD = 0;
         private const int INIT_PHASE = 10;
+        private const int MARKET_PHASE = 11;
+        private const int PRECOMBAT_PHASE = 12;
         #endregion
 
         #region Manager References
@@ -56,6 +58,22 @@ namespace Com.Nextplease.IWT
                     Debug.LogFormat("{0}: INIT_PHASE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
 
+                case MARKET_PHASE:
+                    if(networkManager.IsMasterClient())
+                    {
+                        req.Approve();
+                    }
+                    Debug.LogFormat("{0}: MARKET_PHASE - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
+
+                case PRECOMBAT_PHASE:
+                    if(networkManager.IsMasterClient())
+                    {
+                        req.Approve();
+                    }
+                    Debug.LogFormat("{0}: PRECOMBAT_PHASE - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
+
                 default:
                     Debug.LogErrorFormat("{0}: {1} issued request of invalid action type {2}", CLASS_NAME, req.GetRequester(), req.GetActionType());
                     return null;
@@ -68,8 +86,12 @@ namespace Com.Nextplease.IWT
         /// <param name="req"></param>
         public void ExecuteRequest(Request req)
         {
-            Debug.LogFormat("{0}: Request is approved: {1}", CLASS_NAME, req.IsApproved());
-            if (!req.IsApproved()) { return; }
+            if (!req.IsApproved())
+            {
+                Debug.LogFormat("{0}: Request from {1} is rejected", CLASS_NAME, req.GetRequester());
+                return;
+            }
+
             switch (req.GetActionType())
             {
                 case MOVE_FROM_BENCH_TO_BOARD:
@@ -78,10 +100,15 @@ namespace Com.Nextplease.IWT
                     Debug.LogFormat("{0}: Executing MOVE_BENCH_TO_BOARD from {1}", CLASS_NAME, req.GetRequester());
                     break;
                 case INIT_PHASE:
-                    PhaseManagementData data_10 = (PhaseManagementData)req.GetData();
-                    phaseManager.SetNumPlayers(data_10.numPlayers);
                     phaseManager.TryIntialize();
                     Debug.LogFormat("{0}: Executing INIT_PHASE from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case MARKET_PHASE:
+                    phaseManager.MarketPhase();
+                    Debug.LogFormat("{0}: Executing MARKET_PHASE from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case PRECOMBAT_PHASE:
+                    Debug.LogFormat("{0}: Executing PRECOMBAT_PHASE from {1}", CLASS_NAME, req.GetRequester());
                     break;
 
                 default:

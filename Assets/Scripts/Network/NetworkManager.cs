@@ -41,6 +41,11 @@ namespace Com.Nextplease.IWT
         {
             return PhotonNetwork.LocalPlayer.NickName;
         }
+
+        public bool IsMasterClient()
+        {
+            return PhotonNetwork.IsMasterClient;
+        }
         #endregion
 
         #region Private Methods

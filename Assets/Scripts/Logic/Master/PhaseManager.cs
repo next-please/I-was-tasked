@@ -47,7 +47,6 @@ public class PhaseManager : MonoBehaviour
         phasesRunning = true;
         round = 0;
         TryIntialize();
-        StartCoroutine(MarketToCombat());
     }
 
     void OnGameOver()
@@ -76,9 +75,7 @@ public class PhaseManager : MonoBehaviour
             yield break;
         }
         CurrentRoundText.text = "Round " + round;
-        yield return MarketPhase();
-        yield return PreCombat();
-        Combat();
+        TryMarketPhase();
     }
 
     public void SimulationEnded(Player player, List<Piece> piecesOnBoard)
@@ -118,9 +115,8 @@ public class PhaseManager : MonoBehaviour
     public void TryIntialize()
     {
         Data data = new PhaseManagementData(this.numPlayers, 0);
-        Request req = new Request(10, data);
-        this.requestHandler.SendRequest(req);
-
+        Request req = new Request(10, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
     }
 
     public void SetNumPlayers(int numPlayers)
@@ -132,23 +128,40 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.Initialization);
         boardManager.CreateBoards(numPlayers);
         inventoryManager.ResetInventories();
+        StartCoroutine(MarketToCombat());
     }
 
-    IEnumerator MarketPhase()
+    public void TryMarketPhase()
+    {
+        Data data = new PhaseManagementData(this.numPlayers, round);
+        Request req = new Request(11, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public IEnumerator MarketPhase()
     {
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
         incomeManager.GenerateIncome(round);
         marketManager.GenerateMarketItems();
         yield return Countdown(5);
+        TryPreCombat();
     }
 
-    IEnumerator PreCombat()
+    public void TryPreCombat()
+    {
+        Data data = new PhaseManagementData(this.numPlayers, round);
+        Request req = new Request(12, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public IEnumerator PreCombat()
     {
         ChangePhase(Phase.PreCombat);
         summonManager.GenerateAndSummonEnemies(round, numPlayers);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
         yield return Countdown(2);
+        Combat();
     }
 
     void Combat()
