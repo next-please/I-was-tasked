@@ -18,6 +18,8 @@ public class Piece
     private int currentManaPoints;
     private int defaultMaximumManaPoints;
     private int maximumManaPoints;
+    private int manaPointsGainedOnAttack;
+    private int manaPointsGainedOnDamaged;
     private int defaultAttackDamage;
     private int attackDamage;
     private int attackRange;
@@ -43,6 +45,8 @@ public class Piece
         SetMaximumHitPoints(maximumHitPoints);
         SetDefaultMaximumHitPoints(maximumHitPoints);
         SetCurrentManaPoints(0);
+        SetManaPointsGainedOnAttack(5); // Placeholder Value
+        SetManaPointsGainedOnDamaged(5); // Placeholder Value
         SetAttackDamage(attackDamage);
         SetDefaultAttackDamage(attackDamage);
         SetAttackRange(attackRange);
@@ -55,7 +59,6 @@ public class Piece
         SetDefaultRecoilPercentage(0);
         SetMovementSpeed(1);
         SetDefaultMovementSpeed(1);
-
         SetIsEnemy(isEnemy);
         this.state = CreateState();
         this.entryState = this.state;
@@ -68,10 +71,18 @@ public class Piece
         SetMaximumHitPoints(maximumHitPoints);
         SetDefaultMaximumHitPoints(maximumHitPoints);
         SetCurrentManaPoints(0);
+        SetManaPointsGainedOnAttack(15); // Placeholder Value
+        SetManaPointsGainedOnDamaged(15); // Placeholder Value
         SetAttackDamage(attackDamage);
         SetDefaultAttackDamage(attackDamage);
         SetAttackRange(attackRange);
         SetDefaultAttackRange(attackRange);
+        SetRarity(0);
+        SetDamageIfSurvive(0);
+        SetLifestealPercentage(0);
+        SetDefaultLifestealPercentage(0);
+        SetRecoilPercentage(0);
+        SetDefaultRecoilPercentage(0);
         SetMovementSpeed(movementSpeed);
         SetDefaultMovementSpeed(movementSpeed);
         SetIsEnemy(isEnemy);
@@ -225,6 +236,16 @@ public class Piece
     public int GetMaximumManaPoints()
     {
         return maximumManaPoints;
+    }
+
+    public int GetManaPointsGainedOnDamaged()
+    {
+        return manaPointsGainedOnDamaged;
+    }
+
+    public int GetManaPointsGainedOnAttack()
+    {
+        return manaPointsGainedOnAttack;
     }
 
     public int GetAttackDamage()
@@ -383,6 +404,16 @@ public class Piece
     public void SetMaximumManaPoints(int maximumManaPoints)
     {
         this.maximumManaPoints = maximumManaPoints;
+    }
+
+    public void SetManaPointsGainedOnDamaged(int manaPointsGainedOnDamage)
+    {
+        this.manaPointsGainedOnDamaged = manaPointsGainedOnDamage;
+    }
+
+    public void SetManaPointsGainedOnAttack(int manaPointsGainedOnAttack)
+    {
+        this.manaPointsGainedOnAttack = manaPointsGainedOnAttack;
     }
 
     public void SetAttackDamage(int attackDamage)

@@ -7,6 +7,7 @@ public class AttackState : State
     {
         ticksRemaining = 50; // 1.0 second to attack
         Piece target = piece.GetTarget();
+        piece.SetCurrentManaPoints(piece.GetCurrentManaPoints() + piece.GetManaPointsGainedOnAttack());
         if (!target.IsDead())
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - piece.GetAttackDamage());
@@ -19,7 +20,7 @@ public class AttackState : State
             {
                 piece.SetCurrentHitPoints((int)Math.Ceiling(piece.GetCurrentHitPoints() - piece.GetAttackDamage() * target.GetRecoilPercentage()));
             }
-            target.SetCurrentManaPoints(target.GetCurrentManaPoints() + 10); // Placeholder Increment.
+            target.SetCurrentManaPoints(target.GetCurrentManaPoints() + target.GetManaPointsGainedOnDamaged());
             Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
         }
         else
