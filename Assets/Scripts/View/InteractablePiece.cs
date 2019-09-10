@@ -18,7 +18,7 @@ public class SelectPieceEvent : GameEvent
 
 public class DeselectPieceEvent : GameEvent { }
 
-// Handles drag and drop, selection and deselection of pieces
+// Handles drag and drop, selection and deselection of piece
 public abstract class InteractablePiece :
     MonoBehaviour,
     IBeginDragHandler,
