@@ -105,15 +105,6 @@ public class InventoryManager : MonoBehaviour
         return success;
     }
 
-    public void ApplySynergiesToArmies()
-    {
-        for (int i=0; i < playerInventories.Length; i++)
-        {
-            
-        }
-
-    }
-
     public bool RemoveFromArmy(Player player, Piece piece)
     {
         var playerInv = GetPlayerInventory(player);
