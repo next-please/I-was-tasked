@@ -9,7 +9,10 @@ public class PieceUIManager : MonoBehaviour
     public Text nameText;
     public Text attackDamageText;
 
-    private Piece selectedPiece;
+    void Start()
+    {
+        pieceCanvas.enabled = false;
+    }
 
     void OnEnable()
     {
@@ -21,17 +24,6 @@ public class PieceUIManager : MonoBehaviour
     {
         EventManager.Instance.RemoveListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.RemoveListener<DeselectPieceEvent>(OnPieceDeselected);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     void OnPieceSelected(SelectPieceEvent e)
