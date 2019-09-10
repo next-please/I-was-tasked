@@ -94,11 +94,13 @@ public class InventoryManager : MonoBehaviour
             {
                 synergyManager.IncreaseSynergyCount(piece.GetClass());
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
             }
             if (playerInv.HasSynergy(piece.GetRace()) && !hadRaceSynergy)
             {
                 synergyManager.IncreaseSynergyCount(piece.GetRace());
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Active" });
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
