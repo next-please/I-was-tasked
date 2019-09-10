@@ -28,6 +28,8 @@ public class BenchItem : InteractablePiece
     private readonly float distanceOffset = 10f;
     private readonly float scaleOffset = 10f;
 
+    private Animator animator;
+
     [HideInInspector]
     public int index;
     public TextMeshPro nameText; // TODO: prob remove later
@@ -40,6 +42,8 @@ public class BenchItem : InteractablePiece
         modelPrefab.transform.localScale = Vector3.one;
         modelPrefab.transform.rotation = Camera.main.transform.rotation;
         modelPrefab.transform.Rotate(0, 180, 0); // face forward
+
+        animator = modelPrefab.GetComponent<Animator>();
 
         // TODO: remove later
         nameText.text = piece.GetRace().ToString() + " " + piece.GetClass().ToString();
@@ -54,9 +58,7 @@ public class BenchItem : InteractablePiece
 
     public override void OnDrag(PointerEventData eventData)
     {
-        var screenPoint = Input.mousePosition;
-        screenPoint.z = distanceOffset;
-        transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+        SetDraggedState();
     }
 
     public override void OnBenchDrop(BenchSlot targetSlot)
@@ -90,8 +92,23 @@ public class BenchItem : InteractablePiece
     // Returns piece to bench
     public override void OnEmptyDrop()
     {
+        SetBenchState();
+    }
+
+    private void SetDraggedState()
+    {
+        var screenPoint = Input.mousePosition;
+        screenPoint.z = distanceOffset;
+        transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
+        animator.Play("Walk");
+    }
+
+    private void SetBenchState()
+    {
         transform.localScale *= scaleOffset; // update to ui scale
         transform.localPosition = Vector3.zero;
         // gameObject.GetComponent<Collider>().enabled = true;
+
+        animator.Play("Idle");
     }
 }
