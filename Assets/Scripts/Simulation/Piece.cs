@@ -25,13 +25,13 @@ public class Piece
     private int attackSpeed;
     private int movementSpeed;
     private int defaultMovementSpeed;
-    private bool isEnemy;
-    private double lifestealPercentage = 0;
-    private double defaultLifestealPercentage = 0;
-    private double recoilPercentage = 0;
-    private double defaultRecoilPercentage = 0;
     private int rarity;
-    private int damageIfSurvive = 0;
+    private int damageIfSurvive;
+    private double lifestealPercentage;
+    private double defaultLifestealPercentage;
+    private double recoilPercentage;
+    private double defaultRecoilPercentage;
+    private bool isEnemy;
     private State state;
     private State entryState;
 
@@ -47,8 +47,15 @@ public class Piece
         SetDefaultAttackDamage(attackDamage);
         SetAttackRange(attackRange);
         SetDefaultAttackRange(attackRange);
+        SetRarity(0);
+        SetDamageIfSurvive(0);
+        SetLifestealPercentage(0);
+        SetDefaultLifestealPercentage(0);
+        SetRecoilPercentage(0);
+        SetDefaultRecoilPercentage(0);
         SetMovementSpeed(1);
         SetDefaultMovementSpeed(1);
+
         SetIsEnemy(isEnemy);
         this.state = CreateState();
         this.entryState = this.state;
@@ -388,9 +395,19 @@ public class Piece
         this.lifestealPercentage = lifestealPercentage;
     }
 
+    public void SetDefaultLifestealPercentage(double defaultLifestealPercentage)
+    {
+        this.defaultLifestealPercentage = defaultLifestealPercentage;
+    }
+
     public void SetRecoilPercentage(double recoilPercentage)
     {
         this.recoilPercentage = recoilPercentage;
+    }
+
+    public void SetDefaultRecoilPercentage(double defaultRecoilPercentage)
+    {
+        this.defaultRecoilPercentage = defaultRecoilPercentage;
     }
     
     public void SetDefaultAttackDamage(int defaultAttackDamage)
