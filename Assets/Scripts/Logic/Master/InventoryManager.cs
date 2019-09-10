@@ -118,7 +118,7 @@ public class InventoryManager : MonoBehaviour
             if (!playerInv.HasSynergy(piece.GetClass()) && hadJobSynergy)
             {
                 synergyManager.DecreaseSynergyCount(piece.GetClass());
-                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + "Synergy Removed" });
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
             }
             if (!playerInv.HasSynergy(piece.GetRace()) && hadRaceSynergy)
             {
