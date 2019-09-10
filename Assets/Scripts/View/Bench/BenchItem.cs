@@ -23,14 +23,13 @@ public class TrashPieceOnBenchEvent : GameEvent
     public Piece piece;
 }
 
-public class BenchItem : Droppable
+public class BenchItem : InteractablePiece
 {
     private readonly float distanceOffset = 10f;
     private readonly float scaleOffset = 10f;
 
     [HideInInspector]
     public int index;
-    public Piece piece;
     public TextMeshPro nameText; // TODO: prob remove later
 
     public void InstantiateModelPrefab(GameObject characterModel)

@@ -21,11 +21,10 @@ public class TrashPieceOnBoardEvent : GameEvent
     public Piece piece;
 }
 
-public class PieceDragHandler : Droppable
+public class PieceDragHandler : InteractablePiece
 {
     public readonly float zPosOnDrag = 10f;
     private Vector3 originalPos;
-    private Piece piece;
 
     void Start()
     {

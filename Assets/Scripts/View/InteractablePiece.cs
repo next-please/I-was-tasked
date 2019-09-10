@@ -5,14 +5,30 @@ using UnityEngine.EventSystems;
 
 public enum HitTarget
 {
-    Empty = 0,
-    Tile = 1,
-    BenchSlot = 2,
-    Trash = 3
+    Empty,
+    Tile,
+    BenchSlot,
+    Trash
 }
 
-public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class SelectPieceEvent : GameEvent
 {
+    public Piece piece;
+}
+
+public class DeselectPieceEvent : GameEvent { }
+
+// Handles drag and drop, selection and deselection of pieces
+public abstract class InteractablePiece :
+    MonoBehaviour,
+    IBeginDragHandler,
+    IDragHandler,
+    IEndDragHandler,
+    IPointerDownHandler,
+    ISelectHandler,
+    IDeselectHandler
+{
+    public Piece piece;
     protected GameObject targetObject;
 
     public virtual void OnBeginDrag(PointerEventData eventData) { }
@@ -53,6 +69,8 @@ public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        eventData.selectedObject = null;
+
         HitTarget target = GetHitTarget();
         switch (target)
         {
@@ -71,5 +89,20 @@ public abstract class Droppable : MonoBehaviour, IBeginDragHandler, IDragHandler
             default:
                 break;
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        eventData.selectedObject = gameObject;
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        EventManager.Instance.Raise(new SelectPieceEvent { piece = piece });
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        EventManager.Instance.Raise(new DeselectPieceEvent { });
     }
 }
