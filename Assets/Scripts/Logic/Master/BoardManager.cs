@@ -6,6 +6,8 @@ using System.Linq;
 public class AddPieceToBoardEvent : GameEvent
 {
     public Piece piece;
+    public Player player;
+    public Board board;
     public int row;
     public int col;
 }
@@ -118,6 +120,12 @@ public class BoardManager : MonoBehaviour
     {
         Board board = GetBoard(player);
         board.AddPieceToBoard(piece, i, j);
-        EventManager.Instance.Raise(new AddPieceToBoardEvent { piece = piece, row = i, col = j });
+        EventManager.Instance.Raise(new AddPieceToBoardEvent {
+            piece = piece,
+            row = i,
+            col = j,
+            board = board,
+            player = player,
+        });
     }
 }

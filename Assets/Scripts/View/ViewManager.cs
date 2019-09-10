@@ -48,9 +48,11 @@ public class ViewManager : MonoBehaviour
         Piece piece = e.piece;
         int i = e.row;
         int j = e.col;
+        Player player = e.player;
 
+        Vector3 startPos = (Vector3.right * e.board.GetNumRows() * TileSize + Vector3.right * 2) * (int)player; // board + offset
         GameObject pieceViewPrefab = piece.IsEnemy() ? EnemyPieceViewPrefab : FriendlyPieceViewPrefab;
-        GameObject pieceObj = Instantiate(pieceViewPrefab, new Vector3(i, 1, j) * TileSize, Quaternion.identity);
+        GameObject pieceObj = Instantiate(pieceViewPrefab, startPos + new Vector3(i, 1, j) * TileSize, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
         pieceObj.transform.parent = transform;

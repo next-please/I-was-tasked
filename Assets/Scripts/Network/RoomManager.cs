@@ -81,7 +81,7 @@ namespace Com.Nextplease.IWT
 
         public bool IsRoomFull()
         {
-            return PhotonNetwork.PlayerList.Length == 3;
+            return PhotonNetwork.PlayerList.Length == NumPlayersToStart;
         }
         #endregion
 

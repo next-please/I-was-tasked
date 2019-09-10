@@ -815,7 +815,7 @@ MonoBehaviour:
   marketManager: {fileID: 1554020330}
   inventoryManager: {fileID: 1315935871}
   summonManager: {fileID: 755006747}
-  requestHandler: {fileID: 0}
+  requestHandler: {fileID: 98420139}
 --- !u!4 &72740323
 Transform:
   m_ObjectHideFlags: 0

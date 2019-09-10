@@ -64,20 +64,6 @@ public class PhaseManager : MonoBehaviour
         WinScreen.enabled = true;
     }
 
-    IEnumerator MarketToCombat()
-    {
-        round++;
-        Debug.Log("Rounds remaining: " + (round - RoundsNeededToSurvive));
-        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
-        if (round > RoundsNeededToSurvive)
-        {
-            OnGameOver();
-            yield break;
-        }
-        CurrentRoundText.text = "Round " + round;
-        TryMarketPhase();
-    }
-
     public void SimulationEnded(Player player, List<Piece> piecesOnBoard)
     {
         simulationPlayerCount++;
@@ -90,14 +76,8 @@ public class PhaseManager : MonoBehaviour
         else if (simulationPlayerCount == numPlayers)
         {
             simulationPlayerCount = 0;
-            StartCoroutine(PostCombatToCombat());
+            TryPostCombat();
         }
-    }
-
-    IEnumerator PostCombatToCombat()
-    {
-        yield return PostCombat();
-        yield return MarketToCombat();
     }
 
     IEnumerator Countdown(int time)
@@ -109,7 +89,6 @@ public class PhaseManager : MonoBehaviour
             time -= 1;
         }
     }
-
 
     // PHASES
     public void TryIntialize()
@@ -124,21 +103,41 @@ public class PhaseManager : MonoBehaviour
         this.numPlayers = numPlayers;
     }
 
-    public void Initialize() {
+    public void Initialize(int numPlayers) {
+        this.numPlayers = numPlayers;
         ChangePhase(Phase.Initialization);
         boardManager.CreateBoards(numPlayers);
         inventoryManager.ResetInventories();
-        StartCoroutine(MarketToCombat());
+        StartCoroutine(RoundStartToMarket());
     }
 
-    public void TryMarketPhase()
+    IEnumerator RoundStartToMarket()
+    {
+        round++;
+        Debug.Log("Rounds remaining: " + (round - RoundsNeededToSurvive));
+        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
+        if (round > RoundsNeededToSurvive)
+        {
+            OnGameOver();
+            yield break;
+        }
+        CurrentRoundText.text = "Round " + round;
+        TryMarketPhase();
+    }
+
+    void TryMarketPhase()
     {
         Data data = new PhaseManagementData(this.numPlayers, round);
         Request req = new Request(11, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
-    public IEnumerator MarketPhase()
+    public void StartMarketPhase()
+    {
+        StartCoroutine(MarketToPreCombat());
+    }
+
+    IEnumerator MarketToPreCombat()
     {
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
@@ -148,14 +147,19 @@ public class PhaseManager : MonoBehaviour
         TryPreCombat();
     }
 
-    public void TryPreCombat()
+    void TryPreCombat()
     {
         Data data = new PhaseManagementData(this.numPlayers, round);
         Request req = new Request(12, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
-    public IEnumerator PreCombat()
+    public void StartPreCombat()
+    {
+        StartCoroutine(PreCombatToCombat());
+    }
+
+    IEnumerator PreCombatToCombat()
     {
         ChangePhase(Phase.PreCombat);
         summonManager.GenerateAndSummonEnemies(round, numPlayers);
@@ -168,13 +172,27 @@ public class PhaseManager : MonoBehaviour
     {
         ChangePhase(Phase.Combat);
         CurrentTimeText.text = "Combat In Progress";
+        simulationPlayerCount = 0;
         boardManager.StartSim(numPlayers);
     }
 
-    IEnumerator PostCombat()
+    void TryPostCombat()
+    {
+        Data data = new PhaseManagementData(this.numPlayers, round);
+        Request req = new Request(13, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public void StartPostCombat()
+    {
+        StartCoroutine(PostCombatToMarket());
+    }
+
+    IEnumerator PostCombatToMarket()
     {
         ChangePhase(Phase.PostCombat);
         yield return Countdown(5);
+        TryMarketPhase();
     }
 
     void ChangePhase(Phase phase)
