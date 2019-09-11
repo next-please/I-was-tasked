@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Piece
 {
@@ -11,17 +12,28 @@ public class Piece
     private string name;
     private Enums.Race race;
     private Enums.Job job;
+    private int defaultMaximumHitPoints;
     private int currentHitPoints;
     private int maximumHitPoints;
     private int currentManaPoints;
+    private int defaultMaximumManaPoints;
     private int maximumManaPoints;
+    private int manaPointsGainedOnAttack;
+    private int manaPointsGainedOnDamaged;
+    private int defaultAttackDamage;
     private int attackDamage;
     private int attackRange;
+    private int defaultAttackRange;
     private int attackSpeed;
     private int movementSpeed;
-    private bool isEnemy;
+    private int defaultMovementSpeed;
     private int rarity;
-    private int damageIfSurvive = 0;
+    private int damageIfSurvive;
+    private double lifestealPercentage;
+    private double defaultLifestealPercentage;
+    private double recoilPercentage;
+    private double defaultRecoilPercentage;
+    private bool isEnemy;
     private State state;
     private State entryState;
 
@@ -31,11 +43,49 @@ public class Piece
         SetName(name);
         SetCurrentHitPoints(maximumHitPoints);
         SetMaximumHitPoints(maximumHitPoints);
+        SetDefaultMaximumHitPoints(maximumHitPoints);
         SetCurrentManaPoints(0);
+        SetManaPointsGainedOnAttack(5); // Placeholder Value
+        SetManaPointsGainedOnDamaged(5); // Placeholder Value
         SetAttackDamage(attackDamage);
+        SetDefaultAttackDamage(attackDamage);
         SetAttackRange(attackRange);
-        SetIsEnemy(isEnemy);
+        SetDefaultAttackRange(attackRange);
+        SetRarity(0);
+        SetDamageIfSurvive(0);
+        SetLifestealPercentage(0);
+        SetDefaultLifestealPercentage(0);
+        SetRecoilPercentage(0);
+        SetDefaultRecoilPercentage(0);
         SetMovementSpeed(1);
+        SetDefaultMovementSpeed(1);
+        SetIsEnemy(isEnemy);
+        this.state = CreateState();
+        this.entryState = this.state;
+    }
+
+    public Piece(string name, int maximumHitPoints, int attackDamage, int attackRange, int movementSpeed, bool isEnemy)
+    {
+        SetName(name);
+        SetCurrentHitPoints(maximumHitPoints);
+        SetMaximumHitPoints(maximumHitPoints);
+        SetDefaultMaximumHitPoints(maximumHitPoints);
+        SetCurrentManaPoints(0);
+        SetManaPointsGainedOnAttack(15); // Placeholder Value
+        SetManaPointsGainedOnDamaged(15); // Placeholder Value
+        SetAttackDamage(attackDamage);
+        SetDefaultAttackDamage(attackDamage);
+        SetAttackRange(attackRange);
+        SetDefaultAttackRange(attackRange);
+        SetRarity(0);
+        SetDamageIfSurvive(0);
+        SetLifestealPercentage(0);
+        SetDefaultLifestealPercentage(0);
+        SetRecoilPercentage(0);
+        SetDefaultRecoilPercentage(0);
+        SetMovementSpeed(movementSpeed);
+        SetDefaultMovementSpeed(movementSpeed);
+        SetIsEnemy(isEnemy);
         this.state = CreateState();
         this.entryState = this.state;
     }
@@ -168,6 +218,11 @@ public class Piece
         return maximumHitPoints;
     }
 
+    public int GetDefaultMaximumHitPoints()
+    {
+        return defaultMaximumHitPoints;
+    }
+
     public int GetCurrentHitPoints()
     {
         return currentHitPoints;
@@ -183,14 +238,54 @@ public class Piece
         return maximumManaPoints;
     }
 
+    public int GetManaPointsGainedOnDamaged()
+    {
+        return manaPointsGainedOnDamaged;
+    }
+
+    public int GetManaPointsGainedOnAttack()
+    {
+        return manaPointsGainedOnAttack;
+    }
+
     public int GetAttackDamage()
     {
         return attackDamage;
     }
 
+    public double GetLifestealPercentage()
+    {
+        return lifestealPercentage;
+    }
+
+    public double GetRecoilPercentage()
+    {
+        return recoilPercentage;
+    }
+
+    public double GetDefaultRecoilPercentage()
+    {
+        return defaultRecoilPercentage;
+    }
+
+    public double GetDefaultLifestealPercentage()
+    {
+        return defaultLifestealPercentage;
+    }
+
+    public int GetDefaultAttackDamage()
+    {
+        return defaultAttackDamage;
+    }
+
     public int GetAttackRange()
     {
         return attackRange;
+    }
+
+    public int GetDefaultAttackRange()
+    {
+        return defaultAttackRange;
     }
 
     public int GetAttackSpeed()
@@ -202,6 +297,12 @@ public class Piece
     {
         return movementSpeed;
     }
+
+    public int GetDefaultMovementSpeed()
+    {
+        return defaultMovementSpeed;
+    }
+
     public IViewState GetViewState()
     {
         return state;
@@ -279,6 +380,11 @@ public class Piece
         this.maximumHitPoints = maximumHitPoints;
     }
 
+    public void SetDefaultMaximumHitPoints(int defaultMaximumHitPoints)
+    {
+        this.defaultMaximumHitPoints = defaultMaximumHitPoints;
+    }
+
     public void SetCurrentManaPoints(int currentManaPoints)
     {
         if (currentManaPoints < 0)
@@ -300,14 +406,54 @@ public class Piece
         this.maximumManaPoints = maximumManaPoints;
     }
 
+    public void SetManaPointsGainedOnDamaged(int manaPointsGainedOnDamage)
+    {
+        this.manaPointsGainedOnDamaged = manaPointsGainedOnDamage;
+    }
+
+    public void SetManaPointsGainedOnAttack(int manaPointsGainedOnAttack)
+    {
+        this.manaPointsGainedOnAttack = manaPointsGainedOnAttack;
+    }
+
     public void SetAttackDamage(int attackDamage)
     {
         this.attackDamage = attackDamage;
     }
 
+    public void SetLifestealPercentage(double lifestealPercentage)
+    {
+        this.lifestealPercentage = lifestealPercentage;
+    }
+
+    public void SetDefaultLifestealPercentage(double defaultLifestealPercentage)
+    {
+        this.defaultLifestealPercentage = defaultLifestealPercentage;
+    }
+
+    public void SetRecoilPercentage(double recoilPercentage)
+    {
+        this.recoilPercentage = recoilPercentage;
+    }
+
+    public void SetDefaultRecoilPercentage(double defaultRecoilPercentage)
+    {
+        this.defaultRecoilPercentage = defaultRecoilPercentage;
+    }
+    
+    public void SetDefaultAttackDamage(int defaultAttackDamage)
+    {
+        this.defaultAttackDamage = defaultAttackDamage;
+    }
+
     public void SetAttackRange(int attackRange)
     {
         this.attackRange = attackRange;
+    }
+
+    public void SetDefaultAttackRange(int defaultAttackRange)
+    {
+        this.defaultAttackRange = defaultAttackRange;
     }
 
     public void SetAttackSpeed(int attackSpeed)
@@ -318,6 +464,11 @@ public class Piece
     public void SetMovementSpeed(int movementSpeed)
     {
         this.movementSpeed = movementSpeed;
+    }
+
+    public void SetDefaultMovementSpeed(int defaultMovementSpeed)
+    {
+        this.defaultMovementSpeed = defaultMovementSpeed;
     }
 
     public void SetIsEnemy(bool isEnemy)
@@ -347,8 +498,19 @@ public class Piece
 
     public void Reset()
     {
+        SetMaximumHitPoints(GetDefaultMaximumHitPoints());
         SetCurrentHitPoints(GetMaximumHitPoints());
+        SetAttackDamage(GetDefaultAttackDamage());
+        SetLifestealPercentage(GetDefaultLifestealPercentage());
+        SetRecoilPercentage(GetDefaultRecoilPercentage());
+        SetAttackRange(GetDefaultAttackRange());
+        SetMovementSpeed(GetDefaultMovementSpeed());
         SetCurrentManaPoints(0);
         this.state = entryState;
+    }
+
+    public int GetPrice()
+    {
+        return (int)Math.Pow(2, rarity-1);
     }
 }

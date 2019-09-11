@@ -9,6 +9,7 @@ public class PieceView : MonoBehaviour
     [HideInInspector]
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
+    public GameObject statusBars;
     public GameObject currentHPBar;
     public GameObject currentMPBar;
     public TextMeshPro nameText; // todo: remove later
@@ -19,6 +20,8 @@ public class PieceView : MonoBehaviour
     private void Start()
     {
         SetCurrentMPBar(0.0f);
+        Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        statusBars.transform.LookAt(lookAtPosition);
     }
     public void TrackPiece(Piece piece)
     {
@@ -95,6 +98,9 @@ public class PieceView : MonoBehaviour
         viewAction.CallViewStartIfNeeded(this);
         viewAction.OnViewUpdate(this);
         prevViewAction = viewAction;
+
+        Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        statusBars.transform.LookAt(lookAtPosition);
     }
 
     void OnPieceRemoved(RemovePieceFromBoardEvent e)

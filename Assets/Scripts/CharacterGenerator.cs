@@ -139,7 +139,7 @@ public class CharacterGenerator
         }
         int jobNumber = rngesus.Next(1, jobTotalPool + 1);
         Enums.Job job = 0;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
+        for (int i = 0; i < Enum.GetNames(typeof(Enums.Job)).Length; i++)
         {
             jobNumber -= tiers[characterRarity].JobPoolSize[i];
             if (jobNumber <= 0)
@@ -172,11 +172,13 @@ public class CharacterGenerator
 
         //randomize range unit
         bool rangeUpgrade = false;
+        int count = 0;
         do
         {
             randomValue = rngesus.Next(0, 11);
             if (randomValue < 3)
             {
+                count++;
                 rangeUpgrade = true;
                 currentAttackRange += rangeAdditor;
 
@@ -198,7 +200,7 @@ public class CharacterGenerator
             {
                 rangeUpgrade = false;
             }
-        } while (rangeUpgrade);
+        } while (rangeUpgrade && count < 5);
 
         tiers[characterRarity].JobPoolSize[(int)job]--;
         tiers[characterRarity].RacePoolSize[(int)race]--;
@@ -207,10 +209,10 @@ public class CharacterGenerator
             currentHitPoints,
             currentAttackDamage,
             currentAttackRange, // TODO: Please help to verify if this is correct, much thanks~! - Nic
+            currentMovementSpeed,
             false);
         currentPiece.SetAttackSpeed(currentAttackSpeed);
         currentPiece.SetMaximumManaPoints(currentManaPoints);
-        currentPiece.SetMovementSpeed(currentMovementSpeed);
         currentPiece.SetRace(race);
         currentPiece.SetClass(job);
         currentPiece.SetRarity(characterRarity + 1);

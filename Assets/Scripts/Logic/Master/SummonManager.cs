@@ -30,7 +30,10 @@ public class SummonManager : MonoBehaviour
             foreach (Piece piece in excess)
             {
                 boardManager.RemovePieceFromBoard(player, piece);
-                inventoryManager.AddToBench(player, piece);
+                if (!inventoryManager.AddToBench(player, piece))
+                {
+                    inventoryManager.AddGold(player, piece.GetPrice());
+                }
                 inventoryManager.RemoveFromArmy(player, piece);
             }
         }

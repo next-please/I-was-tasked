@@ -28,6 +28,10 @@ public class MarketManager : MonoBehaviour
             totalDamage += piece.GetDamageIfSurvive();
         }
         market.CastleHealth -= totalDamage;
+        if (totalDamage > 0)
+        {
+            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Combat is over! " + totalDamage + " damage done to castle!" });
+        }
         EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
     }
 
