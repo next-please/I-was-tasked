@@ -50,7 +50,7 @@ public class ViewManager : MonoBehaviour
         int j = e.col;
 
         GameObject pieceViewPrefab = piece.IsEnemy() ? EnemyPieceViewPrefab : FriendlyPieceViewPrefab;
-        GameObject pieceObj = Instantiate(pieceViewPrefab, new Vector3(i, 1, j) * TileSize, Quaternion.identity);
+        GameObject pieceObj = Instantiate(pieceViewPrefab, new Vector3(i, 0.5f, j) * TileSize, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
         pieceView.InstantiateModelPrefab(characterPrefabLoader.GetPrefab(piece));
