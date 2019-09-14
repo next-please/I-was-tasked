@@ -25,9 +25,6 @@ public class TrashPieceOnBenchEvent : GameEvent
 
 public class BenchItem : InteractablePiece
 {
-    private readonly float distanceOffset = 10f;
-    private readonly float scaleOffset = 10f;
-
     private Animator animator;
 
     [HideInInspector]
@@ -40,8 +37,6 @@ public class BenchItem : InteractablePiece
         modelPrefab.transform.SetParent(this.transform);
         modelPrefab.transform.localPosition = Vector3.zero;
         modelPrefab.transform.localScale = Vector3.one;
-        modelPrefab.transform.rotation = Camera.main.transform.rotation;
-        modelPrefab.transform.Rotate(0, 180, 0); // face forward
 
         animator = modelPrefab.GetComponent<Animator>();
 
@@ -52,13 +47,12 @@ public class BenchItem : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        // gameObject.GetComponent<Collider>().enabled = false;
-        transform.localScale /= scaleOffset; // update to world scale
+        SetDraggedState();
     }
 
     public override void OnDrag(PointerEventData eventData)
     {
-        SetDraggedState();
+        transform.position = GetMouseWorldPosition();
     }
 
     public override void OnBenchDrop(BenchSlot targetSlot)
@@ -97,18 +91,12 @@ public class BenchItem : InteractablePiece
 
     private void SetDraggedState()
     {
-        var screenPoint = Input.mousePosition;
-        screenPoint.z = distanceOffset;
-        transform.position = Camera.main.ScreenToWorldPoint(screenPoint);
         animator.Play("Walk");
     }
 
     private void SetBenchState()
     {
-        transform.localScale *= scaleOffset; // update to ui scale
         transform.localPosition = Vector3.zero;
-        // gameObject.GetComponent<Collider>().enabled = true;
-
         animator.Play("Idle");
     }
 }

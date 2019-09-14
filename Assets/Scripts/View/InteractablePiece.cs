@@ -28,6 +28,8 @@ public abstract class InteractablePiece :
     ISelectHandler,
     IDeselectHandler
 {
+    private readonly float zPosOnDrag = 10f;
+
     public Piece piece;
     protected GameObject targetObject;
 
@@ -37,35 +39,6 @@ public abstract class InteractablePiece :
     public virtual void OnTileDrop(Tile tile) { }
     public virtual void OnTrashDrop() { }
     public virtual void OnEmptyDrop() { }
-
-    protected HitTarget GetHitTarget()
-    {
-        PointerEventData pe = new PointerEventData(EventSystem.current);
-        pe.position = Input.mousePosition;
-
-        List<RaycastResult> hits = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(pe, hits);
-
-        foreach (RaycastResult h in hits)
-        {
-            if (h.gameObject.GetComponent<TileView>() != null)
-            {
-                targetObject = h.gameObject;
-                return HitTarget.Tile;
-            }
-            if (h.gameObject.GetComponent<BenchSlot>() != null)
-            {
-                targetObject = h.gameObject;
-                return HitTarget.BenchSlot;
-            }
-            if (h.gameObject.name == "Trash")
-            {
-                return HitTarget.Trash;
-            }
-        }
-        targetObject = null;
-        return HitTarget.Empty;
-    }
 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -104,5 +77,41 @@ public abstract class InteractablePiece :
     public void OnDeselect(BaseEventData eventData)
     {
         EventManager.Instance.Raise(new DeselectPieceEvent { });
+    }
+
+    protected HitTarget GetHitTarget()
+    {
+        PointerEventData pe = new PointerEventData(EventSystem.current);
+        pe.position = Input.mousePosition;
+
+        List<RaycastResult> hits = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pe, hits);
+
+        foreach (RaycastResult h in hits)
+        {
+            if (h.gameObject.GetComponent<TileView>() != null)
+            {
+                targetObject = h.gameObject;
+                return HitTarget.Tile;
+            }
+            if (h.gameObject.GetComponent<BenchSlot>() != null)
+            {
+                targetObject = h.gameObject;
+                return HitTarget.BenchSlot;
+            }
+            if (h.gameObject.name == "Trash")
+            {
+                return HitTarget.Trash;
+            }
+        }
+        targetObject = null;
+        return HitTarget.Empty;
+    }
+
+    protected Vector3 GetMouseWorldPosition()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = zPosOnDrag;
+        return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BenchManager : MonoBehaviour
 {
     private readonly int maxSlots = 8;
+    public float benchSize = 1f;
     public Player player;
     public GameObject BenchSlotPrefab;
     public GameObject BenchItemPrefab;
@@ -31,9 +32,7 @@ public class BenchManager : MonoBehaviour
             GameObject benchSlotObj = Instantiate(BenchSlotPrefab) as GameObject;
 
             benchSlotObj.transform.SetParent(this.transform);
-            benchSlotObj.transform.localPosition = Vector3.zero;
-            benchSlotObj.transform.localScale = Vector3.one;
-            benchSlotObj.transform.rotation = transform.rotation;
+            benchSlotObj.transform.localPosition = new Vector3(i, 0, 0) * benchSize;
 
             BenchSlot slot = benchSlotObj.GetComponent<BenchSlot>();
             slot.index = i;

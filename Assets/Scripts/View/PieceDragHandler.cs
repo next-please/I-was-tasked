@@ -38,7 +38,6 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        originalPos = transform.position;
         SetDraggedState();
     }
 
@@ -88,21 +87,10 @@ public class PieceDragHandler : InteractablePiece
     private void SetBoardState()
     {
         animator.Play("Idle");
-        // gameObject.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On;
-        // gameObject.GetComponent<Collider>().enabled = true;
     }
 
     private void SetDraggedState()
     {
         animator.Play("Walk");
-        // gameObject.GetComponent<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-        // gameObject.GetComponent<Collider>().enabled = false;
-    }
-
-    private Vector3 GetMouseWorldPosition()
-    {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = zPosOnDrag;
-        return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 }
