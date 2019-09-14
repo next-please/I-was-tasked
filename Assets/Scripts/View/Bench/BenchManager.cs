@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using Com.Nextplease.IWT;
 
 public class BenchManager : MonoBehaviour
 {
-    public Player player;
     private readonly int maxSlots = 8;
 
     private List<BenchSlot> slots = new List<BenchSlot>();
@@ -45,7 +44,7 @@ public class BenchManager : MonoBehaviour
     public void OnInventoryChange(InventoryChangeEvent e)
     {
         var playerInv = e.inventory;
-        if (playerInv.GetOwner() != player)
+        if (playerInv.GetOwner() != RoomManager.LocalPlayer)
         {
             return;
         }

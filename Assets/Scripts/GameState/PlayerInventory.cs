@@ -118,7 +118,7 @@ public class PlayerInventory : ScriptableObject
 
     public bool BenchVacantAtIndex(int index)
     {
-        if (index <= 0 || index >= GetBenchCount())
+        if (index < 0 || index >= MaxBenchSize)
         {
             return false;
         }

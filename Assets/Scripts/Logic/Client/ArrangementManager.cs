@@ -51,7 +51,7 @@ public class ArrangementManager : MonoBehaviour
 
     public void TryMoveBoardToBench(Player player, Piece piece, int slotIndex)
     {
-        if (CanMoveBoardToBench(player, piece, slotIndex))
+        if (!CanMoveBoardToBench(player, piece, slotIndex))
           return;
         BoardToBenchData data = new BoardToBenchData(player, piece, slotIndex);
         Request request = new Request(1, data);
@@ -60,7 +60,7 @@ public class ArrangementManager : MonoBehaviour
 
     public void MoveBoardToBench(Player player, Piece piece, int slotIndex)
     {
-        if (CanMoveBoardToBench(player, piece, slotIndex))
+        if (!CanMoveBoardToBench(player, piece, slotIndex))
             return;
         // must be master client
         boardManager.RemovePieceFromBoard(player, piece);
