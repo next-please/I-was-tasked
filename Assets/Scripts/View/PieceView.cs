@@ -12,14 +12,21 @@ public class PieceView : MonoBehaviour
     private IViewState prevViewAction;
     private int prevHP;
     private int prevMP;
+    private Vector3 referencePosition = Vector3.zero;
 
     private void Start()
     {
         SetCurrentMPBar(0.0f);
     }
+
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
+    }
+
+    public void SetReferencePosition(Vector3 position)
+    {
+        referencePosition = position;
     }
 
     void OnEnable()
@@ -88,9 +95,7 @@ public class PieceView : MonoBehaviour
     {
         if (e.piece == piece)
         {
-            int i = e.tile.GetRow();
-            int j = e.tile.GetCol();
-            transform.position = new Vector3(i, 1, j);
+            transform.position = GetTilePosition(e.tile);
             transform.rotation = Quaternion.identity;
         }
     }
@@ -120,5 +125,12 @@ public class PieceView : MonoBehaviour
     public void UpdateCurrentMPBar()
     {
         SetCurrentMPBar(piece.GetCurrentManaPoints());
+    }
+
+    public Vector3 GetTilePosition(Tile tile)
+    {
+        int i = tile.GetRow();
+        int j = tile.GetCol();
+        return referencePosition + new Vector3(i, 1, j);
     }
 }

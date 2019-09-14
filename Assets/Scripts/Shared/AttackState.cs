@@ -46,7 +46,7 @@ public class AttackState : State
             Debug.Log("No target to look at, See AttackState.cs");
             return;
         }
-        pieceView.transform.LookAt(new Vector3(targetTile.GetRow(), 1, targetTile.GetCol()));
+        pieceView.transform.LookAt(pieceView.GetTilePosition(targetTile));
         pieceView.animator.Play("Attack", 0);
     }
 
