@@ -9382,7 +9382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a819cb45158c9c24f8c01e2875ba40af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NumPlayersToStart: 2
+  NumPlayersToStart: 1
   phaseManager: {fileID: 72740322}
   playerList: {fileID: 190747056}
 --- !u!1 &1856515469

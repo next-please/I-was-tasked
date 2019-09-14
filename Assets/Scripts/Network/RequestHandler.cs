@@ -13,6 +13,12 @@ namespace Com.Nextplease.IWT
         private const int MARKET_PHASE = 11;
         private const int PRECOMBAT_PHASE = 12;
         private const int POSTCOMBAT_PHASE = 13;
+
+
+        private const int UPGRADE_INCOME = 100;
+        private const int UPGRADE_MARKET_RARITY = 101;
+        private const int UPGRADE_MARKET_SIZE = 102;
+        private const int UPGRADE_ARMY_SIZE = 103;
         #endregion
 
         #region Manager References
@@ -89,7 +95,7 @@ namespace Com.Nextplease.IWT
                 case BUY_PIECE:
                     if(IsMasterClient(req))
                     {
-                        PieceTransactionData data_5 = (PieceTransactionData)req.GetData();    
+                        PieceTransactionData data_5 = (PieceTransactionData)req.GetData();
                         if(transactionManager.IsValidPurchase(data_5.player, data_5.price))
                         {
                             req.Approve();
@@ -100,6 +106,38 @@ namespace Com.Nextplease.IWT
                 case SELL_PIECE:
                     if(IsMasterClient(req) && transactionManager.IsValidSale()) { req.Approve(); }
                     Debug.LogFormat("{0}: SELL_PIECE - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
+                case UPGRADE_INCOME:
+                    UpgradeIncomeData data_100 = req.GetData() as UpgradeIncomeData;
+                    if (transactionManager.CanPurchaseIncreasePassiveIncome(data_100.player))
+                    {
+                        req.Approve();
+                    }
+                    Debug.LogFormat("{0}: UPGRADE_INCOME - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
+                case UPGRADE_MARKET_RARITY:
+                    UpgradeMarketRarityData data_101 = req.GetData() as UpgradeMarketRarityData;
+                    if (transactionManager.CanPurchaseIncreaseMarketRarity(data_101.player))
+                    {
+                        req.Approve();
+                    }
+                    Debug.LogFormat("{0}: UPGRADE_MARKET_RARITY - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
+                case UPGRADE_MARKET_SIZE:
+                    UpgradeMarketSizeData data_102 = req.GetData() as UpgradeMarketSizeData;
+                    if (transactionManager.CanPurchaseIncreaseMarketSize(data_102.player))
+                    {
+                        req.Approve();
+                    }
+                    Debug.LogFormat("{0}: UPGRADE_MARKET_SIZE - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
+                case UPGRADE_ARMY_SIZE:
+                    UpgradeArmySizeData data_103 = req.GetData() as UpgradeArmySizeData;
+                    if (transactionManager.CanPurchaseIncreaseArmySize(data_103.player))
+                    {
+                        req.Approve();
+                    }
+                    Debug.LogFormat("{0}: UPGRADE_ARMY_SIZE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
                 default:
                     Debug.LogErrorFormat("{0}: {1} issued request of invalid action type {2}", CLASS_NAME, req.GetRequester(), req.GetActionType());
@@ -152,6 +190,26 @@ namespace Com.Nextplease.IWT
                     PieceTransactionData data_6 = (PieceTransactionData)req.GetData();
                     transactionManager.SellBenchPiece(data_6.player, data_6.piece);
                     Debug.LogFormat("{0}: Executing SELL_PIECE from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case UPGRADE_INCOME:
+                    UpgradeIncomeData data_100 = req.GetData() as UpgradeIncomeData;
+                    transactionManager.PurchaseIncreasePassiveIncome(data_100.player);
+                    Debug.LogFormat("{0}: Executing UPGRADE_INCOME from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case UPGRADE_MARKET_RARITY:
+                    UpgradeMarketRarityData data_101 = req.GetData() as UpgradeMarketRarityData;
+                    transactionManager.PurchaseIncreaseMarketRarity(data_101.player);
+                    Debug.LogFormat("{0}: Executing UPGRADE_MARKET_RARITY from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case UPGRADE_MARKET_SIZE:
+                    UpgradeMarketSizeData data_102 = req.GetData() as UpgradeMarketSizeData;
+                    transactionManager.PurchaseIncreaseMarketSize(data_102.player);
+                    Debug.LogFormat("{0}: Executing UPGRADE_MARKET_SIZE from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case UPGRADE_ARMY_SIZE:
+                    UpgradeArmySizeData data_103 = req.GetData() as UpgradeArmySizeData;
+                    transactionManager.PurchaseIncreaseArmySize(data_103.player);
+                    Debug.LogFormat("{0}: Executing UPGRADE_ARMY_SIZE from {1}", CLASS_NAME, req.GetRequester());
                     break;
                 default:
                     Debug.LogErrorFormat("{0}: {1} issued request of invalid action type {2}", req.GetRequester(), req.GetActionType());
