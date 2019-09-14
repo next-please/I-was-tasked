@@ -4272,6 +4272,31 @@ MonoBehaviour:
     type: 3}
   EnemyPrefab: {fileID: 2024255396978456684, guid: cd8a43a084a2b473e84e039b572e39b2,
     type: 3}
+  ElfDruidPrefab: {fileID: 7655288745425940841, guid: d8ec2e709149c46fb85060baa94e1940,
+    type: 3}
+  ElfKnightPrefab: {fileID: 7655288745425940841, guid: 80e4f92f778e2412dae15c3daf67f023,
+    type: 3}
+  ElfMagePrefab: {fileID: 7655288745425940841, guid: b98028e64ef63495cace361ed6a326e6,
+    type: 3}
+  ElfPriestPrefab: {fileID: 7655288745425940841, guid: 45c194e6055de4ef89e1a449de7aee8e,
+    type: 3}
+  ElfRoguePrefab: {fileID: 7655288745425940841, guid: b541c47a028e84bcd8a20f879550a16f,
+    type: 3}
+  HumanDruidPrefab: {fileID: 0}
+  HumanKnightPrefab: {fileID: 0}
+  HumanMagePrefab: {fileID: 0}
+  HumanPriestPrefab: {fileID: 0}
+  HumanRoguePrefab: {fileID: 0}
+  OrcDruidPrefab: {fileID: 0}
+  OrcKnightPrefab: {fileID: 0}
+  OrcMagePrefab: {fileID: 0}
+  OrcPriestPrefab: {fileID: 0}
+  OrcRoguePrefab: {fileID: 0}
+  UndeadDruidPrefab: {fileID: 0}
+  UndeadKnightPrefab: {fileID: 0}
+  UndeadMagePrefab: {fileID: 0}
+  UndeadPriestPrefab: {fileID: 0}
+  UndeadRoguePrefab: {fileID: 0}
 --- !u!1 &795131657
 GameObject:
   m_ObjectHideFlags: 0
@@ -6273,6 +6298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7107fc8c9c48e478db7b7b83e7180e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  benchSize: 1
   player: 0
   BenchSlotPrefab: {fileID: 4343178345133470678, guid: d2a7a9222a7084276a79e18922ef235f,
     type: 3}

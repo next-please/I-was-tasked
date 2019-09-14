@@ -11,47 +11,29 @@ public class CharacterPrefabLoader : MonoBehaviour
 
     public GameObject EnemyPrefab;
 
-    // public GameObject HumanWarriorViewPrefab;
-    // public GameObject HumanMageViewPrefab;
-    // public GameObject HumanDruidViewPrefab;
-    // public GameObject HumanPriestViewPrefab;
-    // public GameObject HumanRangerViewPrefab;
-    // public GameObject HumanRogueViewPrefab;
+    public GameObject ElfDruidPrefab;
+    public GameObject ElfKnightPrefab;
+    public GameObject ElfMagePrefab;
+    public GameObject ElfPriestPrefab;
+    public GameObject ElfRoguePrefab;
 
-    // public GameObject ElfWarriorViewPrefab;
-    // public GameObject ElfMageViewPrefab;
-    // public GameObject ElfDruidViewPrefab;
-    // public GameObject ElfPriestViewPrefab;
-    // public GameObject ElfRangerViewPrefab;
-    // public GameObject ElfRogueViewPrefab;
+    public GameObject HumanDruidPrefab;
+    public GameObject HumanKnightPrefab;
+    public GameObject HumanMagePrefab;
+    public GameObject HumanPriestPrefab;
+    public GameObject HumanRoguePrefab;
 
-    // public GameObject OrcWarriorViewPrefab;
-    // public GameObject OrcMageViewPrefab;
-    // public GameObject OrcDruidViewPrefab;
-    // public GameObject OrcPriestViewPrefab;
-    // public GameObject OrcRangerViewPrefab;
-    // public GameObject OrcRogueViewPrefab;
+    public GameObject OrcDruidPrefab;
+    public GameObject OrcKnightPrefab;
+    public GameObject OrcMagePrefab;
+    public GameObject OrcPriestPrefab;
+    public GameObject OrcRoguePrefab;
 
-    // public GameObject UndeadWarriorViewPrefab;
-    // public GameObject UndeadMageViewPrefab;
-    // public GameObject UndeadDruidViewPrefab;
-    // public GameObject UndeadPriestViewPrefab;
-    // public GameObject UndeadRangerViewPrefab;
-    // public GameObject UndeadRogueViewPrefab;
-
-    // public GameObject NagaWarriorViewPrefab;
-    // public GameObject NagaMageViewPrefab;
-    // public GameObject NagaDruidViewPrefab;
-    // public GameObject NagaPriestViewPrefab;
-    // public GameObject NagaRangerViewPrefab;
-    // public GameObject NagaRogueViewPrefab;
-
-    // public GameObject DwarfWarriorViewPrefab;
-    // public GameObject DwarfDruidViewPrefab;
-    // public GameObject DwarfMageViewPrefab;
-    // public GameObject DwarfPriestViewPrefab;
-    // public GameObject DwarfRangerViewPrefab;
-    // public GameObject DwarfRogueViewPrefab;
+    public GameObject UndeadDruidPrefab;
+    public GameObject UndeadKnightPrefab;
+    public GameObject UndeadMagePrefab;
+    public GameObject UndeadPriestPrefab;
+    public GameObject UndeadRoguePrefab;
 
     private Dictionary<(Enums.Race, Enums.Job), GameObject> characterPrefabMap;
 
@@ -59,11 +41,11 @@ public class CharacterPrefabLoader : MonoBehaviour
     {
         characterPrefabMap = new Dictionary<(Enums.Race, Enums.Job), GameObject>()
         {
-            {(Enums.Race.Elf, Enums.Job.Druid), ElfPrefab},
-            {(Enums.Race.Elf, Enums.Job.Knight), ElfPrefab},
-            {(Enums.Race.Elf, Enums.Job.Mage), ElfPrefab},
-            {(Enums.Race.Elf, Enums.Job.Priest), ElfPrefab},
-            {(Enums.Race.Elf, Enums.Job.Rogue), ElfPrefab},
+            {(Enums.Race.Elf, Enums.Job.Druid), ElfDruidPrefab},
+            {(Enums.Race.Elf, Enums.Job.Knight), ElfKnightPrefab},
+            {(Enums.Race.Elf, Enums.Job.Mage), ElfMagePrefab},
+            {(Enums.Race.Elf, Enums.Job.Priest), ElfPriestPrefab},
+            {(Enums.Race.Elf, Enums.Job.Rogue), ElfRoguePrefab},
 
             {(Enums.Race.Human, Enums.Job.Druid), HumanPrefab},
             {(Enums.Race.Human, Enums.Job.Knight), HumanPrefab},
