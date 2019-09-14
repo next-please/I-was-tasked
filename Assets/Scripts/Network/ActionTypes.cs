@@ -5,6 +5,8 @@ namespace Com.Nextplease.IWT
     public static class ActionTypes
     {
         public const int MOVE_FROM_BENCH_TO_BOARD = 0;
+        public const int MOVE_FROM_BOARD_TO_BENCH = 1;
+        public const int MOVE_ON_BOARD = 2;
         public const int BUY_PIECE = 5;
         public const int SELL_PIECE = 6;
         public const int INIT_PHASE = 10;
@@ -18,7 +20,9 @@ namespace Com.Nextplease.IWT
 
 
         static Dictionary<int, string> actionCodeToName = new Dictionary<int, string>{
-            { MOVE_FROM_BENCH_TO_BOARD, "Move from bench to board"},
+            { MOVE_FROM_BENCH_TO_BOARD, "Move from Bench to Board" },
+            { MOVE_FROM_BOARD_TO_BENCH, "Move from Board to Bench" },
+            { MOVE_ON_BOARD, "Move on Board" },
             { BUY_PIECE, "Purchase Piece" },
             { SELL_PIECE, "Sell Piece" },
             { INIT_PHASE, "Trigger Initialisation Phase" },

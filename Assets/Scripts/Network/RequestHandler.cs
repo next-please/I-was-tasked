@@ -6,10 +6,8 @@ namespace Com.Nextplease.IWT
     public class RequestHandler : MonoBehaviour
     {
         #region Private Fields
-
         private const string CLASS_NAME = "RequestHandler";
         private const bool DEBUG_MODE = true;
-
         #endregion
 
         #region Manager References
@@ -46,7 +44,21 @@ namespace Com.Nextplease.IWT
             {
                 case MOVE_FROM_BENCH_TO_BOARD:
                     PieceMovementData data_0 = (PieceMovementData)req.GetData();
-                    if (arrangementManager.IsValidBenchToBoard(data_0.player, data_0.piece, data_0.tile))
+                    if (arrangementManager.CanMoveBenchToBoard(data_0.player, data_0.piece, data_0.tile))
+                    {
+                        req.Approve();
+                    }
+                    break;
+                case MOVE_FROM_BOARD_TO_BENCH:
+                    BoardToBenchData data_1 = (BoardToBenchData)req.GetData();
+                    if (arrangementManager.CanMoveBoardToBench(data_1.player, data_1.piece, data_1.slotIndex))
+                    {
+                        req.Approve();
+                    }
+                    break;
+                case MOVE_ON_BOARD:
+                    PieceMovementData data_2 = (PieceMovementData)req.GetData();
+                    if (arrangementManager.CanMovePieceOnBoard(data_2.player, data_2.piece, data_2.tile))
                     {
                         req.Approve();
                     }
@@ -140,6 +152,14 @@ namespace Com.Nextplease.IWT
                 case MOVE_FROM_BENCH_TO_BOARD:
                     PieceMovementData data_0 = (PieceMovementData)req.GetData();
                     arrangementManager.MoveBenchToBoard(data_0.player, data_0.piece, data_0.tile);
+                    break;
+                case MOVE_FROM_BOARD_TO_BENCH:
+                    BoardToBenchData data_1 = (BoardToBenchData)req.GetData();
+                    arrangementManager.MoveBoardToBench(data_1.player, data_1.piece, data_1.slotIndex);
+                    break;
+                case MOVE_ON_BOARD:
+                    PieceMovementData data_2= (PieceMovementData)req.GetData();
+                    arrangementManager.MovePieceOnBoard(data_2.player, data_2.piece, data_2.tile);
                     break;
                 case INIT_PHASE:
                     PhaseManagementData data_10 = req.GetData() as PhaseManagementData;

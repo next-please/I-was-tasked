@@ -66,6 +66,20 @@ public class Piece : ISerializable
         return guid.GetHashCode();
     }
 
+    public static bool operator ==(Piece a, Piece b)
+    {
+        if (object.ReferenceEquals(a, null))
+        {
+            return object.ReferenceEquals(b, null);
+        }
+        return a.Equals(b);
+    }
+
+    public static bool operator !=(Piece a, Piece b)
+    {
+        return !(a == b);
+    }
+
     // The special constructor is used to deserialize values.
     public Piece(SerializationInfo info, StreamingContext context)
     {
