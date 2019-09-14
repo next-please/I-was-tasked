@@ -2,32 +2,36 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Com.Nextplease.IWT;
 
 public class TransactionManager : MonoBehaviour
 {
     public InventoryManager inventoryManager;
     public MarketManager marketManager;
     public IncomeManager incomeManager;
+    public RequestHandler requestHandler;
+
 
     public readonly int UpgradeIncomeCost = 10;
     public readonly int UpgradeMarketSizeCost = 10;
 
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
     {
-        int price = (int)Math.Pow(2, piece.GetRarity()-1);
+        int price = (int)Math.Pow(2, piece.GetRarity() - 1);
 
         // check locally if we can do this transaction for immediate feedback
-        if (inventoryManager.IsBenchFull(player) ||
-            !inventoryManager.EnoughGoldToPurchase(player, price))
+        if (!IsValidPurchase(player, price))
         {
             return;
         }
 
         // send over the network
-        // if i'm not master:
-        // INetworkManager.PurchaseMarketPieceToBench
+        Request req = new Request(5, new PieceTransactionData(player, piece, price));
+        requestHandler.SendRequest(req);
+    }
 
-        // if i'm master
+    public void PurchaseMarketPieceToBench(Player player, Piece piece, int price)
+    {
         marketManager.RemoveMarketPiece(piece);
         inventoryManager.AddToBench(player, piece);
         inventoryManager.DeductGold(player, price);
@@ -101,5 +105,10 @@ public class TransactionManager : MonoBehaviour
         // based on GameController.cs,
         // https://github.com/next-please/I-was-tasked/blob/8ab8c6782787c40371ab6c65fe04c8f755552a03/Assets/Scripts/GameController.cs
         return marketManager.GetMarketTier();
+    }
+
+    public bool IsValidPurchase(Player player, int price)
+    {
+        return !inventoryManager.IsBenchFull(player) && inventoryManager.EnoughGoldToPurchase(player, price);
     }
 }

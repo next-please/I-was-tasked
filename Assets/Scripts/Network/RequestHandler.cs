@@ -7,6 +7,8 @@ namespace Com.Nextplease.IWT
         #region Action Types (move out when too large)
         private const string CLASS_NAME = "RequestHandler";
         private const int MOVE_FROM_BENCH_TO_BOARD = 0;
+        private const int BUY_PIECE = 5;
+        private const int SELL_PIECE = 6;
         private const int INIT_PHASE = 10;
         private const int MARKET_PHASE = 11;
         private const int PRECOMBAT_PHASE = 12;
@@ -19,6 +21,8 @@ namespace Com.Nextplease.IWT
         public PhaseManager phaseManager;
         public NetworkManager networkManager;
         public ArrangementManager arrangementManager;
+        public InventoryManager inventoryManager;
+        public TransactionManager transactionManager;
 
         #endregion
 
@@ -43,8 +47,8 @@ namespace Com.Nextplease.IWT
             switch (req.GetActionType())
             {
                 case MOVE_FROM_BENCH_TO_BOARD:
-                    PieceMovementData data = (PieceMovementData)req.GetData();
-                    if (arrangementManager.IsValidBenchToBoard(data.player, data.piece, data.tile))
+                    PieceMovementData data_0 = (PieceMovementData)req.GetData();
+                    if (arrangementManager.IsValidBenchToBoard(data_0.player, data_0.piece, data_0.tile))
                     {
                         req.Approve();
                     }
@@ -60,8 +64,7 @@ namespace Com.Nextplease.IWT
                     return req;
 
                 case MARKET_PHASE:
-                    if (networkManager.IsMasterClient() && // not needed, but for sanity
-                        req.GetRequester() == networkManager.GetLocalPlayerID())
+                    if (IsMasterClient(req))
                     {
                         req.Approve();
                     }
@@ -69,21 +72,30 @@ namespace Com.Nextplease.IWT
                     return req;
 
                 case PRECOMBAT_PHASE:
-                    if (networkManager.IsMasterClient() &&
-                        req.GetRequester() == networkManager.GetLocalPlayerID())
+                    if (IsMasterClient(req))
                     {
                         req.Approve();
                     }
                     Debug.LogFormat("{0}: PRECOMBAT_PHASE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
                 case POSTCOMBAT_PHASE:
-                    if (networkManager.IsMasterClient() &&
-                        req.GetRequester() == networkManager.GetLocalPlayerID())
+                    if (IsMasterClient(req))
                        // TODO: wait for all clients to finish before approving
                     {
                         req.Approve();
                     }
                     Debug.LogFormat("{0}: POSTCOMBAT_PHASE - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
+                case BUY_PIECE:
+                    if(IsMasterClient(req))
+                    {
+                        PieceTransactionData data_5 = (PieceTransactionData)req.GetData();    
+                        if(transactionManager.IsValidPurchase(data_5.player, data_5.price))
+                        {
+                            req.Approve();
+                        }
+                    }
+                    Debug.LogFormat("{0}: BUY_PIECE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
                 default:
                     Debug.LogErrorFormat("{0}: {1} issued request of invalid action type {2}", CLASS_NAME, req.GetRequester(), req.GetActionType());
@@ -127,11 +139,24 @@ namespace Com.Nextplease.IWT
                     phaseManager.StartPostCombat();
                     Debug.LogFormat("{0}: Executing POSTCOMBAT_PHASE from {1}", CLASS_NAME, req.GetRequester());
                     break;
+                case BUY_PIECE:
+                    PieceTransactionData data_5 = (PieceTransactionData)req.GetData();
+                    transactionManager.PurchaseMarketPieceToBench(data_5.player, data_5.piece, data_5.price);
+                    Debug.LogFormat("{0}: Executing BUY_PIECE from {1}", CLASS_NAME, req.GetRequester());
+                    break;
                 default:
                     Debug.LogErrorFormat("{0}: {1} issued request of invalid action type {2}", req.GetRequester(), req.GetActionType());
                     break;
             }
 
+        }
+        #endregion
+
+        #region Private Methods
+        private bool IsMasterClient(Request req)
+        {
+            // note: not required but for sanity
+            return networkManager.IsMasterClient() && req.GetRequester() == networkManager.GetLocalPlayerID();
         }
         #endregion
     }

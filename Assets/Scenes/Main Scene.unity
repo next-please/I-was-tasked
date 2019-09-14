@@ -877,6 +877,8 @@ MonoBehaviour:
   phaseManager: {fileID: 72740322}
   networkManager: {fileID: 1116408928}
   arrangementManager: {fileID: 2146546346}
+  inventoryManager: {fileID: 1315935871}
+  transactionManager: {fileID: 0}
 --- !u!1 &143845987
 GameObject:
   m_ObjectHideFlags: 0
@@ -2668,7 +2670,7 @@ MonoBehaviour:
   MarketRarityText: {fileID: 757512907}
   PassiveIncomeText: {fileID: 2065543676}
   CastleHealthText: {fileID: 1150847907}
-  transactionManager: {fileID: 596478379}
+  transactionManager: {fileID: 0}
 --- !u!4 &473649707
 Transform:
   m_ObjectHideFlags: 0
@@ -3363,6 +3365,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 1315935871}
   marketManager: {fileID: 1554020330}
   incomeManager: {fileID: 2017883520}
+  requestHandler: {fileID: 98420139}
 --- !u!4 &596478380
 Transform:
   m_ObjectHideFlags: 0
@@ -9061,7 +9064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrangementManager: {fileID: 2146546346}
-  transactionManager: {fileID: 596478379}
+  transactionManager: {fileID: 0}
 --- !u!4 &1785573774
 Transform:
   m_ObjectHideFlags: 0
@@ -9331,7 +9334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a352a1cdb64599843b99f7990be64d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transactionManager: {fileID: 596478379}
+  transactionManager: {fileID: 0}
   UpgradeArmy: {fileID: 971313708}
   UpgradeMarketRarity: {fileID: 1323960611}
   UpgradeMarketSize: {fileID: 472602603}
