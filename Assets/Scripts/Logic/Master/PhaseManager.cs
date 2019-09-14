@@ -30,6 +30,7 @@ public class PhaseManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public SummonManager summonManager;
     public RequestHandler requestHandler;
+    public RoomManager roomManager;
 
     Phase currentPhase = Phase.NIL;
     private int round = 0;
@@ -45,6 +46,7 @@ public class PhaseManager : MonoBehaviour
         this.numPlayers = numPlayers;
         if (phasesRunning) return;
         phasesRunning = true;
+        roomManager.NumPlayersToStart = numPlayers;
         TryIntialize();
     }
 

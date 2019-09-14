@@ -816,6 +816,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 1315935871}
   summonManager: {fileID: 755006747}
   requestHandler: {fileID: 98420139}
+  roomManager: {fileID: 1840889780}
 --- !u!4 &72740323
 Transform:
   m_ObjectHideFlags: 0
@@ -3708,7 +3709,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 780, y: 276}
+  m_AnchoredPosition: {x: -473, y: 172}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &700575890
@@ -8948,7 +8949,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7107fc8c9c48e478db7b7b83e7180e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 0
   BenchSlotPrefab: {fileID: 4343178345133470678, guid: d2a7a9222a7084276a79e18922ef235f,
     type: 3}
   BenchItemPrefab: {fileID: 5065093753651274998, guid: df352e63aa6db4b9b9f63ca09a82cc8d,
