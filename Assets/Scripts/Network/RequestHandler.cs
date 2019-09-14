@@ -32,6 +32,7 @@ namespace Com.Nextplease.IWT
         public ArrangementManager arrangementManager;
         public InventoryManager inventoryManager;
         public TransactionManager transactionManager;
+        public MarketManager marketManager;
 
         #endregion
 
@@ -80,7 +81,7 @@ namespace Com.Nextplease.IWT
                     return req;
 
                 case MARKET_PHASE:
-                    if (IsMasterClient(req))
+                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
                     {
                         req.Approve();
                     }
@@ -88,33 +89,30 @@ namespace Com.Nextplease.IWT
                     return req;
 
                 case PRECOMBAT_PHASE:
-                    if (IsMasterClient(req))
+                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
                     {
                         req.Approve();
                     }
                     Debug.LogFormat("{0}: PRECOMBAT_PHASE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
                 case POSTCOMBAT_PHASE:
-                    if (IsMasterClient(req))
-                       // TODO: wait for all clients to finish before approving
+                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
+                    // TODO: wait for all clients to finish before approving
                     {
                         req.Approve();
                     }
                     Debug.LogFormat("{0}: POSTCOMBAT_PHASE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
                 case BUY_PIECE:
-                    if(IsMasterClient(req))
+                    PieceTransactionData data_5 = (PieceTransactionData)req.GetData();
+                    if (transactionManager.IsValidPurchase(data_5.player, data_5.price))
                     {
-                        PieceTransactionData data_5 = (PieceTransactionData)req.GetData();
-                        if(transactionManager.IsValidPurchase(data_5.player, data_5.price))
-                        {
-                            req.Approve();
-                        }
+                        req.Approve();
                     }
                     Debug.LogFormat("{0}: BUY_PIECE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
                 case SELL_PIECE:
-                    if(IsMasterClient(req) && transactionManager.IsValidSale()) { req.Approve(); }
+                    if (transactionManager.IsValidSale()) { req.Approve(); }
                     Debug.LogFormat("{0}: SELL_PIECE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
                 case UPGRADE_INCOME:
@@ -185,6 +183,8 @@ namespace Com.Nextplease.IWT
                     Debug.LogFormat("{0}: Executing INIT_PHASE from {1}", CLASS_NAME, req.GetRequester());
                     break;
                 case MARKET_PHASE:
+                    MarketManagementData data_11 = (MarketManagementData)req.GetData();
+                    marketManager.SetMarketItems(data_11.pieces);
                     phaseManager.StartMarketPhase();
                     Debug.LogFormat("{0}: Executing MARKET_PHASE from {1}", CLASS_NAME, req.GetRequester());
                     break;
@@ -231,14 +231,6 @@ namespace Com.Nextplease.IWT
                     break;
             }
 
-        }
-        #endregion
-
-        #region Private Methods
-        private bool IsMasterClient(Request req)
-        {
-            // note: not required but for sanity
-            return networkManager.IsMasterClient() && req.GetRequester() == networkManager.GetLocalPlayerID();
         }
         #endregion
     }

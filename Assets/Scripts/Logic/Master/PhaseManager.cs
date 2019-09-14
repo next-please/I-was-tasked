@@ -127,7 +127,8 @@ public class PhaseManager : MonoBehaviour
 
     void TryMarketPhase()
     {
-        Data data = new PhaseManagementData(this.numPlayers, round);
+        List<Piece> newMarketPieces = marketManager.GenerateMarketItems();
+        Data data = new MarketManagementData(this.numPlayers, round, newMarketPieces);
         Request req = new Request(11, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
@@ -142,7 +143,6 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
         incomeManager.GenerateIncome(round);
-        marketManager.GenerateMarketItems();
         yield return Countdown(5);
         TryPreCombat();
     }
