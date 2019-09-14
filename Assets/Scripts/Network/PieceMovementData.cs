@@ -1,5 +1,8 @@
-﻿namespace Com.Nextplease.IWT
+﻿using System;
+
+namespace Com.Nextplease.IWT
 {
+    [Serializable]
     public class PieceMovementData : PieceData
     {
         public Tile tile;

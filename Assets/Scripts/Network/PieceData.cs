@@ -1,5 +1,8 @@
-﻿namespace Com.Nextplease.IWT
+﻿using System;
+
+namespace Com.Nextplease.IWT
 {
+    [Serializable]
     public class PieceData : Data
     {
         public Player player;
