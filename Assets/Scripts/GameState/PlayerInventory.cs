@@ -177,6 +177,16 @@ public class PlayerInventory : ScriptableObject
         return army.Count;
     }
 
+    public bool ArmyContainsPiece(Piece piece)
+    {
+        return army.Contains(piece);
+    }
+
+    public Piece GetActualArmyPiece(Piece piece)
+    {
+        return army.Find(actual => actual == piece);
+    }
+
     public List<Piece> GetExcessArmyPieces()
     {
         int excessCount = GetArmyCount() - GetArmySize();

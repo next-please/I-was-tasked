@@ -10,11 +10,6 @@ public class ArrangementManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public RequestHandler requestHandler;
 
-    public void TryMovePieceOnBoard(Player player, Piece piece, Tile nextTile)
-    {
-        boardManager.MovePieceToTile(player, piece, nextTile);
-    }
-
 #region Bench To Board
     public bool CanMoveBenchToBoard(Player player, Piece piece, Tile tile)
     {
@@ -67,6 +62,33 @@ public class ArrangementManager : MonoBehaviour
         inventoryManager.RemoveFromArmy(player, piece);
         inventoryManager.AddToBench(player, piece);
         inventoryManager.MoveBenchPieceToIndex(player, piece, slotIndex);
+    }
+#endregion
+
+#region Move on Board
+    public bool CanMovePieceOnBoard(Player player, Piece piece, Tile nextTile)
+    {
+        Tile actualNextTile = boardManager.GetActualTile(player, nextTile);
+        return inventoryManager.ArmyContainsPiece(player, piece) &&
+               !actualNextTile.IsOccupied();
+    }
+
+    public void TryMovePieceOnBoard(Player player, Piece piece, Tile nextTile)
+    {
+        if (!CanMovePieceOnBoard(player, piece, nextTile))
+            return;
+        Data data = new PieceMovementData(player, piece, nextTile);
+        Request req = new Request(2, data);
+        requestHandler.SendRequest(req);
+    }
+
+    public void MovePieceOnBoard(Player player, Piece piece, Tile nextTile)
+    {
+        if (!CanMovePieceOnBoard(player, piece, nextTile))
+            return;
+        Piece actualPiece = inventoryManager.GetActualArmyPiece(player, piece);
+        Tile actualNextTile = boardManager.GetActualTile(player, nextTile);
+        boardManager.SetPieceAtTile(player, actualPiece, actualNextTile);
     }
 #endregion
 

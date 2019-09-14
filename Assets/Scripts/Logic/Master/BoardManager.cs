@@ -134,4 +134,10 @@ public class BoardManager : MonoBehaviour
         Board board = GetBoard(player);
         return board.GetTile(tile.GetRow(), tile.GetCol());
     }
+
+    public void SetPieceAtTile(Player player, Piece piece, Tile tile)
+    {
+        MovePieceToTile(player, piece, tile);
+        piece.SetInitialTile(tile);
+    }
 }

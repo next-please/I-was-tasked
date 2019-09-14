@@ -9,6 +9,7 @@ namespace Com.Nextplease.IWT
 
         private const int MOVE_FROM_BENCH_TO_BOARD = 0;
         private const int MOVE_FROM_BOARD_TO_BENCH = 1;
+        private const int MOVE_ON_BOARD = 2;
 
         private const int BUY_PIECE = 5;
         private const int SELL_PIECE = 6;
@@ -71,6 +72,14 @@ namespace Com.Nextplease.IWT
                         req.Approve();
                     }
                     Debug.LogFormat("{0}: MOVE_BOARD_TO_BENCH - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
+                case MOVE_ON_BOARD:
+                    PieceMovementData data_2 = (PieceMovementData)req.GetData();
+                    if (arrangementManager.CanMovePieceOnBoard(data_2.player, data_2.piece, data_2.tile))
+                    {
+                        req.Approve();
+                    }
+                    Debug.LogFormat("{0}: MOVE_ON_BOARD - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
                 case INIT_PHASE:
                     if (roomManager.IsRoomFull())
@@ -176,6 +185,11 @@ namespace Com.Nextplease.IWT
                     BoardToBenchData data_1 = (BoardToBenchData)req.GetData();
                     arrangementManager.MoveBoardToBench(data_1.player, data_1.piece, data_1.slotIndex);
                     Debug.LogFormat("{0}: Executing MOVE_BOARD_TO_BENCH from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case MOVE_ON_BOARD:
+                    PieceMovementData data_2= (PieceMovementData)req.GetData();
+                    arrangementManager.MovePieceOnBoard(data_2.player, data_2.piece, data_2.tile);
+                    Debug.LogFormat("{0}: Executing MOVE_ON_BOARD from {1}", CLASS_NAME, req.GetRequester());
                     break;
                 case INIT_PHASE:
                     PhaseManagementData data_10 = req.GetData() as PhaseManagementData;
