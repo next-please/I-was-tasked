@@ -58,58 +58,56 @@ public class TransactionManager : MonoBehaviour
         }
     }
 
-    public void TryPurchaseIncreaseMarketRarity(Player player)
+#region Upgrades
+
+#region Passive Income
+    public bool CanPurchaseIncreasePassiveIncome(Player player)
     {
-        int price = GetMarketRarityCost();
-        if (!inventoryManager.EnoughGoldToPurchase(player, price))
-        {
-            return;
-        }
-        marketManager.IncreaseMarketTier();
-        inventoryManager.DeductGold(player, price);
+        int price = UpgradeIncomeCost;
+        return inventoryManager.EnoughGoldToPurchase(player, price);
     }
 
     public void TryPurchaseIncreasePassiveIncome(Player player)
     {
-        int price = UpgradeIncomeCost;
-        if (!inventoryManager.EnoughGoldToPurchase(player, price))
-        {
+        if (!CanPurchaseIncreasePassiveIncome(player))
             return;
-        }
+        UpgradeIncomeData data = new UpgradeIncomeData(player);
+        Request req = new Request(100, data);
+        requestHandler.SendRequest(req);
+    }
+
+    public void PurchaseIncreasePassiveIncome(Player player)
+    {
+        if (!CanPurchaseIncreasePassiveIncome(player))
+            return;
+
+        int price = UpgradeIncomeCost;
         incomeManager.IncreasePassiveIncome();
         inventoryManager.DeductGold(player, price);
     }
+#endregion
 
-    public void TryPurchaseIncreaseMarketSize(Player player)
+#region Market Rarity
+    public bool CanPurchaseIncreaseMarketRarity(Player player)
     {
-        int price = UpgradeMarketSizeCost;
-        if (!inventoryManager.EnoughGoldToPurchase(player, price))
-        {
-            return;
-        }
-        bool success = marketManager.IncreaseMarketSize();
-        if (success)
-        {
-            inventoryManager.DeductGold(player, price);
-        }
+        int price = GetMarketRarityCost();
+        return inventoryManager.EnoughGoldToPurchase(player, price);
     }
 
-    public void TryPurchaseIncreaseArmySize(Player player)
+    public void TryPurchaseIncreaseMarketRarity(Player player)
     {
-        int price = GetArmySizeCost(player);
-        if (!inventoryManager.EnoughGoldToPurchase(player, price))
-        {
+        if (!CanPurchaseIncreaseMarketRarity(player))
             return;
-        }
-        inventoryManager.IncreaseArmySize(player);
+        UpgradeMarketRarityData data = new UpgradeMarketRarityData(player);
+        Request req = new Request(101, data);
+        requestHandler.SendRequest(req);
+    }
+
+    public void PurchaseIncreaseMarketRarity(Player player)
+    {
+        int price = GetMarketRarityCost();
+        marketManager.IncreaseMarketTier();
         inventoryManager.DeductGold(player, price);
-    }
-
-    public int GetArmySizeCost(Player player)
-    {
-        // based on GameController.cs,
-        // https://github.com/next-please/I-was-tasked/blob/8ab8c6782787c40371ab6c65fe04c8f755552a03/Assets/Scripts/GameController.cs
-        return inventoryManager.GetArmySize(player);
     }
 
     public int GetMarketRarityCost()
@@ -118,6 +116,73 @@ public class TransactionManager : MonoBehaviour
         // https://github.com/next-please/I-was-tasked/blob/8ab8c6782787c40371ab6c65fe04c8f755552a03/Assets/Scripts/GameController.cs
         return marketManager.GetMarketTier();
     }
+#endregion
+
+#region Market Size
+    public bool CanPurchaseIncreaseMarketSize(Player player)
+    {
+        int price = UpgradeMarketSizeCost;
+        return inventoryManager.EnoughGoldToPurchase(player, price) &&
+               !marketManager.IsMarketFull();
+    }
+
+    public void TryPurchaseIncreaseMarketSize(Player player)
+    {
+        if (!CanPurchaseIncreaseMarketSize(player))
+            return;
+
+        UpgradeMarketSizeData data = new UpgradeMarketSizeData(player);
+        Request req = new Request(102, data);
+        requestHandler.SendRequest(req);
+    }
+
+    public void PurchaseIncreaseMarketSize(Player player)
+    {
+        if (!CanPurchaseIncreaseMarketSize(player))
+            return;
+        bool success = marketManager.IncreaseMarketSize();
+        int price = UpgradeMarketSizeCost;
+        if (success)
+        {
+            inventoryManager.DeductGold(player, price);
+        }
+    }
+#endregion
+
+#region Army Size
+
+    public bool CanPurchaseIncreaseArmySize(Player player)
+    {
+        int price = GetArmySizeCost(player);
+        return inventoryManager.EnoughGoldToPurchase(player, price);
+    }
+
+    public void TryPurchaseIncreaseArmySize(Player player)
+    {
+        UpgradeArmySizeData data = new UpgradeArmySizeData(player);
+        Request req = new Request(103, data);
+        requestHandler.SendRequest(req);
+    }
+
+    public void PurchaseIncreaseArmySize(Player player)
+    {
+        if (!CanPurchaseIncreaseArmySize(player))
+            return;
+        int price = GetArmySizeCost(player);
+        inventoryManager.IncreaseArmySize(player);
+        inventoryManager.DeductGold(player, price);
+    }
+
+
+    public int GetArmySizeCost(Player player)
+    {
+        // based on GameController.cs,
+        // https://github.com/next-please/I-was-tasked/blob/8ab8c6782787c40371ab6c65fe04c8f755552a03/Assets/Scripts/GameController.cs
+        return inventoryManager.GetArmySize(player);
+    }
+#endregion
+
+#endregion
 
     public bool IsValidPurchase(Player player, int price)
     {

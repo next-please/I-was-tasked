@@ -67,6 +67,7 @@ public class MarketManager : MonoBehaviour
         EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
     }
 
+
     public void IncreaseMarketTier()
     {
         market.MarketTier++;
@@ -93,6 +94,11 @@ public class MarketManager : MonoBehaviour
     public int GetMarketTier()
     {
         return market.MarketTier;
+    }
+
+    public bool IsMarketFull()
+    {
+        return market.GetMarketSize() >= market.MaxMarketSize;
     }
 
     public bool IncreaseMarketSize()
