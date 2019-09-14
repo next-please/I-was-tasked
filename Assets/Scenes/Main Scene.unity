@@ -879,6 +879,7 @@ MonoBehaviour:
   arrangementManager: {fileID: 2146546346}
   inventoryManager: {fileID: 1315935871}
   transactionManager: {fileID: 596478379}
+  marketManager: {fileID: 1554020330}
 --- !u!1 &143845987
 GameObject:
   m_ObjectHideFlags: 0

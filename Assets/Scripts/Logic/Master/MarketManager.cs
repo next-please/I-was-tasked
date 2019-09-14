@@ -37,19 +37,25 @@ public class MarketManager : MonoBehaviour
         return market.GetCastleHealth();
     }
 
-    public void GenerateMarketItems()
+    public List<Piece> GenerateMarketItems()
     {
         // if (market.MarketPieces != null)
         // {
         //     characterGenerator.ReturnPieces(market.MarketPieces);
         // }
-        market.MarketPieces = new List<Piece>();
+        List<Piece> marketPieces = new List<Piece>();
         for (int i = 0; i < market.GetMarketSize(); ++i)
         {
             Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
-            market.MarketPieces.Add(piece);
-            EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+            marketPieces.Add(piece);
         }
+        return marketPieces;
+    }
+
+    public void SetMarketItems(List<Piece> marketPieces)
+    {
+        this.market.MarketPieces = marketPieces;
+        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
     }
 
     public void RemoveMarketPiece(Piece piece)

@@ -23,6 +23,7 @@ namespace Com.Nextplease.IWT
         public ArrangementManager arrangementManager;
         public InventoryManager inventoryManager;
         public TransactionManager transactionManager;
+        public MarketManager marketManager;
 
         #endregion
 
@@ -132,6 +133,8 @@ namespace Com.Nextplease.IWT
                     Debug.LogFormat("{0}: Executing INIT_PHASE from {1}", CLASS_NAME, req.GetRequester());
                     break;
                 case MARKET_PHASE:
+                    MarketManagementData data_11 = (MarketManagementData)req.GetData();
+                    marketManager.SetMarketItems(data_11.pieces);
                     phaseManager.StartMarketPhase();
                     Debug.LogFormat("{0}: Executing MARKET_PHASE from {1}", CLASS_NAME, req.GetRequester());
                     break;
