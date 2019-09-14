@@ -101,19 +101,22 @@ public class MarketManager : MonoBehaviour
         return market.GetMarketSize() >= market.MaxMarketSize;
     }
 
-    public bool IncreaseMarketSize()
+    public bool IncreaseMarketSize(Piece piece)
     {
         bool success = market.IncreaseMarketSize();
         if (success)
         {
             //reactive upgrades
             EventManager.Instance.Raise(new GlobalMessageEvent { message = "Market space increased! A new mercenary has entered the market." });
-            Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
             market.MarketPieces.Add(piece);
-
             EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
         }
         return success;
+    }
+
+    public Piece GenerateMarketPiece()
+    {
+        return characterGenerator.GenerateCharacter(market.GetMarketTier());
     }
 }
 

@@ -203,7 +203,7 @@ namespace Com.Nextplease.IWT
                     break;
                 case UPGRADE_MARKET_SIZE:
                     UpgradeMarketSizeData data_102 = req.GetData() as UpgradeMarketSizeData;
-                    transactionManager.PurchaseIncreaseMarketSize(data_102.player);
+                    transactionManager.PurchaseIncreaseMarketSize(data_102.player, data_102.piece);
                     break;
                 case UPGRADE_ARMY_SIZE:
                     UpgradeArmySizeData data_103 = req.GetData() as UpgradeArmySizeData;

@@ -130,17 +130,17 @@ public class TransactionManager : MonoBehaviour
     {
         if (!CanPurchaseIncreaseMarketSize(player))
             return;
-
-        UpgradeMarketSizeData data = new UpgradeMarketSizeData(player);
+        Piece piece = marketManager.GenerateMarketPiece();
+        UpgradeMarketSizeData data = new UpgradeMarketSizeData(player, piece);
         Request req = new Request(102, data);
         requestHandler.SendRequest(req);
     }
 
-    public void PurchaseIncreaseMarketSize(Player player)
+    public void PurchaseIncreaseMarketSize(Player player, Piece piece)
     {
         if (!CanPurchaseIncreaseMarketSize(player))
             return;
-        bool success = marketManager.IncreaseMarketSize();
+        bool success = marketManager.IncreaseMarketSize(piece);
         int price = UpgradeMarketSizeCost;
         if (success)
         {
