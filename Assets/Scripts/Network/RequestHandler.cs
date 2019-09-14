@@ -69,6 +69,12 @@ namespace Com.Nextplease.IWT
                         req.Approve();
                     }
                     break;
+                case ROUND_START:
+                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
+                    {
+                        req.Approve();
+                    }
+                    break;
                 case MARKET_PHASE:
                     if (req.GetRequester() == networkManager.GetLocalPlayerID())
                     {
@@ -164,6 +170,9 @@ namespace Com.Nextplease.IWT
                 case INIT_PHASE:
                     PhaseManagementData data_10 = req.GetData() as PhaseManagementData;
                     phaseManager.Initialize(data_10.numPlayers);
+                    break;
+                case ROUND_START:
+                    phaseManager.StartRound();
                     break;
                 case MARKET_PHASE:
                     MarketManagementData data_11 = (MarketManagementData)req.GetData();

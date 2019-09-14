@@ -13,6 +13,7 @@ namespace Com.Nextplease.IWT
         public const int MARKET_PHASE = 11;
         public const int PRECOMBAT_PHASE = 12;
         public const int POSTCOMBAT_PHASE = 13;
+        public const int ROUND_START = 14;
         public const int UPGRADE_INCOME = 100;
         public const int UPGRADE_MARKET_RARITY = 101;
         public const int UPGRADE_MARKET_SIZE = 102;
@@ -29,6 +30,7 @@ namespace Com.Nextplease.IWT
             { MARKET_PHASE, "Trigger Market Phase" },
             { PRECOMBAT_PHASE, "Trigger Pre-combat Phase" },
             { POSTCOMBAT_PHASE, "Trigger Post-combat Phase" },
+            { ROUND_START, "Trigger Round Start" },
             { UPGRADE_INCOME, "Upgrade Income" },
             { UPGRADE_MARKET_RARITY, "Upgrade Market Rarity" },
             { UPGRADE_MARKET_SIZE, "Upgrade Market Size" },

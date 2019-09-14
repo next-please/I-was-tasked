@@ -45,7 +45,6 @@ public class PhaseManager : MonoBehaviour
         this.numPlayers = numPlayers;
         if (phasesRunning) return;
         phasesRunning = true;
-        round = 0;
         TryIntialize();
     }
 
@@ -90,6 +89,11 @@ public class PhaseManager : MonoBehaviour
         }
     }
 
+    public void SetNumPlayers(int numPlayers)
+    {
+        this.numPlayers = numPlayers;
+    }
+
     // PHASES
     public void TryIntialize()
     {
@@ -98,20 +102,28 @@ public class PhaseManager : MonoBehaviour
         requestHandler.SendRequest(req);
     }
 
-    public void SetNumPlayers(int numPlayers)
-    {
-        this.numPlayers = numPlayers;
-    }
-
     public void Initialize(int numPlayers) {
+        this.round = 0;
         this.numPlayers = numPlayers;
         ChangePhase(Phase.Initialization);
         boardManager.CreateBoards(numPlayers);
         inventoryManager.ResetInventories();
-        StartCoroutine(RoundStartToMarket());
+        TryStartRound();
     }
 
-    IEnumerator RoundStartToMarket()
+    void TryStartRound()
+    {
+        Data data = new PhaseManagementData(this.numPlayers, round);
+        Request req = new Request(ActionTypes.ROUND_START, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public void StartRound()
+    {
+        StartCoroutine(StartRoundToMarket());
+    }
+
+    IEnumerator StartRoundToMarket()
     {
         round++;
         Debug.Log("Rounds remaining: " + (round - RoundsNeededToSurvive));
@@ -129,7 +141,7 @@ public class PhaseManager : MonoBehaviour
     {
         List<Piece> newMarketPieces = marketManager.GenerateMarketItems();
         Data data = new MarketManagementData(this.numPlayers, round, newMarketPieces);
-        Request req = new Request(11, data); // TODO: replace with proper codes
+        Request req = new Request(ActionTypes.MARKET_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
@@ -150,7 +162,7 @@ public class PhaseManager : MonoBehaviour
     void TryPreCombat()
     {
         Data data = new PhaseManagementData(this.numPlayers, round);
-        Request req = new Request(12, data); // TODO: replace with proper codes
+        Request req = new Request(ActionTypes.PRECOMBAT_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
@@ -179,20 +191,20 @@ public class PhaseManager : MonoBehaviour
     void TryPostCombat()
     {
         Data data = new PhaseManagementData(this.numPlayers, round);
-        Request req = new Request(13, data); // TODO: replace with proper codes
+        Request req = new Request(ActionTypes.POSTCOMBAT_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
     public void StartPostCombat()
     {
-        StartCoroutine(PostCombatToMarket());
+        StartCoroutine(PostCombatToStartRound());
     }
 
-    IEnumerator PostCombatToMarket()
+    IEnumerator PostCombatToStartRound()
     {
         ChangePhase(Phase.PostCombat);
         yield return Countdown(5);
-        TryMarketPhase();
+        TryStartRound();
     }
 
     void ChangePhase(Phase phase)
