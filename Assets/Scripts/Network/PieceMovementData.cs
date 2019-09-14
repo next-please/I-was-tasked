@@ -1,17 +1,11 @@
-﻿using System;
-namespace Com.Nextplease.IWT
+﻿namespace Com.Nextplease.IWT
 {
-    [Serializable]
-    public class PieceMovementData : Data
+    public class PieceMovementData : PieceData
     {
-        public Player player;
-        public Piece piece;
         public Tile tile;
 
-        public PieceMovementData(Player player, Piece piece, Tile tile)
+        public PieceMovementData(Player player, Piece piece, Tile tile) : base(player, piece)
         {
-            this.player = player;
-            this.piece = piece;
             this.tile = tile;
         }
     }
