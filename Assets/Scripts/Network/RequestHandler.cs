@@ -97,9 +97,13 @@ namespace Com.Nextplease.IWT
                     }
                     Debug.LogFormat("{0}: BUY_PIECE - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
+                case SELL_PIECE:
+                    if(IsMasterClient(req) && transactionManager.IsValidSale()) { req.Approve(); }
+                    Debug.LogFormat("{0}: SELL_PIECE - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
                 default:
                     Debug.LogErrorFormat("{0}: {1} issued request of invalid action type {2}", CLASS_NAME, req.GetRequester(), req.GetActionType());
-                    return null;
+                    return req;
             }
         }
 
@@ -143,6 +147,11 @@ namespace Com.Nextplease.IWT
                     PieceTransactionData data_5 = (PieceTransactionData)req.GetData();
                     transactionManager.PurchaseMarketPieceToBench(data_5.player, data_5.piece, data_5.price);
                     Debug.LogFormat("{0}: Executing BUY_PIECE from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case SELL_PIECE:
+                    PieceTransactionData data_6 = (PieceTransactionData)req.GetData();
+                    transactionManager.SellBenchPiece(data_6.player, data_6.piece);
+                    Debug.LogFormat("{0}: Executing SELL_PIECE from {1}", CLASS_NAME, req.GetRequester());
                     break;
                 default:
                     Debug.LogErrorFormat("{0}: {1} issued request of invalid action type {2}", req.GetRequester(), req.GetActionType());

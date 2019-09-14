@@ -39,7 +39,19 @@ public class TransactionManager : MonoBehaviour
 
     public void TrySellBenchPiece(Player player, Piece piece)
     {
-        // if i'm master
+        int price = 0; // TODO: currently no money gained from selling?
+        Request req = new Request(6, new PieceTransactionData(player, piece, price));
+        requestHandler.SendRequest(req);
+    }
+
+    // TODO: Currently no check for sell transaction?
+    public bool IsValidSale()
+    {
+        return true;
+    }
+
+    public void SellBenchPiece(Player player, Piece piece)
+    {
         if (inventoryManager.RemoveFromBench(player, piece))
         {
             marketManager.characterGenerator.ReturnPiece(piece);
