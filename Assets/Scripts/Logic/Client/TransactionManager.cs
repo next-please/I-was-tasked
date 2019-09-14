@@ -98,15 +98,17 @@ public class TransactionManager : MonoBehaviour
     {
         if (!CanPurchaseIncreaseMarketRarity(player))
             return;
-        UpgradeMarketRarityData data = new UpgradeMarketRarityData(player);
-        Request req = new Request(101, data);
+        int marketTier = marketManager.GetMarketTier();
+        List<Piece> pieces = marketManager.UpgradePiecesWithTier(marketTier + 1);
+        UpgradeMarketRarityData data = new UpgradeMarketRarityData(player, pieces);
+        Request req = new Request(ActionTypes.UPGRADE_MARKET_RARITY, data);
         requestHandler.SendRequest(req);
     }
 
-    public void PurchaseIncreaseMarketRarity(Player player)
+    public void PurchaseIncreaseMarketRarity(Player player, List<Piece> pieces)
     {
         int price = GetMarketRarityCost();
-        marketManager.IncreaseMarketTier();
+        marketManager.IncreaseMarketTier(pieces);
         inventoryManager.DeductGold(player, price);
     }
 

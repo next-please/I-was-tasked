@@ -39,10 +39,10 @@ public class MarketManager : MonoBehaviour
 
     public List<Piece> GenerateMarketItems()
     {
-        // if (market.MarketPieces != null)
-        // {
-        //     characterGenerator.ReturnPieces(market.MarketPieces);
-        // }
+        if (market.MarketPieces != null)
+        {
+            characterGenerator.ReturnPieces(market.MarketPieces);
+        }
         List<Piece> marketPieces = new List<Piece>();
         for (int i = 0; i < market.GetMarketSize(); ++i)
         {
@@ -67,28 +67,29 @@ public class MarketManager : MonoBehaviour
         EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
     }
 
-
-    public void IncreaseMarketTier()
+    public void IncreaseMarketTier(List<Piece> pieces)
     {
         market.MarketTier++;
-
+        market.MarketPieces = pieces;
         //reactive upgrades
         EventManager.Instance.Raise(new GlobalMessageEvent { message = "Market tier has been upgraded! New mercenaries may be stronger!" });
-        for (int i = 0; i < market.GetMarketSize(); ++i)
+        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+    }
+
+    public List<Piece> UpgradePiecesWithTier(int marketTier)
+    {
+        var marketPieceCopy = new List<Piece>(market.MarketPieces);
+        foreach (Piece marketPiece in marketPieceCopy)
         {
-            if (market.MarketPieces[i] != null)
+            if (marketPiece == null)
+                continue;
+            if (rngesus.Next(1, 101) <= characterGenerator.characterUpgradeDifferencePercentage)
             {
-                if (rngesus.Next(1, 101) <= characterGenerator.characterUpgradeDifferencePercentage)
-                {
-                    if (characterGenerator.TryUpgradeCharacter(market.MarketPieces[i], market.MarketTier))
-                    {
-                        EventManager.Instance.Raise(new GlobalMessageEvent { message = market.MarketPieces[i].GetName() + " has grown stronger from the market upgrades!" });
-                    }
-                }
+                characterGenerator.TryUpgradeCharacter(marketPiece, marketTier);
+                // EventManager.Instance.Raise(new GlobalMessageEvent { message = market.MarketPieces[i].GetName() + " has grown stronger from the market upgrades!" });
             }
         }
-
-        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+        return marketPieceCopy;
     }
 
     public int GetMarketTier()

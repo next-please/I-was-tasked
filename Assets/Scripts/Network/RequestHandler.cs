@@ -199,7 +199,7 @@ namespace Com.Nextplease.IWT
                     break;
                 case UPGRADE_MARKET_RARITY:
                     UpgradeMarketRarityData data_101 = req.GetData() as UpgradeMarketRarityData;
-                    transactionManager.PurchaseIncreaseMarketRarity(data_101.player);
+                    transactionManager.PurchaseIncreaseMarketRarity(data_101.player, data_101.pieces);
                     break;
                 case UPGRADE_MARKET_SIZE:
                     UpgradeMarketSizeData data_102 = req.GetData() as UpgradeMarketSizeData;
