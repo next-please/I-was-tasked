@@ -128,4 +128,10 @@ public class BoardManager : MonoBehaviour
             player = player,
         });
     }
+
+    public Tile GetActualTile(Player player, Tile tile)
+    {
+        Board board = GetBoard(player);
+        return board.GetTile(tile.GetRow(), tile.GetCol());
+    }
 }

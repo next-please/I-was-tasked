@@ -6,7 +6,10 @@ namespace Com.Nextplease.IWT
     {
         #region Action Types (move out when too large)
         private const string CLASS_NAME = "RequestHandler";
+
         private const int MOVE_FROM_BENCH_TO_BOARD = 0;
+        private const int MOVE_FROM_BOARD_TO_BENCH = 1;
+
         private const int BUY_PIECE = 5;
         private const int SELL_PIECE = 6;
         private const int INIT_PHASE = 10;
@@ -54,13 +57,20 @@ namespace Com.Nextplease.IWT
             {
                 case MOVE_FROM_BENCH_TO_BOARD:
                     PieceMovementData data_0 = (PieceMovementData)req.GetData();
-                    if (arrangementManager.IsValidBenchToBoard(data_0.player, data_0.piece, data_0.tile))
+                    if (arrangementManager.CanMoveBenchToBoard(data_0.player, data_0.piece, data_0.tile))
                     {
                         req.Approve();
                     }
                     Debug.LogFormat("{0}: MOVE_BENCH_TO_BOARD - approved: {1}", CLASS_NAME, req.IsApproved());
                     return req;
-
+                case MOVE_FROM_BOARD_TO_BENCH:
+                    BoardToBenchData data_1 = (BoardToBenchData)req.GetData();
+                    if (arrangementManager.CanMoveBoardToBench(data_1.player, data_1.piece, data_1.slotIndex))
+                    {
+                        req.Approve();
+                    }
+                    Debug.LogFormat("{0}: MOVE_BOARD_TO_BENCH - approved: {1}", CLASS_NAME, req.IsApproved());
+                    return req;
                 case INIT_PHASE:
                     if (roomManager.IsRoomFull())
                     {
@@ -163,6 +173,11 @@ namespace Com.Nextplease.IWT
                     PieceMovementData data_0 = (PieceMovementData)req.GetData();
                     arrangementManager.MoveBenchToBoard(data_0.player, data_0.piece, data_0.tile);
                     Debug.LogFormat("{0}: Executing MOVE_BENCH_TO_BOARD from {1}", CLASS_NAME, req.GetRequester());
+                    break;
+                case MOVE_FROM_BOARD_TO_BENCH:
+                    BoardToBenchData data_1 = (BoardToBenchData)req.GetData();
+                    arrangementManager.MoveBoardToBench(data_1.player, data_1.piece, data_1.slotIndex);
+                    Debug.LogFormat("{0}: Executing MOVE_BOARD_TO_BENCH from {1}", CLASS_NAME, req.GetRequester());
                     break;
                 case INIT_PHASE:
                     PhaseManagementData data_10 = req.GetData() as PhaseManagementData;

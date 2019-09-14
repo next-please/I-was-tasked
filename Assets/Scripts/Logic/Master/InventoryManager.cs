@@ -33,6 +33,11 @@ public class InventoryManager : MonoBehaviour
         return GetPlayerInventory(player).IsBenchFull();
     }
 
+    public bool IsBenchSlotVacant(Player player, int slotIndex)
+    {
+        return GetPlayerInventory(player).BenchVacantAtIndex(slotIndex);
+    }
+
     public void AddToBench(Player player, Piece piece)
     {
         var playerInv = GetPlayerInventory(player);
