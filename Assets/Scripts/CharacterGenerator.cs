@@ -22,6 +22,7 @@ public class CharacterGenerator
     public readonly double attackDamageMultiplier = 1.5;
     public readonly int rangeAdditor = 2;
     public readonly int movementVariationRange = 2;
+    public readonly int attackSpeedVariationRange = 4;
 
     public readonly int numberOfRarityTiers = 4;
     public readonly int[] tiersRacePoolMax = new int[] { 15, 15, 10, 6 };
@@ -152,6 +153,10 @@ public class CharacterGenerator
         //randomize movement
         int randomValue = rngesus.Next(-movementVariationRange, movementVariationRange + 1);
         currentMovementSpeed += randomValue;
+
+        // Randomize Attack Speed
+        randomValue = rngesus.Next(-attackSpeedVariationRange, attackSpeedVariationRange + 1);
+        currentAttackSpeed += randomValue;
 
         //calculate stats
         for (int i = 0; i < rarityBonusUpgrades[characterRarity]; i++)
