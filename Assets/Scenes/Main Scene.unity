@@ -3576,6 +3576,7 @@ MonoBehaviour:
   marketManager: {fileID: 1554020330}
   incomeManager: {fileID: 2017883520}
   requestHandler: {fileID: 896799267}
+  boardManager: {fileID: 1931400389}
 --- !u!4 &596478380
 Transform:
   m_ObjectHideFlags: 0

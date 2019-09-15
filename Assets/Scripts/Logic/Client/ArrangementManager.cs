@@ -97,13 +97,4 @@ public class ArrangementManager : MonoBehaviour
         // must be master client
         inventoryManager.MoveBenchPieceToIndex(player, piece, index);
     }
-
-    public bool TryRemovePieceOnBoard(Player player, Piece piece)
-    {
-        boardManager.RemovePieceFromBoard(player, piece);
-        return true;
-    }
-
-
-
 }

@@ -104,6 +104,10 @@ namespace Com.Nextplease.IWT
                 case SELL_PIECE:
                     if (transactionManager.IsValidSale()) { req.Approve(); }
                     break;
+                case SELL_BOARD_PIECE:
+                    PieceData sellBoardPieceData = req.GetData() as PieceData;
+                    if (transactionManager.CanSellBoardPiece(sellBoardPieceData.player, sellBoardPieceData.piece)) { req.Approve(); }
+                    break;
                 case UPGRADE_INCOME:
                     UpgradeIncomeData data_100 = req.GetData() as UpgradeIncomeData;
                     if (transactionManager.CanPurchaseIncreasePassiveIncome(data_100.player))
@@ -192,6 +196,10 @@ namespace Com.Nextplease.IWT
                 case SELL_PIECE:
                     PieceTransactionData data_6 = (PieceTransactionData)req.GetData();
                     transactionManager.SellBenchPiece(data_6.player, data_6.piece);
+                    break;
+                case SELL_BOARD_PIECE:
+                    PieceData sellBoardPieceData = req.GetData() as PieceData;
+                    transactionManager.SellBoardPiece(sellBoardPieceData.player, sellBoardPieceData.piece);
                     break;
                 case UPGRADE_INCOME:
                     UpgradeIncomeData data_100 = req.GetData() as UpgradeIncomeData;

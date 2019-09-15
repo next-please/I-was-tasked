@@ -10,7 +10,7 @@ public class TransactionManager : MonoBehaviour
     public MarketManager marketManager;
     public IncomeManager incomeManager;
     public RequestHandler requestHandler;
-
+    public BoardManager boardManager;
 
     public readonly int UpgradeIncomeCost = 10;
     public readonly int UpgradeMarketSizeCost = 10;
@@ -25,7 +25,7 @@ public class TransactionManager : MonoBehaviour
         }
 
         // send over the network
-        Request req = new Request(5, new PieceTransactionData(player, piece, price));
+        Request req = new Request(ActionTypes.BUY_PIECE, new PieceTransactionData(player, piece, price));
         requestHandler.SendRequest(req);
     }
 
@@ -39,8 +39,16 @@ public class TransactionManager : MonoBehaviour
     public void TrySellBenchPiece(Player player, Piece piece)
     {
         int price = 0; // TODO: currently no money gained from selling?
-        Request req = new Request(6, new PieceTransactionData(player, piece, price));
+        Request req = new Request(ActionTypes.SELL_PIECE, new PieceTransactionData(player, piece, price));
         requestHandler.SendRequest(req);
+    }
+
+    public void SellBenchPiece(Player player, Piece piece)
+    {
+        if (inventoryManager.RemoveFromBench(player, piece))
+        {
+            SellPiece(player, piece);
+        }
     }
 
     // TODO: Currently no check for sell transaction?
@@ -49,16 +57,35 @@ public class TransactionManager : MonoBehaviour
         return true;
     }
 
-    public void SellBenchPiece(Player player, Piece piece)
+#region Sell Board Piece
+    public bool CanSellBoardPiece(Player player, Piece piece)
     {
-        if (inventoryManager.RemoveFromBench(player, piece))
-        {
-            marketManager.characterGenerator.ReturnPiece(piece);
-            inventoryManager.AddGold(player, piece.GetPrice());
-        }
+        return inventoryManager.ArmyContainsPiece(player, piece);
     }
 
-    // TODO: DOES NOT UPDATE CHARACTER GENERATORIN ALL CLIENTS
+    public void TrySellBoardPiece(Player player, Piece piece)
+    {
+        if (!CanSellBoardPiece(player, piece))
+            return;
+        Request req = new Request(ActionTypes.SELL_BOARD_PIECE, new PieceData(player, piece));
+        requestHandler.SendRequest(req);
+    }
+
+    public void SellBoardPiece(Player player, Piece piece)
+    {
+        if (!CanSellBoardPiece(player, piece))
+            return;
+        boardManager.RemovePieceFromBoard(player, piece);
+        inventoryManager.RemoveFromArmy(player, piece);
+        SellPiece(player, piece);
+    }
+#endregion
+
+    // This isn't synced.
+    // If you are calling this outside of TransactionManager
+    // or ArrangementManager - Please take note!
+    // If you want synced behaviour use a method
+    // that starts with `Try`
     public void SellPiece(Player player, Piece piece)
     {
         marketManager.characterGenerator.ReturnPiece(piece);

@@ -9,6 +9,7 @@ namespace Com.Nextplease.IWT
         public const int MOVE_ON_BOARD = 2;
         public const int BUY_PIECE = 5;
         public const int SELL_PIECE = 6;
+        public const int SELL_BOARD_PIECE = 7;
         public const int INIT_PHASE = 10;
         public const int MARKET_PHASE = 11;
         public const int PRECOMBAT_PHASE = 12;
@@ -26,6 +27,7 @@ namespace Com.Nextplease.IWT
             { MOVE_ON_BOARD, "Move on Board" },
             { BUY_PIECE, "Purchase Piece" },
             { SELL_PIECE, "Sell Piece" },
+            { SELL_BOARD_PIECE, "Sell Piece On Board" },
             { INIT_PHASE, "Trigger Initialisation Phase" },
             { MARKET_PHASE, "Trigger Market Phase" },
             { PRECOMBAT_PHASE, "Trigger Pre-combat Phase" },
