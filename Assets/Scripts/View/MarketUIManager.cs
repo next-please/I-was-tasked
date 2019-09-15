@@ -132,7 +132,7 @@ public class MarketUIManager : MonoBehaviour
     void PurchasePiece(int itemIndex)
     {
         Piece pieceToPurchase = marketPieces[itemIndex];
-        Player player = RoomManager.LocalPlayer;
+        Player player = RoomManager.GetLocalPlayer();
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
     }
 

@@ -15,7 +15,6 @@ namespace Com.Nextplease.IWT
     {
         #region Public Fields
         public int NumPlayersToStart = 1;
-        public static Player LocalPlayer = Player.Two;
         public PhaseManager phaseManager;
         #endregion
         #region Private Serializable Fields
@@ -65,7 +64,17 @@ namespace Com.Nextplease.IWT
             playerList.text = sb.ToString();
         }
 
-        public Player PhotonPlayerToPlayer(Photon.Realtime.Player photonPlayer)
+        public static Player GetLocalPlayer()
+        {
+            return PhotonPlayerToPlayer(PhotonNetwork.LocalPlayer);
+        }
+
+        public static string GetLocalPlayerNickname()
+        {
+            return PhotonNetwork.LocalPlayer.NickName;
+        }
+
+        public static Player PhotonPlayerToPlayer(Photon.Realtime.Player photonPlayer)
         {
             int index = 0;
             foreach (Photon.Realtime.Player p in PhotonNetwork.PlayerList)
@@ -89,8 +98,6 @@ namespace Com.Nextplease.IWT
         void Start()
         {
             UpdatePlayerList();
-            LocalPlayer = PhotonPlayerToPlayer(PhotonNetwork.LocalPlayer);
-
         }
         #endregion
 

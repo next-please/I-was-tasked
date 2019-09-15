@@ -29,7 +29,7 @@ public class DragManager : MonoBehaviour
 
     void OnMovePieceOnBoard(MoveOnBoardEvent e)
     {
-        arrangementManager.TryMovePieceOnBoard(RoomManager.LocalPlayer, e.piece, e.tile);
+        arrangementManager.TryMovePieceOnBoard(RoomManager.GetLocalPlayer(), e.piece, e.tile);
     }
 
     void OnMoveFromBoardToBench(MoveFromBoardToBenchEvent e)
@@ -38,7 +38,7 @@ public class DragManager : MonoBehaviour
         {
             return;
         }
-        arrangementManager.TryMoveBoardToBench(RoomManager.LocalPlayer, e.piece, e.slotIndex);
+        arrangementManager.TryMoveBoardToBench(RoomManager.GetLocalPlayer(), e.piece, e.slotIndex);
     }
 
     void OnMoveFromBenchToBoard(MoveFromBenchToBoardEvent e)
@@ -47,21 +47,21 @@ public class DragManager : MonoBehaviour
         {
             return;
         }
-        arrangementManager.TryMoveBenchToBoard(RoomManager.LocalPlayer, e.piece, e.tile);
+        arrangementManager.TryMoveBenchToBoard(RoomManager.GetLocalPlayer(), e.piece, e.tile);
     }
 
     void OnMoveOnBench(MoveOnBenchEvent e)
     {
-        arrangementManager.TryMovePieceOnBench(RoomManager.LocalPlayer, e.piece, e.slotIndex);
+        arrangementManager.TryMovePieceOnBench(RoomManager.GetLocalPlayer(), e.piece, e.slotIndex);
     }
 
     void OnTrashPieceOnBoardEvent(TrashPieceOnBoardEvent e)
     {
-        transactionManager.TrySellBoardPiece(RoomManager.LocalPlayer, e.piece);
+        transactionManager.TrySellBoardPiece(RoomManager.GetLocalPlayer(), e.piece);
     }
 
     void OnTrashPieceOnBenchEvent(TrashPieceOnBenchEvent e)
     {
-        transactionManager.TrySellBenchPiece(RoomManager.LocalPlayer, e.piece);
+        transactionManager.TrySellBenchPiece(RoomManager.GetLocalPlayer(), e.piece);
     }
 }

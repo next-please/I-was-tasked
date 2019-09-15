@@ -45,7 +45,7 @@ public class BenchManager : MonoBehaviour
     public void OnInventoryChange(InventoryChangeEvent e)
     {
         var playerInv = e.inventory;
-        if (playerInv.GetOwner() != RoomManager.LocalPlayer)
+        if (playerInv.GetOwner() != RoomManager.GetLocalPlayer())
         {
             return;
         }
