@@ -38,6 +38,7 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        originalPos = transform.position;
         SetDraggedState();
     }
 
