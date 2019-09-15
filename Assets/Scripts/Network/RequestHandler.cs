@@ -43,21 +43,21 @@ namespace Com.Nextplease.IWT
             switch (req.GetActionType())
             {
                 case MOVE_FROM_BENCH_TO_BOARD:
-                    PieceMovementData data_0 = (PieceMovementData)req.GetData();
+                    PieceMovementData data_0 = req.GetData() as PieceMovementData;
                     if (arrangementManager.CanMoveBenchToBoard(data_0.player, data_0.piece, data_0.tile))
                     {
                         req.Approve();
                     }
                     break;
                 case MOVE_FROM_BOARD_TO_BENCH:
-                    BoardToBenchData data_1 = (BoardToBenchData)req.GetData();
+                    BoardToBenchData data_1 = req.GetData() as BoardToBenchData;
                     if (arrangementManager.CanMoveBoardToBench(data_1.player, data_1.piece, data_1.slotIndex))
                     {
                         req.Approve();
                     }
                     break;
                 case MOVE_ON_BOARD:
-                    PieceMovementData data_2 = (PieceMovementData)req.GetData();
+                    PieceMovementData data_2 = req.GetData() as PieceMovementData;
                     if (arrangementManager.CanMovePieceOnBoard(data_2.player, data_2.piece, data_2.tile))
                     {
                         req.Approve();
@@ -70,32 +70,16 @@ namespace Com.Nextplease.IWT
                     }
                     break;
                 case ROUND_START:
-                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
-                    {
-                        req.Approve();
-                    }
-                    break;
                 case MARKET_PHASE:
-                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
-                    {
-                        req.Approve();
-                    }
-                    break;
                 case PRECOMBAT_PHASE:
+                case POSTCOMBAT_PHASE: // TODO: wait for all clients to finish before approving
                     if (req.GetRequester() == networkManager.GetLocalPlayerID())
-                    {
-                        req.Approve();
-                    }
-                    break;
-                case POSTCOMBAT_PHASE:
-                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
-                    // TODO: wait for all clients to finish before approving
                     {
                         req.Approve();
                     }
                     break;
                 case BUY_PIECE:
-                    PieceTransactionData data_5 = (PieceTransactionData)req.GetData();
+                    PieceTransactionData data_5 = req.GetData() as PieceTransactionData;
                     if (transactionManager.IsValidPurchase(data_5.player, data_5.price))
                     {
                         req.Approve();
@@ -160,15 +144,15 @@ namespace Com.Nextplease.IWT
             switch (req.GetActionType())
             {
                 case MOVE_FROM_BENCH_TO_BOARD:
-                    PieceMovementData data_0 = (PieceMovementData)req.GetData();
+                    PieceMovementData data_0 = req.GetData() as PieceMovementData;
                     arrangementManager.MoveBenchToBoard(data_0.player, data_0.piece, data_0.tile);
                     break;
                 case MOVE_FROM_BOARD_TO_BENCH:
-                    BoardToBenchData data_1 = (BoardToBenchData)req.GetData();
+                    BoardToBenchData data_1 = req.GetData() as BoardToBenchData;
                     arrangementManager.MoveBoardToBench(data_1.player, data_1.piece, data_1.slotIndex);
                     break;
                 case MOVE_ON_BOARD:
-                    PieceMovementData data_2= (PieceMovementData)req.GetData();
+                    PieceMovementData data_2 = req.GetData() as PieceMovementData;
                     arrangementManager.MovePieceOnBoard(data_2.player, data_2.piece, data_2.tile);
                     break;
                 case INIT_PHASE:
@@ -179,7 +163,7 @@ namespace Com.Nextplease.IWT
                     phaseManager.StartRound();
                     break;
                 case MARKET_PHASE:
-                    MarketManagementData data_11 = (MarketManagementData)req.GetData();
+                    MarketManagementData data_11 = req.GetData() as MarketManagementData;
                     marketManager.SetMarketItems(data_11.pieces);
                     phaseManager.StartMarketPhase();
                     break;
@@ -191,16 +175,16 @@ namespace Com.Nextplease.IWT
                     phaseManager.StartPostCombat();
                     break;
                 case BUY_PIECE:
-                    PieceTransactionData data_5 = (PieceTransactionData)req.GetData();
+                    PieceTransactionData data_5 = req.GetData() as PieceTransactionData;
                     transactionManager.PurchaseMarketPieceToBench(data_5.player, data_5.piece, data_5.price);
                     break;
                 case SELL_PIECE:
-                    PieceTransactionData data_6 = (PieceTransactionData)req.GetData();
+                    PieceTransactionData data_6 = req.GetData() as PieceTransactionData;
                     transactionManager.SellBenchPiece(data_6.player, data_6.piece);
                     break;
                 case SELL_BOARD_PIECE:
-                    PieceData sellBoardPieceData = req.GetData() as PieceData;
-                    transactionManager.SellBoardPiece(sellBoardPieceData.player, sellBoardPieceData.piece);
+                    PieceData data_7 = req.GetData() as PieceData;
+                    transactionManager.SellBoardPiece(data_7.player, data_7.piece);
                     break;
                 case UPGRADE_INCOME:
                     UpgradeIncomeData data_100 = req.GetData() as UpgradeIncomeData;
