@@ -204,20 +204,13 @@ public class CharacterGenerator
 
         tiers[characterRarity].JobPoolSize[(int)job]--;
         tiers[characterRarity].RacePoolSize[(int)race]--;
-        Piece currentPiece = new Piece(
-            NameGenerator.GenerateName(job, race),
-            currentHitPoints,
-            currentAttackDamage,
-            currentAttackRange, // TODO: Please help to verify if this is correct, much thanks~! - Nic
-            currentMovementSpeed,
-            false);
-        currentPiece.SetAttackSpeed(currentAttackSpeed);
-        currentPiece.SetMaximumManaPoints(currentManaPoints);
-        currentPiece.SetRace(race);
-        currentPiece.SetClass(job);
-        currentPiece.SetRarity(characterRarity + 1);
+
+        Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), race, job, characterRarity + 1, false,
+                                       currentHitPoints, currentManaPoints,
+                                       currentAttackDamage, currentAttackRange,
+                                       currentAttackSpeed, currentMovementSpeed);
         return currentPiece;
-        //throw not implemented //still need to remove from pool and do stat adjustments
+        //throw not implemented // still need to remove from pool and do stat adjustments
     }
 
     public void ReturnPiece(Piece piece)
