@@ -60,7 +60,9 @@ public class AttackState : State
             Debug.Log("No target to look at, See AttackState.cs");
             return;
         }
-        pieceView.transform.LookAt(pieceView.GetTilePosition(targetTile));
+        Vector3 tilePos = ViewManager.CalculateTileWorldPosition(targetTile);
+        tilePos.y = 0.5f;
+        pieceView.transform.LookAt(tilePos);
         pieceView.animator.Play("Attack", 0);
     }
 

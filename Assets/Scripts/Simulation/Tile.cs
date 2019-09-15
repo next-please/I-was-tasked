@@ -13,15 +13,20 @@ public class Tile : ISerializable
     private int col;
     #endregion
 
+    [NonSerialized]
     private Piece occupant;
+    [NonSerialized]
     private Piece locker;
+    [NonSerialized]
+    private Board board;
 
-    public Tile(int row, int col)
+    public Tile(int row, int col, Board board)
     {
         SetOccupant(null);
         SetLocker(null);
         SetRow(row);
         SetCol(col);
+        this.board = board;
     }
 
     public Tile(SerializationInfo info, StreamingContext context)
@@ -111,5 +116,10 @@ public class Tile : ISerializable
     public override string ToString()
     {
         return "(" + row + "," + col + ")";
+    }
+
+    public Board GetBoard()
+    {
+        return board;
     }
 }

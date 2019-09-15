@@ -16,7 +16,6 @@ public class PieceView : MonoBehaviour
     private IViewState prevViewAction;
     private int prevHP;
     private int prevMP;
-    private Vector3 referencePosition = Vector3.zero;
 
     private void Start()
     {
@@ -44,11 +43,6 @@ public class PieceView : MonoBehaviour
         modelPrefab.transform.rotation = transform.rotation;
 
         animator = modelPrefab.GetComponent<Animator>();
-    }
-
-    public void SetReferencePosition(Vector3 position)
-    {
-        referencePosition = position;
     }
 
     void OnEnable()
@@ -120,7 +114,7 @@ public class PieceView : MonoBehaviour
     {
         if (e.piece == piece)
         {
-            transform.position = GetTilePosition(e.tile);
+            transform.position = ViewManager.CalculateTileWorldPosition(e.tile);
             transform.rotation = Quaternion.identity;
         }
     }
@@ -150,12 +144,5 @@ public class PieceView : MonoBehaviour
     public void UpdateCurrentMPBar()
     {
         SetCurrentMPBar(piece.GetCurrentManaPoints());
-    }
-
-    public Vector3 GetTilePosition(Tile tile)
-    {
-        int i = tile.GetRow();
-        int j = tile.GetCol();
-        return referencePosition + new Vector3(i, 0.5f, j);
     }
 }

@@ -34,11 +34,11 @@ public class BoardManager : MonoBehaviour
         boards = new Board[numPlayers];
         for (int i = 0; i < numPlayers; ++i)
         {
+            Player player = (Player) i;
             Simulator sim = Simulators[i];
-            Board board = new Board(8, 8);
+            Board board = new Board(8, 8, player);
             boards[i] = board;
             sim.SetGameBoard(board);
-            Player player = (Player) i;
             viewManager.OnBoardCreated(board, player);
         }
     }

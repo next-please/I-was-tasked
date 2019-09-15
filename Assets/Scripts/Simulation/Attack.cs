@@ -25,8 +25,10 @@ public class Attack
         if (ticksTotal > 0)
         {
             projectile = MonoBehaviour.Instantiate((GameObject) AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Pieces/ProjectileTest.prefab", typeof(GameObject)));
-            attackSource = new Vector3(attacker.GetCurrentTile().GetRow(), 0.5f, attacker.GetCurrentTile().GetCol());
-            attackDestination = new Vector3(target.GetCurrentTile().GetRow(), 0.5f, target.GetCurrentTile().GetCol());
+            attackSource = ViewManager.CalculateTileWorldPosition(attacker.GetCurrentTile());
+            attackSource.y = 0.5f;
+            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination.y = 0.5f;
         }
     }
 
@@ -40,7 +42,8 @@ public class Attack
         // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
         if (!target.IsDead() && (target.GetCurrentTile().GetRow() != (int) attackDestination.x || target.GetCurrentTile().GetCol() != (int) attackDestination.z))
         {
-            attackDestination = new Vector3(target.GetCurrentTile().GetRow(), 0.5f, target.GetCurrentTile().GetCol());
+            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination.y = 0.5f;
         }
 
         float fracJourney = (float)(ticksTotal - ticksRemaining) / ticksTotal;

@@ -20,7 +20,8 @@ public class MoveState : State
     public override void OnViewStart(PieceView pieceView)
     {
         destination = pieceView.piece.GetLockedTile();
-        Vector3 tilePos = pieceView.GetTilePosition(destination);
+        Vector3 tilePos = ViewManager.CalculateTileWorldPosition(destination);
+        tilePos.y = 0.5f;
         float distanceTotile = (tilePos - pieceView.transform.position).magnitude;
         float timeToReachTile = ticksRemaining * FixedClock.Instance.deltaTime;
         speedToTranslate = distanceTotile / timeToReachTile;
@@ -38,7 +39,8 @@ public class MoveState : State
     {
         // just set position to the final destination (need to be consistent with the simulation)
         // estimate how fast we need to move
-        Vector3 tilePos = pieceView.GetTilePosition(destination);
+        Vector3 tilePos = ViewManager.CalculateTileWorldPosition(destination);
+        tilePos.y = 0.5f;
         pieceView.transform.position = tilePos;
         pieceView.animator.Play("Idle", 0);
     }
