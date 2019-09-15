@@ -6,12 +6,13 @@ using Com.Nextplease.IWT;
 public class BenchManager : MonoBehaviour
 {
     private readonly int maxSlots = 8;
+    public Player player;
+    public GameObject BenchSlotPrefab;
+    public GameObject BenchItemPrefab;
+    public CharacterPrefabLoader characterPrefabLoader;
 
     private List<BenchSlot> slots = new List<BenchSlot>();
     private int nextEmptySlotIndex = 0;
-
-    public GameObject BenchSlotPrefab;
-    public GameObject BenchItemPrefab;
 
     void OnEnable()
     {
@@ -72,6 +73,7 @@ public class BenchManager : MonoBehaviour
             slot.benchItem.piece = piece;
             return;
         }
-        slots[index].SetOccupant(piece);
+        GameObject characterPrefab = characterPrefabLoader.GetPrefab(piece);
+        slots[index].SetOccupant(piece, characterPrefab);
     }
 }

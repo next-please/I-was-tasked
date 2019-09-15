@@ -22,6 +22,7 @@ public class CharacterGenerator
     public readonly double attackDamageMultiplier = 1.5;
     public readonly int rangeAdditor = 2;
     public readonly int movementVariationRange = 2;
+    public readonly int attackSpeedVariationRange = 4;
 
     public readonly int numberOfRarityTiers = 4;
     public readonly int[] tiersRacePoolMax = new int[] { 15, 15, 10, 6 };
@@ -70,10 +71,10 @@ public class CharacterGenerator
 
         //creating pools for race and job limits
         tiers = new Tier[numberOfRarityTiers];
-        for (int i=0; i<tiers.Length; i++)
+        for (int i = 0; i < tiers.Length; i++)
         {
             tiers[i].RacePoolSize = new int[Enum.GetNames(typeof(Enums.Race)).Length];
-            for (int j=0; j<tiers[i].RacePoolSize.Length; j++)
+            for (int j = 0; j < tiers[i].RacePoolSize.Length; j++)
             {
                 tiers[i].RacePoolSize[j] = tiersRacePoolMax[i];
             }
@@ -119,9 +120,9 @@ public class CharacterGenerator
         {
             raceTotalPool += tiers[characterRarity].RacePoolSize[i];
         }
-        int raceNumber = rngesus.Next(1, raceTotalPool+1);
+        int raceNumber = rngesus.Next(1, raceTotalPool + 1);
         Enums.Race race = 0;
-        for (int i=0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
+        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
         {
             raceNumber -= tiers[characterRarity].RacePoolSize[i];
             if (raceNumber <= 0)
@@ -137,9 +138,9 @@ public class CharacterGenerator
         {
             jobTotalPool += tiers[characterRarity].JobPoolSize[i];
         }
-        int jobNumber = rngesus.Next(1, jobTotalPool+1);
+        int jobNumber = rngesus.Next(1, jobTotalPool + 1);
         Enums.Job job = 0;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
+        for (int i = 0; i < Enum.GetNames(typeof(Enums.Job)).Length; i++)
         {
             jobNumber -= tiers[characterRarity].JobPoolSize[i];
             if (jobNumber <= 0)
@@ -153,8 +154,12 @@ public class CharacterGenerator
         int randomValue = rngesus.Next(-movementVariationRange, movementVariationRange + 1);
         currentMovementSpeed += randomValue;
 
+        // Randomize Attack Speed
+        randomValue = rngesus.Next(-attackSpeedVariationRange, attackSpeedVariationRange + 1);
+        currentAttackSpeed += randomValue;
+
         //calculate stats
-        for (int i=0; i< rarityBonusUpgrades[characterRarity]; i++)
+        for (int i = 0; i < rarityBonusUpgrades[characterRarity]; i++)
         {
             randomValue = rngesus.Next(1, 3);
             switch (randomValue)
@@ -172,11 +177,13 @@ public class CharacterGenerator
 
         //randomize range unit
         bool rangeUpgrade = false;
+        int count = 0;
         do
         {
             randomValue = rngesus.Next(0, 11);
             if (randomValue < 3)
             {
+                count++;
                 rangeUpgrade = true;
                 currentAttackRange += rangeAdditor;
 
@@ -198,29 +205,22 @@ public class CharacterGenerator
             {
                 rangeUpgrade = false;
             }
-        } while (rangeUpgrade);
+        } while (rangeUpgrade && count < 5);
 
         tiers[characterRarity].JobPoolSize[(int)job]--;
         tiers[characterRarity].RacePoolSize[(int)race]--;
-        Piece currentPiece = new Piece (
-            NameGenerator.GenerateName(job, race),
-            currentHitPoints,
-            currentAttackDamage,
-            currentAttackRange, // TODO: Please help to verify if this is correct, much thanks~! - Nic
-            false);
-        currentPiece.SetAttackSpeed(currentAttackSpeed);
-        currentPiece.SetMaximumManaPoints(currentManaPoints);
-        currentPiece.SetMovementSpeed(currentMovementSpeed);
-        currentPiece.SetRace(race);
-        currentPiece.SetClass(job);
-        currentPiece.SetRarity(characterRarity+1);
+
+        Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), race, job, characterRarity + 1, false,
+                                       currentHitPoints, currentManaPoints,
+                                       currentAttackDamage, currentAttackRange,
+                                       currentAttackSpeed, currentMovementSpeed);
         return currentPiece;
-        //throw not implemented //still need to remove from pool and do stat adjustments
+        //throw not implemented // still need to remove from pool and do stat adjustments
     }
 
     public void ReturnPiece(Piece piece)
     {
-        int rarityTier = piece.GetRarity()-1;
+        int rarityTier = piece.GetRarity() - 1;
         tiers[rarityTier].JobPoolSize[(int)piece.GetClass()]++;
         tiers[rarityTier].RacePoolSize[(int)piece.GetRace()]++;
     }

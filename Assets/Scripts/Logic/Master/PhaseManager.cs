@@ -29,8 +29,10 @@ public class PhaseManager : MonoBehaviour
     public MarketManager marketManager;
     public InventoryManager inventoryManager;
     public SummonManager summonManager;
+
     public RequestHandler requestHandler;
     public RoomManager roomManager;
+    public SynergyManager synergyManager;
 
     Phase currentPhase = Phase.NIL;
     private int round = 0;
@@ -178,6 +180,7 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.PreCombat);
         summonManager.GenerateAndSummonEnemies(round, numPlayers);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
+        synergyManager.ApplySynergiesToArmies(numPlayers);
         yield return Countdown(2);
         Combat();
     }

@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.26666668}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -136,4 +136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BenchItemPrefab: {fileID: 5065093753651274998, guid: df352e63aa6db4b9b9f63ca09a82cc8d,
     type: 3}
+  isOccupied: 0
+  index: 0
   benchItem: {fileID: 0}

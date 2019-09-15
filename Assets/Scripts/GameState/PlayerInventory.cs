@@ -23,6 +23,8 @@ public class PlayerInventory : ScriptableObject
     private List<Piece> army; // pieces on board
     private int armySize; // max pieces on board
     private static int MaxBenchSize = 8;
+    public int[] jobCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
+    public int[] raceCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
 
     public void Reset(int startingGold, int startingArmySize)
     {
@@ -31,6 +33,14 @@ public class PlayerInventory : ScriptableObject
         army = new List<Piece>();
         benchCount = 0;
         armySize = startingArmySize;
+        for (int i=0; i< jobCount.Length; i++)
+        {
+            jobCount[i] = 0;
+        }
+        for (int i = 0; i < raceCount.Length; i++)
+        {
+            raceCount[i] = 0;
+        }
     }
 
     public Player GetOwner()
@@ -158,13 +168,35 @@ public class PlayerInventory : ScriptableObject
 
     public bool AddToArmy(Piece piece)
     {
+        jobCount[(int)piece.GetClass()]++;
+        raceCount[(int)piece.GetRace()]++;
         army.Add(piece);
         return true;
     }
 
     public bool RemoveFromArmy(Piece piece)
     {
+        jobCount[(int)piece.GetClass()]--;
+        raceCount[(int)piece.GetRace()]--;
         return army.Remove(piece);
+    }
+
+    public bool HasSynergy(Enums.Race race)
+    {
+        if (raceCount[(int)race] >= SynergyManager.raceSynergyRequirement[(int)race])
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool HasSynergy(Enums.Job job)
+    {
+        if (jobCount[(int)job] >= SynergyManager.jobSynergyRequirement[(int)job])
+        {
+            return true;
+        }
+        return false;
     }
 
     public bool IsArmyFull()

@@ -9,6 +9,22 @@ public class BenchSlot : MonoBehaviour
     public int index;
     public BenchItem benchItem;
 
+    public void SetOccupant(Piece piece, GameObject characterModel)
+    {
+        isOccupied = true;
+
+        // create item prefab
+        GameObject benchItemObj = Instantiate(BenchItemPrefab) as GameObject;
+        benchItem = benchItemObj.GetComponent<BenchItem>();
+        benchItem.piece = piece;
+        benchItem.index = index;
+        benchItem.InstantiateModelPrefab(characterModel);
+
+        // set item prefab as child of slot
+        benchItemObj.transform.SetParent(this.transform);
+        benchItemObj.transform.localPosition = Vector3.zero;
+    }
+
     public void SetOccupant(Piece piece)
     {
         isOccupied = true;

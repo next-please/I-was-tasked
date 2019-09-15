@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using TMPro;
 
 public class PieceView : MonoBehaviour
 {
+    [HideInInspector]
     public Animator animator;
     public Piece piece = null; // piece that I'm trying to display
+    public GameObject statusBars;
     public GameObject currentHPBar;
     public GameObject currentMPBar;
+    public TextMeshPro nameText; // todo: remove later
     private IViewState prevViewAction;
     private int prevHP;
     private int prevMP;
@@ -17,11 +21,29 @@ public class PieceView : MonoBehaviour
     private void Start()
     {
         SetCurrentMPBar(0.0f);
+        Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        statusBars.transform.LookAt(lookAtPosition);
     }
 
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
+
+        // todo: remove later
+        if (nameText != null)
+        {
+            nameText.text = piece.GetRace().ToString() + " " + piece.GetClass().ToString();
+        }
+    }
+
+    public void InstantiateModelPrefab(GameObject characterModel)
+    {
+        GameObject modelPrefab = Instantiate(characterModel) as GameObject;
+        modelPrefab.transform.SetParent(this.transform);
+        modelPrefab.transform.localPosition = Vector3.zero;
+        modelPrefab.transform.rotation = transform.rotation;
+
+        animator = modelPrefab.GetComponent<Animator>();
     }
 
     public void SetReferencePosition(Vector3 position)
@@ -83,6 +105,9 @@ public class PieceView : MonoBehaviour
         viewAction.CallViewStartIfNeeded(this);
         viewAction.OnViewUpdate(this);
         prevViewAction = viewAction;
+
+        Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        statusBars.transform.LookAt(lookAtPosition);
     }
 
     void OnPieceRemoved(RemovePieceFromBoardEvent e)
@@ -131,6 +156,6 @@ public class PieceView : MonoBehaviour
     {
         int i = tile.GetRow();
         int j = tile.GetCol();
-        return referencePosition + new Vector3(i, 1, j);
+        return referencePosition + new Vector3(i, 0.5f, j);
     }
 }

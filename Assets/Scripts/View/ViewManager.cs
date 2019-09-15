@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ViewManager : MonoBehaviour
 {
+    public CharacterPrefabLoader characterPrefabLoader;
     public GameObject FriendlyPieceViewPrefab;
     public GameObject EnemyPieceViewPrefab;
     public GameObject TileViewPrefab;
@@ -52,10 +53,11 @@ public class ViewManager : MonoBehaviour
 
         Vector3 startPos = (Vector3.right * e.board.GetNumRows() * TileSize + Vector3.right * 2) * (int)player; // board + offset
         GameObject pieceViewPrefab = piece.IsEnemy() ? EnemyPieceViewPrefab : FriendlyPieceViewPrefab;
-        GameObject pieceObj = Instantiate(pieceViewPrefab, startPos + new Vector3(i, 1, j) * TileSize, Quaternion.identity);
+        GameObject pieceObj = Instantiate(pieceViewPrefab, startPos + new Vector3(i, 0.5f, j) * TileSize, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.SetReferencePosition(startPos);
         pieceView.TrackPiece(piece);
+        pieceView.InstantiateModelPrefab(characterPrefabLoader.GetPrefab(piece));
         pieceObj.transform.parent = transform;
     }
 }

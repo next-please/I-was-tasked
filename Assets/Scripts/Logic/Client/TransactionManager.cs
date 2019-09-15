@@ -18,7 +18,6 @@ public class TransactionManager : MonoBehaviour
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
     {
         int price = (int)Math.Pow(2, piece.GetRarity() - 1);
-
         // check locally if we can do this transaction for immediate feedback
         if (!IsValidPurchase(player, price))
         {
@@ -34,7 +33,7 @@ public class TransactionManager : MonoBehaviour
     {
         marketManager.RemoveMarketPiece(piece);
         inventoryManager.AddToBench(player, piece);
-        inventoryManager.DeductGold(player, price);
+        inventoryManager.DeductGold(player, piece.GetPrice());
     }
 
     public void TrySellBenchPiece(Player player, Piece piece)
@@ -55,7 +54,15 @@ public class TransactionManager : MonoBehaviour
         if (inventoryManager.RemoveFromBench(player, piece))
         {
             marketManager.characterGenerator.ReturnPiece(piece);
+            inventoryManager.AddGold(player, piece.GetPrice());
         }
+    }
+
+    // TODO: DOES NOT UPDATE CHARACTER GENERATORIN ALL CLIENTS
+    public void SellPiece(Player player, Piece piece)
+    {
+        marketManager.characterGenerator.ReturnPiece(piece);
+        inventoryManager.AddGold(player, piece.GetPrice());
     }
 
 #region Upgrades

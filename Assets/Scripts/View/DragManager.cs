@@ -57,7 +57,11 @@ public class DragManager : MonoBehaviour
 
     void OnTrashPieceOnBoardEvent(TrashPieceOnBoardEvent e)
     {
-        arrangementManager.TryRemovePieceOnBoard(RoomManager.LocalPlayer, e.piece);
+
+        if (arrangementManager.TryRemovePieceOnBoard(RoomManager.LocalPlayer, e.piece))
+        {
+            transactionManager.SellPiece(RoomManager.LocalPlayer, e.piece);
+        }
     }
 
     void OnTrashPieceOnBenchEvent(TrashPieceOnBenchEvent e)
