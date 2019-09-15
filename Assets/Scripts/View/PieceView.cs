@@ -114,7 +114,9 @@ public class PieceView : MonoBehaviour
     {
         if (e.piece == piece)
         {
-            transform.position = ViewManager.CalculateTileWorldPosition(e.tile);
+            Vector3 piecePosition = ViewManager.CalculateTileWorldPosition(e.tile);
+            piecePosition.y = 0.5f;
+            transform.position = piecePosition;
             transform.rotation = Quaternion.identity;
         }
     }
