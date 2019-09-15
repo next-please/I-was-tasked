@@ -136,10 +136,10 @@ namespace Com.Nextplease.IWT
             // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
             {
-                Debug.Log("Load MainScene");
+                Debug.Log("Load Main Scene MP");
                 // #Critical
                 // Load the Level.
-                PhotonNetwork.LoadLevel("Main Scene");
+                PhotonNetwork.LoadLevel("Main Scene MP");
             }
         }
 
