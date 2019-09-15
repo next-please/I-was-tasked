@@ -179,6 +179,7 @@ public class PhaseManager : MonoBehaviour
     IEnumerator PreCombatToCombat(List<List<Piece>> enemies)
     {
         ChangePhase(Phase.PreCombat);
+        summonManager.RemoveAllEnemyPieces(numPlayers);
         summonManager.SummonEnemies(enemies);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
         synergyManager.ApplySynergiesToArmies(numPlayers);

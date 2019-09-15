@@ -52,4 +52,13 @@ public class SummonManager : MonoBehaviour
             }
         }
     }
+
+    public void RemoveAllEnemyPieces(int numPlayers = 1)
+    {
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            Player player = (Player) i;
+            boardManager.RemoveAllEnemies(player);
+        }
+    }
 }
