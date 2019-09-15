@@ -2,6 +2,10 @@
 
 public class MoveState : State
 {
+    // View Meta Info
+    Tile destination = null;
+    float speedToTranslate = 0;
+
     public override void OnStart(Piece piece, Board board)
     {
         ticksRemaining = 150 / piece.GetMovementSpeed();
@@ -13,9 +17,6 @@ public class MoveState : State
         board.MovePieceToTile(piece, piece.GetLockedTile());
     }
 
-    // View Meta Info
-    Tile destination = null;
-    float speedToTranslate = 0;
     public override void OnViewStart(PieceView pieceView)
     {
         destination = pieceView.piece.GetLockedTile();
