@@ -54,7 +54,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Elf Knight
+  m_Name: Rogue
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -148,7 +148,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4d18e2fa017252442b1b0406994d3a4c, type: 3}
+  m_Motion: {fileID: 7400000, guid: 3d43d59b0ccb19d46b607630aba32f4a, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

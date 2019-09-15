@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Orc Druid
+  m_Controller: {fileID: 9100000, guid: a1b51b6a68ae04665917c6dd97ade73c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 9d068bf2c1428b440bbc054264b47f7f, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 6b1bc20051f9f24458320dc335c31ead, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: bae247254f9e61f43a68966546fad9c6, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 2a6c735466af0544d89b230b82c696dc, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 96e2e55c19ae92340b7bbdbadd0519ab, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 15d582e86caa0ca4eb8ded3d1f1e7639, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e2c0350c14bfec741b252831480a53ec, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 65854603a8587d744acee230e2042718, type: 3}

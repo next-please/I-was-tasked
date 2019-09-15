@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Orc Mage
+  m_Controller: {fileID: 9100000, guid: a4478c5373618425990ebb6aa630ea48, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 9d068bf2c1428b440bbc054264b47f7f, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 21f9b945a5eda5746b7ae70a054c3a98, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: bae247254f9e61f43a68966546fad9c6, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 562798fc89ab49e4290948c7b7dc18db, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 96e2e55c19ae92340b7bbdbadd0519ab, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 1fcdb752aa8ab1f4a9b4a6ca797478e3, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e2c0350c14bfec741b252831480a53ec, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 5a15788bfca31ab47a4f7803a36f2083, type: 3}

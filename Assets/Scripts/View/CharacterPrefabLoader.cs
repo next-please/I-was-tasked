@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class CharacterPrefabLoader : MonoBehaviour
 {
-    public GameObject ElfPrefab;
-    public GameObject HumanPrefab;
-    public GameObject OrcPrefab;
-    public GameObject UndeadPrefab;
-
     public GameObject EnemyPrefab;
 
     public GameObject ElfDruidPrefab;
@@ -47,23 +42,23 @@ public class CharacterPrefabLoader : MonoBehaviour
             {(Enums.Race.Elf, Enums.Job.Priest), ElfPriestPrefab},
             {(Enums.Race.Elf, Enums.Job.Rogue), ElfRoguePrefab},
 
-            {(Enums.Race.Human, Enums.Job.Druid), HumanPrefab},
-            {(Enums.Race.Human, Enums.Job.Knight), HumanPrefab},
-            {(Enums.Race.Human, Enums.Job.Mage), HumanPrefab},
-            {(Enums.Race.Human, Enums.Job.Priest), HumanPrefab},
-            {(Enums.Race.Human, Enums.Job.Rogue), HumanPrefab},
+            {(Enums.Race.Human, Enums.Job.Druid), HumanDruidPrefab},
+            {(Enums.Race.Human, Enums.Job.Knight), HumanKnightPrefab},
+            {(Enums.Race.Human, Enums.Job.Mage), HumanMagePrefab},
+            {(Enums.Race.Human, Enums.Job.Priest), HumanPriestPrefab},
+            {(Enums.Race.Human, Enums.Job.Rogue), HumanRoguePrefab},
 
-            {(Enums.Race.Orc, Enums.Job.Druid), OrcPrefab},
-            {(Enums.Race.Orc, Enums.Job.Knight), OrcPrefab},
-            {(Enums.Race.Orc, Enums.Job.Mage), OrcPrefab},
-            {(Enums.Race.Orc, Enums.Job.Priest), OrcPrefab},
-            {(Enums.Race.Orc, Enums.Job.Rogue), OrcPrefab},
+            {(Enums.Race.Orc, Enums.Job.Druid), OrcDruidPrefab},
+            {(Enums.Race.Orc, Enums.Job.Knight), OrcKnightPrefab},
+            {(Enums.Race.Orc, Enums.Job.Mage), OrcMagePrefab},
+            {(Enums.Race.Orc, Enums.Job.Priest), OrcPriestPrefab},
+            {(Enums.Race.Orc, Enums.Job.Rogue), OrcRoguePrefab},
 
-            {(Enums.Race.Undead, Enums.Job.Druid), UndeadPrefab},
-            {(Enums.Race.Undead, Enums.Job.Knight), UndeadPrefab},
-            {(Enums.Race.Undead, Enums.Job.Mage), UndeadPrefab},
-            {(Enums.Race.Undead, Enums.Job.Priest), UndeadPrefab},
-            {(Enums.Race.Undead, Enums.Job.Rogue), UndeadPrefab},
+            {(Enums.Race.Undead, Enums.Job.Druid), UndeadDruidPrefab},
+            {(Enums.Race.Undead, Enums.Job.Knight), UndeadKnightPrefab},
+            {(Enums.Race.Undead, Enums.Job.Mage), UndeadMagePrefab},
+            {(Enums.Race.Undead, Enums.Job.Priest), UndeadPriestPrefab},
+            {(Enums.Race.Undead, Enums.Job.Rogue), UndeadRoguePrefab},
         };
     }
 

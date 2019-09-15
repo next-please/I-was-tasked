@@ -54,7 +54,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Elf Priest
+  m_Name: Druid
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -90,7 +90,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 77ecb2093d3d198409a0f90d8ee25f06, type: 3}
+  m_Motion: {fileID: 7400000, guid: bae247254f9e61f43a68966546fad9c6, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -148,7 +148,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 492a3f397bf1f1d4793334aacc7cf389, type: 3}
+  m_Motion: {fileID: 7400000, guid: e2c0350c14bfec741b252831480a53ec, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

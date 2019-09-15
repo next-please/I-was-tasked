@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Undead Druid
+  m_Controller: {fileID: 9100000, guid: a1b51b6a68ae04665917c6dd97ade73c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 9d068bf2c1428b440bbc054264b47f7f, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 7b456ffb0f512c441bcae309f8e70eb1, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: bae247254f9e61f43a68966546fad9c6, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 603f694b599cc3f499574bc949a42fbd, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 96e2e55c19ae92340b7bbdbadd0519ab, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 498bc260b390a2745b6014ec4fa5dc06, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: e2c0350c14bfec741b252831480a53ec, type: 3}
+    m_OverrideClip: {fileID: 7400000, guid: 08784b2405c72564693bf2af5a898c81, type: 3}

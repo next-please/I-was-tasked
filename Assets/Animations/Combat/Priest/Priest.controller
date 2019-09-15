@@ -42,7 +42,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: dd2b99765c3d5a544a40db8aac580734, type: 3}
+  m_Motion: {fileID: 7400000, guid: 96e2e55c19ae92340b7bbdbadd0519ab, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -54,7 +54,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Elf Rogue
+  m_Name: Priest
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -90,7 +90,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 200f8956e856fa24589f5b45c23422ab, type: 3}
+  m_Motion: {fileID: 7400000, guid: 77ecb2093d3d198409a0f90d8ee25f06, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -148,7 +148,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 3d43d59b0ccb19d46b607630aba32f4a, type: 3}
+  m_Motion: {fileID: 7400000, guid: 492a3f397bf1f1d4793334aacc7cf389, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
