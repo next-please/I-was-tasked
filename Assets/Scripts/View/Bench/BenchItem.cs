@@ -35,7 +35,7 @@ public class BenchItem : InteractablePiece
     {
         GameObject modelPrefab = Instantiate(characterModel) as GameObject;
         modelPrefab.transform.SetParent(this.transform);
-        modelPrefab.transform.localPosition = Vector3.zero;
+        modelPrefab.transform.localPosition = new Vector3(0, -0.5f, 0);
         modelPrefab.transform.localScale = Vector3.one;
 
         animator = modelPrefab.GetComponent<Animator>();

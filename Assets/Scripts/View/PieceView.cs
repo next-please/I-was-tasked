@@ -38,7 +38,7 @@ public class PieceView : MonoBehaviour
     {
         GameObject modelPrefab = Instantiate(characterModel) as GameObject;
         modelPrefab.transform.SetParent(this.transform);
-        modelPrefab.transform.localPosition = Vector3.zero;
+        modelPrefab.transform.localPosition = new Vector3(0, -0.5f, 0);
         modelPrefab.transform.rotation = transform.rotation;
 
         animator = modelPrefab.GetComponent<Animator>();
