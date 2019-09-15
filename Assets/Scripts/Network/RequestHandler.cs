@@ -184,7 +184,8 @@ namespace Com.Nextplease.IWT
                     phaseManager.StartMarketPhase();
                     break;
                 case PRECOMBAT_PHASE:
-                    phaseManager.StartPreCombat();
+                    PreCombatData data_12 = req.GetData() as PreCombatData;
+                    phaseManager.StartPreCombat(data_12.enemies);
                     break;
                 case POSTCOMBAT_PHASE:
                     phaseManager.StartPostCombat();

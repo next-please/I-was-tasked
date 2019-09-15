@@ -45,11 +45,11 @@ public class EnemyGenerator
         currentDamage = defaultDamage;
     }
 
-    public ArrayList generateEnemies(int roundNumber)
+    public List<Piece> generateEnemies(int roundNumber)
     {
         resetEnemyStats();
 
-        ArrayList enemyPieces = new ArrayList();
+        List<Piece> enemyPieces = new List<Piece>();
 
         int randomValue;
         for (int i=1; i<roundNumber; i++)

@@ -165,20 +165,21 @@ public class PhaseManager : MonoBehaviour
 
     void TryPreCombat()
     {
-        Data data = new PhaseManagementData(this.numPlayers, round);
+        var enemies = summonManager.GenerateEnemies(round, numPlayers);
+        Data data = new PreCombatData(enemies);
         Request req = new Request(ActionTypes.PRECOMBAT_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
-    public void StartPreCombat()
+    public void StartPreCombat(List<List<Piece>> enemies)
     {
-        StartCoroutine(PreCombatToCombat());
+        StartCoroutine(PreCombatToCombat(enemies));
     }
 
-    IEnumerator PreCombatToCombat()
+    IEnumerator PreCombatToCombat(List<List<Piece>> enemies)
     {
         ChangePhase(Phase.PreCombat);
-        summonManager.GenerateAndSummonEnemies(round, numPlayers);
+        summonManager.SummonEnemies(enemies);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
         synergyManager.ApplySynergiesToArmies(numPlayers);
         yield return Countdown(2);
