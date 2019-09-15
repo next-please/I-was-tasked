@@ -15,24 +15,22 @@ public class AttackState : State
 
         if (!target.IsDead())
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - piece.GetAttackDamage());
-            if (piece.GetLifestealPercentage() > 0) // Undead synergy
+            int attackTicksTotal = (piece.GetAttackRange() > 1) ? 50 : 0;
+            Attack attack = new Attack(piece, target, piece.GetAttackDamage(), attackTicksTotal);
+            if (attackTicksTotal == 0) // Melee Piece
             {
-                piece.SetCurrentHitPoints(Math.Min(piece.GetMaximumHitPoints(),
-                    (int) Math.Floor((piece.GetCurrentHitPoints() + piece.GetAttackDamage()*piece.GetLifestealPercentage()))));
+                attack.ApplyDamageToInflict();
             }
-            if (target.GetRecoilPercentage() > 0) // Knight synergy
+            else
             {
-                piece.SetCurrentHitPoints((int) Math.Ceiling(piece.GetCurrentHitPoints() - piece.GetAttackDamage() * target.GetRecoilPercentage()));
+                board.GetAttacksToProcess().Enqueue(attack);
             }
-            target.SetCurrentManaPoints(target.GetCurrentManaPoints() + target.GetManaPointsGainedOnDamaged());
-            Debug.Log(piece.GetName() + " has attacked " + target.GetName() + " for " + piece.GetAttackDamage() + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
         }
         else
         {
             ticksRemaining = 0;
         }
-     }
+    }
 
     public override void OnTick(Piece piece, Board board)
     {

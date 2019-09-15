@@ -8,6 +8,7 @@ public class Board
     private Tile[][] tiles;
     private List<Piece> piecesOnBoard;
     private List<Piece> activePiecesOnBoard;
+    private Queue<Attack> attacksToProcess;
     private int numRows;
     private int numCols;
 
@@ -36,6 +37,7 @@ public class Board
         SetNumRows(numRows);
         SetNumCols(numCols);
         InitialiseGrid();
+        attacksToProcess = new Queue<Attack>();
     }
 
     private void InitialiseGrid()
@@ -86,6 +88,11 @@ public class Board
     public List<Piece> GetFriendliesOnBoard()
     {
         return piecesOnBoard.FindAll(p => !p.IsEnemy());
+    }
+
+    public Queue<Attack> GetAttacksToProcess()
+    {
+        return attacksToProcess;
     }
 
     public int GetNumRows()
@@ -313,5 +320,14 @@ public class Board
         DeactivatePieceOnBoard(piece);
         piecesOnBoard.Remove(piece);
         piecesOnBoard.Sort(new PieceSort());
+    }
+
+    public void ClearAttacksToProcess()
+    {
+        while (attacksToProcess.Count > 0)
+        {
+            Attack attack = attacksToProcess.Dequeue();
+            attack.DestroyProjectileView();
+        }
     }
 }
