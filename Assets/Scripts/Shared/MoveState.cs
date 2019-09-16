@@ -39,6 +39,6 @@ public class MoveState : State
         // estimate how fast we need to move
         Vector3 tilePos = new Vector3(destination.GetRow(), 1, destination.GetCol());
         pieceView.transform.position = tilePos;
-        pieceView.animator.Play("Idle", 0);
+        // pieceView.animator.Play("Idle", 0);
     }
 }
