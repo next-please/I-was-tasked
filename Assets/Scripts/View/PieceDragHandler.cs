@@ -37,18 +37,19 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        if (isDragDisabled)
+        if (OnBeginDragPreparationSuccess(eventData))
         {
-            eventData.pointerDrag = null;
-            return;
+            originalPos = transform.position;
+            SetDraggedState();
         }
-        originalPos = transform.position;
-        SetDraggedState();
     }
 
     public override void OnDrag(PointerEventData eventData)
     {
-        transform.position = GetMouseWorldPosition();
+        if (OnDragPreparationSuccess(eventData))
+        {
+            transform.position = GetMouseWorldPosition();
+        }
     }
 
     public override void OnBenchDrop(BenchSlot slot)

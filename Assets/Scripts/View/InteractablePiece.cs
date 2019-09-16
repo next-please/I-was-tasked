@@ -73,6 +73,11 @@ public abstract class InteractablePiece :
     {
         eventData.selectedObject = null;
 
+        if (isDragDisabled)
+        {
+            return;
+        }
+
         HitTarget target = GetHitTarget();
         switch (target)
         {
@@ -142,5 +147,25 @@ public abstract class InteractablePiece :
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = zPosOnDrag;
         return Camera.main.ScreenToWorldPoint(mousePosition);
+    }
+
+    protected bool OnBeginDragPreparationSuccess(PointerEventData eventData)
+    {
+        if (isDragDisabled)
+        {
+            eventData.pointerDrag = null;
+            return false;
+        }
+        return true;
+    }
+
+    protected bool OnDragPreparationSuccess(PointerEventData eventData)
+    {
+        if (isDragDisabled)
+        {
+            OnEmptyDrop();
+            return false;
+        }
+        return true;
     }
 }
