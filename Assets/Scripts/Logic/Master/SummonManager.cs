@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SummonManager : MonoBehaviour
@@ -7,18 +8,31 @@ public class SummonManager : MonoBehaviour
     public InventoryManager inventoryManager;
 
     EnemyGenerator enemyGenerator = new EnemyGenerator();
-    public void GenerateAndSummonEnemies(int currentRound, int numPlayers = 1)
+
+    public void SummonEnemies(List<List<Piece>> enemies)
     {
-        for (int i = 0; i < numPlayers; ++i)
+        int i = 0;
+        foreach (List<Piece> enemyPieces in enemies)
         {
             Player player = (Player) i;
-            boardManager.RemoveAllEnemies(player);
-            ArrayList enemyPieces = enemyGenerator.generateEnemies(currentRound);
             for (int _i = 0; _i < enemyPieces.Count; _i++)
             {
                 boardManager.AddPieceToBoard(player,(Piece)enemyPieces[_i], 7 - (_i / 8), 7 - (_i % 8));
             }
+            i++;
         }
+    }
+
+    public List<List<Piece>> GenerateEnemies(int currentRound, int numPlayers = 1)
+    {
+        List<List<Piece>> enemies = new List<List<Piece>>();
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            Player player = (Player) i;
+            List<Piece> enemyPieces = enemyGenerator.generateEnemies(currentRound);
+            enemies.Add(enemyPieces);
+        }
+        return enemies;
     }
 
     public void RemoveExcessPlayerPieces(int numPlayers = 1)
@@ -36,6 +50,15 @@ public class SummonManager : MonoBehaviour
                 }
                 inventoryManager.RemoveFromArmy(player, piece);
             }
+        }
+    }
+
+    public void RemoveAllEnemyPieces(int numPlayers = 1)
+    {
+        for (int i = 0; i < numPlayers; ++i)
+        {
+            Player player = (Player) i;
+            boardManager.RemoveAllEnemies(player);
         }
     }
 }

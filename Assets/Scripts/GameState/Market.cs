@@ -19,6 +19,11 @@ public class Market : ScriptableObject, IReadOnlyMarket
     public int CastleHealth = 10;
     public readonly int MaxMarketSize = 12;
 
+    void OnEnable()
+    {
+        MarketPieces = new List<Piece>();
+    }
+
     public IReadOnlyList<Piece> GetMarketPieces()
     {
         return MarketPieces;

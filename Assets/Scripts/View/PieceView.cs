@@ -23,6 +23,7 @@ public class PieceView : MonoBehaviour
         Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
         statusBars.transform.LookAt(lookAtPosition);
     }
+
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
@@ -63,7 +64,7 @@ public class PieceView : MonoBehaviour
             GUIStyle style = new GUIStyle();
             style.fontStyle = FontStyle.Bold;
             style.fontSize = 24;
-            Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetViewState().ToString(), style);
+            // Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetViewState().ToString(), style);
         }
     }
 
@@ -113,9 +114,9 @@ public class PieceView : MonoBehaviour
     {
         if (e.piece == piece)
         {
-            int i = e.tile.GetRow();
-            int j = e.tile.GetCol();
-            transform.position = new Vector3(i, 1, j);
+            Vector3 piecePosition = ViewManager.CalculateTileWorldPosition(e.tile);
+            piecePosition.y = 0.5f;
+            transform.position = piecePosition;
             transform.rotation = Quaternion.identity;
         }
     }

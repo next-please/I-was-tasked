@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Com.Nextplease.IWT;
 
 public class MarketUIManager : MonoBehaviour
 {
@@ -131,8 +132,7 @@ public class MarketUIManager : MonoBehaviour
     void PurchasePiece(int itemIndex)
     {
         Piece pieceToPurchase = marketPieces[itemIndex];
-        // TODO: FIX THIS!
-        Player player = Player.Zero;
+        Player player = RoomManager.GetLocalPlayer();
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
     }
 

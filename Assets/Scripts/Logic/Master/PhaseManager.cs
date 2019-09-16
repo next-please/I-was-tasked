@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
 
+using Com.Nextplease.IWT;
+
 public enum Phase
 {
     NIL,
@@ -17,7 +19,6 @@ public enum Phase
 
 public class PhaseManager : MonoBehaviour
 {
-    public int NumPlayers = 1;
     public Text CurrentPhaseText;
     public Text CurrentTimeText;
     public Text CurrentRoundText;
@@ -28,6 +29,9 @@ public class PhaseManager : MonoBehaviour
     public MarketManager marketManager;
     public InventoryManager inventoryManager;
     public SummonManager summonManager;
+
+    public RequestHandler requestHandler;
+    public RoomManager roomManager;
     public SynergyManager synergyManager;
 
     Phase currentPhase = Phase.NIL;
@@ -36,11 +40,16 @@ public class PhaseManager : MonoBehaviour
     private float countdown = 0;
     private int simulationPlayerCount = 0;
 
-    void Start()
+    private int numPlayers = 1;
+    private bool phasesRunning = false;
+
+    public void StartPhases(int numPlayers = 1)
     {
-        round = 0;
-        Initialize();
-        StartCoroutine(MarketToCombat());
+        this.numPlayers = numPlayers;
+        if (phasesRunning) return;
+        phasesRunning = true;
+        roomManager.NumPlayersToStart = numPlayers;
+        TryIntialize();
     }
 
     void OnGameOver()
@@ -58,22 +67,6 @@ public class PhaseManager : MonoBehaviour
         WinScreen.enabled = true;
     }
 
-    IEnumerator MarketToCombat()
-    {
-        round++;
-        Debug.Log("Rounds remaining: " + (round - RoundsNeededToSurvive));
-        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
-        if (round > RoundsNeededToSurvive)
-        {
-            OnGameOver();
-            yield break;
-        }
-        CurrentRoundText.text = "Round " + round;
-        yield return MarketPhase();
-        yield return PreCombat();
-        Combat();
-    }
-
     public void SimulationEnded(Player player, List<Piece> piecesOnBoard)
     {
         simulationPlayerCount++;
@@ -83,17 +76,11 @@ public class PhaseManager : MonoBehaviour
         {
             OnGameOver();
         }
-        else if (simulationPlayerCount == NumPlayers)
+        else if (simulationPlayerCount == numPlayers)
         {
             simulationPlayerCount = 0;
-            StartCoroutine(PostCombatToCombat());
+            TryPostCombat();
         }
-    }
-
-    IEnumerator PostCombatToCombat()
-    {
-        yield return PostCombat();
-        yield return MarketToCombat();
     }
 
     IEnumerator Countdown(int time)
@@ -106,43 +93,125 @@ public class PhaseManager : MonoBehaviour
         }
     }
 
-    // PHASES
-    void Initialize()
+    public void SetNumPlayers(int numPlayers)
     {
-        ChangePhase(Phase.Initialization);
-        boardManager.CreateBoards(NumPlayers);
-        inventoryManager.ResetInventories();
+        this.numPlayers = numPlayers;
     }
 
-    IEnumerator MarketPhase()
+    // PHASES
+    public void TryIntialize()
+    {
+        Data data = new PhaseManagementData(this.numPlayers, 0);
+        Request req = new Request(10, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public void Initialize(int numPlayers) {
+        this.round = 0;
+        this.numPlayers = numPlayers;
+        ChangePhase(Phase.Initialization);
+        boardManager.CreateBoards(numPlayers);
+        inventoryManager.ResetInventories();
+        TryStartRound();
+    }
+
+    void TryStartRound()
+    {
+        Data data = new PhaseManagementData(this.numPlayers, round);
+        Request req = new Request(ActionTypes.ROUND_START, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public void StartRound()
+    {
+        StartCoroutine(StartRoundToMarket());
+    }
+
+    IEnumerator StartRoundToMarket()
+    {
+        round++;
+        Debug.Log("Rounds remaining: " + (round - RoundsNeededToSurvive));
+        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
+        if (round > RoundsNeededToSurvive)
+        {
+            OnGameOver();
+            yield break;
+        }
+        CurrentRoundText.text = "Round " + round;
+        TryMarketPhase();
+    }
+
+    void TryMarketPhase()
+    {
+        List<Piece> newMarketPieces = marketManager.GenerateMarketItems();
+        Data data = new MarketManagementData(this.numPlayers, round, newMarketPieces);
+        Request req = new Request(ActionTypes.MARKET_PHASE, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public void StartMarketPhase()
+    {
+        StartCoroutine(MarketToPreCombat());
+    }
+
+    IEnumerator MarketToPreCombat()
     {
         ChangePhase(Phase.Market);
-        boardManager.ResetBoards(NumPlayers);
+        boardManager.ResetBoards(numPlayers);
         incomeManager.GenerateIncome(round);
-        marketManager.GenerateMarketItems();
         yield return Countdown(5);
+        TryPreCombat();
     }
 
-    IEnumerator PreCombat()
+    void TryPreCombat()
+    {
+        var enemies = summonManager.GenerateEnemies(round, numPlayers);
+        Data data = new PreCombatData(enemies);
+        Request req = new Request(ActionTypes.PRECOMBAT_PHASE, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public void StartPreCombat(List<List<Piece>> enemies)
+    {
+        StartCoroutine(PreCombatToCombat(enemies));
+    }
+
+    IEnumerator PreCombatToCombat(List<List<Piece>> enemies)
     {
         ChangePhase(Phase.PreCombat);
-        summonManager.GenerateAndSummonEnemies(round, NumPlayers);
-        summonManager.RemoveExcessPlayerPieces(NumPlayers);
-        synergyManager.ApplySynergiesToArmies(NumPlayers);
+        summonManager.RemoveAllEnemyPieces(numPlayers);
+        summonManager.SummonEnemies(enemies);
+        summonManager.RemoveExcessPlayerPieces(numPlayers);
+        synergyManager.ApplySynergiesToArmies(numPlayers);
         yield return Countdown(2);
+        Combat();
     }
 
     void Combat()
     {
         ChangePhase(Phase.Combat);
         CurrentTimeText.text = "Combat In Progress";
-        boardManager.StartSim(NumPlayers);
+        simulationPlayerCount = 0;
+        boardManager.StartSim(numPlayers);
     }
 
-    IEnumerator PostCombat()
+    void TryPostCombat()
+    {
+        Data data = new PhaseManagementData(this.numPlayers, round);
+        Request req = new Request(ActionTypes.POSTCOMBAT_PHASE, data); // TODO: replace with proper codes
+        requestHandler.SendRequest(req);
+    }
+
+    public void StartPostCombat()
+    {
+        StartCoroutine(PostCombatToStartRound());
+    }
+
+    IEnumerator PostCombatToStartRound()
     {
         ChangePhase(Phase.PostCombat);
         yield return Countdown(5);
+        TryStartRound();
     }
 
     void ChangePhase(Phase phase)

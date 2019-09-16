@@ -35,6 +35,11 @@ public class InventoryManager : MonoBehaviour
         return GetPlayerInventory(player).IsBenchFull();
     }
 
+    public bool IsBenchSlotVacant(Player player, int slotIndex)
+    {
+        return GetPlayerInventory(player).BenchVacantAtIndex(slotIndex);
+    }
+
     public bool AddToBench(Player player, Piece piece)
     {
         var playerInv = GetPlayerInventory(player);
@@ -61,6 +66,12 @@ public class InventoryManager : MonoBehaviour
     {
         var playerInv = GetPlayerInventory(player);
         return playerInv.BenchContainsPiece(piece);
+    }
+
+    public bool ArmyContainsPiece(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        return playerInv.ArmyContainsPiece(piece);
     }
 
     public int GetGold(Player player)
@@ -169,6 +180,12 @@ public class InventoryManager : MonoBehaviour
         var playerInv = GetPlayerInventory(player);
         int size = playerInv.GetArmySize();
         return playerInv.GetExcessArmyPieces();
+    }
+
+    public Piece GetActualArmyPiece(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        return playerInv.GetActualArmyPiece(piece);
     }
 }
 

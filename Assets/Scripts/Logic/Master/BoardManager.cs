@@ -6,6 +6,8 @@ using System.Linq;
 public class AddPieceToBoardEvent : GameEvent
 {
     public Piece piece;
+    public Player player;
+    public Board board;
     public int row;
     public int col;
 }
@@ -32,11 +34,12 @@ public class BoardManager : MonoBehaviour
         boards = new Board[numPlayers];
         for (int i = 0; i < numPlayers; ++i)
         {
+            Player player = (Player) i;
             Simulator sim = Simulators[i];
-            Board board = new Board(8, 8);
+            Board board = new Board(8, 8, player);
             boards[i] = board;
             sim.SetGameBoard(board);
-            viewManager.OnBoardCreated(board);
+            viewManager.OnBoardCreated(board, player);
         }
     }
 
@@ -117,6 +120,24 @@ public class BoardManager : MonoBehaviour
     {
         Board board = GetBoard(player);
         board.AddPieceToBoard(piece, i, j);
-        EventManager.Instance.Raise(new AddPieceToBoardEvent { piece = piece, row = i, col = j });
+        EventManager.Instance.Raise(new AddPieceToBoardEvent {
+            piece = piece,
+            row = i,
+            col = j,
+            board = board,
+            player = player,
+        });
+    }
+
+    public Tile GetActualTile(Player player, Tile tile)
+    {
+        Board board = GetBoard(player);
+        return board.GetTile(tile.GetRow(), tile.GetCol());
+    }
+
+    public void SetPieceAtTile(Player player, Piece piece, Tile tile)
+    {
+        MovePieceToTile(player, piece, tile);
+        piece.SetInitialTile(tile);
     }
 }

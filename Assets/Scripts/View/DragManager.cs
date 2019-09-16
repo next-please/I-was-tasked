@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Com.Nextplease.IWT;
 
 public class DragManager : MonoBehaviour
 {
     public ArrangementManager arrangementManager;
     public TransactionManager transactionManager;
-    public Player player;
     void OnEnable()
     {
         EventManager.Instance.AddListener<MoveOnBoardEvent>(OnMovePieceOnBoard);
@@ -29,7 +29,7 @@ public class DragManager : MonoBehaviour
 
     void OnMovePieceOnBoard(MoveOnBoardEvent e)
     {
-        arrangementManager.TryMovePieceOnBoard(player, e.piece, e.tile);
+        arrangementManager.TryMovePieceOnBoard(RoomManager.GetLocalPlayer(), e.piece, e.tile);
     }
 
     void OnMoveFromBoardToBench(MoveFromBoardToBenchEvent e)
@@ -38,7 +38,7 @@ public class DragManager : MonoBehaviour
         {
             return;
         }
-        arrangementManager.TryMoveBoardToBench(player, e.piece, e.slotIndex);
+        arrangementManager.TryMoveBoardToBench(RoomManager.GetLocalPlayer(), e.piece, e.slotIndex);
     }
 
     void OnMoveFromBenchToBoard(MoveFromBenchToBoardEvent e)
@@ -47,24 +47,21 @@ public class DragManager : MonoBehaviour
         {
             return;
         }
-        arrangementManager.TryMoveBenchToBoard(player, e.piece, e.tile);
+        arrangementManager.TryMoveBenchToBoard(RoomManager.GetLocalPlayer(), e.piece, e.tile);
     }
 
     void OnMoveOnBench(MoveOnBenchEvent e)
     {
-        arrangementManager.TryMovePieceOnBench(player, e.piece, e.slotIndex);
+        arrangementManager.TryMovePieceOnBench(RoomManager.GetLocalPlayer(), e.piece, e.slotIndex);
     }
 
     void OnTrashPieceOnBoardEvent(TrashPieceOnBoardEvent e)
     {
-        if (arrangementManager.TryRemovePieceOnBoard(player, e.piece))
-        {
-            transactionManager.SellPiece(player, e.piece);
-        }
+        transactionManager.TrySellBoardPiece(RoomManager.GetLocalPlayer(), e.piece);
     }
 
     void OnTrashPieceOnBenchEvent(TrashPieceOnBenchEvent e)
     {
-        transactionManager.TrySellBenchPiece(player, e.piece);
+        transactionManager.TrySellBenchPiece(RoomManager.GetLocalPlayer(), e.piece);
     }
 }

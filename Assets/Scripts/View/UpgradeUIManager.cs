@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Com.Nextplease.IWT;
 
 public class UpgradeUIManager : MonoBehaviour
 {
@@ -11,10 +12,10 @@ public class UpgradeUIManager : MonoBehaviour
     public GameObject UpgradeMarketSize;
     public GameObject UpgradeIncome;
 
-    Button[] rarityButtons;
-    Button[] sizeButtons;
-    Button[] incomeButtons;
-    Button[] armyButtons;
+    Button rarityButton;
+    Button sizeButton;
+    Button incomeButton;
+    Button armyButton;
 
     void OnEnable()
     {
@@ -28,7 +29,6 @@ public class UpgradeUIManager : MonoBehaviour
         EventManager.Instance.AddListener<InventoryChangeEvent>(UpdateArmySizeButtonsText);
     }
 
-    // Start is called before the first frame update
     void Awake()
     {
         SetMarketRarityButtons();
@@ -42,75 +42,46 @@ public class UpgradeUIManager : MonoBehaviour
 
     void UpdateMarketRarityButtonsText(MarketUpdateEvent e /*unused and is a hack*/)
     {
-        if (rarityButtons == null)
+        if (rarityButton == null)
             return;
-        for (int i = 0; i < 3; ++i)
-        {
-            Button button = rarityButtons[i];
-            Text text = button.GetComponentInChildren<Text>();
-            text.text = "Upgrade Market Rarity ($" + transactionManager.GetMarketRarityCost() + ")";
-        }
+        Text text = rarityButton.GetComponentInChildren<Text>();
+        text.text = "Upgrade Market Rarity ($" + transactionManager.GetMarketRarityCost() + ")";
     }
 
     void UpdateArmySizeButtonsText(InventoryChangeEvent e /*unused and is a hack*/)
     {
-        if (armyButtons == null)
+        if (armyButton == null)
             return;
-        for (int i = 0; i < 3; ++i)
-        {
-            Button button = armyButtons[i];
-            Player player = (Player)i;
-            Text text = button.GetComponentInChildren<Text>();
-            text.text = "Upgrade Army Size ($" + transactionManager.GetArmySizeCost(player) + ")";
-        }
+        Text text = armyButton.GetComponentInChildren<Text>();
+        Player localPlayer = RoomManager.GetLocalPlayer();
+        text.text = "Upgrade Army Size ($" + transactionManager.GetArmySizeCost(localPlayer) + ")";
     }
 
     void SetMarketRarityButtons()
     {
-        rarityButtons = UpgradeMarketRarity.GetComponentsInChildren<Button>(true);
-        for (int i = 0; i < rarityButtons.Length; ++i)
-        {
-            Button rarityButton = rarityButtons[i];
-            Player player = (Player)i;
-            rarityButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketRarity(player));
-        }
+        rarityButton = UpgradeMarketRarity.GetComponentInChildren<Button>(true);
+        rarityButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketRarity(RoomManager.GetLocalPlayer()));
     }
 
     void SetMarketSizeButtons()
     {
-        sizeButtons = UpgradeMarketSize.GetComponentsInChildren<Button>(true);
-        for (int i = 0; i < sizeButtons.Length; ++i)
-        {
-            Button sizeButton = sizeButtons[i];
-            Player player = (Player)i;
-            sizeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketSize(player));
-            Text text = sizeButton.GetComponentInChildren<Text>();
-            text.text = "Upgrade Market Size $(" + transactionManager.UpgradeMarketSizeCost + ")";
-        }
+        sizeButton = UpgradeMarketSize.GetComponentInChildren<Button>(true);
+        sizeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketSize(RoomManager.GetLocalPlayer()));
+        Text text = sizeButton.GetComponentInChildren<Text>();
+        text.text = "Upgrade Market Size $(" + transactionManager.UpgradeMarketSizeCost + ")";
     }
 
     void SetIncomeButtons()
     {
-        incomeButtons = UpgradeIncome.GetComponentsInChildren<Button>(true);
-        for (int i = 0; i < incomeButtons.Length; ++i)
-        {
-            Button incomeButton = incomeButtons[i];
-            Player player = (Player)i;
-            incomeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreasePassiveIncome(player));
-            Text text = incomeButton.GetComponentInChildren<Text>();
-            text.text = "Upgrade Passive Income $(" + transactionManager.UpgradeIncomeCost + ")";
-        }
+        incomeButton = UpgradeIncome.GetComponentInChildren<Button>(true);
+        incomeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreasePassiveIncome(RoomManager.GetLocalPlayer()));
+        Text text = incomeButton.GetComponentInChildren<Text>();
+        text.text = "Upgrade Passive Income $(" + transactionManager.UpgradeIncomeCost + ")";
     }
 
     void SetArmySizeButtons()
     {
-        armyButtons = UpgradeArmy.GetComponentsInChildren<Button>(true);
-        for (int i = 0; i < armyButtons.Length; ++i)
-        {
-            Button armyButton = armyButtons[i];
-            Player player = (Player)i;
-            armyButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseArmySize(player));
-        }
+        armyButton = UpgradeArmy.GetComponentInChildren<Button>(true);
+        armyButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseArmySize(RoomManager.GetLocalPlayer()));
     }
-
 }

@@ -128,7 +128,7 @@ public class PlayerInventory : ScriptableObject
 
     public bool BenchVacantAtIndex(int index)
     {
-        if (index <= 0 || index >= GetBenchCount())
+        if (index < 0 || index >= MaxBenchSize)
         {
             return false;
         }
@@ -207,6 +207,16 @@ public class PlayerInventory : ScriptableObject
     public int GetArmyCount()
     {
         return army.Count;
+    }
+
+    public bool ArmyContainsPiece(Piece piece)
+    {
+        return army.Contains(piece);
+    }
+
+    public Piece GetActualArmyPiece(Piece piece)
+    {
+        return army.Find(actual => actual == piece);
     }
 
     public List<Piece> GetExcessArmyPieces()

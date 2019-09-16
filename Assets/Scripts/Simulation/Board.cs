@@ -8,8 +8,10 @@ public class Board
     private Tile[][] tiles;
     private List<Piece> piecesOnBoard;
     private List<Piece> activePiecesOnBoard;
+    private Queue<Attack> attacksToProcess;
     private int numRows;
     private int numCols;
+    private Player owner;
 
     // Sort the Pieces by their positions on the Board. Let The rightmost piece be first.
     class PieceSort : IComparer<Piece> {
@@ -31,11 +33,13 @@ public class Board
         }
     }
 
-    public Board(int numRows, int numCols)
+    public Board(int numRows, int numCols, Player owner)
     {
         SetNumRows(numRows);
         SetNumCols(numCols);
         InitialiseGrid();
+        this.owner = owner;
+        attacksToProcess = new Queue<Attack>();
     }
 
     private void InitialiseGrid()
@@ -47,7 +51,7 @@ public class Board
         {
             tiles[i] = new Tile[numCols];
             for (int j = 0; j < numCols; j++) {
-                tiles[i][j] = new Tile(i, j);
+                tiles[i][j] = new Tile(i, j, this);
             }
         }
     }
@@ -86,6 +90,11 @@ public class Board
     public List<Piece> GetFriendliesOnBoard()
     {
         return piecesOnBoard.FindAll(p => !p.IsEnemy());
+    }
+
+    public Queue<Attack> GetAttacksToProcess()
+    {
+        return attacksToProcess;
     }
 
     public int GetNumRows()
@@ -208,7 +217,7 @@ public class Board
                 naiveTileToLock.SetLocker(piece);
                 piece.SetLockedTile(naiveTileToLock);
                 return true;
-            }   
+            }
 
             naiveTileToLock = tiles[currentTile.GetRow()][currentTile.GetCol() + colDifference];
             if (!naiveTileToLock.IsLocked() && !naiveTileToLock.IsOccupied())
@@ -313,5 +322,19 @@ public class Board
         DeactivatePieceOnBoard(piece);
         piecesOnBoard.Remove(piece);
         piecesOnBoard.Sort(new PieceSort());
+    }
+
+    public void ClearAttacksToProcess()
+    {
+        while (attacksToProcess.Count > 0)
+        {
+            Attack attack = attacksToProcess.Dequeue();
+            attack.DestroyProjectileView();
+        }
+    }
+
+    public Player GetOwner()
+    {
+        return owner;
     }
 }

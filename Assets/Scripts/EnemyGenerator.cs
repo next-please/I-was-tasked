@@ -45,11 +45,11 @@ public class EnemyGenerator
         currentDamage = defaultDamage;
     }
 
-    public ArrayList generateEnemies(int roundNumber)
+    public List<Piece> generateEnemies(int roundNumber)
     {
         resetEnemyStats();
 
-        ArrayList enemyPieces = new ArrayList();
+        List<Piece> enemyPieces = new List<Piece>();
 
         int randomValue;
         for (int i=1; i<roundNumber; i++)
@@ -72,11 +72,14 @@ public class EnemyGenerator
         }
         for (int i=0; i<currentPieces; i++)
         {
-            Piece enemy = new Piece("Enemy #" + (i + 1), currentHitPoints, currentAttackDamage, 1, true);
-            enemy.SetMaximumManaPoints(defaultManaPoints);
+            // To Lewis: May want to do some RNG team compositions for Race and Job of Enemies.
+            // Current placeholder Race and Job is Undead-Knight.
+            Piece enemy = new Piece("Enemy #" + (i + 1), Enums.Race.Undead, Enums.Job.Knight, -1, true,
+                                     defaultHitPoints, defaultManaPoints,
+                                     defaultAttackDamage, defaultAttackRange,
+                                     defaultAttackSpeed, defaultMovementSpeed);
+            enemy.SetDamageIfSurvive(defaultDamage);
             enemyPieces.Add(enemy);
-            ((Piece)enemyPieces[i]).SetMovementSpeed(defaultMovementSpeed);
-            ((Piece)enemyPieces[i]).SetDamageIfSurvive(defaultDamage);
         }
 
         return enemyPieces;

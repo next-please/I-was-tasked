@@ -2,117 +2,242 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Runtime.Serialization;
 
-public class Piece
+[Serializable]
+public class Piece : ISerializable
 {
-    private Piece target;
+#region Serializable Fields
+    private string guid;
+
     private Tile initialTile;
     private Tile currentTile;
     private Tile lockedTile;
+
     private string name;
     private Enums.Race race;
     private Enums.Job job;
+    private int rarity;
+    private bool isEnemy;
+
     private int defaultMaximumHitPoints;
     private int currentHitPoints;
     private int maximumHitPoints;
+
     private int currentManaPoints;
-    private int defaultMaximumManaPoints;
     private int maximumManaPoints;
     private int manaPointsGainedOnAttack;
     private int manaPointsGainedOnDamaged;
+
     private int defaultAttackDamage;
     private int attackDamage;
-    private int attackRange;
+
     private int defaultAttackRange;
+    private int attackRange;
+
+    private int defaultAttackSpeed;
     private int attackSpeed;
-    private int movementSpeed;
+
     private int defaultMovementSpeed;
-    private int rarity;
-    private int damageIfSurvive;
-    private double lifestealPercentage;
+    private int movementSpeed;
+
     private double defaultLifestealPercentage;
-    private double recoilPercentage;
+    private double lifestealPercentage;
+
     private double defaultRecoilPercentage;
-    private bool isEnemy;
+    private double recoilPercentage;
+
+    private int damageIfSurvive;
+#endregion
+
+    private Piece target;
     private State state;
     private State entryState;
 
-    // Placeholder Constructor; actual Melee Piece would be more complex in attributes.
-    public Piece(string name, int maximumHitPoints, int attackDamage, int attackRange, bool isEnemy)
+    // Constructor for All Pieces; remember to set isEnemy accordingly.
+    public Piece(string name, Enums.Race race, Enums.Job job, int rarity, bool isEnemy,
+                 int defaultMaximumHitPoints, int maximumManaPoints,
+                 int defaultAttackDamage, int defaultAttackRange,
+                 int defaultAttackSpeed, int defaultMovementSpeed)
     {
+        this.guid = Guid.NewGuid().ToString();
+
         SetName(name);
-        SetCurrentHitPoints(maximumHitPoints);
-        SetMaximumHitPoints(maximumHitPoints);
-        SetDefaultMaximumHitPoints(maximumHitPoints);
-        SetCurrentManaPoints(0);
-        SetManaPointsGainedOnAttack(5); // Placeholder Value
-        SetManaPointsGainedOnDamaged(5); // Placeholder Value
-        SetAttackDamage(attackDamage);
-        SetDefaultAttackDamage(attackDamage);
-        SetAttackRange(attackRange);
-        SetDefaultAttackRange(attackRange);
-        SetRarity(0);
-        SetDamageIfSurvive(0);
-        SetLifestealPercentage(0);
-        SetDefaultLifestealPercentage(0);
-        SetRecoilPercentage(0);
-        SetDefaultRecoilPercentage(0);
+        SetRace(race);
+        SetClass(job);
+        SetRarity(rarity);
+        SetIsEnemy(isEnemy);
         SetMovementSpeed(1);
-        SetDefaultMovementSpeed(1);
-        SetIsEnemy(isEnemy);
-        this.state = CreateState();
-        this.entryState = this.state;
-    }
 
-    public Piece(string name, int maximumHitPoints, int attackDamage, int attackRange, int movementSpeed, bool isEnemy)
-    {
-        SetName(name);
-        SetCurrentHitPoints(maximumHitPoints);
-        SetMaximumHitPoints(maximumHitPoints);
-        SetDefaultMaximumHitPoints(maximumHitPoints);
+        SetDefaultMaximumHitPoints(defaultMaximumHitPoints);
+        SetCurrentHitPoints(defaultMaximumHitPoints);
+        SetMaximumHitPoints(defaultMaximumHitPoints);
+
+        SetMaximumManaPoints(maximumManaPoints);
         SetCurrentManaPoints(0);
-        SetManaPointsGainedOnAttack(15); // Placeholder Value
-        SetManaPointsGainedOnDamaged(15); // Placeholder Value
-        SetAttackDamage(attackDamage);
-        SetDefaultAttackDamage(attackDamage);
-        SetAttackRange(attackRange);
-        SetDefaultAttackRange(attackRange);
-        SetRarity(0);
-        SetDamageIfSurvive(0);
-        SetLifestealPercentage(0);
+
+        // Placeholder Mana Gain Values.
+        if (!isEnemy)
+        {
+            SetManaPointsGainedOnAttack(20);
+            SetManaPointsGainedOnDamaged(20);
+        }
+        else
+        {
+            SetManaPointsGainedOnAttack(10);
+            SetManaPointsGainedOnDamaged(10);
+        }
+
+        SetDefaultAttackDamage(defaultAttackDamage);
+        SetAttackDamage(defaultAttackDamage);
+
+        SetDefaultAttackRange(defaultAttackRange);
+        SetAttackRange(defaultAttackRange);
+
+        SetDefaultAttackSpeed(defaultAttackSpeed);
+        SetAttackSpeed(defaultAttackSpeed);
+
+        SetDefaultMovementSpeed(defaultMovementSpeed);
+        SetMovementSpeed(defaultMovementSpeed);
+
         SetDefaultLifestealPercentage(0);
-        SetRecoilPercentage(0);
+        SetLifestealPercentage(0);
+
         SetDefaultRecoilPercentage(0);
-        SetMovementSpeed(movementSpeed);
-        SetDefaultMovementSpeed(movementSpeed);
-        SetIsEnemy(isEnemy);
+        SetRecoilPercentage(0);
+
+        SetDamageIfSurvive(0);
+
+        this.state = CreateState();
+        this.entryState = this.state;
+    }
+     // The special constructor is used to deserialize values.
+    public Piece(SerializationInfo info, StreamingContext context)
+    {
+        // In Order of Declaration
+        guid = (string) info.GetValue("guid", typeof(string));
+
+        initialTile = (Tile) info.GetValue("initialTile", typeof(Tile));
+        currentTile = (Tile) info.GetValue("currentTile", typeof(Tile));
+        lockedTile = (Tile) info.GetValue("lockedTile", typeof(Tile));
+
+        name = (string) info.GetValue("name", typeof(string));
+        race = (Enums.Race) info.GetValue("race", typeof(Enums.Race));
+        job = (Enums.Job) info.GetValue("job", typeof(Enums.Job));
+        rarity = (int) info.GetValue("rarity", typeof(int));
+        isEnemy = (bool) info.GetValue("isEnemy", typeof(bool));
+
+        defaultMaximumHitPoints = (int) info.GetValue("defaultMaximumHitPoints", typeof(int));
+        currentHitPoints = (int) info.GetValue("currentHitPoints", typeof(int));
+        maximumHitPoints = (int) info.GetValue("maximumHitPoints", typeof(int));
+
+        currentManaPoints = (int) info.GetValue("currentManaPoints", typeof(int));
+        maximumManaPoints = (int) info.GetValue("maximumManaPoints", typeof(int));
+        manaPointsGainedOnAttack = (int) info.GetValue("manaPointsGainedOnAttack", typeof(int));
+        manaPointsGainedOnDamaged = (int) info.GetValue("manaPointsGainedOnDamaged", typeof(int));
+
+        defaultAttackDamage = (int) info.GetValue("defaultAttackDamage", typeof(int));
+        attackDamage = (int) info.GetValue("attackDamage", typeof(int));
+
+        defaultAttackRange = (int) info.GetValue("defaultAttackRange", typeof(int));
+        attackRange = (int) info.GetValue("attackRange", typeof(int));
+
+        defaultAttackSpeed = (int) info.GetValue("defaultAttackSpeed", typeof(int));
+        attackSpeed = (int) info.GetValue("attackSpeed", typeof(int));
+
+        defaultMovementSpeed = (int) info.GetValue("defaultMovementSpeed", typeof(int));
+        movementSpeed = (int) info.GetValue("movementSpeed", typeof(int));
+
+        defaultLifestealPercentage = (double) info.GetValue("defaultLifestealPercentage", typeof(double));
+        lifestealPercentage = (double) info.GetValue("lifestealPercentage", typeof(double));
+
+        defaultRecoilPercentage = (double) info.GetValue("defaultRecoilPercentage", typeof(double));
+        recoilPercentage = (double) info.GetValue("recoilPercentage", typeof(double));
+
+        damageIfSurvive = (int) info.GetValue("damageIfSurvive", typeof(int));
+
         this.state = CreateState();
         this.entryState = this.state;
     }
 
-    public virtual void ProcessState(Board board, long tick)
+    public void GetObjectData(SerializationInfo info, StreamingContext context)
     {
-        if (IsDead()) return;
-        ISimState simAction = this.state;
-        simAction.OnTick(this, board);
-        if (simAction.hasFinished())
+        // In Order of Declaration
+        info.AddValue("guid", guid, typeof(string));
+
+        info.AddValue("initialTile", initialTile, typeof(Tile));
+        info.AddValue("currentTile", currentTile, typeof(Tile));
+        info.AddValue("lockedTile", lockedTile, typeof(Tile));
+
+        info.AddValue("name", name, typeof(string));
+        info.AddValue("race", race, typeof(Enums.Race));
+        info.AddValue("job", job, typeof(Enums.Job));
+        info.AddValue("rarity", rarity, typeof(int));
+        info.AddValue("isEnemy", isEnemy, typeof(bool));
+
+        info.AddValue("defaultMaximumHitPoints", defaultMaximumHitPoints, typeof(int));
+        info.AddValue("currentHitPoints", currentHitPoints, typeof(int));
+        info.AddValue("maximumHitPoints", maximumHitPoints, typeof(int));
+
+        info.AddValue("currentManaPoints", currentManaPoints, typeof(int));
+        info.AddValue("maximumManaPoints", maximumManaPoints, typeof(int));
+        info.AddValue("manaPointsGainedOnAttack", manaPointsGainedOnAttack, typeof(int));
+        info.AddValue("manaPointsGainedOnDamaged", manaPointsGainedOnDamaged, typeof(int));
+
+        info.AddValue("defaultAttackDamage", defaultAttackDamage, typeof(int));
+        info.AddValue("attackDamage", attackDamage, typeof(int));
+
+        info.AddValue("defaultAttackRange", defaultAttackRange, typeof(int));
+        info.AddValue("attackRange", attackRange, typeof(int));
+
+        info.AddValue("defaultAttackSpeed", defaultAttackSpeed, typeof(int));
+        info.AddValue("attackSpeed", attackSpeed, typeof(int));
+
+        info.AddValue("defaultMovementSpeed", defaultMovementSpeed, typeof(int));
+        info.AddValue("movementSpeed", movementSpeed, typeof(int));
+
+        info.AddValue("defaultLifestealPercentage", defaultLifestealPercentage, typeof(double));
+        info.AddValue("lifestealPercentage", lifestealPercentage, typeof(double));
+
+        info.AddValue("defaultRecoilPercentage", defaultRecoilPercentage, typeof(double));
+        info.AddValue("recoilPercentage", recoilPercentage, typeof(double));
+
+        info.AddValue("damageIfSurvive", damageIfSurvive, typeof(int));
+    }
+
+
+     public override bool Equals(object obj)
+    {
+        if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
         {
-            State nextState = this.state.TransitNextState(this);
-            TransitIntoState(board, nextState);
-            while (this.state.hasFinished())
-            {
-                nextState = this.state.TransitNextState(this);
-                TransitIntoState(board, nextState);
-            }
+            return false;
+        }
+        else
+        {
+            Piece p = (Piece) obj;
+            return p.guid == this.guid;
         }
     }
 
-    public void TransitIntoState(Board board, State state)
+    public override int GetHashCode()
     {
-        this.state.OnFinish(this, board);
-        this.state = state;
-        this.state.OnStart(this, board);
+        return guid.GetHashCode();
     }
+
+    public static bool operator ==(Piece a, Piece b)
+    {
+        if (object.ReferenceEquals(a, null))
+        {
+            return object.ReferenceEquals(b, null);
+        }
+        return a.Equals(b);
+    }
+
+    public static bool operator !=(Piece a, Piece b)
+    {
+        return !(a == b);
+    }
+
 
     public virtual State CreateState()
     {
@@ -171,11 +296,43 @@ public class Piece
         return findTarget; // our initial action is find
     }
 
-    // For now this only checks whether the piece is within attacking range of the Target Piece.
-    public bool CanAttackTarget()
+    public virtual void ProcessState(Board board, long tick)
     {
-        Tile targetTile = target.GetCurrentTile();
-        return (currentTile.DistanceToTile(targetTile) <= attackRange);
+        if (IsDead()) return;
+        ISimState simAction = this.state;
+        simAction.OnTick(this, board);
+        if (simAction.hasFinished())
+        {
+            State nextState = this.state.TransitNextState(this);
+            TransitIntoState(board, nextState);
+            while (this.state.hasFinished())
+            {
+                nextState = this.state.TransitNextState(this);
+                TransitIntoState(board, nextState);
+            }
+        }
+    }
+
+    public void TransitIntoState(Board board, State state)
+    {
+        this.state.OnFinish(this, board);
+        this.state = state;
+        this.state.OnStart(this, board);
+    }
+
+    public void Reset()
+    {
+        SetMaximumHitPoints(GetDefaultMaximumHitPoints());
+        SetCurrentHitPoints(GetMaximumHitPoints());
+        SetCurrentManaPoints(0);
+        SetAttackDamage(GetDefaultAttackDamage());
+        SetAttackRange(GetDefaultAttackRange());
+        SetMovementSpeed(GetDefaultMovementSpeed());
+
+        SetLifestealPercentage(GetDefaultLifestealPercentage());
+        SetRecoilPercentage(GetDefaultRecoilPercentage());
+
+        this.state = entryState;
     }
 
     public Piece GetTarget()
@@ -213,9 +370,9 @@ public class Piece
         return job;
     }
 
-    public int GetMaximumHitPoints()
+    public int GetRarity()
     {
-        return maximumHitPoints;
+        return rarity;
     }
 
     public int GetDefaultMaximumHitPoints()
@@ -228,6 +385,11 @@ public class Piece
         return currentHitPoints;
     }
 
+    public int GetMaximumHitPoints()
+    {
+        return maximumHitPoints;
+    }
+
     public int GetCurrentManaPoints()
     {
         return currentManaPoints;
@@ -238,39 +400,14 @@ public class Piece
         return maximumManaPoints;
     }
 
-    public int GetManaPointsGainedOnDamaged()
-    {
-        return manaPointsGainedOnDamaged;
-    }
-
     public int GetManaPointsGainedOnAttack()
     {
         return manaPointsGainedOnAttack;
     }
 
-    public int GetAttackDamage()
+    public int GetManaPointsGainedOnDamaged()
     {
-        return attackDamage;
-    }
-
-    public double GetLifestealPercentage()
-    {
-        return lifestealPercentage;
-    }
-
-    public double GetRecoilPercentage()
-    {
-        return recoilPercentage;
-    }
-
-    public double GetDefaultRecoilPercentage()
-    {
-        return defaultRecoilPercentage;
-    }
-
-    public double GetDefaultLifestealPercentage()
-    {
-        return defaultLifestealPercentage;
+        return manaPointsGainedOnDamaged;
     }
 
     public int GetDefaultAttackDamage()
@@ -278,9 +415,9 @@ public class Piece
         return defaultAttackDamage;
     }
 
-    public int GetAttackRange()
+    public int GetAttackDamage()
     {
-        return attackRange;
+        return attackDamage;
     }
 
     public int GetDefaultAttackRange()
@@ -288,9 +425,24 @@ public class Piece
         return defaultAttackRange;
     }
 
+    public int GetAttackRange()
+    {
+        return attackRange;
+    }
+
+    public int GetDefaultAttackSpeed()
+    {
+        return defaultAttackSpeed;
+    }
+
     public int GetAttackSpeed()
     {
         return attackSpeed;
+    }
+
+    public int GetDefaultMovementSpeed()
+    {
+        return defaultMovementSpeed;
     }
 
     public int GetMovementSpeed()
@@ -298,9 +450,34 @@ public class Piece
         return movementSpeed;
     }
 
-    public int GetDefaultMovementSpeed()
+    public double GetDefaultLifestealPercentage()
     {
-        return defaultMovementSpeed;
+        return defaultLifestealPercentage;
+    }
+
+    public double GetLifestealPercentage()
+    {
+        return lifestealPercentage;
+    }
+
+    public double GetDefaultRecoilPercentage()
+    {
+        return defaultRecoilPercentage;
+    }
+
+    public double GetRecoilPercentage()
+    {
+        return recoilPercentage;
+    }
+
+    public int GetDamageIfSurvive()
+    {
+        return damageIfSurvive;
+    }
+
+    public int GetPrice()
+    {
+        return (int)Math.Pow(2, rarity - 1);
     }
 
     public IViewState GetViewState()
@@ -363,6 +540,21 @@ public class Piece
         this.job = job;
     }
 
+    public void SetRarity(int rarity)
+    {
+        this.rarity = rarity;
+    }
+
+    public void SetIsEnemy(bool isEnemy)
+    {
+        this.isEnemy = isEnemy;
+    }
+
+    public void SetDefaultMaximumHitPoints(int defaultMaximumHitPoints)
+    {
+        this.defaultMaximumHitPoints = defaultMaximumHitPoints;
+    }
+
     public void SetCurrentHitPoints(int currentHitPoints)
     {
         if (currentHitPoints < 0)
@@ -378,11 +570,6 @@ public class Piece
     public void SetMaximumHitPoints(int maximumHitPoints)
     {
         this.maximumHitPoints = maximumHitPoints;
-    }
-
-    public void SetDefaultMaximumHitPoints(int defaultMaximumHitPoints)
-    {
-        this.defaultMaximumHitPoints = defaultMaximumHitPoints;
     }
 
     public void SetCurrentManaPoints(int currentManaPoints)
@@ -406,14 +593,19 @@ public class Piece
         this.maximumManaPoints = maximumManaPoints;
     }
 
+    public void SetManaPointsGainedOnAttack(int manaPointsGainedOnAttack)
+    {
+        this.manaPointsGainedOnAttack = manaPointsGainedOnAttack;
+    }
+
     public void SetManaPointsGainedOnDamaged(int manaPointsGainedOnDamage)
     {
         this.manaPointsGainedOnDamaged = manaPointsGainedOnDamage;
     }
 
-    public void SetManaPointsGainedOnAttack(int manaPointsGainedOnAttack)
+    public void SetDefaultAttackDamage(int defaultAttackDamage)
     {
-        this.manaPointsGainedOnAttack = manaPointsGainedOnAttack;
+        this.defaultAttackDamage = defaultAttackDamage;
     }
 
     public void SetAttackDamage(int attackDamage)
@@ -421,29 +613,9 @@ public class Piece
         this.attackDamage = attackDamage;
     }
 
-    public void SetLifestealPercentage(double lifestealPercentage)
+    public void SetDefaultAttackRange(int defaultAttackRange)
     {
-        this.lifestealPercentage = lifestealPercentage;
-    }
-
-    public void SetDefaultLifestealPercentage(double defaultLifestealPercentage)
-    {
-        this.defaultLifestealPercentage = defaultLifestealPercentage;
-    }
-
-    public void SetRecoilPercentage(double recoilPercentage)
-    {
-        this.recoilPercentage = recoilPercentage;
-    }
-
-    public void SetDefaultRecoilPercentage(double defaultRecoilPercentage)
-    {
-        this.defaultRecoilPercentage = defaultRecoilPercentage;
-    }
-    
-    public void SetDefaultAttackDamage(int defaultAttackDamage)
-    {
-        this.defaultAttackDamage = defaultAttackDamage;
+        this.defaultAttackRange = defaultAttackRange;
     }
 
     public void SetAttackRange(int attackRange)
@@ -451,9 +623,9 @@ public class Piece
         this.attackRange = attackRange;
     }
 
-    public void SetDefaultAttackRange(int defaultAttackRange)
+    public void SetDefaultAttackSpeed(int defaultAttackSpeed)
     {
-        this.defaultAttackRange = defaultAttackRange;
+        this.defaultAttackSpeed = defaultAttackSpeed;
     }
 
     public void SetAttackSpeed(int attackSpeed)
@@ -461,56 +633,38 @@ public class Piece
         this.attackSpeed = attackSpeed;
     }
 
-    public void SetMovementSpeed(int movementSpeed)
-    {
-        this.movementSpeed = movementSpeed;
-    }
-
     public void SetDefaultMovementSpeed(int defaultMovementSpeed)
     {
         this.defaultMovementSpeed = defaultMovementSpeed;
     }
 
-    public void SetIsEnemy(bool isEnemy)
+    public void SetMovementSpeed(int movementSpeed)
     {
-        this.isEnemy = isEnemy;
+        this.movementSpeed = movementSpeed;
     }
 
-    public void SetRarity(int rarity)
+    public void SetDefaultLifestealPercentage(double defaultLifestealPercentage)
     {
-        this.rarity = rarity;
+        this.defaultLifestealPercentage = defaultLifestealPercentage;
     }
 
-    public int GetRarity()
+    public void SetLifestealPercentage(double lifestealPercentage)
     {
-        return rarity;
+        this.lifestealPercentage = lifestealPercentage;
+    }
+
+    public void SetDefaultRecoilPercentage(double defaultRecoilPercentage)
+    {
+        this.defaultRecoilPercentage = defaultRecoilPercentage;
+    }
+
+    public void SetRecoilPercentage(double recoilPercentage)
+    {
+        this.recoilPercentage = recoilPercentage;
     }
 
     public void SetDamageIfSurvive(int damageIfSurvive)
     {
         this.damageIfSurvive = damageIfSurvive;
-    }
-
-    public int GetDamageIfSurvive()
-    {
-        return damageIfSurvive;
-    }
-
-    public void Reset()
-    {
-        SetMaximumHitPoints(GetDefaultMaximumHitPoints());
-        SetCurrentHitPoints(GetMaximumHitPoints());
-        SetAttackDamage(GetDefaultAttackDamage());
-        SetLifestealPercentage(GetDefaultLifestealPercentage());
-        SetRecoilPercentage(GetDefaultRecoilPercentage());
-        SetAttackRange(GetDefaultAttackRange());
-        SetMovementSpeed(GetDefaultMovementSpeed());
-        SetCurrentManaPoints(0);
-        this.state = entryState;
-    }
-
-    public int GetPrice()
-    {
-        return (int)Math.Pow(2, rarity-1);
     }
 }
