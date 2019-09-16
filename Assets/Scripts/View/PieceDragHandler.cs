@@ -23,7 +23,6 @@ public class TrashPieceOnBoardEvent : GameEvent
 
 public class PieceDragHandler : InteractablePiece
 {
-    public readonly float zPosOnDrag = 10f;
     private Vector3 originalPos;
     private Animator animator;
 
@@ -38,6 +37,11 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        if (isDragDisabled)
+        {
+            eventData.pointerDrag = null;
+            return;
+        }
         originalPos = transform.position;
         SetDraggedState();
     }

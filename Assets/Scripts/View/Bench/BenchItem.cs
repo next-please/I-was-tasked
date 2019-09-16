@@ -47,6 +47,11 @@ public class BenchItem : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+        if (isDragDisabled)
+        {
+            eventData.pointerDrag = null;
+            return;
+        }
         SetDraggedState();
     }
 
