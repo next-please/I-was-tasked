@@ -13,7 +13,7 @@ public class TransactionManager : MonoBehaviour
     public BoardManager boardManager;
 
     public readonly int UpgradeIncomeCost = 10;
-    public readonly int UpgradeMarketSizeCost = 10;
+    public readonly int UpgradeMarketSizeCost = 5;
 
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
     {
