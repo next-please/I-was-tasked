@@ -75,7 +75,7 @@ public abstract class InteractablePiece :
         switch (target)
         {
             case HitTarget.Tile:
-                OnTileDrop(targetObject.GetComponent<TileView>().tile);
+                OnTileDrop(targetObject.GetComponent<TileView>().GetTile());
                 break;
             case HitTarget.BenchSlot:
                 OnBenchDrop(targetObject.GetComponent<BenchSlot>());

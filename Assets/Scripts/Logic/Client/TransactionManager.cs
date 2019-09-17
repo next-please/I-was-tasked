@@ -31,9 +31,10 @@ public class TransactionManager : MonoBehaviour
 
     public void PurchaseMarketPieceToBench(Player player, Piece piece, int price)
     {
-        marketManager.RemoveMarketPiece(piece);
-        inventoryManager.AddToBench(player, piece);
-        inventoryManager.DeductGold(player, piece.GetPrice());
+        Piece actualPiece = marketManager.GetActualMarketPiece(piece);
+        marketManager.RemoveMarketPiece(actualPiece);
+        inventoryManager.AddToBench(player, actualPiece);
+        inventoryManager.DeductGold(player, actualPiece.GetPrice());
     }
 
     public void TrySellBenchPiece(Player player, Piece piece)
@@ -45,9 +46,10 @@ public class TransactionManager : MonoBehaviour
 
     public void SellBenchPiece(Player player, Piece piece)
     {
-        if (inventoryManager.RemoveFromBench(player, piece))
+        Piece actualPiece = inventoryManager.GetActualBenchPiece(player, piece);
+        if (inventoryManager.RemoveFromBench(player, actualPiece))
         {
-            SellPiece(player, piece);
+            SellPiece(player, actualPiece);
         }
     }
 
@@ -60,7 +62,8 @@ public class TransactionManager : MonoBehaviour
 #region Sell Board Piece
     public bool CanSellBoardPiece(Player player, Piece piece)
     {
-        return inventoryManager.ArmyContainsPiece(player, piece);
+        Piece actualPiece = inventoryManager.GetActualArmyPiece(player, piece);
+        return inventoryManager.ArmyContainsPiece(player, actualPiece);
     }
 
     public void TrySellBoardPiece(Player player, Piece piece)
@@ -75,8 +78,9 @@ public class TransactionManager : MonoBehaviour
     {
         if (!CanSellBoardPiece(player, piece))
             return;
-        boardManager.RemovePieceFromBoard(player, piece);
-        inventoryManager.RemoveFromArmy(player, piece);
+        Piece actualPiece = inventoryManager.GetActualArmyPiece(player, piece);
+        boardManager.RemovePieceFromBoard(player, actualPiece);
+        inventoryManager.RemoveFromArmy(player, actualPiece);
         SellPiece(player, piece);
     }
 #endregion

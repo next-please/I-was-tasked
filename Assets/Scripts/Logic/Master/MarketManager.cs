@@ -123,6 +123,11 @@ public class MarketManager : MonoBehaviour
     {
         return characterGenerator.GenerateCharacter(market.GetMarketTier());
     }
+
+    public Piece GetActualMarketPiece(Piece piece)
+    {
+        return market.MarketPieces.Find(marketPiece => piece == marketPiece);
+    }
 }
 
 public class MarketUpdateEvent : GameEvent
