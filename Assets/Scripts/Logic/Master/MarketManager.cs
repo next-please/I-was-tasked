@@ -83,13 +83,15 @@ public class MarketManager : MonoBehaviour
     public List<Piece> UpgradePiecesWithTier(int marketTier)
     {
         var marketPieceCopy = new List<Piece>(market.MarketPieces);
-        foreach (Piece marketPiece in marketPieceCopy)
+        Piece marketPiece;
+        for (int i=0; i< marketPieceCopy.Count; i++)
         {
+            marketPiece = marketPieceCopy[i];
             if (marketPiece == null)
                 continue;
             if (rngesus.Next(1, 101) <= characterGenerator.characterUpgradeDifferencePercentage)
             {
-                characterGenerator.TryUpgradeCharacter(marketPiece, marketTier);
+                characterGenerator.TryUpgradeCharacter(ref marketPiece, marketTier);
                 // EventManager.Instance.Raise(new GlobalMessageEvent { message = market.MarketPieces[i].GetName() + " has grown stronger from the market upgrades!" });
             }
         }

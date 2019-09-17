@@ -20,13 +20,55 @@ public class CharacterGenerator
     public readonly int maximumMovementSpeed = 10;
     public readonly double hitPointMultiplier = 1.5;
     public readonly double attackDamageMultiplier = 1.5;
-    public readonly int rangeAdditor = 2;
-    public readonly int movementVariationRange = 2;
-    public readonly int attackSpeedVariationRange = 4;
 
-    public readonly int numberOfRarityTiers = 4;
-    public readonly int[] tiersRacePoolMax = new int[] { 15, 15, 10, 6 };
-    public readonly int[] tiersJobPoolMax = new int[] { 15, 15, 10, 6 };
+    //human stat changes
+    public readonly double humanHitPointMultiplier = 1.1;
+    public readonly double humanAttackDamageMultiplier = 1.1;
+    public readonly int humanManaPointAdditor = -10;
+
+    //orc stat changes
+    public readonly int orcFlatMovementSpeedAdditor = -1;
+    public readonly double orcHitPointMultiplier = 1.25;
+    public readonly double orcAttackDamageMultiplier = 1.25;
+    public readonly int orcFlatAttackSpeedAdditor = -1;
+
+    //elf stat changes
+    public readonly int elfFlatMovementSpeedAdditor = 1;
+    public readonly int elfFlatAttackSpeedAdditor = 1;
+    public readonly double elfHitPointMultiplier = 0.9;
+    public readonly int elfFlatConditionalAttackRangeAdditor = 1;
+
+    //undead stat changes
+    public readonly int undeadFlatMovementSpeedAdditor = -3;
+    public readonly int undeadFlatAttackSpeedAdditor = -2;
+    public readonly int undeadHitPointMultiplier = 2;
+
+
+    //mage stat changes
+    public readonly int mageFlatAttackRangeAdditor = 2;
+    public readonly int mageManaPointAdditor = -15;
+    public readonly double mageHitPointMultiplier = 0.8;
+
+    //rogue stat changes
+    public readonly int rogueFlatMovementSpeedAdditor = 1;
+    public readonly int rogueFlatAttackSpeedAdditor = 1;
+    public readonly double rogueHitPointMultiplier = 0.9;
+
+    //druid stat changes
+    public readonly double druidHitPointMultiplier = 1.05;
+    public readonly double druidAttackDamageMultiplier = 1.05;
+    public readonly int druidManaPointAdditor = -5;
+
+    //knight stat changes
+    public readonly double knightHitPointMultiplier = 1.2;
+    public readonly double knightAttackDamageMultiplier = 1.1;
+    public readonly int knightFlatAttackSpeedAdditor = -1;
+
+    //priest stat changes
+    public readonly int priestFlatAttackRangeAdditor = 4;
+    public readonly double priestAttackDamageMultiplier = 0.8;
+
+    public readonly int[] tiersPoolMax = new int[] { 1, 1, 2, 1 };
     public readonly int characterUpgradeDifferencePercentage = 20;
     public readonly int[,] rarityUpgradeTiers = {
                                             { 100, 0, 0, 0 },
@@ -53,16 +95,7 @@ public class CharacterGenerator
                                             { 0, 30, 30, 40 },
                                             { 0, 20, 40, 40 }
                                         };
-    public readonly int[] rarityBonusUpgrades = new int[] { 0, 3, 6, 9 };
-    private Tier[] tiers;
-
-    public struct Tier
-    {
-        public int RacePoolMax;
-        public int JobPoolMax;
-        public int[] RacePoolSize;
-        public int[] JobPoolSize;
-    }
+    private int[,,] TierRaceJobPoolSize;
 
     // Constructor
     public CharacterGenerator()
@@ -70,41 +103,31 @@ public class CharacterGenerator
         rngesus = new System.Random();
 
         //creating pools for race and job limits
-        tiers = new Tier[numberOfRarityTiers];
-        for (int i = 0; i < tiers.Length; i++)
+        TierRaceJobPoolSize = new int[tiersPoolMax.Length, Enum.GetNames(typeof(Enums.Race)).Length, Enum.GetNames(typeof(Enums.Job)).Length];
+        for (int i = 0; i < tiersPoolMax.Length; i++)
         {
-            tiers[i].RacePoolSize = new int[Enum.GetNames(typeof(Enums.Race)).Length];
-            for (int j = 0; j < tiers[i].RacePoolSize.Length; j++)
+            for (int j = 0; j < Enum.GetNames(typeof(Enums.Race)).Length; j++)
             {
-                tiers[i].RacePoolSize[j] = tiersRacePoolMax[i];
-            }
-            tiers[i].JobPoolSize = new int[Enum.GetNames(typeof(Enums.Job)).Length];
-            for (int j = 0; j < tiers[i].JobPoolSize.Length; j++)
-            {
-                tiers[i].JobPoolSize[j] = tiersJobPoolMax[i];
+                for (int k = 0; k < Enum.GetNames(typeof(Enums.Job)).Length; k++)
+                {
+                    TierRaceJobPoolSize[i, j, k] = tiersPoolMax[i];
+                }
             }
         }
     }
 
     public Piece GenerateCharacter(int currentRarityTier)
     {
-        int currentHitPoints = defaultHitPoints;
-        int currentManaPoints = defaultManaPoints;
-        int currentAttackDamage = defaultAttackDamage;
-        int currentAttackRange = defaultAttackRange;
-        int currentAttackSpeed = defaultAttackSpeed;
-        int currentMovementSpeed = defaultMovementSpeed;
-
         //calculate character rarity
         currentRarityTier = Math.Min(currentRarityTier - 1, rarityUpgradeTiers.GetLength(0) - 1);
         int rarityTotalPool = 0;
-        for (int i = 0; i < numberOfRarityTiers; i++)
+        for (int i = 0; i < TierRaceJobPoolSize.GetLength(0); i++)
         {
             rarityTotalPool += rarityUpgradeTiers[currentRarityTier, i];
         }
         int rarityNumber = rngesus.Next(1, rarityTotalPool);
         int characterRarity = 0;
-        for (int i = 0; i < numberOfRarityTiers; i++)
+        for (int i = 0; i < TierRaceJobPoolSize.GetLength(0); i++)
         {
             rarityNumber -= rarityUpgradeTiers[currentRarityTier, i];
             if (rarityNumber <= 0)
@@ -114,115 +137,112 @@ public class CharacterGenerator
             }
         }
 
-        //calculate race
-        int raceTotalPool = 0;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
-        {
-            raceTotalPool += tiers[characterRarity].RacePoolSize[i];
+        //calculate race and job
+        int totalPool = 0;
+        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++) {
+            for (int j = 0; j < Enum.GetNames(typeof(Enums.Job)).Length; j++) {
+                totalPool += TierRaceJobPoolSize[characterRarity,i,j];
+            }
         }
-        int raceNumber = rngesus.Next(1, raceTotalPool + 1);
+        int poolNumber = rngesus.Next(1, totalPool + 1);
         Enums.Race race = 0;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
-        {
-            raceNumber -= tiers[characterRarity].RacePoolSize[i];
-            if (raceNumber <= 0)
-            {
-                race = (Enums.Race)i;
-                break;
-            }
-        }
-
-        //calculate job
-        int jobTotalPool = 0;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Job)).Length; i++)
-        {
-            jobTotalPool += tiers[characterRarity].JobPoolSize[i];
-        }
-        int jobNumber = rngesus.Next(1, jobTotalPool + 1);
         Enums.Job job = 0;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Job)).Length; i++)
-        {
-            jobNumber -= tiers[characterRarity].JobPoolSize[i];
-            if (jobNumber <= 0)
-            {
-                job = (Enums.Job)i;
-                break;
-            }
-        }
-
-        //randomize movement
-        int randomValue = rngesus.Next(-movementVariationRange, movementVariationRange + 1);
-        currentMovementSpeed += randomValue;
-
-        // Randomize Attack Speed
-        randomValue = rngesus.Next(-attackSpeedVariationRange, attackSpeedVariationRange + 1);
-        currentAttackSpeed += randomValue;
-
-        //calculate stats
-        for (int i = 0; i < rarityBonusUpgrades[characterRarity]; i++)
-        {
-            randomValue = rngesus.Next(1, 3);
-            switch (randomValue)
-            {
-                case 1:
-                    currentHitPoints = (int)Math.Floor(currentHitPoints * hitPointMultiplier);
-                    break;
-                case 2:
-                    currentAttackDamage = (int)Math.Floor(currentAttackDamage * attackDamageMultiplier);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        //randomize range unit
-        bool rangeUpgrade = false;
-        int count = 0;
-        do
-        {
-            randomValue = rngesus.Next(0, 11);
-            if (randomValue < 3)
-            {
-                count++;
-                rangeUpgrade = true;
-                currentAttackRange += rangeAdditor;
-
-                //decrease another stat to compensate
-                randomValue = rngesus.Next(1, 3);
-                switch (randomValue)
+        bool decided = false;
+        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++) {
+            for (int j = 0; j < Enum.GetNames(typeof(Enums.Job)).Length; j++) {
+                poolNumber -= TierRaceJobPoolSize[characterRarity,i,j];
+                if (poolNumber <= 0)
                 {
-                    case 1:
-                        currentHitPoints = (int)Math.Ceiling(currentHitPoints / hitPointMultiplier);
-                        break;
-                    case 2:
-                        currentAttackDamage = (int)Math.Ceiling(currentAttackDamage / attackDamageMultiplier);
-                        break;
-                    default:
-                        break;
+                    race = (Enums.Race)i;
+                    job = (Enums.Job)j;
+                    decided = true;
+                    break;
                 }
             }
-            else
-            {
-                rangeUpgrade = false;
-            }
-        } while (rangeUpgrade && count < 5);
+            if (decided)
+                break;
+        }
 
-        tiers[characterRarity].JobPoolSize[(int)job]--;
-        tiers[characterRarity].RacePoolSize[(int)race]--;
+        return GenerateCharacter(characterRarity, job, race);
+    }
+
+    public Piece GenerateCharacter(int characterRarity, Enums.Job job, Enums.Race race)
+    {
+        TierRaceJobPoolSize[characterRarity, (int)race, (int)job]--;
+        int currentHitPoints = defaultHitPoints;
+        int currentManaPoints = defaultManaPoints;
+        int currentAttackDamage = defaultAttackDamage;
+        int currentAttackRange = defaultAttackRange;
+        int currentAttackSpeed = defaultAttackSpeed;
+        int currentMovementSpeed = defaultMovementSpeed;
+
+        //calculate stats
+        switch (job)
+        {
+            case Enums.Job.Druid:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(druidHitPointMultiplier, characterRarity+1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(druidAttackDamageMultiplier, characterRarity+1));
+                currentManaPoints += druidManaPointAdditor*(characterRarity+1);
+                break;
+            case Enums.Job.Priest:
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(priestAttackDamageMultiplier, characterRarity+1));
+                currentAttackRange += priestFlatAttackRangeAdditor;
+                break;
+            case Enums.Job.Knight:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(knightHitPointMultiplier, characterRarity+1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(knightAttackDamageMultiplier, characterRarity+1));
+                currentAttackSpeed += knightFlatAttackSpeedAdditor;
+                break;
+            case Enums.Job.Rogue:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(rogueHitPointMultiplier, characterRarity+1));
+                currentMovementSpeed += rogueFlatMovementSpeedAdditor;
+                currentAttackSpeed += rogueFlatAttackSpeedAdditor;
+                break;
+            case Enums.Job.Mage:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(mageHitPointMultiplier, characterRarity+1));
+                currentAttackRange += mageFlatAttackRangeAdditor;
+                currentManaPoints += mageManaPointAdditor*(characterRarity+1);
+                break;
+        }
+        switch (race)
+        {
+            case Enums.Race.Elf:
+                currentMovementSpeed += elfFlatMovementSpeedAdditor;
+                currentAttackSpeed += elfFlatAttackSpeedAdditor;
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(elfHitPointMultiplier,characterRarity+1));
+                if (currentAttackRange > 1)
+                {
+                    currentAttackRange += elfFlatConditionalAttackRangeAdditor;
+                }
+                break;
+            case Enums.Race.Orc:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(orcHitPointMultiplier, characterRarity+1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(orcAttackDamageMultiplier, characterRarity+1));
+                currentMovementSpeed += orcFlatMovementSpeedAdditor;
+                currentAttackSpeed += orcFlatAttackSpeedAdditor;
+                break;
+            case Enums.Race.Human:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(humanHitPointMultiplier, characterRarity+1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(humanAttackDamageMultiplier, characterRarity+1));
+                currentManaPoints += humanManaPointAdditor*(characterRarity+1);
+                break;
+            case Enums.Race.Undead:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(undeadHitPointMultiplier, characterRarity+1));
+                currentAttackSpeed += undeadFlatAttackSpeedAdditor;
+                currentHitPoints += undeadFlatMovementSpeedAdditor;
+                break;
+        }
 
         Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), race, job, characterRarity + 1, false,
                                        currentHitPoints, currentManaPoints,
                                        currentAttackDamage, currentAttackRange,
                                        currentAttackSpeed, currentMovementSpeed);
         return currentPiece;
-        //throw not implemented // still need to remove from pool and do stat adjustments
     }
 
     public void ReturnPiece(Piece piece)
     {
-        int rarityTier = piece.GetRarity() - 1;
-        tiers[rarityTier].JobPoolSize[(int)piece.GetClass()]++;
-        tiers[rarityTier].RacePoolSize[(int)piece.GetRace()]++;
+        TierRaceJobPoolSize[piece.GetRarity() - 1, (int)piece.GetRace(), (int)piece.GetClass()]++;
     }
 
     public void ReturnPieces(List<Piece> returnedPieces)
@@ -236,30 +256,23 @@ public class CharacterGenerator
         }
     }
 
-    public bool TryUpgradeCharacter(Piece piece, int currentMarketTier)
+    public bool TryUpgradeCharacter(ref Piece piece, int currentMarketTier)
     {
+        //if new rarity does not exist
+        if (piece.GetRarity() > tiersPoolMax.Length)
+            return false;
         //if character rarity can be found in the new market tier
         if (rarityUpgradeTiers[currentMarketTier - 1, piece.GetRarity()] > 0)
         {
-            piece.SetRarity(piece.GetRarity() + 1);
-
-            int randomValue = 0;
-            for (int i = rarityBonusUpgrades[piece.GetRarity() - 1]; i < rarityBonusUpgrades[piece.GetRarity()]; i++)
+            //if character is not out of stock in the new rarity tier
+            if (TierRaceJobPoolSize[piece.GetRarity(), (int)piece.GetRace(),(int)piece.GetClass()] > 0)
             {
-                randomValue = rngesus.Next(1, 3);
-                switch (randomValue)
-                {
-                    case 1:
-                        piece.SetMaximumHitPoints((int)Math.Floor(piece.GetMaximumHitPoints() * hitPointMultiplier));
-                        break;
-                    case 2:
-                        piece.SetAttackDamage((int)Math.Floor(piece.GetAttackDamage() * attackDamageMultiplier));
-                        break;
-                    default:
-                        break;
-                }
+                ReturnPiece(piece);
+                Piece tempPiece = GenerateCharacter(piece.GetRarity(), piece.GetClass(), piece.GetRace());
+                tempPiece.SetName(piece.GetName());
+                piece = tempPiece;
+                return true;
             }
-            return true;
         }
         return false;
     }
