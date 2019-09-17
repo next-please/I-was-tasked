@@ -106,7 +106,8 @@ public class MarketUIManager : MonoBehaviour
             }
             Button marketItemButton = marketItemsButtons[i];
             marketItemButton.GetComponentInChildren<Text>().text =
-                piece.GetName().Split(',')[0] + "\n" + piece.GetName().Split(',')[1] +
+                "<b>" + piece.GetTitle() + "</b>" +
+                "\n<size=10>" + piece.GetName() + "</size>" +
                 "\n" + piece.GetRace() + " (3)" +
                 "    " + piece.GetClass() + " (3)" +
                 "\nRarity: " + piece.GetRarity() +

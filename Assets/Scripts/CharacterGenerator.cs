@@ -233,7 +233,7 @@ public class CharacterGenerator
                 break;
         }
 
-        Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), race, job, characterRarity + 1, false,
+        Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), race, job, characterRarity + 1, false,
                                        currentHitPoints, currentManaPoints,
                                        currentAttackDamage, currentAttackRange,
                                        currentAttackSpeed, currentMovementSpeed);
