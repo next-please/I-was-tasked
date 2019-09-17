@@ -74,7 +74,7 @@ public class BenchItem : InteractablePiece
 
     public override void OnTileDrop(Tile tile)
     {
-        if (tile.IsOccupied())
+        if (tile.IsOccupied() || !IsTileDropAllowed())
         {
             OnEmptyDrop();
             return;
@@ -110,5 +110,10 @@ public class BenchItem : InteractablePiece
         // gameObject.GetComponent<Collider>().enabled = true;
 
         animator.Play("Idle");
+    }
+
+    bool IsTileDropAllowed()
+    {
+        return PhaseManager.GetCurrentPhase() == Phase.Market;
     }
 }

@@ -34,7 +34,8 @@ public class PhaseManager : MonoBehaviour
     public RoomManager roomManager;
     public SynergyManager synergyManager;
 
-    Phase currentPhase = Phase.NIL;
+    static Phase currentPhase = Phase.NIL;
+
     private int round = 0;
     private int RoundsNeededToSurvive = 15;
     private float countdown = 0;
@@ -50,6 +51,11 @@ public class PhaseManager : MonoBehaviour
         phasesRunning = true;
         roomManager.NumPlayersToStart = numPlayers;
         TryIntialize();
+    }
+
+    public static Phase GetCurrentPhase()
+    {
+        return currentPhase;
     }
 
     void OnGameOver()

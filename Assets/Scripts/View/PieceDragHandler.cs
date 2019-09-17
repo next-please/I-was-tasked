@@ -26,29 +26,6 @@ public class PieceDragHandler : InteractablePiece
     public readonly float zPosOnDrag = 10f;
     private Vector3 originalPos;
     private Animator animator;
-    private bool IsDragAllowed;
-
-    void OnEnable()
-    {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Market)
-        {
-            IsDragAllowed = true;
-        }
-        else
-        {
-            IsDragAllowed = false;
-        }
-    }
 
     void Start()
     {
@@ -57,15 +34,11 @@ public class PieceDragHandler : InteractablePiece
         piece = pieceView.piece;
         if (piece.IsEnemy())
             Destroy(this);
-
-        // when this piece is spawned, we assume its during market phase
-        // and thus it should be draggable until the next phase
-        IsDragAllowed = true;
     }
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        if (IsDragAllowed)
+        if (IsDragAllowed())
         {
             originalPos = transform.position;
             SetDraggedState();
@@ -138,5 +111,10 @@ public class PieceDragHandler : InteractablePiece
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = zPosOnDrag;
         return Camera.main.ScreenToWorldPoint(mousePosition);
+    }
+
+    bool IsDragAllowed()
+    {
+        return PhaseManager.GetCurrentPhase() == Phase.Market;
     }
 }
