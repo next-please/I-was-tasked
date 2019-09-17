@@ -159,7 +159,7 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
         incomeManager.GenerateIncome(round);
-        yield return Countdown(5);
+        yield return Countdown(10);
         TryPreCombat();
     }
 
