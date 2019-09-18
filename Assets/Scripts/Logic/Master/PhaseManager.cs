@@ -107,15 +107,18 @@ public class PhaseManager : MonoBehaviour
     // PHASES
     public void TryIntialize()
     {
-        Data data = new PhaseManagementData(this.numPlayers, 0);
-        Request req = new Request(10, data); // TODO: replace with proper codes
+        System.Random random = new System.Random();
+        int seed = random.Next();
+        Data data = new InitPhaseData(numPlayers, seed);
+        Request req = new Request(ActionTypes.INIT_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
-    public void Initialize(int numPlayers) {
+    public void Initialize(int numPlayers, int seed) {
         this.round = 0;
         this.numPlayers = numPlayers;
         ChangePhase(Phase.Initialization);
+        synergyManager.SetSeed(seed);
         boardManager.CreateBoards(numPlayers);
         inventoryManager.ResetInventories();
         TryStartRound();
