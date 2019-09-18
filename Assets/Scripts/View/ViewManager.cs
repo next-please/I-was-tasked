@@ -7,7 +7,7 @@ public class ViewManager : MonoBehaviour
     public CharacterPrefabLoader characterPrefabLoader;
     public GameObject FriendlyPieceViewPrefab;
     public GameObject EnemyPieceViewPrefab;
-    public GameObject TileViewPrefab;
+    public GameObject BoardGameObject;
     public Material White;
     public Material Black;
 
@@ -37,14 +37,16 @@ public class ViewManager : MonoBehaviour
         int cols = gameBoard.GetNumCols();
         bool toggle = false;
         Vector3 startPos = (Vector3.right * rows * TileSize + Vector3.right * 2) * (int)player; // board + offset
-        boardDimensions[(int)player] = new BoardDimension{ rows = rows, cols = cols, startPos = startPos };
+        boardDimensions[(int)player] = new BoardDimension { rows = rows, cols = cols, startPos = startPos };
+
         for (int i = 0; i < rows; ++i)
         {
-            for (int j = 0; j < rows; ++j)
+            for (int j = 0; j < cols; ++j)
             {
-                GameObject tile = Instantiate(TileViewPrefab, startPos + new Vector3(i, 0, j) * TileSize, Quaternion.identity);
+                GameObject tile = BoardGameObject.transform.GetChild(i * rows + j).gameObject;
+
                 TileView tileView = tile.GetComponent<TileView>();
-                tileView.TrackTile(gameBoard.GetTile(i, j));
+                tileView.TrackTile(gameBoard.GetTile(j, i));
 
                 Renderer rend = tile.GetComponent<Renderer>();
                 rend.material = toggle ? White : Black;
@@ -73,7 +75,7 @@ public class ViewManager : MonoBehaviour
     public static Vector3 CalculateTileWorldPosition(Tile tile)
     {
         Player boardOwner = tile.GetBoard().GetOwner();
-        BoardDimension boardDimension = boardDimensions[(int) boardOwner];
+        BoardDimension boardDimension = boardDimensions[(int)boardOwner];
         int i = tile.GetRow();
         int j = tile.GetCol();
         return boardDimension.startPos + new Vector3(i, 0, j) * TileSize;
