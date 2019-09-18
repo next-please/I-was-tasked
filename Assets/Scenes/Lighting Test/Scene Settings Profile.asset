@@ -70,23 +70,23 @@ MonoBehaviour:
     min: 0
   albedo:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.9985323, b: 0.9669811, a: 1}
+    m_Value: {r: 1, g: 0.98839605, b: 0.88235295, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 142.76
+    m_Value: 240.7
     min: 1
   baseHeight:
     m_OverrideState: 1
-    m_Value: -98.7
+    m_Value: -181.2
   meanHeight:
     m_OverrideState: 1
-    m_Value: 136
+    m_Value: 168.4
   anisotropy:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -0.31
     min: -1
     max: 1
   globalLightProbeDimmer:
@@ -160,13 +160,13 @@ MonoBehaviour:
     max: 5
   skyTint:
     m_OverrideState: 1
-    m_Value: {r: 0.9292453, g: 1, b: 0.98193496, a: 1}
+    m_Value: {r: 1, g: 0.938796, b: 0.8352941, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
   groundColor:
     m_OverrideState: 1
-    m_Value: {r: 0.8578676, g: 0.923227, b: 0.9622642, a: 1}
+    m_Value: {r: 0.68235296, g: 0.8388219, b: 0.94509804, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
