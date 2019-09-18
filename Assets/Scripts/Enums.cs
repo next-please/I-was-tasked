@@ -20,6 +20,12 @@ public static class Enums
         Undead
     }
 
+    public enum InteractionPrefab
+    {
+        ProjectileTestBlue,
+        ProjectileTestRed
+    }
+
     public static string[] JobSynergyDescription = new string[]
     {
         "Druids becomes copies of the strongest Druid",

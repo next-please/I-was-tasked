@@ -66,7 +66,6 @@ public class Simulator : Tickable
         for (int i = 0; i < numInteractionsToProcess; i++)
         {
             Interaction interaction = interactionsToProcess.Dequeue();
-            interaction.ProcessInteraction();
             if (interaction.ProcessInteraction()) {
                 interactionsToProcess.Enqueue(interaction);
             }

@@ -15,8 +15,15 @@ public class AttackState : State
 
         if (!target.IsDead())
         {
-            int ticksTotal = (piece.GetAttackRange() > 1) ? 50 : 0; // 50 is a placeholder number for an attack projectile.
-            Interaction attack = new Attack(piece, target, piece.GetAttackDamage(), ticksTotal);
+            Interaction attack;
+            if (piece.GetAttackRange() > 1)
+            {
+                attack = new RangedAttack(piece, target, piece.GetAttackDamage(), 50); // 50 is a placeholder number for an attack projectile.
+            }
+            else
+            {
+                attack = new MeleeAttack(piece, target, piece.GetAttackDamage());
+            }
             board.AddInteractionToProcess(attack);
         }
         else

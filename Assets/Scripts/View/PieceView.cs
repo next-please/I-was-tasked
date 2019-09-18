@@ -8,11 +8,11 @@ public class PieceView : MonoBehaviour
 {
     [HideInInspector]
     public Animator animator;
-    public Piece piece = null; // piece that I'm trying to display
     public GameObject statusBars;
     public GameObject currentHPBar;
     public GameObject currentMPBar;
     public TextMeshPro nameText; // todo: remove later
+    public Piece piece; // The piece being displayed.
     private IViewState prevViewAction;
     private int prevHP;
     private int prevMP;
@@ -68,7 +68,7 @@ public class PieceView : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (piece == null)
         {

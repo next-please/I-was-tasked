@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class AddInteractionToProcessEvent : GameEvent
+{
+    public Interaction interaction;
+}
+
 public class Board
 {
     private Tile[][] tiles;
@@ -70,6 +75,10 @@ public class Board
     public void AddInteractionToProcess(Interaction interaction)
     {
         interactionsToProcess.Enqueue(interaction);
+        EventManager.Instance.Raise(new AddInteractionToProcessEvent
+        {
+            interaction = interaction
+        });
     }
 
     public Tile GetTile(int row, int col)
