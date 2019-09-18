@@ -29,11 +29,13 @@ public class PieceDragHandler : InteractablePiece
     void OnEnable()
     {
         EventManager.Instance.AddListener<PieceMoveEvent>(OnPieceMove);
+        EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<PieceMoveEvent>(OnPieceMove);
+        EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
     }
 
     void Start()
@@ -44,6 +46,22 @@ public class PieceDragHandler : InteractablePiece
         if (piece.IsEnemy())
             Destroy(this);
         originalPos = transform.position;
+    }
+
+    public void OnExitPhase(ExitPhaseEvent e)
+    {
+        if (e.phase == Phase.Market)
+        {
+            OnEmptyDrop();
+        }
+    }
+
+    public override void OnDrag(PointerEventData eventData)
+    {
+        if (IsDragAllowed())
+        {
+            transform.position = GetMouseWorldPosition();
+        }
     }
 
     public override void OnBeginDrag(PointerEventData eventData)
@@ -114,5 +132,10 @@ public class PieceDragHandler : InteractablePiece
             originalPos = ViewManager.CalculateTileWorldPosition(e.tile);
             originalPos.y = 0.5f;
         }
+    }
+
+    private bool IsDragAllowed()
+    {
+        return PhaseManager.GetCurrentPhase() == Phase.Market;
     }
 }

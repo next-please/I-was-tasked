@@ -47,14 +47,12 @@ public class BenchItem : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        if (IsDragAllowed())
-        {
-            SetDraggedState();
-        }
-        else
-        {
-            eventData.pointerDrag = null;
-        }
+        SetDraggedState();
+    }
+
+    public override void OnDrag(PointerEventData eventData)
+    {
+        transform.position = GetMouseWorldPosition();
     }
 
     public override void OnBenchDrop(BenchSlot targetSlot)

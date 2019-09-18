@@ -34,45 +34,15 @@ public abstract class InteractablePiece :
     protected GameObject targetObject;
 
     public virtual void OnBeginDrag(PointerEventData eventData) { }
+    public virtual void OnDrag(PointerEventData eventData) { }
     public virtual void OnBenchDrop(BenchSlot slot) { }
     public virtual void OnTileDrop(Tile tile) { }
     public virtual void OnTrashDrop() { }
     public virtual void OnEmptyDrop() { }
 
-    void OnEnable()
-    {
-        EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
-    }
-
-    void OnDisable()
-    {
-        EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
-    }
-
-    public void OnExitPhase(ExitPhaseEvent e)
-    {
-        if (e.phase == Phase.Market)
-        {
-            OnEmptyDrop();
-        }
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (IsDragAllowed())
-        {
-            transform.position = GetMouseWorldPosition();
-        }
-    }
-
     public void OnEndDrag(PointerEventData eventData)
     {
         eventData.selectedObject = null;
-
-        if (!IsDragAllowed())
-        {
-            return;
-        }
 
         HitTarget target = GetHitTarget();
         switch (target)
@@ -143,10 +113,5 @@ public abstract class InteractablePiece :
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = zPosOnDrag;
         return Camera.main.ScreenToWorldPoint(mousePosition);
-    }
-
-    protected bool IsDragAllowed()
-    {
-        return PhaseManager.GetCurrentPhase() == Phase.Market;
     }
 }
