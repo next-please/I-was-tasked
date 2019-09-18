@@ -38,7 +38,7 @@ namespace Com.Nextplease.IWT
                 Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
             }
             Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-            PhotonNetwork.LoadLevel("Main Scene");
+            // PhotonNetwork.LoadLevel("Main Scene");
             UpdatePlayerList();
         }
 
@@ -107,7 +107,8 @@ namespace Com.Nextplease.IWT
         /// </summary>
         public override void OnLeftRoom()
         {
-            SceneManager.LoadScene(0);
+            // remove this for now
+            // SceneManager.LoadScene(0);
         }
 
         public override void OnPlayerEnteredRoom(Photon.Realtime.Player other)
