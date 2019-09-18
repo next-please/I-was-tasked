@@ -4,10 +4,9 @@ using UnityEngine;
 
 public static class NameGenerator
 {
-    private static Dictionary<Enums.Job, string[]> jobFlavors = new Dictionary<Enums.Job, string[]>();
-    private static Dictionary<Enums.Race, string[]> raceLastNames = new Dictionary<Enums.Race, string[]>();
+    private static Dictionary<Enums.Race, string[]> raceFlavors = new Dictionary<Enums.Race, string[]>();
     private static Dictionary<Enums.Race, string[]> raceFirstNames = new Dictionary<Enums.Race, string[]>();
-    private static string[] titles;
+    private static string[,] raceJobTitles;
     private static bool initialized = false;
     private static System.Random rngesus = new System.Random();
 
@@ -24,32 +23,20 @@ public static class NameGenerator
         string firstName = raceFirstNames[race][rngesus.Next(0, raceFirstNames[race].Length)];
         fullName = firstName;
 
-        //add last name
-        if (race != Enums.Race.Undead)
+        //add flavor
+        string flavorWord = raceFlavors[race][rngesus.Next(0, raceFlavors[race].Length)];
+        if (race == Enums.Race.Human || race == Enums.Race.Orc)
         {
-            string lastName = raceLastNames[race][rngesus.Next(0, raceLastNames[race].Length)];
-            fullName += " " + lastName;
+            fullName = flavorWord + " " + fullName;
         }
-
-        //add title
-        fullName = titles[rngesus.Next(0, titles.Length)] + " " + fullName;
-
-        //add class
-        string jobFlavor = "";
-        string flavorWord = jobFlavors[job][rngesus.Next(0, jobFlavors[job].Length)];
-        if (job == Enums.Job.Priest || job == Enums.Job.Druid)
+        else if (race == Enums.Race.Elf)
         {
-            jobFlavor = job.ToString() + " of the " + flavorWord;
+            fullName = fullName + " of " + flavorWord;
         }
-        else if (job == Enums.Job.Knight || job == Enums.Job.Mage)
+        else if (race == Enums.Race.Undead)
         {
-            jobFlavor = flavorWord + " " + job.ToString();
+            fullName = fullName + " the " + flavorWord;
         }
-        else if (job == Enums.Job.Rogue)
-        {
-            jobFlavor = "the " + flavorWord;
-        }
-        fullName += ", " + jobFlavor;
 
         return fullName;
     }
@@ -57,6 +44,11 @@ public static class NameGenerator
     public static string GenerateName(Enums.Race race, Enums.Job job)
     {
         return GenerateName(job, race);
+    }
+
+    public static string GetTitle(Enums.Race race, Enums.Job job)
+    {
+        return raceJobTitles[(int)race, (int)job];
     }
 
     private static void InitializeNames()
@@ -69,26 +61,21 @@ public static class NameGenerator
             new string[] { "Agronak", "Balogog", "Diggu", "Drigka", "Ghamonk", "Drikdarok", "Fogugh", "Gaakt", "Ghamborz", "Gulm", "Jorgagu", "Karguk", "Krognak", "Krothu", "Mazhug", "Oggugat", "Opkagut", "Ortguth", "Romarod", "Seakgu", "Snakha", "Surgha", "Ulag", "Urbul", "Urg", "Vrothu", "Vultog", "Wauktug", "Xugaa", "Xugarf", "Yaghed", "Zilge", "Agrob", "Bagrak", "Bashuk", "Bor", "Borgakh", "Bulfim", "Bumph", "Burub", "Burzob", "Durgat", "Durz", "Gashnakh", "Ghak", "Ghak", "Gharol", "Glob", "Homraz", "Lagakh", "Mazoga", "Mog", "Mor", "Murob", "Murzush", "Oghash", "Rogmesh", "Sharog", "Shel", "Ugak", "Ugor", "Urog", "Ushat", "Yotul" });
         raceFirstNames.Add(Enums.Race.Undead,
             new string[] { "Anzug", "Bigyuz", "Bittereyes", "Bitterscrub", "Boutriq", "Buk", "Bunkrag", "Chag", "Chitgaq", "Chuc", "Churvod", "Dustface", "Forgeblower", "Goretaker", "Grimeclaw", "Grimesnarl", "Hairbone", "Iqrud", "Jad", "Jirdaq", "Khungut", "Kic", "Kix", "Kug", "Kulgoq", "Muckleg", "Mudshaper", "Netherchaser", "Ommax", "Oukdad", "Pestfeet", "Plaguemaw", "Raot", "Rittuax", "Ruq", "Slushdripper", "Smutsurge", "Spiderlegs", "Stormchewer", "Urvox", "Vac", "Vaz", "Voidlegs", "Voidsnout", "Vukkag", "Vuq", "Wooddribbler", "Zat", "Zig", "Zut" });
-        raceLastNames.Add(Enums.Race.Human,
-            new string[] { "Abdullah", "Adison", "Ansgar", "Bernard", "Booth", "Branford", "Carlyle", "Claiborne", "Corbinian", "Danny", "Darrin", "Demarcus", "Dureau", "Farolt", "Florentin", "Florianus", "Fontane", "Fridolin", "Hall", "Hamza", "Harvey", "Isaias", "Jerker", "Jesper", "Leonore", "Lindon", "Lorenz", "Marc", "Ozzie", "Redman", "Seabert", "Thurmon", "Alena", "Amelia", "Christine", "Delphine", "Derrica", "Doreen", "Easter", "Elka", "Fayanna", "Frauke", "Hailee", "Hannchen", "Isabeau", "Jasmyn", "Jeanine", "Joselyn", "Josette", "Josina", "Jozlyn", "Kleopatra", "Leticia", "Marcellia", "Mystique", "Nicolette", "Orsine", "Pauline", "Philomena", "Quinn", "Tara", "Wiebke", "Winifrieda", "Zuri" });
-        raceLastNames.Add(Enums.Race.Elf,
-            new string[] { "Akkihazel", "Amelyun", "Anlirm", "Claelar", "Daiem", "Edyhuryn", "Ehlron", "Ellndar", "Elrevaran", "Fherath", "Gaawellenar", "Giuedacil", "Glaodel", "Incndar", "Iyreborn", "Jasinaril", "Lorreth", "Oeniikoth", "Oncoacvar", "Piahanthar", "Pyrios", "Renost", "Rotitar", "Skaeron", "Sonoden", "Tamsx", "Theathiel", "Voodan", "Wisidyr", "Wyoather", "Yhaan", "Zaoaral", "Aereheira", "Aiilyntra", "Ameenyn", "Ariossa", "Azaondi", "Bonoissa", "Croyrl", "Daasola", "Edheleyn", "Enaegil", "Esyindra", "Faoh", "Hirewen", "Ikirlda", "Imitalia", "Irhirla", "Kaaaela", "Kaindra", "Lihandra", "Mueogil", "Nakorna", "Naoen", "Nyerae", "Raeaarzah", "Riniadyl", "Saelthria", "Tehhie", "Tehoinn", "Viaoyn", "Yaarrel", "Ygrha", "Zorin" });
-        raceLastNames.Add(Enums.Race.Orc,
-            new string[] { "Arob", "Baghig", "Bazur", "Brugo", "Bulgan", "Fozhug", "Fubdagog", "Guthug", "Hibub", "Jughragh", "Koffutto", "Krognak", "Lugrub", "Moth", "Mudagog", "Nulgha", "Oghuglat", "Oglub", "Orpigig", "Quomaugh", "Sombilge", "Spoguk", "Turge", "Ulag", "Umruigig", "Uraugh", "Viggu", "Wumanok", "Xago", "Yakha", "Zlog", "Zumhug", "Bagrak", "Bum", "Bumph", "Burub", "Dulug", "Dura", "Durz", "Garakh", "Gashnakh", "Ghak", "Gharol", "Gluronk", "Gonk", "Kharzug", "Lash", "Lagakh", "Mog", "Mogak", "Mor", "Morn", "Murbol", "Murob", "Murzush", "Nargol", "Rogbut", "Rogmesh", "Shagdub", "Sharn", "Umog", "Ushug", "Yazgash" });
-        raceLastNames.Add(Enums.Race.Undead,
-            new string[] { "", "", "", "" });
-        jobFlavors.Add(Enums.Job.Knight,
-            new string[] { "Dragon", "Chaos", "White", "Black", "Crusader", "Templar", "Berserker", "Barbarian", "Primal", "Armoured", "Reckless", "Intimidating", "Relentness", "Indomitable", "Spirit", "Eldritch" });
-        jobFlavors.Add(Enums.Job.Druid,
-            new string[] { "Moon", "Stars", "Waves", "Earth", "Sun", "Valley", "Forest", "Wild", "Desert", "Mountain", "Swamp", "Claw", "Swarm", "Flame", "Elements", "Ocean", "Plains", "Canyon", "River" });
-        jobFlavors.Add(Enums.Job.Mage,
-            new string[] { "Arcane", "Frost", "Fire", "Wind", "Earth", "Water", "Illusion", "Elemental", "Mystic", "Wild", "Draconic", "Lightning", "Poison", "Chaos", "Eldritch", "Dark", "Shadow", "Blast" });
-        jobFlavors.Add(Enums.Job.Priest,
-            new string[] { "Light", "Shadow", "Fallen", "Damned", "Forsaken", "Forgotten", "Forlorn", "Famine", "Feast", "Lost", "Darkness", "Pious", "Faithful", "Pasture", "Spirit", "Father", "Pitied" });
-        jobFlavors.Add(Enums.Job.Rogue,
-            new string[] { "Silent", "Deadly", "Patient", "Cruel", "Restrained", "Hushed", "Muted", "Reserved", "Reserved", "Reticent", "Savage", "Poisonous", "Toxic", "Violent", "Grim", "Horrid", "Bitter", "Heartless", "Merciless", "Wicked", "Vicious" });
-
-        titles = new string[] { "Lord", "Pontious", "Baron", "Count", "Countess", "Viscount", "Earl", "Duke", "Prince", "Marquess", "Marquis", "Princess", "Duchess", "Marchioness", "King", "Queen", "Emperor", "Empress", "Viscountess", "Baroness", "Baronet", "Baronetess", "Knight", "Esquire", "Chevalier", "Squire", "Kaiser", "Kaiserin", "Monarch" };
+        raceFlavors.Add(Enums.Race.Human,
+            new string[] { "Lord", "Baron", "Count", "Countess", "Prince", "Duke", "King", "Queen", "Earl", "Princess", "Baronet", "Baroness" });
+        raceFlavors.Add(Enums.Race.Elf,
+            new string[] { "Lindon", "Lorien", "Mirkwood", "Rivendell", "Edhellond", "Emelsari", "Emyrenhil", "Raen Dorei", "Eyallion", "Y'hlenora", "Gaan Serine", "Illelnora", "Ishfarius", "Onysrion" });
+        raceFlavors.Add(Enums.Race.Orc,
+            new string[] { "Warlord", "Warchief", "Cheiftain", "Overlord", "Taskmaster", "Raider", "Raidleader", "Wolfrider", "Clansman", "Overseer" });
+        raceFlavors.Add(Enums.Race.Undead,
+            new string[] { "Wretched", "Vile", "Ghastly", "Distrought", "Broken", "Deformed", "Misshapen", "Forgotten", "Hopeless", "Lost", "Forsaken" });
+        
+        raceJobTitles = new string[,] {
+            { "Druid of the Wild", "Crusader", "Fire Mage", "Cleric", "Trickster" },
+            { "Nature Spirit", "Nature Guardian", "Wild Magician", "Nephilim", "Assassin" },
+            { "Protector of the Earth", "Warrior", "Thundercaller", "Inquisitor", "Swashbuckler" },
+            { "Druid of the Moon", "Berserker", "Lich", "Death Prophet", "Zero" },
+        };
 
         initialized = true;
     }

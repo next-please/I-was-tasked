@@ -15,6 +15,7 @@ public class Piece : ISerializable
     private Tile lockedTile;
 
     private string name;
+    private string title;
     private Enums.Race race;
     private Enums.Job job;
     private int rarity;
@@ -55,7 +56,7 @@ public class Piece : ISerializable
     private State entryState;
 
     // Constructor for All Pieces; remember to set isEnemy accordingly.
-    public Piece(string name, Enums.Race race, Enums.Job job, int rarity, bool isEnemy,
+    public Piece(string name, string title, Enums.Race race, Enums.Job job, int rarity, bool isEnemy,
                  int defaultMaximumHitPoints, int maximumManaPoints,
                  int defaultAttackDamage, int defaultAttackRange,
                  int defaultAttackSpeed, int defaultMovementSpeed)
@@ -65,6 +66,7 @@ public class Piece : ISerializable
         SetName(name);
         SetRace(race);
         SetClass(job);
+        SetTitle(title);
         SetRarity(rarity);
         SetIsEnemy(isEnemy);
         SetMovementSpeed(1);
@@ -122,6 +124,7 @@ public class Piece : ISerializable
         lockedTile = (Tile) info.GetValue("lockedTile", typeof(Tile));
 
         name = (string) info.GetValue("name", typeof(string));
+        title = (string) info.GetValue("title", typeof(string));
         race = (Enums.Race) info.GetValue("race", typeof(Enums.Race));
         job = (Enums.Job) info.GetValue("job", typeof(Enums.Job));
         rarity = (int) info.GetValue("rarity", typeof(int));
@@ -170,6 +173,7 @@ public class Piece : ISerializable
         info.AddValue("lockedTile", lockedTile, typeof(Tile));
 
         info.AddValue("name", name, typeof(string));
+        info.AddValue("title", title, typeof(string));
         info.AddValue("race", race, typeof(Enums.Race));
         info.AddValue("job", job, typeof(Enums.Job));
         info.AddValue("rarity", rarity, typeof(int));
@@ -375,6 +379,11 @@ public class Piece : ISerializable
         return rarity;
     }
 
+    public string GetTitle()
+    {
+        return title;
+    }
+
     public int GetDefaultMaximumHitPoints()
     {
         return defaultMaximumHitPoints;
@@ -538,6 +547,11 @@ public class Piece : ISerializable
     public void SetClass(Enums.Job job)
     {
         this.job = job;
+    }
+
+    public void SetTitle(string title)
+    {
+        this.title = title;
     }
 
     public void SetRarity(int rarity)

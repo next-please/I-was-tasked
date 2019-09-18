@@ -74,7 +74,7 @@ public class EnemyGenerator
         {
             // To Lewis: May want to do some RNG team compositions for Race and Job of Enemies.
             // Current placeholder Race and Job is Undead-Knight.
-            Piece enemy = new Piece("Enemy #" + (i + 1), Enums.Race.Undead, Enums.Job.Knight, -1, true,
+            Piece enemy = new Piece("Enemy #" + (i + 1), "", Enums.Race.Undead, Enums.Job.Knight, -1, true,
                                      defaultHitPoints, defaultManaPoints,
                                      defaultAttackDamage, defaultAttackRange,
                                      defaultAttackSpeed, defaultMovementSpeed);
