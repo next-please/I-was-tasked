@@ -7,7 +7,9 @@ public class ViewManager : MonoBehaviour
     public CharacterPrefabLoader characterPrefabLoader;
     public GameObject FriendlyPieceViewPrefab;
     public GameObject EnemyPieceViewPrefab;
-    public GameObject BoardGameObject;
+    public GameObject BoardPlayerOne;
+    public GameObject BoardPlayerTwo;
+    public GameObject BoardPlayerThree;
     public Material White;
     public Material Black;
 
@@ -43,7 +45,7 @@ public class ViewManager : MonoBehaviour
         {
             for (int j = 0; j < cols; ++j)
             {
-                GameObject tile = BoardGameObject.transform.GetChild(i * rows + j).gameObject;
+                GameObject tile = GetPlayerGameBoard(player).transform.GetChild(i * rows + j).gameObject;
 
                 TileView tileView = tile.GetComponent<TileView>();
                 tileView.TrackTile(gameBoard.GetTile(j, i));
@@ -79,5 +81,20 @@ public class ViewManager : MonoBehaviour
         int i = tile.GetRow();
         int j = tile.GetCol();
         return boardDimension.startPos + new Vector3(i, 0, j) * TileSize;
+    }
+
+    private GameObject GetPlayerGameBoard(Player player)
+    {
+        switch (player)
+        {
+            case Player.Zero:
+                return BoardPlayerOne;
+            case Player.One:
+                return BoardPlayerTwo;
+            case Player.Two:
+                return BoardPlayerThree;
+            default:
+                return BoardPlayerOne;
+        }
     }
 }
