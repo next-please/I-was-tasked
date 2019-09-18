@@ -32,10 +32,8 @@ public abstract class InteractablePiece :
 
     public Piece piece;
     protected GameObject targetObject;
-    protected bool isDragDisabled = false;
 
     public virtual void OnBeginDrag(PointerEventData eventData) { }
-    public virtual void OnDrag(PointerEventData eventData) { }
     public virtual void OnBenchDrop(BenchSlot slot) { }
     public virtual void OnTileDrop(Tile tile) { }
     public virtual void OnTrashDrop() { }
@@ -43,29 +41,27 @@ public abstract class InteractablePiece :
 
     void OnEnable()
     {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
     }
 
     void OnDisable()
     {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
-    }
-
-    public void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.PreCombat)
-        {
-            isDragDisabled = true;
-        }
     }
 
     public void OnExitPhase(ExitPhaseEvent e)
     {
-        if (e.phase == Phase.PostCombat)
+        if (e.phase == Phase.Market)
         {
-            isDragDisabled = false;
+            OnEmptyDrop();
+        }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (IsDragAllowed())
+        {
+            transform.position = GetMouseWorldPosition();
         }
     }
 
@@ -73,7 +69,7 @@ public abstract class InteractablePiece :
     {
         eventData.selectedObject = null;
 
-        if (isDragDisabled)
+        if (!IsDragAllowed())
         {
             return;
         }
@@ -149,23 +145,8 @@ public abstract class InteractablePiece :
         return Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
-    protected bool OnBeginDragPreparationSuccess(PointerEventData eventData)
+    protected bool IsDragAllowed()
     {
-        if (isDragDisabled)
-        {
-            eventData.pointerDrag = null;
-            return false;
-        }
-        return true;
-    }
-
-    protected bool OnDragPreparationSuccess(PointerEventData eventData)
-    {
-        if (isDragDisabled)
-        {
-            OnEmptyDrop();
-            return false;
-        }
-        return true;
+        return PhaseManager.GetCurrentPhase() == Phase.Market;
     }
 }

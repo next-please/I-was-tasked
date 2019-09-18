@@ -10,7 +10,7 @@ public class ArrangementManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public RequestHandler requestHandler;
 
-#region Bench To Board
+    #region Bench To Board
     public bool CanMoveBenchToBoard(Player player, Piece piece, Tile tile)
     {
         Tile actualTile = boardManager.GetActualTile(player, tile);
@@ -37,9 +37,9 @@ public class ArrangementManager : MonoBehaviour
         inventoryManager.AddToArmy(player, actualPiece);
         boardManager.AddPieceToBoard(player, actualPiece, tile.GetRow(), tile.GetCol());
     }
-#endregion
+    #endregion
 
-#region Board To Bench
+    #region Board To Bench
     public bool CanMoveBoardToBench(Player player, Piece piece, int slotIndex)
     {
         return !inventoryManager.IsBenchFull(player) &&
@@ -49,7 +49,7 @@ public class ArrangementManager : MonoBehaviour
     public void TryMoveBoardToBench(Player player, Piece piece, int slotIndex)
     {
         if (!CanMoveBoardToBench(player, piece, slotIndex))
-          return;
+            return;
         BoardToBenchData data = new BoardToBenchData(player, piece, slotIndex);
         Request request = new Request(1, data);
         requestHandler.SendRequest(request);
@@ -66,9 +66,9 @@ public class ArrangementManager : MonoBehaviour
         inventoryManager.AddToBench(player, actualPiece);
         inventoryManager.MoveBenchPieceToIndex(player, actualPiece, slotIndex);
     }
-#endregion
+    #endregion
 
-#region Move on Board
+    #region Move on Board
     public bool CanMovePieceOnBoard(Player player, Piece piece, Tile nextTile)
     {
         Tile actualNextTile = boardManager.GetActualTile(player, nextTile);
@@ -94,12 +94,12 @@ public class ArrangementManager : MonoBehaviour
         Tile actualNextTile = boardManager.GetActualTile(player, nextTile);
         boardManager.SetPieceAtTile(player, actualPiece, actualNextTile);
     }
-#endregion
+    #endregion
 
     public void TryMovePieceOnBench(Player player, Piece piece, int index)
     {
         // must be master client
-        Piece actualPiece = boardManager.GetActualPiece(player, piece);
+        Piece actualPiece = inventoryManager.GetActualBenchPiece(player, piece);
         inventoryManager.MoveBenchPieceToIndex(player, actualPiece, index);
     }
 }

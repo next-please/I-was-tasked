@@ -60,7 +60,9 @@ public class BenchManager : MonoBehaviour
     private void SetPiece(Piece piece, int index)
     {
         if (index >= slots.Count)
+        {
             return;
+        }
         var slot = slots[index];
         if (piece == null)
         {

@@ -35,7 +35,7 @@ public class BenchItem : InteractablePiece
     {
         GameObject modelPrefab = Instantiate(characterModel) as GameObject;
         modelPrefab.transform.SetParent(this.transform);
-        modelPrefab.transform.localPosition = new Vector3(0, -0.5f, 0);
+        modelPrefab.transform.localPosition = Vector3.zero;
         modelPrefab.transform.localScale = Vector3.one;
 
         animator = modelPrefab.GetComponent<Animator>();
@@ -47,17 +47,13 @@ public class BenchItem : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        if (OnBeginDragPreparationSuccess(eventData))
+        if (IsDragAllowed())
         {
             SetDraggedState();
         }
-    }
-
-    public override void OnDrag(PointerEventData eventData)
-    {
-        if (OnDragPreparationSuccess(eventData))
+        else
         {
-            transform.position = GetMouseWorldPosition();
+            eventData.pointerDrag = null;
         }
     }
 

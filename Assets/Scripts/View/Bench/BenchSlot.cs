@@ -22,7 +22,7 @@ public class BenchSlot : MonoBehaviour
 
         // set item prefab as child of slot
         benchItemObj.transform.SetParent(this.transform);
-        benchItemObj.transform.localPosition = Vector3.up;
+        benchItemObj.transform.localPosition = new Vector3(0, 0.5f, 0);
     }
 
     public void SetOccupant(Piece piece)
