@@ -59,7 +59,7 @@ public class RangedAttack : Interaction
         GameObject projectile = interactionView.gameObject;
 
         // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
-        if (!target.IsDead() && (target.GetCurrentTile().GetRow() != (int)attackDestination.x || target.GetCurrentTile().GetCol() != (int)attackDestination.z))
+        if (target != null && !target.IsDead() && (target.GetCurrentTile().GetRow() != (int)attackDestination.x || target.GetCurrentTile().GetCol() != (int)attackDestination.z))
         {
             attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
             attackDestination.y = 0.5f;
