@@ -25,19 +25,16 @@ public class BenchManager : MonoBehaviour
         EventManager.Instance.RemoveListener<InventoryChangeEvent>(OnInventoryChange);
     }
 
-    void Awake()
+    void Start()
     {
         // init bench slots
-        for (int i = 0; i < maxSlots; i++)
+        int i = 0;
+        foreach (Transform child in transform)
         {
-            GameObject benchSlotObj = Instantiate(BenchSlotPrefab) as GameObject;
-
-            benchSlotObj.transform.SetParent(this.transform);
-            benchSlotObj.transform.localPosition = new Vector3(i, 0, 0) * benchSize;
-
-            BenchSlot slot = benchSlotObj.GetComponent<BenchSlot>();
+            BenchSlot slot = child.GetComponent<BenchSlot>();
             slot.index = i;
             slots.Add(slot);
+            i++;
         }
     }
 
