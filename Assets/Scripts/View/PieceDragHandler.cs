@@ -33,6 +33,7 @@ public class PieceDragHandler : InteractablePiece
         piece = pieceView.piece;
         if (piece.IsEnemy())
             Destroy(this);
+        originalPos = transform.position;
     }
 
     public override void OnBeginDrag(PointerEventData eventData)
