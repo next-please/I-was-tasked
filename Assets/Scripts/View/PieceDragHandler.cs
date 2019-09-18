@@ -26,6 +26,16 @@ public class PieceDragHandler : InteractablePiece
     private Vector3 originalPos;
     private Animator animator;
 
+    void OnEnable()
+    {
+        EventManager.Instance.AddListener<PieceMoveEvent>(OnPieceMove);
+    }
+
+    void OnDisable()
+    {
+        EventManager.Instance.RemoveListener<PieceMoveEvent>(OnPieceMove);
+    }
+
     void Start()
     {
         PieceView pieceView = gameObject.GetComponent<PieceView>();
@@ -95,5 +105,14 @@ public class PieceDragHandler : InteractablePiece
     private void SetDraggedState()
     {
         animator.Play("Walk");
+    }
+
+    private void OnPieceMove(PieceMoveEvent e)
+    {
+        if (e.piece == piece)
+        {
+            originalPos = ViewManager.CalculateTileWorldPosition(e.tile);
+            originalPos.y = 0.5f;
+        }
     }
 }
