@@ -10,6 +10,7 @@ public class AddPieceToBoardEvent : GameEvent
     public Board board;
     public int row;
     public int col;
+    public Tile tile;
 }
 
 public class RemovePieceFromBoardEvent : GameEvent
@@ -34,7 +35,7 @@ public class BoardManager : MonoBehaviour
         boards = new Board[numPlayers];
         for (int i = 0; i < numPlayers; ++i)
         {
-            Player player = (Player) i;
+            Player player = (Player)i;
             Simulator sim = Simulators[i];
             Board board = new Board(8, 8, player);
             boards[i] = board;
@@ -54,7 +55,7 @@ public class BoardManager : MonoBehaviour
 
     public Board GetBoard(Player player)
     {
-        int index = (int) player;
+        int index = (int)player;
         return boards[index];
     }
 
@@ -62,7 +63,7 @@ public class BoardManager : MonoBehaviour
     {
         for (int i = 0; i < numPlayers; ++i)
         {
-            Player player = (Player) i;
+            Player player = (Player)i;
             ResetBoard(player);
         }
     }
@@ -86,7 +87,7 @@ public class BoardManager : MonoBehaviour
     {
         Board board = GetBoard(player);
         board.MovePieceToTile(piece, nextTile);
-        EventManager.Instance.Raise(new PieceMoveEvent{ piece = piece, tile = nextTile });
+        EventManager.Instance.Raise(new PieceMoveEvent { piece = piece, tile = nextTile });
     }
 
     public void RemoveAllEnemies(Player player)
@@ -113,19 +114,21 @@ public class BoardManager : MonoBehaviour
     {
         Board board = GetBoard(player);
         board.RemovePieceFromBoard(piece);
-        EventManager.Instance.Raise(new RemovePieceFromBoardEvent{ piece = piece });
+        EventManager.Instance.Raise(new RemovePieceFromBoardEvent { piece = piece });
     }
 
     public void AddPieceToBoard(Player player, Piece piece, int i, int j)
     {
         Board board = GetBoard(player);
         board.AddPieceToBoard(piece, i, j);
-        EventManager.Instance.Raise(new AddPieceToBoardEvent {
+        EventManager.Instance.Raise(new AddPieceToBoardEvent
+        {
             piece = piece,
             row = i,
             col = j,
             board = board,
             player = player,
+            tile = board.GetTile(i, j)
         });
     }
 
