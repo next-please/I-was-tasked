@@ -6,6 +6,8 @@ public abstract class Interaction
 {
     public Enums.InteractionPrefab interactionPrefab;
     public InteractionView interactionView;
+    public int ticksTotal;
+    public int ticksRemaining;
 
     public abstract bool ProcessInteraction();
     public abstract void CleanUpInteraction();

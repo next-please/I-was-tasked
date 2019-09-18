@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public class RangedAttack : Interaction
+public class TestFishBallSkill : Interaction
 {
     private Piece attacker;
     private Piece target;
@@ -9,28 +9,20 @@ public class RangedAttack : Interaction
     private Vector3 attackDestination;
     private int damageToInflict;
 
-    public RangedAttack(Piece attacker, Piece target, int damageToInflict, int ticksTotal)
+    public TestFishBallSkill(Piece attacker, Piece target)
     {
         this.attacker = attacker;
         this.target = target;
-        this.damageToInflict = damageToInflict;
+        this.damageToInflict = 100;
+        this.ticksTotal = 50; // Placeholder Value. This is how long it takes for the FishBall to hit the Target.
         this.ticksRemaining = ticksTotal;
-        this.ticksTotal = ticksTotal;
-        
-        // Testing
-        if (attacker.GetRace() == Enums.Race.Human && attacker.GetClass() == Enums.Job.Mage)
-        {
-            interactionPrefab = Enums.InteractionPrefab.ProjectileTestRed;
-        }
-        else
-        {
-            interactionPrefab = Enums.InteractionPrefab.ProjectileTestBlue;
-        }
+        interactionPrefab = Enums.InteractionPrefab.FishBallTest;
 
-        attackSource = ViewManager.CalculateTileWorldPosition(attacker.GetCurrentTile());
-        attackSource.y = 1.5f;
+        // Drop a FishBall onto the Target's Head
+        attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+        attackSource.y = 5.0f;
         attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y = 1.5f;
+        attackDestination.y = 0.5f;
     }
 
     public override bool ProcessInteraction()
@@ -60,7 +52,7 @@ public class RangedAttack : Interaction
         if (target != null && !target.IsDead() && (target.GetCurrentTile().GetRow() != (int)attackDestination.x || target.GetCurrentTile().GetCol() != (int)attackDestination.z))
         {
             attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-            attackDestination.y = 1.5f;
+            attackDestination.y = 0.5f;
         }
 
         float fracJourney = (float)(ticksTotal - ticksRemaining) / ticksTotal;
@@ -87,15 +79,15 @@ public class RangedAttack : Interaction
         if (attacker.GetLifestealPercentage() > 0) // Undead synergy
         {
             attacker.SetCurrentHitPoints(Math.Min(attacker.GetMaximumHitPoints(),
-                (int) Math.Floor((attacker.GetCurrentHitPoints() + damageToInflict * attacker.GetLifestealPercentage()))));
+                (int)Math.Floor((attacker.GetCurrentHitPoints() + damageToInflict * attacker.GetLifestealPercentage()))));
         }
 
         if (target.GetRecoilPercentage() > 0) // Knight synergy
         {
-            attacker.SetCurrentHitPoints((int) Math.Ceiling(attacker.GetCurrentHitPoints() - damageToInflict * target.GetRecoilPercentage()));
+            attacker.SetCurrentHitPoints((int)Math.Ceiling(attacker.GetCurrentHitPoints() - damageToInflict * target.GetRecoilPercentage()));
         }
 
         target.SetCurrentManaPoints(target.GetCurrentManaPoints() + target.GetManaPointsGainedOnDamaged());
-        Debug.Log(attacker.GetName() + " has ranged attacked " + target.GetName() + " for " + damageToInflict + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
+        Debug.Log(attacker.GetName() + " has meatball-ed " + target.GetName() + " for " + damageToInflict + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
     }
 }

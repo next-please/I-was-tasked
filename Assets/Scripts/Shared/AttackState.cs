@@ -18,7 +18,10 @@ public class AttackState : State
             Interaction attack;
             if (piece.GetAttackRange() > 1)
             {
-                attack = new RangedAttack(piece, target, piece.GetAttackDamage(), 50); // 50 is a placeholder number for an attack projectile.
+                // Projectiles take 10 ticks to move 1 Tile. This should change later
+                // when we know how fast each projectile is supposed to travel.
+                int ticksToHit = 10 * piece.GetCurrentTile().DistanceToTile(target.GetCurrentTile());
+                attack = new RangedAttack(piece, target, piece.GetAttackDamage(), ticksToHit);
             }
             else
             {
@@ -53,8 +56,9 @@ public class AttackState : State
         Tile targetTile = target.GetCurrentTile();
         if (targetTile == null)
         {
-            target.GetLockedTile();
+            targetTile = target.GetLockedTile();
         }
+
         if (targetTile == null)
         {
             Debug.Log("No target to look at, See AttackState.cs");

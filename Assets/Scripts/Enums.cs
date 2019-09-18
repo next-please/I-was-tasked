@@ -23,7 +23,8 @@ public static class Enums
     public enum InteractionPrefab
     {
         ProjectileTestBlue,
-        ProjectileTestRed
+        ProjectileTestRed,
+        FishBallTest
     }
 
     public static string[] JobSynergyDescription = new string[]

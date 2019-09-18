@@ -40,7 +40,7 @@ public class MeleeAttack : Interaction
         if (attacker.GetLifestealPercentage() > 0) // Undead synergy
         {
             attacker.SetCurrentHitPoints(Math.Min(attacker.GetMaximumHitPoints(),
-                (int)Math.Floor((attacker.GetCurrentHitPoints() + damageToInflict * attacker.GetLifestealPercentage()))));
+                (int) Math.Floor((attacker.GetCurrentHitPoints() + damageToInflict * attacker.GetLifestealPercentage()))));
         }
 
         if (target.GetRecoilPercentage() > 0) // Knight synergy

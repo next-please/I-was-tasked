@@ -47,3 +47,5 @@ MonoBehaviour:
     type: 3}
   ProjectileTestRedPrefab: {fileID: 7409315148139022978, guid: 3a270741ebbcfbe4bb1173d81000d715,
     type: 3}
+  FishBallTestPrefab: {fileID: 7409315148139022978, guid: bc7abbf261d124047aafe79239eeda4f,
+    type: 3}

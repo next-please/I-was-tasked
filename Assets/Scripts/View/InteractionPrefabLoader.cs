@@ -6,6 +6,7 @@ public class InteractionPrefabLoader : MonoBehaviour
 {
     public GameObject ProjectileTestBluePrefab;
     public GameObject ProjectileTestRedPrefab;
+    public GameObject FishBallTestPrefab;
 
     private Dictionary<Enums.InteractionPrefab, GameObject> interactionPrefabMap;
 
@@ -14,7 +15,8 @@ public class InteractionPrefabLoader : MonoBehaviour
         interactionPrefabMap = new Dictionary<Enums.InteractionPrefab, GameObject>()
         {
             { Enums.InteractionPrefab.ProjectileTestBlue, ProjectileTestBluePrefab },
-            { Enums.InteractionPrefab.ProjectileTestRed, ProjectileTestRedPrefab }
+            { Enums.InteractionPrefab.ProjectileTestRed, ProjectileTestRedPrefab },
+            { Enums.InteractionPrefab.FishBallTest, FishBallTestPrefab }
         };
     }
 

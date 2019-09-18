@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4904453221721745825}
   - component: {fileID: -8547522757374359607}
   m_Layer: 0
-  m_Name: ProjectileTestBlue
+  m_Name: FishBallTest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7409315148139022978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100006, guid: 691c8b080d8f55744a58f5e86b96915d, type: 3}
+  - {fileID: 2100000, guid: 13091086103104d4b8a63324ef21c1e8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -82,12 +82,12 @@ public class Piece : ISerializable
         if (!isEnemy)
         {
             SetManaPointsGainedOnAttack(20);
-            SetManaPointsGainedOnDamaged(20);
+            SetManaPointsGainedOnDamaged(5);
         }
         else
         {
-            SetManaPointsGainedOnAttack(10);
-            SetManaPointsGainedOnDamaged(10);
+            SetManaPointsGainedOnAttack(0);
+            SetManaPointsGainedOnDamaged(0);
         }
 
         SetDefaultAttackDamage(defaultAttackDamage);
@@ -247,9 +247,9 @@ public class Piece : ISerializable
     {
         FindNewTargetState findTarget = new FindNewTargetState();
         MoveState move = new MoveState();
+        SkillState skill = new SkillState();
         AttackState attack = new AttackState();
         InfiniteState inf = new InfiniteState();
-
         WaitState waitOneTick = new WaitState(1);
         WaitState waitOneFifthSeconds = new WaitState(10);
 
@@ -308,7 +308,19 @@ public class Piece : ISerializable
         if (simAction.hasFinished())
         {
             State nextState = this.state.TransitNextState(this);
-            TransitIntoState(board, nextState);
+
+            // Always checking if we can cast a skill.
+            // To-do: A "Stunned" State.
+            SkillState skill = new SkillState();
+            HasFullMP hasFullMP = new HasFullMP();
+            Transition canCastSkill = new Transition(hasFullMP);
+            canCastSkill.SetNextStates(
+                skill,
+                nextState
+            );
+            skill.SetNextState(nextState);
+
+            TransitIntoState(board, canCastSkill);
             while (this.state.hasFinished())
             {
                 nextState = this.state.TransitNextState(this);
