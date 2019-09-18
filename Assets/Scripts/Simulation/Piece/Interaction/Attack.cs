@@ -2,7 +2,7 @@
 using UnityEditor;
 using System;
 
-public class Attack
+public class Attack : Interaction
 {
     public Piece attacker;
     public Piece target;
@@ -32,6 +32,27 @@ public class Attack
         }
     }
 
+    public override bool ProcessInteraction()
+    {
+        if (ticksRemaining > 0)
+        {
+            ticksRemaining--;
+            UpdateProjectileView();
+            return true;
+        }
+        else
+        {
+            DestroyProjectileView();
+            ApplyDamageToInflict();
+            return false;
+        }
+    }
+
+    public override void CleanUpInteraction()
+    {
+        DestroyProjectileView();
+    }
+
     public void UpdateProjectileView()
     {
         if (projectile == null)
@@ -46,7 +67,7 @@ public class Attack
             attackDestination.y = 0.5f;
         }
 
-        float fracJourney = (float)(ticksTotal - ticksRemaining) / ticksTotal;
+        float fracJourney = (float) (ticksTotal - ticksRemaining) / ticksTotal;
         projectile.transform.position = Vector3.Lerp(attackSource, attackDestination, fracJourney);
         projectile.transform.LookAt(attackDestination);
 
@@ -58,8 +79,11 @@ public class Attack
 
     public void DestroyProjectileView()
     {
-        MonoBehaviour.Destroy(projectile);
-        projectile = null;
+        if (projectile != null)
+        {
+            MonoBehaviour.Destroy(projectile);
+            projectile = null;
+        }
     }
 
     public void ApplyDamageToInflict()

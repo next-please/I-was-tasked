@@ -8,7 +8,7 @@ public class Board
     private Tile[][] tiles;
     private List<Piece> piecesOnBoard;
     private List<Piece> activePiecesOnBoard;
-    private Queue<Attack> attacksToProcess;
+    private Queue<Interaction> interactionsToProcess;
     private int numRows;
     private int numCols;
     private Player owner;
@@ -39,7 +39,7 @@ public class Board
         SetNumCols(numCols);
         InitialiseGrid();
         this.owner = owner;
-        attacksToProcess = new Queue<Attack>();
+        interactionsToProcess = new Queue<Interaction>();
     }
 
     private void InitialiseGrid()
@@ -65,6 +65,11 @@ public class Board
         piece.SetCurrentTile(tiles[i][j]);
         activePiecesOnBoard.Sort(new PieceSort());
         piecesOnBoard.Sort(new PieceSort());
+    }
+
+    public void AddInteractionToProcess(Interaction interaction)
+    {
+        interactionsToProcess.Enqueue(interaction);
     }
 
     public Tile GetTile(int row, int col)
@@ -97,9 +102,9 @@ public class Board
         return piecesOnBoard.FindAll(p => !p.IsEnemy());
     }
 
-    public Queue<Attack> GetAttacksToProcess()
+    public Queue<Interaction> GetInteractionsToProcess()
     {
-        return attacksToProcess;
+        return interactionsToProcess;
     }
 
     public int GetNumRows()
@@ -329,12 +334,12 @@ public class Board
         piecesOnBoard.Sort(new PieceSort());
     }
 
-    public void ClearAttacksToProcess()
+    public void ClearInteractionsToProcess()
     {
-        while (attacksToProcess.Count > 0)
+        while (interactionsToProcess.Count > 0)
         {
-            Attack attack = attacksToProcess.Dequeue();
-            attack.DestroyProjectileView();
+            Interaction interaction = interactionsToProcess.Dequeue();
+            interaction.CleanUpInteraction();
         }
     }
 

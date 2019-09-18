@@ -15,16 +15,9 @@ public class AttackState : State
 
         if (!target.IsDead())
         {
-            int attackTicksTotal = (piece.GetAttackRange() > 1) ? 50 : 0;
-            Attack attack = new Attack(piece, target, piece.GetAttackDamage(), attackTicksTotal);
-            if (attackTicksTotal == 0) // Melee Piece
-            {
-                attack.ApplyDamageToInflict();
-            }
-            else
-            {
-                board.GetAttacksToProcess().Enqueue(attack);
-            }
+            int ticksTotal = (piece.GetAttackRange() > 1) ? 50 : 0; // 50 is a placeholder number for an attack projectile.
+            Interaction attack = new Attack(piece, target, piece.GetAttackDamage(), ticksTotal);
+            board.AddInteractionToProcess(attack);
         }
         else
         {
