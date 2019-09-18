@@ -156,8 +156,8 @@ namespace Com.Nextplease.IWT
                     arrangementManager.MovePieceOnBoard(data_2.player, data_2.piece, data_2.tile);
                     break;
                 case INIT_PHASE:
-                    PhaseManagementData data_10 = req.GetData() as PhaseManagementData;
-                    phaseManager.Initialize(data_10.numPlayers);
+                    InitPhaseData data_10 = req.GetData() as InitPhaseData;
+                    phaseManager.Initialize(data_10.numPlayers, data_10.seed);
                     break;
                 case ROUND_START:
                     phaseManager.StartRound();

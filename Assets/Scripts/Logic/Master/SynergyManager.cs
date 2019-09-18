@@ -21,10 +21,15 @@ public class SynergyManager : MonoBehaviour
     public static int[] raceSynergyRequirement = new int[] { 3, 3, 3, 3 };
     public InventoryManager inventoryManager;
     public BoardManager boardManager;
-    public System.Random rngesus = new System.Random();
+    public System.Random rngesus;
 
     public SynergyManager()
     {
+    }
+
+    public void SetSeed(int seed)
+    {
+        rngesus = new System.Random(seed);
     }
 
     public void IncreaseSynergyCount(Enums.Job job)
