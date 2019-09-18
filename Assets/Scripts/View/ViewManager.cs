@@ -14,6 +14,7 @@ public class ViewManager : MonoBehaviour
     public Material Black;
 
     static float TileSize = 1;
+    static float boardOffset = 20;
     struct BoardDimension
     {
         public int rows;
@@ -38,7 +39,7 @@ public class ViewManager : MonoBehaviour
         int rows = gameBoard.GetNumRows();
         int cols = gameBoard.GetNumCols();
         bool toggle = false;
-        Vector3 startPos = (Vector3.right * rows * TileSize + Vector3.right * 2) * (int)player; // board + offset
+        Vector3 startPos = new Vector3(boardOffset, 0, 0) * (int)player; // board + offset
         boardDimensions[(int)player] = new BoardDimension { rows = rows, cols = cols, startPos = startPos };
 
         for (int i = 0; i < rows; ++i)

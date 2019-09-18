@@ -14972,7 +14972,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   benchSize: 1
-  player: 0
+  player: 1
   BenchSlotPrefab: {fileID: 4343178345133470678, guid: d2a7a9222a7084276a79e18922ef235f,
     type: 3}
   BenchItemPrefab: {fileID: 5065093753651274998, guid: df352e63aa6db4b9b9f63ca09a82cc8d,
@@ -16889,7 +16889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   benchSize: 1
-  player: 0
+  player: 2
   BenchSlotPrefab: {fileID: 4343178345133470678, guid: d2a7a9222a7084276a79e18922ef235f,
     type: 3}
   BenchItemPrefab: {fileID: 5065093753651274998, guid: df352e63aa6db4b9b9f63ca09a82cc8d,
