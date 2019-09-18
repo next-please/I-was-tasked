@@ -76,14 +76,14 @@ MonoBehaviour:
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 240.7
+    m_Value: 600
     min: 1
   baseHeight:
     m_OverrideState: 1
-    m_Value: -181.2
+    m_Value: 135
   meanHeight:
     m_OverrideState: 1
-    m_Value: 168.4
+    m_Value: 200
   anisotropy:
     m_OverrideState: 1
     m_Value: -0.31
@@ -160,13 +160,13 @@ MonoBehaviour:
     max: 5
   skyTint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.938796, b: 0.8352941, a: 1}
+    m_Value: {r: 0.8962264, g: 0.8962264, b: 0.8962264, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
   groundColor:
     m_OverrideState: 1
-    m_Value: {r: 0.68235296, g: 0.8388219, b: 0.94509804, a: 1}
+    m_Value: {r: 0.44281775, g: 0.70224506, b: 0.8773585, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
