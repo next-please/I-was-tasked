@@ -156,6 +156,19 @@ public class PlayerInventory : ScriptableObject
         return Array.AsReadOnly(bench);
     }
 
+    public Piece GetBenchPiece(Piece piece)
+    {
+        for (int i = 0; i < bench.Length; ++i)
+        {
+            Piece benchPiece = bench[i];
+            if (benchPiece == piece)
+            {
+                return benchPiece;
+            }
+        }
+        return null;
+    }
+
    public int GetArmySize()
     {
         return armySize;

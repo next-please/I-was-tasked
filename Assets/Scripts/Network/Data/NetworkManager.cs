@@ -66,7 +66,6 @@ namespace Com.Nextplease.IWT
             // TODO: Remove
             Debug.Assert(raiseEventOptions != null);
             PhotonNetwork.RaiseEvent(code, content, raiseEventOptions, SEND_OPTIONS);
-            Debug.Log("EVENT RAISED");
         }
         #endregion
 

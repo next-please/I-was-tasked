@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class TileView : MonoBehaviour
 {
-    public Tile tile;
+    Tile tile;
 
     public void TrackTile(Tile tile)
     {
         this.tile = tile;
+    }
+
+    public Tile GetTile()
+    {
+        return tile;
     }
 }

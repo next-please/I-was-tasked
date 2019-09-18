@@ -14,7 +14,8 @@ public class ArrangementManager : MonoBehaviour
     public bool CanMoveBenchToBoard(Player player, Piece piece, Tile tile)
     {
         Tile actualTile = boardManager.GetActualTile(player, tile);
-        return inventoryManager.BenchContainsPiece(player, piece) &&
+        Piece actualPiece = inventoryManager.GetActualBenchPiece(player, piece);
+        return inventoryManager.BenchContainsPiece(player, actualPiece) &&
                !actualTile.IsOccupied();
     }
 
@@ -31,9 +32,10 @@ public class ArrangementManager : MonoBehaviour
     {
         if (!CanMoveBenchToBoard(player, piece, tile))
             return;
-        inventoryManager.RemoveFromBench(player, piece);
-        inventoryManager.AddToArmy(player, piece);
-        boardManager.AddPieceToBoard(player, piece, tile.GetRow(), tile.GetCol());
+        Piece actualPiece = inventoryManager.GetActualBenchPiece(player, piece);
+        inventoryManager.RemoveFromBench(player, actualPiece);
+        inventoryManager.AddToArmy(player, actualPiece);
+        boardManager.AddPieceToBoard(player, actualPiece, tile.GetRow(), tile.GetCol());
     }
 #endregion
 
@@ -58,10 +60,11 @@ public class ArrangementManager : MonoBehaviour
         if (!CanMoveBoardToBench(player, piece, slotIndex))
             return;
         // must be master client
-        boardManager.RemovePieceFromBoard(player, piece);
-        inventoryManager.RemoveFromArmy(player, piece);
-        inventoryManager.AddToBench(player, piece);
-        inventoryManager.MoveBenchPieceToIndex(player, piece, slotIndex);
+        Piece actualPiece = boardManager.GetActualPiece(player, piece);
+        boardManager.RemovePieceFromBoard(player, actualPiece);
+        inventoryManager.RemoveFromArmy(player, actualPiece);
+        inventoryManager.AddToBench(player, actualPiece);
+        inventoryManager.MoveBenchPieceToIndex(player, actualPiece, slotIndex);
     }
 #endregion
 
@@ -69,7 +72,8 @@ public class ArrangementManager : MonoBehaviour
     public bool CanMovePieceOnBoard(Player player, Piece piece, Tile nextTile)
     {
         Tile actualNextTile = boardManager.GetActualTile(player, nextTile);
-        return inventoryManager.ArmyContainsPiece(player, piece) &&
+        Piece actualPiece = boardManager.GetActualPiece(player, piece);
+        return inventoryManager.ArmyContainsPiece(player, actualPiece) &&
                !actualNextTile.IsOccupied();
     }
 
@@ -95,6 +99,7 @@ public class ArrangementManager : MonoBehaviour
     public void TryMovePieceOnBench(Player player, Piece piece, int index)
     {
         // must be master client
-        inventoryManager.MoveBenchPieceToIndex(player, piece, index);
+        Piece actualPiece = boardManager.GetActualPiece(player, piece);
+        inventoryManager.MoveBenchPieceToIndex(player, actualPiece, index);
     }
 }

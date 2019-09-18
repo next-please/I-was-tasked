@@ -37,18 +37,14 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        if (OnBeginDragPreparationSuccess(eventData))
+        if (IsDragAllowed())
         {
             originalPos = transform.position;
             SetDraggedState();
         }
-    }
-
-    public override void OnDrag(PointerEventData eventData)
-    {
-        if (OnDragPreparationSuccess(eventData))
+        else
         {
-            transform.position = GetMouseWorldPosition();
+            eventData.pointerDrag = null;
         }
     }
 

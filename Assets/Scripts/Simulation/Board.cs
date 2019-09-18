@@ -72,6 +72,11 @@ public class Board
         return tiles[row][col];
     }
 
+    public Piece GetPiece(Piece piece)
+    {
+        return GetPiecesOnBoard().Find(actualPiece => actualPiece == piece);
+    }
+
     public List<Piece> GetPiecesOnBoard()
     {
         return piecesOnBoard;

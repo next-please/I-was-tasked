@@ -187,6 +187,12 @@ public class InventoryManager : MonoBehaviour
         var playerInv = GetPlayerInventory(player);
         return playerInv.GetActualArmyPiece(piece);
     }
+
+    public Piece GetActualBenchPiece(Player player, Piece piece)
+    {
+        var playerInv = GetPlayerInventory(player);
+        return playerInv.GetBenchPiece(piece);
+    }
 }
 
 public class InventoryChangeEvent : GameEvent
