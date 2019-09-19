@@ -108,18 +108,22 @@ public class PhaseManager : MonoBehaviour
     public void TryIntialize()
     {
         System.Random random = new System.Random();
-        int seed = random.Next();
-        Data data = new InitPhaseData(numPlayers, seed);
+        int[] seeds = new int[1 + numPlayers]; // For Synergy Manager and the numPlayers (3) Simulators.
+        for (int i = 0; i < seeds.Length; i++)
+        {
+            seeds[i] = random.Next();
+        }
+        Data data = new InitPhaseData(numPlayers, seeds);
         Request req = new Request(ActionTypes.INIT_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
-    public void Initialize(int numPlayers, int seed) {
+    public void Initialize(int numPlayers, int[] seeds) {
         this.round = 0;
         this.numPlayers = numPlayers;
         ChangePhase(Phase.Initialization);
-        synergyManager.SetSeed(seed);
-        boardManager.CreateBoards(numPlayers);
+        synergyManager.SetSeed(seeds[0]);
+        boardManager.CreateBoards(seeds, numPlayers);
         inventoryManager.ResetInventories();
         TryStartRound();
     }

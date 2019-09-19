@@ -30,14 +30,14 @@ public class BoardManager : MonoBehaviour
     public ViewManager viewManager;
     Board[] boards;
 
-    public void CreateBoards(int numPlayers = 1)
+    public void CreateBoards(int[] seeds, int numPlayers = 1)
     {
         boards = new Board[numPlayers];
         for (int i = 0; i < numPlayers; ++i)
         {
             Player player = (Player)i;
             Simulator sim = Simulators[i];
-            Board board = new Board(8, 8, player);
+            Board board = new Board(8, 8, player, seeds[i + 1]);
             boards[i] = board;
             sim.SetGameBoard(board);
             viewManager.OnBoardCreated(board, player);

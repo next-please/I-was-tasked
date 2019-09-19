@@ -157,7 +157,7 @@ namespace Com.Nextplease.IWT
                     break;
                 case INIT_PHASE:
                     InitPhaseData data_10 = req.GetData() as InitPhaseData;
-                    phaseManager.Initialize(data_10.numPlayers, data_10.seed);
+                    phaseManager.Initialize(data_10.numPlayers, data_10.seeds);
                     break;
                 case ROUND_START:
                     phaseManager.StartRound();

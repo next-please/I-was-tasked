@@ -17,6 +17,7 @@ public class Board
     private int numRows;
     private int numCols;
     private Player owner;
+    private System.Random rngesus;
 
     // Sort the Pieces by their positions on the Board. Let The rightmost piece be first.
     class PieceSort : IComparer<Piece> {
@@ -38,12 +39,14 @@ public class Board
         }
     }
 
-    public Board(int numRows, int numCols, Player owner)
+    public Board(int numRows, int numCols, Player owner, int seed)
     {
         SetNumRows(numRows);
         SetNumCols(numCols);
         InitialiseGrid();
         this.owner = owner;
+        rngesus = new System.Random(seed);
+        Debug.Log("A RNGesus with the seed " + seed + " has been created for Player #" + (int) owner + ".");
         interactionsToProcess = new Queue<Interaction>();
     }
 
@@ -59,76 +62,6 @@ public class Board
                 tiles[i][j] = new Tile(i, j, this);
             }
         }
-    }
-
-    public void AddPieceToBoard(Piece piece, int i, int j)
-    {
-        piecesOnBoard.Add(piece);
-        activePiecesOnBoard.Add(piece);
-        MovePieceToTile(piece, tiles[i][j]);
-        piece.SetInitialTile(tiles[i][j]);
-        piece.SetCurrentTile(tiles[i][j]);
-        activePiecesOnBoard.Sort(new PieceSort());
-        piecesOnBoard.Sort(new PieceSort());
-    }
-
-    public void AddInteractionToProcess(Interaction interaction)
-    {
-        interactionsToProcess.Enqueue(interaction);
-        EventManager.Instance.Raise(new AddInteractionToProcessEvent
-        {
-            interaction = interaction
-        });
-    }
-
-    public Tile GetTile(int row, int col)
-    {
-        return tiles[row][col];
-    }
-
-    public Piece GetPiece(Piece piece)
-    {
-        return GetPiecesOnBoard().Find(actualPiece => actualPiece == piece);
-    }
-
-    public List<Piece> GetPiecesOnBoard()
-    {
-        return piecesOnBoard;
-    }
-
-    public List<Piece> GetActivePiecesOnBoard()
-    {
-        return activePiecesOnBoard;
-    }
-
-    public List<Piece> GetActiveEnemiesOnBoard()
-    {
-        return activePiecesOnBoard.FindAll(p => p.IsEnemy());
-    }
-
-    public List<Piece> GetActiveEnemiesWithinRadiusOfTile(Tile tile, int radius)
-    {
-        return activePiecesOnBoard.FindAll(p => p.IsEnemy() && (Math.Abs(p.GetCurrentTile().GetRow() - tile.GetRow()) <= radius) && (Math.Abs(p.GetCurrentTile().GetCol() - tile.GetCol()) <= radius));
-    }
-
-    public List<Piece> GetActiveFriendliesOnBoard()
-    {
-        return activePiecesOnBoard.FindAll(p => !p.IsEnemy());
-    }
-
-    public Queue<Interaction> GetInteractionsToProcess()
-    {
-        return interactionsToProcess;
-    }
-
-    public int GetNumRows()
-    {
-        return numRows;
-    }
-
-    public int GetNumCols()
-    {
-        return numCols;
     }
 
     public void MovePieceToTile(Piece piece, Tile nextTile)
@@ -341,16 +274,6 @@ public class Board
         return farthestEnemyPiece;
     }
 
-    public void SetNumRows(int numRows)
-    {
-        this.numRows = numRows;
-    }
-
-    public void SetNumCols(int numCols)
-    {
-        this.numCols = numCols;
-    }
-
     public void DeactivatePieceOnBoard(Piece piece)
     {
         Tile tile = piece.GetCurrentTile();
@@ -389,8 +312,93 @@ public class Board
         }
     }
 
+    public void AddPieceToBoard(Piece piece, int i, int j)
+    {
+        piecesOnBoard.Add(piece);
+        activePiecesOnBoard.Add(piece);
+        MovePieceToTile(piece, tiles[i][j]);
+        piece.SetInitialTile(tiles[i][j]);
+        piece.SetCurrentTile(tiles[i][j]);
+        activePiecesOnBoard.Sort(new PieceSort());
+        piecesOnBoard.Sort(new PieceSort());
+    }
+
+    public void AddInteractionToProcess(Interaction interaction)
+    {
+        interactionsToProcess.Enqueue(interaction);
+        EventManager.Instance.Raise(new AddInteractionToProcessEvent
+        {
+            interaction = interaction
+        });
+    }
+
+    public Tile GetTile(int row, int col)
+    {
+        return tiles[row][col];
+    }
+
+    public Piece GetPiece(Piece piece)
+    {
+        return GetPiecesOnBoard().Find(actualPiece => actualPiece == piece);
+    }
+
+    public List<Piece> GetPiecesOnBoard()
+    {
+        return piecesOnBoard;
+    }
+
+    public List<Piece> GetActivePiecesOnBoard()
+    {
+        return activePiecesOnBoard;
+    }
+
+    public List<Piece> GetActiveEnemiesOnBoard()
+    {
+        return activePiecesOnBoard.FindAll(p => p.IsEnemy());
+    }
+
+    public List<Piece> GetActiveEnemiesWithinRadiusOfTile(Tile tile, int radius)
+    {
+        return activePiecesOnBoard.FindAll(p => p.IsEnemy() && (Math.Abs(p.GetCurrentTile().GetRow() - tile.GetRow()) <= radius) && (Math.Abs(p.GetCurrentTile().GetCol() - tile.GetCol()) <= radius));
+    }
+
+    public List<Piece> GetActiveFriendliesOnBoard()
+    {
+        return activePiecesOnBoard.FindAll(p => !p.IsEnemy());
+    }
+
+    public Queue<Interaction> GetInteractionsToProcess()
+    {
+        return interactionsToProcess;
+    }
+
+    public int GetNumRows()
+    {
+        return numRows;
+    }
+
+    public int GetNumCols()
+    {
+        return numCols;
+    }
+
+    public System.Random GetRNGesus()
+    {
+        return rngesus;
+    }
+
     public Player GetOwner()
     {
         return owner;
+    }
+
+    public void SetNumRows(int numRows)
+    {
+        this.numRows = numRows;
+    }
+
+    public void SetNumCols(int numCols)
+    {
+        this.numCols = numCols;
     }
 }
