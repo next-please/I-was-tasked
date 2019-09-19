@@ -286,6 +286,31 @@ public class Board
         return nearestEnemyPiece;
     }
 
+    public Piece FindFarthestTarget(Piece piece)
+    {
+        List<Piece> enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
+
+        // Determine the farthest enemy Piece.
+        Piece farthestEnemyPiece = null;
+
+        foreach (Piece enemyPiece in enemyPiecesOnBoard)
+        {
+            if (farthestEnemyPiece == null)
+            {
+                farthestEnemyPiece = enemyPiece;
+                continue;
+            }
+
+            Tile farthestTile = farthestEnemyPiece.GetCurrentTile();
+            Tile checkTile = enemyPiece.GetCurrentTile();
+            if (piece.GetCurrentTile().DistanceToTile(farthestTile) > piece.GetCurrentTile().DistanceToTile(checkTile))
+            {
+                farthestEnemyPiece = enemyPiece;
+            }
+        }
+        return farthestEnemyPiece;
+    }
+
     public void SetNumRows(int numRows)
     {
         this.numRows = numRows;
