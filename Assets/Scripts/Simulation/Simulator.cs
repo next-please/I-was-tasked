@@ -51,7 +51,7 @@ public class Simulator : Tickable
                 activePiece.TransitIntoState(gameBoard, new InfiniteState());
             }
             phaseManager.SimulationEnded(player, activePiecesOnBoard);
-            gameBoard.ClearAttacksToProcess();
+            gameBoard.ClearInteractionsToProcess();
             return;
         }
 
@@ -61,22 +61,13 @@ public class Simulator : Tickable
             currentPiece.ProcessState(gameBoard, tick);
         }
 
-        // To be optimized in the future.
-        Queue<Attack> attacksToProcess = gameBoard.GetAttacksToProcess();
-        int numAttacksToProcess = attacksToProcess.Count;
-        for (int i = 0; i < numAttacksToProcess; i++)
+        Queue<Interaction> interactionsToProcess = gameBoard.GetInteractionsToProcess();
+        int numInteractionsToProcess = interactionsToProcess.Count;
+        for (int i = 0; i < numInteractionsToProcess; i++)
         {
-            Attack attackToProcess = attacksToProcess.Dequeue();
-            if (attackToProcess.ticksRemaining <= 0)
-            {
-                attackToProcess.DestroyProjectileView();
-                attackToProcess.ApplyDamageToInflict();
-            }
-            else
-            {
-                attackToProcess.ticksRemaining--;
-                attackToProcess.UpdateProjectileView();
-                attacksToProcess.Enqueue(attackToProcess);
+            Interaction interaction = interactionsToProcess.Dequeue();
+            if (interaction.ProcessInteraction()) {
+                interactionsToProcess.Enqueue(interaction);
             }
         }
     }

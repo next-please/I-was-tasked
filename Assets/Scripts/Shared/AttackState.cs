@@ -15,16 +15,19 @@ public class AttackState : State
 
         if (!target.IsDead())
         {
-            int attackTicksTotal = (piece.GetAttackRange() > 1) ? 50 : 0;
-            Attack attack = new Attack(piece, target, piece.GetAttackDamage(), attackTicksTotal);
-            if (attackTicksTotal == 0) // Melee Piece
+            Interaction attack;
+            if (piece.GetAttackRange() > 1)
             {
-                attack.ApplyDamageToInflict();
+                // Projectiles take 10 ticks to move 1 Tile. This should change later
+                // when we know how fast each projectile is supposed to travel.
+                int ticksToHit = 10 * piece.GetCurrentTile().DistanceToTile(target.GetCurrentTile());
+                attack = new RangedAttack(piece, target, piece.GetAttackDamage(), ticksToHit);
             }
             else
             {
-                board.GetAttacksToProcess().Enqueue(attack);
+                attack = new MeleeAttack(piece, target, piece.GetAttackDamage());
             }
+            board.AddInteractionToProcess(attack);
         }
         else
         {
@@ -53,8 +56,9 @@ public class AttackState : State
         Tile targetTile = target.GetCurrentTile();
         if (targetTile == null)
         {
-            target.GetLockedTile();
+            targetTile = target.GetLockedTile();
         }
+
         if (targetTile == null)
         {
             Debug.Log("No target to look at, See AttackState.cs");

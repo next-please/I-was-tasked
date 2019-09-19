@@ -5,6 +5,7 @@ using UnityEngine;
 public class ViewManager : MonoBehaviour
 {
     public CharacterPrefabLoader characterPrefabLoader;
+    public InteractionPrefabLoader interactionPrefabLoader;
     public GameObject FriendlyPieceViewPrefab;
     public GameObject EnemyPieceViewPrefab;
     public GameObject BoardPlayerOne;
@@ -27,11 +28,13 @@ public class ViewManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<AddPieceToBoardEvent>(OnPieceAdded);
+        EventManager.Instance.AddListener<AddInteractionToProcessEvent>(OnInteractionAdded);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
+        EventManager.Instance.RemoveListener<AddInteractionToProcessEvent>(OnInteractionAdded);
     }
 
     public void OnBoardCreated(Board gameBoard, Player player)
@@ -76,6 +79,17 @@ public class ViewManager : MonoBehaviour
         pieceView.TrackPiece(piece);
         pieceView.InstantiateModelPrefab(characterPrefabLoader.GetPrefab(piece));
         pieceObj.transform.parent = transform;
+    }
+
+    public void OnInteractionAdded(AddInteractionToProcessEvent e)
+    {
+        Interaction interaction = e.interaction;
+        GameObject interactionViewPrefab = interactionPrefabLoader.GetPrefab(interaction.interactionPrefab);
+        GameObject interactionObj = Instantiate(interactionViewPrefab, Vector3.zero, Quaternion.identity);
+        InteractionView interactionView = interactionObj.GetComponent<InteractionView>();
+        interactionView.TrackInteraction(interaction);
+        interaction.TrackInteractionView(interactionView);
+        interactionObj.transform.parent = transform;
     }
 
     public static Vector3 CalculateTileWorldPosition(Tile tile)
