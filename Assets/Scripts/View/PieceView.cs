@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
+﻿using UnityEngine;
 using TMPro;
 
 public class PieceView : MonoBehaviour
@@ -14,14 +11,15 @@ public class PieceView : MonoBehaviour
     public TextMeshPro nameText; // todo: remove later
     public Piece piece; // The piece being displayed.
     private IViewState prevViewAction;
-    private int prevHP;
-    private int prevMP;
+    private float velocityHP = 0.0f;
+    private float velocityMP = 0.0f;
+    private float smoothTime = 0.1f;
 
     private void Start()
     {
-        SetCurrentMPBar(0.0f);
         Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
         statusBars.transform.LookAt(lookAtPosition);
+        currentMPBar.transform.localScale = new Vector3(0, 1, 1);
     }
 
     public void TrackPiece(Piece piece)
@@ -75,20 +73,20 @@ public class PieceView : MonoBehaviour
             return;
         }
 
-        if (prevHP != piece.GetCurrentHitPoints())
-        {
-            UpdateCurrentHPBar();
-        }
-
-        if (prevMP != piece.GetCurrentManaPoints())
-        {
-            UpdateCurrentMPBar();
-        }
-
         if (piece.IsDead())
         {
             animator.Play("Death", 0);
+            statusBars.SetActive(false);
             return;
+        }
+        else
+        {
+            if (!statusBars.activeSelf)
+            {
+                statusBars.SetActive(true);
+            }
+            UpdateCurrentHPBar();
+            UpdateCurrentMPBar();
         }
 
         IViewState viewAction = piece.GetViewState();
@@ -121,30 +119,15 @@ public class PieceView : MonoBehaviour
         }
     }
 
-    public void SetCurrentHPBar(float hp)
-    {
-        float currentHPFraction = hp / piece.GetMaximumHitPoints();
-        Vector3 temp = currentHPBar.transform.localScale;
-        temp.x = currentHPFraction;
-        currentHPBar.transform.localScale = temp;
-        prevHP = piece.GetCurrentHitPoints();
-    }
-    public void SetCurrentMPBar(float mp)
-    {
-        float currentMPFraction = mp / piece.GetMaximumManaPoints();
-        Vector3 temp = currentMPBar.transform.localScale;
-        temp.x = currentMPFraction;
-        currentMPBar.transform.localScale = temp;
-        prevMP = piece.GetCurrentManaPoints();
-    }
-
     public void UpdateCurrentHPBar()
     {
-        SetCurrentHPBar(piece.GetCurrentHitPoints());
+        float currHPScale = Mathf.SmoothDamp(currentHPBar.transform.localScale.x, (float) piece.GetCurrentHitPoints() / piece.GetMaximumHitPoints(), ref velocityHP, smoothTime);
+        currentHPBar.transform.localScale = new Vector3(currHPScale, 1, 1);
     }
 
     public void UpdateCurrentMPBar()
     {
-        SetCurrentMPBar(piece.GetCurrentManaPoints());
+        float currMPScale = Mathf.SmoothDamp(currentMPBar.transform.localScale.x, (float)piece.GetCurrentManaPoints() / piece.GetMaximumManaPoints(), ref velocityMP, smoothTime);
+        currentMPBar.transform.localScale = new Vector3(currMPScale, 1, 1);
     }
 }

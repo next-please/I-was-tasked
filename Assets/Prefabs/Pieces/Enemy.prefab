@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 1283241703397704063}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 6978322079132186428}
   - {fileID: 7359843916769623785}
@@ -114,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 5142782745114205904, guid: fc346f163c984414294995744131fa23,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.925
+      value: 1.066
       objectReference: {fileID: 0}
     - target: {fileID: 5142782745114205904, guid: fc346f163c984414294995744131fa23,
         type: 3}
@@ -187,6 +187,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MP Bar
       objectReference: {fileID: 0}
+    - target: {fileID: 8294861222438596528, guid: 00c39b6a602bbaa418d85a75d8569eb7,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -243,11 +248,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8294861222438596528, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalScale.x
       value: 1
