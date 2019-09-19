@@ -42,6 +42,7 @@ public class Piece : ISerializable
 
     private int defaultMovementSpeed;
     private int movementSpeed;
+    private int minimumMovementSpeed = 1;
 
     private double defaultLifestealPercentage;
     private double lifestealPercentage;
@@ -254,7 +255,6 @@ public class Piece : ISerializable
 
         info.AddValue("damageIfSurvive", damageIfSurvive, typeof(int));
     }
-
 
      public override bool Equals(object obj)
     {
@@ -734,7 +734,7 @@ public class Piece : ISerializable
 
     public void SetDefaultAttackSpeed(int defaultAttackSpeed)
     {
-        this.defaultAttackSpeed = defaultAttackSpeed;
+        this.defaultAttackSpeed = Math.Max(defaultAttackSpeed, minimumAttackSpeed);
     }
 
     public void SetAttackSpeed(int attackSpeed)
@@ -744,12 +744,12 @@ public class Piece : ISerializable
 
     public void SetDefaultMovementSpeed(int defaultMovementSpeed)
     {
-        this.defaultMovementSpeed = defaultMovementSpeed;
+        this.defaultMovementSpeed = Math.Max(defaultMovementSpeed, minimumMovementSpeed);
     }
 
     public void SetMovementSpeed(int movementSpeed)
     {
-        this.movementSpeed = movementSpeed;
+        this.movementSpeed = Math.Max(movementSpeed, minimumMovementSpeed);
     }
 
     public void SetDefaultLifestealPercentage(double defaultLifestealPercentage)
