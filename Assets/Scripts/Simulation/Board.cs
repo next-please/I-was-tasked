@@ -263,7 +263,15 @@ public class Board
 
     public Piece FindNearestTarget(Piece piece)
     {
-        List<Piece> enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
+        List<Piece> enemyPiecesOnBoard;
+        if (!piece.IsEnemy())
+        {
+            enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
+        }
+        else
+        {
+            enemyPiecesOnBoard = GetActiveFriendliesOnBoard();
+        }
 
         // Determine the nearest enemy Piece.
         Piece nearestEnemyPiece = null;
@@ -288,7 +296,15 @@ public class Board
 
     public Piece FindFarthestTarget(Piece piece)
     {
-        List<Piece> enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
+        List<Piece> enemyPiecesOnBoard;
+        if (!piece.IsEnemy())
+        {
+            enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
+        }
+        else
+        {
+            enemyPiecesOnBoard = GetActiveFriendliesOnBoard();
+        }
 
         // Determine the farthest enemy Piece.
         Piece farthestEnemyPiece = null;
