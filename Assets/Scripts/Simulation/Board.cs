@@ -87,14 +87,19 @@ public class Board
         return activePiecesOnBoard;
     }
 
-    public List<Piece> GetEnemiesOnBoard()
+    public List<Piece> GetActiveEnemiesOnBoard()
     {
-        return piecesOnBoard.FindAll(p => p.IsEnemy());
+        return activePiecesOnBoard.FindAll(p => p.IsEnemy());
     }
 
-    public List<Piece> GetFriendliesOnBoard()
+    public List<Piece> GetActiveEnemiesWithinRadiusOfTile(Tile tile, int radius)
     {
-        return piecesOnBoard.FindAll(p => !p.IsEnemy());
+        return activePiecesOnBoard.FindAll(p => p.IsEnemy() && (Math.Abs(p.GetCurrentTile().GetRow() - tile.GetRow()) <= radius) && (Math.Abs(p.GetCurrentTile().GetCol() - tile.GetCol()) <= radius));
+    }
+
+    public List<Piece> GetActiveFriendliesOnBoard()
+    {
+        return activePiecesOnBoard.FindAll(p => !p.IsEnemy());
     }
 
     public Queue<Attack> GetAttacksToProcess()
@@ -258,16 +263,7 @@ public class Board
 
     public Piece FindNearestTarget(Piece piece)
     {
-        List<Piece> enemyPiecesOnBoard = new List<Piece>();
-
-        // Get all enemy Pieces on the Board.
-        foreach (Piece activePiece in this.GetActivePiecesOnBoard())
-        {
-            if (activePiece.IsEnemy() != piece.IsEnemy())
-            {
-                enemyPiecesOnBoard.Add(activePiece);
-            }
-        }
+        List<Piece> enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
 
         // Determine the nearest enemy Piece.
         Piece nearestEnemyPiece = null;
