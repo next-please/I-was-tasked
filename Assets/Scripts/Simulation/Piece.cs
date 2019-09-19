@@ -85,8 +85,8 @@ public class Piece : ISerializable
         SetMovementSpeed(1);
 
         SetDefaultMaximumHitPoints(defaultMaximumHitPoints);
-        SetCurrentHitPoints(defaultMaximumHitPoints);
         SetMaximumHitPoints(defaultMaximumHitPoints);
+        SetCurrentHitPoints(defaultMaximumHitPoints);
 
         SetMaximumManaPoints(maximumManaPoints);
         SetCurrentManaPoints(0);
@@ -156,8 +156,8 @@ public class Piece : ISerializable
         isEnemy = (bool) info.GetValue("isEnemy", typeof(bool));
 
         defaultMaximumHitPoints = (int) info.GetValue("defaultMaximumHitPoints", typeof(int));
-        currentHitPoints = (int) info.GetValue("currentHitPoints", typeof(int));
         maximumHitPoints = (int) info.GetValue("maximumHitPoints", typeof(int));
+        currentHitPoints = (int)info.GetValue("currentHitPoints", typeof(int));
 
         currentManaPoints = (int) info.GetValue("currentManaPoints", typeof(int));
         maximumManaPoints = (int) info.GetValue("maximumManaPoints", typeof(int));
