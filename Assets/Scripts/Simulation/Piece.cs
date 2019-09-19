@@ -38,6 +38,7 @@ public class Piece : ISerializable
 
     private int defaultAttackSpeed;
     private int attackSpeed;
+    private int minimumAttackSpeed = 1;
 
     private int defaultMovementSpeed;
     private int movementSpeed;
@@ -577,7 +578,7 @@ public class Piece : ISerializable
         }
         else
         {
-            this.currentHitPoints = currentHitPoints;
+            this.currentHitPoints = Math.Min(currentHitPoints, maximumHitPoints);
         }
     }
 
@@ -644,7 +645,7 @@ public class Piece : ISerializable
 
     public void SetAttackSpeed(int attackSpeed)
     {
-        this.attackSpeed = attackSpeed;
+        this.attackSpeed = Math.Max(attackSpeed, minimumAttackSpeed);
     }
 
     public void SetDefaultMovementSpeed(int defaultMovementSpeed)
