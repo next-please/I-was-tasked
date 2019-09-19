@@ -95,9 +95,9 @@ public class SynergyManager : MonoBehaviour
 
     private void ApplyJobSynergy(Board board, int i)
     {
-        var friendlyPieces = board.GetFriendliesOnBoard();
+        var friendlyPieces = board.GetActiveFriendliesOnBoard();
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
-        var enemyPieces = board.GetEnemiesOnBoard();
+        var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
         switch (i)
         {
@@ -148,9 +148,9 @@ public class SynergyManager : MonoBehaviour
 
     private void ApplyRaceSynergy(Board board, int i)
     {
-        var friendlyPieces = board.GetFriendliesOnBoard();
+        var friendlyPieces = board.GetActiveFriendliesOnBoard();
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
-        var enemyPieces = board.GetEnemiesOnBoard();
+        var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
         switch (i)
         {
@@ -194,9 +194,9 @@ public class SynergyManager : MonoBehaviour
 
     private void ApplyRaceSynergyToHuman(Board board, int i)
     {
-        var friendlyPieces = board.GetFriendliesOnBoard();
+        var friendlyPieces = board.GetActiveFriendliesOnBoard();
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
-        var enemyPieces = board.GetEnemiesOnBoard();
+        var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
         switch (i)
         {
