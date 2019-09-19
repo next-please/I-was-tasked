@@ -74,16 +74,37 @@ public class Attack
 
         if (attacker.GetLifestealPercentage() > 0) // Undead synergy
         {
-            attacker.SetCurrentHitPoints(Math.Min(attacker.GetMaximumHitPoints(),
-                (int) Math.Floor((attacker.GetCurrentHitPoints() + damageToInflict * attacker.GetLifestealPercentage()))));
+            attacker.SetCurrentHitPoints((int) Math.Floor((attacker.GetCurrentHitPoints() + damageToInflict * attacker.GetLifestealPercentage())));
+        }
+
+        if (attacker.GetCurseDamageAmount() > 0) //undead priest spell
+        {
+            attacker.SetCurrentHitPoints(attacker.GetCurrentHitPoints() - attacker.GetCurseDamageAmount());
+        }
+
+        if (target.GetLinkedProtectingPiece() != null)
+        {
+            target = target.GetLinkedProtectingPiece();
+        }
+
+        int calculatedDamageToInflict = damageToInflict;
+
+        if (target.GetBlockAmount() > 0) //orc druid spell
+        {
+            calculatedDamageToInflict -= Math.Max(damageToInflict, 0);
+        }
+
+        if (target.GetArmourPercentage() != 0) //undead mage spell && orc knight spell
+        {
+            calculatedDamageToInflict = (int)Math.Floor(damageToInflict * (1 + target.GetArmourPercentage()));
         }
 
         if (target.GetRecoilPercentage() > 0) // Knight synergy
         {
-            attacker.SetCurrentHitPoints((int) Math.Ceiling(attacker.GetCurrentHitPoints() - damageToInflict * target.GetRecoilPercentage()));
+            attacker.SetCurrentHitPoints((int) Math.Ceiling(attacker.GetCurrentHitPoints() - calculatedDamageToInflict * target.GetRecoilPercentage()));
         }
 
         target.SetCurrentManaPoints(target.GetCurrentManaPoints() + target.GetManaPointsGainedOnDamaged());
-        Debug.Log(attacker.GetName() + " has attacked " + target.GetName() + " for " + damageToInflict + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
+        Debug.Log(attacker.GetName() + " has attacked " + target.GetName() + " for " + calculatedDamageToInflict + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
     }
 }

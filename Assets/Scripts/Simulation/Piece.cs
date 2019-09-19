@@ -49,6 +49,18 @@ public class Piece : ISerializable
     private double defaultRecoilPercentage;
     private double recoilPercentage;
 
+    private int defaultBlockAmount;
+    private int blockAmount;
+
+    private double defaultArmourPercentage;
+    private double armourPercentage;
+
+    private int defaultCurseDamageAmount;
+    private int curseDamageAmount;
+
+    private Piece defaultLinkedProtectingPiece;
+    private Piece linkedProtectingPiece;
+
     private int damageIfSurvive;
 #endregion
 
@@ -109,6 +121,18 @@ public class Piece : ISerializable
         SetDefaultRecoilPercentage(0);
         SetRecoilPercentage(0);
 
+        SetDefaultBlockAmount(0);
+        SetBlockAmount(0);
+
+        SetDefaultArmourPercentage(0);
+        SetArmourPercentage(0);
+
+        SetDefaultCurseDamageAmount(0);
+        SetCurseDamageAmount(0);
+
+        SetDefaultLinkedProtectingPiece(null);
+        SetLinkedProtectingPiece(null);
+
         SetDamageIfSurvive(0);
 
         this.state = CreateState();
@@ -158,6 +182,18 @@ public class Piece : ISerializable
         defaultRecoilPercentage = (double) info.GetValue("defaultRecoilPercentage", typeof(double));
         recoilPercentage = (double) info.GetValue("recoilPercentage", typeof(double));
 
+        defaultBlockAmount = (int)info.GetValue("defaultBlockAmount", typeof(int));
+        blockAmount = (int)info.GetValue("blockAmount", typeof(int));
+
+        defaultArmourPercentage = (double)info.GetValue("defaultArmourPercentage", typeof(double));
+        armourPercentage = (double)info.GetValue("armourPercentage", typeof(double));
+
+        defaultCurseDamageAmount = (int)info.GetValue("defaultCurseDamageAmount", typeof(int));
+        curseDamageAmount = (int)info.GetValue("curseDamageAmount", typeof(int));
+
+        defaultLinkedProtectingPiece = null;
+        linkedProtectingPiece = null;
+
         damageIfSurvive = (int) info.GetValue("damageIfSurvive", typeof(int));
 
         this.state = CreateState();
@@ -206,6 +242,15 @@ public class Piece : ISerializable
 
         info.AddValue("defaultRecoilPercentage", defaultRecoilPercentage, typeof(double));
         info.AddValue("recoilPercentage", recoilPercentage, typeof(double));
+
+        info.AddValue("defaultBlockAmount", defaultBlockAmount, typeof(int));
+        info.AddValue("blockAmount", blockAmount, typeof(int));
+
+        info.AddValue("defaultArmourPercentage", defaultArmourPercentage, typeof(double));
+        info.AddValue("armourPercentage", armourPercentage, typeof(double));
+
+        info.AddValue("defaultCurseDamageAmount", defaultCurseDamageAmount, typeof(int));
+        info.AddValue("curseDamageAmount", curseDamageAmount, typeof(int));
 
         info.AddValue("damageIfSurvive", damageIfSurvive, typeof(int));
     }
@@ -336,6 +381,10 @@ public class Piece : ISerializable
 
         SetLifestealPercentage(GetDefaultLifestealPercentage());
         SetRecoilPercentage(GetDefaultRecoilPercentage());
+        SetBlockAmount(GetDefaultBlockAmount());
+        SetArmourPercentage(GetDefaultArmourPercentage());
+        SetCurseDamageAmount(GetDefaultCurseDamageAmount());
+        SetLinkedProtectingPiece(GetDefaultLinkedProtectingPiece());
 
         this.state = entryState;
     }
@@ -478,6 +527,46 @@ public class Piece : ISerializable
     public double GetRecoilPercentage()
     {
         return recoilPercentage;
+    }
+
+    public int GetDefaultBlockAmount()
+    {
+        return defaultBlockAmount;
+    }
+
+    public int GetBlockAmount()
+    {
+        return blockAmount;
+    }
+
+    public double GetDefaultArmourPercentage()
+    {
+        return defaultArmourPercentage;
+    }
+
+    public double GetArmourPercentage()
+    {
+        return armourPercentage;
+    }
+
+    public int GetDefaultCurseDamageAmount()
+    {
+        return defaultCurseDamageAmount;
+    }
+
+    public int GetCurseDamageAmount()
+    {
+        return curseDamageAmount;
+    }
+
+    public Piece GetDefaultLinkedProtectingPiece()
+    {
+        return defaultLinkedProtectingPiece;
+    }
+
+    public Piece GetLinkedProtectingPiece()
+    {
+        return linkedProtectingPiece;
     }
 
     public int GetDamageIfSurvive()
@@ -676,6 +765,46 @@ public class Piece : ISerializable
     public void SetRecoilPercentage(double recoilPercentage)
     {
         this.recoilPercentage = recoilPercentage;
+    }
+
+    public void SetDefaultBlockAmount(int defaultBlockAmount)
+    {
+        this.defaultBlockAmount = defaultBlockAmount;
+    }
+
+    public void SetBlockAmount(int blockAmount)
+    {
+        this.blockAmount = blockAmount;
+    }
+
+    public void SetDefaultArmourPercentage(double defaultArmourPercentage)
+    {
+        this.defaultArmourPercentage = defaultArmourPercentage;
+    }
+
+    public void SetArmourPercentage(double armourPercentage)
+    {
+        this.armourPercentage = armourPercentage;
+    }
+
+    public void SetDefaultCurseDamageAmount(int defaultCurseDamageAmount)
+    {
+        this.defaultCurseDamageAmount = defaultCurseDamageAmount;
+    }
+
+    public void SetCurseDamageAmount(int curseDamageAmount)
+    {
+        this.curseDamageAmount = curseDamageAmount;
+    }
+
+    public void SetDefaultLinkedProtectingPiece(Piece defaultLinkedProtectingPiece)
+    {
+        this.defaultLinkedProtectingPiece = defaultLinkedProtectingPiece;
+    }
+
+    public void SetLinkedProtectingPiece(Piece linkedProtectingPiece)
+    {
+        this.linkedProtectingPiece = linkedProtectingPiece;
     }
 
     public void SetDamageIfSurvive(int damageIfSurvive)
