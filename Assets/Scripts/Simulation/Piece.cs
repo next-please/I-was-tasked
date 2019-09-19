@@ -346,6 +346,11 @@ public class Piece : ISerializable
         return findTarget; // our initial action is find
     }
 
+    public State GetState()
+    {
+        return state;
+    }
+
     public virtual void ProcessState(Board board, long tick)
     {
         if (IsDead()) return;
