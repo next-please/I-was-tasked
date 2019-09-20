@@ -18,6 +18,8 @@ public class SkillState : State
             skill = new BlessingOfNatureSkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Knight)
             skill = new RampageSkill(piece, board);
+        else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Rogue)
+            skill = new MarkForDeathSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
 
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
