@@ -16,6 +16,7 @@ public class MeleeAttack : Interaction
 
     public override bool ProcessInteraction()
     {
+        SoundManager.instance.PlayPieceSound(SoundManager.PieceSound.SwordHit);
         ApplyDamageToInflict();
         return false;
     }
