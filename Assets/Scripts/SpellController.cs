@@ -233,7 +233,7 @@ public class SpellController : MonoBehaviour
         {
             newTarget = board.GetActiveFriendliesOnBoard()[newTargetIndex];
         }
-        newTarget.SetLinkedProtectingPiece(caster);
+        newTarget.SetLinkedProtectingPiece(ref caster);
     }
 
     //Magic Missile

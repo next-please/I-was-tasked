@@ -10,8 +10,13 @@ PrefabInstance:
     - target: {fileID: 7409315148139022978, guid: 3a270741ebbcfbe4bb1173d81000d715,
         type: 3}
       propertyPath: m_Name
-      value: ProjectileTestRed
+      value: ProjectileTestYellow
       objectReference: {fileID: 0}
+    - target: {fileID: 7524022116030993466, guid: 3a270741ebbcfbe4bb1173d81000d715,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c532880e607f8c84d8b9bf0c46a522ad, type: 2}
     - target: {fileID: 9189563711421087759, guid: 3a270741ebbcfbe4bb1173d81000d715,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -50,7 +50,7 @@ public class ProtectAllySkill : Interaction
         {
             return;
         }
-        int targetIndex = 0;//rngesus.Next(0, board.GetActiveFriendliesOnBoard().Count - 1);
+        int targetIndex = board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count - 1);
         Piece target;
         if (!caster.IsEnemy())
         {
