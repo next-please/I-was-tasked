@@ -51,3 +51,5 @@ MonoBehaviour:
     type: 3}
   ProjectileTestYellowPrefab: {fileID: 6915423248205026257, guid: 782e2d3fe71686c40a7cbbb265122672,
     type: 3}
+  ProjectileTestGreenPrefab: {fileID: 6915423248205026257, guid: 8eaa45152acea9a4aabedd82a134eeb5,
+    type: 3}

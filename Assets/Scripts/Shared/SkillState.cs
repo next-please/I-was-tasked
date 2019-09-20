@@ -14,6 +14,8 @@ public class SkillState : State
             skill = new ProtectAllySkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Druid)
             skill = new BarkskinSkill(piece, board);
+        else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Priest)
+            skill = new BlessingOfNatureSkill(piece, board);
 
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.

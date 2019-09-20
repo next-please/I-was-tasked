@@ -8,6 +8,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject ProjectileTestRedPrefab;
     public GameObject FishBallTestPrefab;
     public GameObject ProjectileTestYellowPrefab;
+    public GameObject ProjectileTestGreenPrefab;
 
     private Dictionary<Enums.InteractionPrefab, GameObject> interactionPrefabMap;
 
