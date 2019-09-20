@@ -82,7 +82,6 @@ public class RangedAttack : Interaction
         }
 
         attacker.SetCurrentManaPoints(attacker.GetCurrentManaPoints() + attacker.GetManaPointsGainedOnAttack());
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damageToInflict);
 
         if (attacker.GetLifestealPercentage() > 0) // Undead synergy
         {

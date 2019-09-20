@@ -12,8 +12,10 @@ public class SkillState : State
             skill = new ShapeshiftSkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Knight)
             skill = new ProtectAllySkill(piece, board);
+        else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Druid)
+            skill = new BarkskinSkill(piece, board);
 
-            board.AddInteractionToProcess(skill);
+        board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
         Debug.Log(piece.GetName() + " has casted a skill!");
     }

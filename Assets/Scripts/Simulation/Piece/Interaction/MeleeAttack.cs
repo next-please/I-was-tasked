@@ -35,7 +35,6 @@ public class MeleeAttack : Interaction
         }
 
         attacker.SetCurrentManaPoints(attacker.GetCurrentManaPoints() + attacker.GetManaPointsGainedOnAttack());
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damageToInflict);
 
         if (attacker.GetLifestealPercentage() > 0) // Undead synergy
         {
