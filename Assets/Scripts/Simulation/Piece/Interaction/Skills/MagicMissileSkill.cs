@@ -97,7 +97,7 @@ public class MagicMissileSkill : Interaction
 
         if (countRemaining > 0)
         {
-            if (!caster.IsDead() && caster.GetState().GetType() != typeof(InfiniteState))
+            if (!caster.IsDead() && caster.GetState().GetType() != typeof(InfiniteState) && board.GetActiveEnemiesOnBoard().Count > 0)
             {
                 Interaction skill = new MagicMissileSkill(caster, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board, countRemaining - 1);
                 board.AddInteractionToProcess(skill);
