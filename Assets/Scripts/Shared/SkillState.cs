@@ -8,7 +8,9 @@ public class SkillState : State
         piece.SetCurrentManaPoints(0);
 
         skill = new ShapeshiftLingeringEffect(piece);
-        if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
+        if (true)
+            skill = new MagicMissileSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
+        else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
             skill = new ShapeshiftSkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Knight)
             skill = new ProtectAllySkill(piece, board);
@@ -26,6 +28,10 @@ public class SkillState : State
             skill = new CurseOfAgonySkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
         else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Rogue)
             skill = new EvicerateSkill(piece, piece.GetTarget(), board);
+        else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Mage)
+            skill = new FireblastSkill(piece, piece.GetTarget());
+        else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Mage)
+            skill = new MagicMissileSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
 
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.

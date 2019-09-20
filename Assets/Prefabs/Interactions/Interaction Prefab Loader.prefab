@@ -59,3 +59,7 @@ MonoBehaviour:
     type: 3}
   ProjectileTestLightBluePrefab: {fileID: 6915423248205026257, guid: 8dabe1cac1580b0419f1c88ed14c9391,
     type: 3}
+  ProjectileTestFireRedPrefab: {fileID: 6915423248205026257, guid: 1851094c8d172044bae2c137de6ae033,
+    type: 3}
+  ProjectileTestArcanePurplePrefab: {fileID: 6915423248205026257, guid: 7b4cbe8aef24cb5449a24095c0fe717d,
+    type: 3}
