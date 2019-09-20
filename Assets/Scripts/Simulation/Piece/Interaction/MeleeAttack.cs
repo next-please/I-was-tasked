@@ -50,7 +50,10 @@ public class MeleeAttack : Interaction
 
         if (target.GetLinkedProtectingPiece() != null) //elf knight spell
         {
-            target = target.GetLinkedProtectingPiece();
+            if (!target.GetLinkedProtectingPiece().IsDead())
+            {
+                target = target.GetLinkedProtectingPiece();
+            }
         }
 
         int calculatedDamageToInflict = damageToInflict;
@@ -70,6 +73,7 @@ public class MeleeAttack : Interaction
             attacker.SetCurrentHitPoints((int)Math.Ceiling(attacker.GetCurrentHitPoints() - calculatedDamageToInflict * target.GetRecoilPercentage()));
         }
 
+        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - calculatedDamageToInflict);
         target.SetCurrentManaPoints(target.GetCurrentManaPoints() + target.GetManaPointsGainedOnDamaged());
         Debug.Log(attacker.GetName() + " has attacked " + target.GetName() + " for " + calculatedDamageToInflict + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
     }

@@ -4,12 +4,17 @@ public class SkillState : State
 {
     public override void OnStart(Piece piece, Board board)
     {
-        // Need to fetch the correct spell.
-        // Lewis: Bring in your if-else blocks here, and construct the correct skill.
-        Interaction skill = new TestFishBallSkill(piece, piece.GetTarget());
-        board.AddInteractionToProcess(skill);
-        ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
+        Interaction skill;
         piece.SetCurrentManaPoints(0);
+
+        skill = new ShapeshiftLingeringEffect(piece);
+        if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
+            skill = new ShapeshiftSkill(piece, board);
+        else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Knight)
+            skill = new ProtectAllySkill(piece, board);
+
+            board.AddInteractionToProcess(skill);
+        ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
         Debug.Log(piece.GetName() + " has casted a skill!");
     }
 

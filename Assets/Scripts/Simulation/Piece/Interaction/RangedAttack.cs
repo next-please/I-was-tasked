@@ -97,7 +97,10 @@ public class RangedAttack : Interaction
 
         if (target.GetLinkedProtectingPiece() != null) //elf knight spell
         {
-            target = target.GetLinkedProtectingPiece();
+            if (!target.GetLinkedProtectingPiece().IsDead())
+            {
+                target = target.GetLinkedProtectingPiece();
+            }
         }
 
         int calculatedDamageToInflict = damageToInflict;
@@ -117,7 +120,9 @@ public class RangedAttack : Interaction
             attacker.SetCurrentHitPoints((int)Math.Ceiling(attacker.GetCurrentHitPoints() - calculatedDamageToInflict * target.GetRecoilPercentage()));
         }
 
+
         target.SetCurrentManaPoints(target.GetCurrentManaPoints() + target.GetManaPointsGainedOnDamaged());
+        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - calculatedDamageToInflict);
         Debug.Log(attacker.GetName() + " has ranged attacked " + target.GetName() + " for " + calculatedDamageToInflict + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
     }
 }

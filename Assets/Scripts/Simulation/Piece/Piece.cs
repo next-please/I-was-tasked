@@ -131,8 +131,8 @@ public class Piece : ISerializable
         SetDefaultCurseDamageAmount(0);
         SetCurseDamageAmount(0);
 
-        SetDefaultLinkedProtectingPiece(null);
-        SetLinkedProtectingPiece(null);
+        defaultLinkedProtectingPiece = null;
+        linkedProtectingPiece = null;
 
         SetDamageIfSurvive(0);
 
@@ -402,7 +402,7 @@ public class Piece : ISerializable
         SetBlockAmount(GetDefaultBlockAmount());
         SetArmourPercentage(GetDefaultArmourPercentage());
         SetCurseDamageAmount(GetDefaultCurseDamageAmount());
-        SetLinkedProtectingPiece(GetDefaultLinkedProtectingPiece());
+        SetLinkedProtectingPiece(ref defaultLinkedProtectingPiece);
 
         this.state = entryState;
     }
@@ -577,14 +577,14 @@ public class Piece : ISerializable
         return curseDamageAmount;
     }
 
-    public Piece GetDefaultLinkedProtectingPiece()
+    public ref Piece GetDefaultLinkedProtectingPiece()
     {
-        return defaultLinkedProtectingPiece;
+        return ref defaultLinkedProtectingPiece;
     }
 
-    public Piece GetLinkedProtectingPiece()
+    public ref Piece GetLinkedProtectingPiece()
     {
-        return linkedProtectingPiece;
+        return ref linkedProtectingPiece;
     }
 
     public int GetDamageIfSurvive()
@@ -815,12 +815,12 @@ public class Piece : ISerializable
         this.curseDamageAmount = curseDamageAmount;
     }
 
-    public void SetDefaultLinkedProtectingPiece(Piece defaultLinkedProtectingPiece)
+    public void SetDefaultLinkedProtectingPiece(ref Piece defaultLinkedProtectingPiece)
     {
         this.defaultLinkedProtectingPiece = defaultLinkedProtectingPiece;
     }
 
-    public void SetLinkedProtectingPiece(Piece linkedProtectingPiece)
+    public void SetLinkedProtectingPiece(ref Piece linkedProtectingPiece)
     {
         this.linkedProtectingPiece = linkedProtectingPiece;
     }

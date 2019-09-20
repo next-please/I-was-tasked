@@ -24,7 +24,8 @@ public static class Enums
     {
         ProjectileTestBlue,
         ProjectileTestRed,
-        FishBallTest
+        FishBallTest,
+        ProjectileTestYellow
     }
 
     public static string[] JobSynergyDescription = new string[]
