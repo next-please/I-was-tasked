@@ -57,3 +57,5 @@ MonoBehaviour:
     type: 3}
   ProjectileTestBlackPrefab: {fileID: 6915423248205026257, guid: 8871c67ddb16e194486bfb56187da463,
     type: 3}
+  ProjectileTestLightBluePrefab: {fileID: 6915423248205026257, guid: 8dabe1cac1580b0419f1c88ed14c9391,
+    type: 3}

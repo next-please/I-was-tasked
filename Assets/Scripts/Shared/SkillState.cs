@@ -20,6 +20,8 @@ public class SkillState : State
             skill = new RampageSkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Rogue)
             skill = new MarkForDeathSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
+        else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Mage)
+            skill = new FrostArmourSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
 
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.

@@ -64,7 +64,7 @@ public class MeleeAttack : Interaction
 
         if (target.GetArmourPercentage() != 0) //undead mage spell && orc knight spell
         {
-            calculatedDamageToInflict = (int)Math.Floor(damageToInflict * (1 + target.GetArmourPercentage()));
+            calculatedDamageToInflict = (int)Math.Floor(damageToInflict / (1 + target.GetArmourPercentage()));
         }
 
         if (target.GetRecoilPercentage() > 0) // Knight synergy

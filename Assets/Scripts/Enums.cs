@@ -28,7 +28,8 @@ public static class Enums
         ProjectileTestYellow,
         ProjectileTestGreen,
         ProjectileTestBloodRed,
-        ProjectileTestBlack
+        ProjectileTestBlack,
+        ProjectileTestLightBlue
     }
 
     public static string[] JobSynergyDescription = new string[]
