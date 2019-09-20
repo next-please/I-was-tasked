@@ -39,6 +39,7 @@ public class Piece : ISerializable
     private int defaultAttackSpeed;
     private int attackSpeed;
     private int minimumAttackSpeed = 1;
+    private int maximumAttackSpeed = 10;
 
     private int defaultMovementSpeed;
     private int movementSpeed;
@@ -750,9 +751,20 @@ public class Piece : ISerializable
         this.defaultAttackSpeed = Math.Max(defaultAttackSpeed, minimumAttackSpeed);
     }
 
-    public void SetAttackSpeed(int attackSpeed)
+    public int SetAttackSpeed(int attackSpeed)
     {
-        this.attackSpeed = Math.Max(attackSpeed, minimumAttackSpeed);
+        int uncappedValue = attackSpeed;
+        int difference = uncappedValue - this.attackSpeed;
+        if (uncappedValue < minimumAttackSpeed)
+        {
+            difference -= (minimumAttackSpeed - uncappedValue);
+        }
+        if (uncappedValue > maximumAttackSpeed)
+        {
+            difference -= (uncappedValue - maximumAttackSpeed);
+        }
+        this.attackSpeed = Math.Min(Math.Max(uncappedValue, minimumAttackSpeed), maximumAttackSpeed);
+        return difference;
     }
 
     public void SetDefaultMovementSpeed(int defaultMovementSpeed)
