@@ -1,56 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MarketSlot : MonoBehaviour
 {
-    private GameObject character;
-
+    public GameObject MarketItemPrefab;
+    public MarketItem marketItem;
     public bool isOccupied;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void OnMouseDown()
-    {
-        Debug.Log("hi");
-    }
 
     public void SetOccupant(Piece piece, GameObject characterModel)
     {
         isOccupied = true;
-        InstantiateModelPrefab(characterModel);
-        Debug.Log("set occupant!");
+
+        // create item prefab
+        GameObject marketItemObj = Instantiate(MarketItemPrefab) as GameObject;
+        marketItem = marketItemObj.GetComponent<MarketItem>();
+        marketItem.piece = piece;
+        marketItem.InstantiateModelPrefab(characterModel);
+
+        // set item prefab as child of slot
+        marketItemObj.transform.SetParent(this.transform);
+        marketItemObj.transform.localPosition = new Vector3(0, 0.5f, 0);
+        marketItemObj.transform.rotation = this.transform.rotation;
     }
 
     public void ClearSlot()
     {
         isOccupied = false;
-        if (character)
-        {
-            Destroy(character);
-        }
-        Debug.Log("slot cleared");
-    }
-
-    private void InstantiateModelPrefab(GameObject characterModel)
-    {
-        GameObject modelPrefab = Instantiate(characterModel) as GameObject;
-        modelPrefab.transform.SetParent(this.transform);
-        modelPrefab.transform.localPosition = new Vector3(0, 0.5f, 0);
-        modelPrefab.transform.localScale = Vector3.one;
-        modelPrefab.transform.rotation = this.transform.rotation;
-
-        character = modelPrefab;
-        // animator = modelPrefab.GetComponent<Animator>();
+        if (marketItem)
+            Destroy(marketItem.gameObject);
     }
 }

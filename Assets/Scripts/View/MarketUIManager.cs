@@ -39,6 +39,7 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
         EventManager.Instance.AddListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.AddListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
+        EventManager.Instance.AddListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
     }
 
     void OnDisable()
@@ -47,6 +48,7 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
         EventManager.Instance.RemoveListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.RemoveListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
+        EventManager.Instance.RemoveListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
     }
 
     void Awake()
@@ -56,13 +58,14 @@ public class MarketUIManager : MonoBehaviour
         marketSlots = marketObject.GetComponentsInChildren<MarketSlot>();
 
         ClearMarketButtons();
-        ClearMarket();
         for (int i = 0; i < marketItemsButtons.Length; ++i)
         {
             int capturedIndex = i;
             Button marketItemButton = marketItemsButtons[i];
             marketItemButton.onClick.AddListener(() => PurchasePiece(capturedIndex));
         }
+
+        ClearMarket();
     }
 
     void OnEnterPhase(EnterPhaseEvent e)
@@ -102,6 +105,13 @@ public class MarketUIManager : MonoBehaviour
         PassiveIncomeText.text = "Additional Passive Income: " + e.PassiveIncome.ToString();
     }
 
+    void OnPurchaseMarketItem(PurchaseMarketItemEvent e)
+    {
+        Piece pieceToPurchase = e.piece;
+        Player player = RoomManager.GetLocalPlayer();
+        transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
+    }
+
     void UpdateMarketButtons(MarketUpdateEvent e)
     {
         ClearMarketButtons();
@@ -132,6 +142,7 @@ public class MarketUIManager : MonoBehaviour
         for (int i = 0; i < marketPieces.Count; ++i)
         {
             Piece piece = marketPieces[i]; // please don't modify the piece here T_T
+
             if (piece == null)
             {
                 continue;
@@ -149,18 +160,18 @@ public class MarketUIManager : MonoBehaviour
         }
     }
 
+    void ClearButton(Button button)
+    {
+        button.GetComponentInChildren<Text>().text = "-- Empty Market Slot --";
+        button.enabled = false;
+    }
+
     void ClearMarket()
     {
         foreach (MarketSlot slot in marketSlots)
         {
             slot.ClearSlot();
         }
-    }
-
-    void ClearButton(Button button)
-    {
-        button.GetComponentInChildren<Text>().text = "-- Empty Market Slot --";
-        button.enabled = false;
     }
 
     void PurchasePiece(int itemIndex)
