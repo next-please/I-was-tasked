@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurseOfAgonySkill : Interaction
+public class EvicerateSkill : Interaction
 {
     private Piece caster;
     private Piece target;
     private Board board;
-    public int curseOfAgonyDefaultCurseAmount = 20;
+    public int evicerateDefaultInitialDamage = 50;
+    public int evicerateDefaultBleedCount = 10;
+    public int evicerateDefaultBleedDamage = 15;
     public int ticksTilActivation = 0;
 
-    public CurseOfAgonySkill(Piece caster, Piece target, Board board)
+    public EvicerateSkill(Piece caster, Piece target, Board board)
     {
         this.caster = caster;
         this.target = target;
@@ -49,29 +51,33 @@ public class CurseOfAgonySkill : Interaction
         {
             return;
         }
-        target.SetCurseDamageAmount(target.GetCurseDamageAmount() + curseOfAgonyDefaultCurseAmount);
-        int curseChange = curseOfAgonyDefaultCurseAmount;
-
-        Interaction skill = new CurseOfAgonyLingeringEffect(target, curseChange);
+        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - evicerateDefaultInitialDamage);
+        int bleedCount = evicerateDefaultBleedCount;
+        int bleedDamage = evicerateDefaultBleedDamage;
+        Interaction skill = new EvicerateLingeringEffect(target, bleedDamage, bleedCount, board);
         board.AddInteractionToProcess(skill);
 
-        Debug.Log(caster.GetName() + " has CurseOfAgony-ed " + target.GetName() + " to selfharm " + target.GetCurseDamageAmount() + " damage on each attack.");
+        Debug.Log(caster.GetName() + " has Evicerate-ed " + target.GetName() + " to damage for " + evicerateDefaultInitialDamage + " damage and add a bleed.");
     }
 }
 
-public class CurseOfAgonyLingeringEffect : Interaction
+public class EvicerateLingeringEffect : Interaction
 {
     private Piece target;
-    private double curseChange;
+    private Board board;
+    public int bleedDamage;
+    public int countRemaining;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 250;
+    public int ticksTilActivation = 30;
 
-    public CurseOfAgonyLingeringEffect(Piece target, int curseChange)
+    public EvicerateLingeringEffect(Piece target, int bleedDamage, int countRemaining, Board board)
     {
         this.target = target;
-        this.curseChange = curseChange;
+        this.board = board;
+        this.bleedDamage = bleedDamage;
+        this.countRemaining = countRemaining;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBlack;
+        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBloodRed;
     }
 
     public override bool ProcessInteraction()
@@ -115,9 +121,15 @@ public class CurseOfAgonyLingeringEffect : Interaction
         {
             return;
         }
-        target.SetArmourPercentage(target.GetArmourPercentage() - curseChange);
+        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - bleedDamage);
 
-        Debug.Log(target.GetName() + "'s Curse of Agony has expired.");
+        if (countRemaining > 0)
+        {
+            Interaction skill = new EvicerateLingeringEffect(target, bleedDamage, countRemaining-1, board);
+            board.AddInteractionToProcess(skill);
+        }
+
+        Debug.Log(target.GetName() + "'s Evicerate has bled for " + bleedDamage + ". " + countRemaining + " bleed ticks left.");
     }
 
 }
