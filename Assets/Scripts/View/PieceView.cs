@@ -13,7 +13,7 @@ public class PieceView : MonoBehaviour
     private IViewState prevViewAction;
     private float velocityHP = 0.0f;
     private float velocityMP = 0.0f;
-    private float smoothTime = 0.1f;
+    private float smoothTime = 0.01f;
 
     private void Start()
     {
@@ -75,8 +75,15 @@ public class PieceView : MonoBehaviour
 
         if (piece.IsDead())
         {
-            animator.Play("Death", 0);
-            statusBars.SetActive(false);
+            if (currentHPBar.transform.localScale.x > 0)
+            {
+                UpdateCurrentHPBar();
+            }
+            if (statusBars.activeSelf && currentHPBar.transform.localScale.x <= 0)
+            {
+                statusBars.SetActive(false);
+                animator.Play("Death", 0);
+            }
             return;
         }
         else
