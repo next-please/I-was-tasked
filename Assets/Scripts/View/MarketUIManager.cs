@@ -9,11 +9,14 @@ public class MarketUIManager : MonoBehaviour
 {
     public Canvas upgradeCanvas;
     public Canvas marketCanvas;
+    public Canvas marketTooltipCanvas;
 
     public Text MarketSizeText;
     public Text MarketRarityText;
     public Text PassiveIncomeText;
     public Text CastleHealthText;
+
+    public MarketTooltip marketTooltip;
 
     public TransactionManager transactionManager;
 
@@ -40,6 +43,7 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.AddListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.AddListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
         EventManager.Instance.AddListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
+        EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
     }
 
     void OnDisable()
@@ -49,6 +53,7 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.RemoveListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.RemoveListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
         EventManager.Instance.RemoveListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
+        EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
     }
 
     void Awake()
@@ -66,6 +71,8 @@ public class MarketUIManager : MonoBehaviour
         }
 
         ClearMarket();
+
+        marketTooltipCanvas.enabled = false;
     }
 
     void OnEnterPhase(EnterPhaseEvent e)
@@ -107,6 +114,7 @@ public class MarketUIManager : MonoBehaviour
 
     void OnPurchaseMarketItem(PurchaseMarketItemEvent e)
     {
+        HideMarketTooltip();
         Piece pieceToPurchase = e.piece;
         Player player = RoomManager.GetLocalPlayer();
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
@@ -179,5 +187,28 @@ public class MarketUIManager : MonoBehaviour
         Piece pieceToPurchase = marketPieces[itemIndex];
         Player player = RoomManager.GetLocalPlayer();
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
+    }
+
+    void OnHoverMarketItem(HoverMarketItemEvent e)
+    {
+        if (e.piece == null)
+        {
+            HideMarketTooltip();
+        }
+        else
+        {
+            ShowMarketTooltip(e.piece);
+        }
+    }
+
+    private void HideMarketTooltip()
+    {
+        marketTooltipCanvas.enabled = false;
+    }
+
+    private void ShowMarketTooltip(Piece piece)
+    {
+        marketTooltipCanvas.enabled = true;
+        marketTooltip.SetMarketItemInfo(piece);
     }
 }

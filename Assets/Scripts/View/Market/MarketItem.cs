@@ -9,26 +9,29 @@ public class PurchaseMarketItemEvent : GameEvent
     public int index;
 }
 
+public class HoverMarketItemEvent : GameEvent
+{
+    public Piece piece;
+}
+
 public class MarketItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
-    public GameObject pieceInfo;
     public Piece piece;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Here");
-        // TODO: show info
+        // TODO: change cursor? (with add/buy icon)
+        EventManager.Instance.Raise(new HoverMarketItemEvent { piece = piece });
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Mouse exit");
-        // TODO: hide info
+        EventManager.Instance.Raise(new HoverMarketItemEvent { piece = null });
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        eventData.selectedObject = gameObject;
         EventManager.Instance.Raise(new PurchaseMarketItemEvent { piece = piece });
     }
 
