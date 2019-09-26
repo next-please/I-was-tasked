@@ -5,8 +5,8 @@ using UnityEngine;
 public class CanvasesManager : MonoBehaviour
 {
     [SerializeField]
-    private CreateOrJoinRoomCanvas _createRoomCanvas; 
-    public CreateOrJoinRoomCanvas CreateRoomCanvas { get { return _createRoomCanvas; } }
+    private CreateOrJoinRoomCanvas _createOrJoinRoomCanvas; 
+    public CreateOrJoinRoomCanvas CreateOrJoinRoomCanvas { get { return _createOrJoinRoomCanvas; } }
 
     [SerializeField]
     private CurrentRoomCanvas _currentRoomCanvas;
@@ -19,7 +19,7 @@ public class CanvasesManager : MonoBehaviour
 
     private void FirstInitialize()
     {
-        CreateRoomCanvas.FirstInitialize(this);
+        CreateOrJoinRoomCanvas.FirstInitialize(this);
         CurrentRoomCanvas.FirstInitialize(this);
     }
 
