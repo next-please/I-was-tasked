@@ -16,10 +16,18 @@ public class TestConnect : MonoBehaviourPunCallbacks
     {
         Debug.LogFormat("{0}: {1} is connected to Server.", 
             CLASS_NAME, PhotonNetwork.NickName);
+        PhotonNetwork.JoinLobby();
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        Debug.LogFormat("{0}: Disconnected from Server - {1}", cause);
+        Debug.LogFormat("{0}: Disconnected from Server - {1}", CLASS_NAME, cause);
+    }
+
+    public override void OnJoinedLobby()
+    {
+        Debug.LogFormat("{0}: Sucessfully joined lobby.", CLASS_NAME);
+        Debug.LogFormat("{0}: Lobby name - {1}",
+            CLASS_NAME, PhotonNetwork.CurrentLobby.Name);
     }
 }
