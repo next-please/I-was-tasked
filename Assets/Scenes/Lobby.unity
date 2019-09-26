@@ -1191,11 +1191,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 829825378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf0baa611b0cbf45a6c807085b136f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e0e54fab4429f640974117059deb289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _content: {fileID: 482477458}
-  _roomListing: {fileID: 7735861359883904500, guid: d174db6704f7e5049959107d6b7c6776,
+  _playerListing: {fileID: 4712661079443975595, guid: 2380e35dd0481cc4e89aa2421a8e2f7b,
     type: 3}
 --- !u!1 &1038654341
 GameObject:
