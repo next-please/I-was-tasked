@@ -16,7 +16,8 @@ public class TestConnect : MonoBehaviourPunCallbacks
     {
         Debug.LogFormat("{0}: {1} is connected to Server.", 
             CLASS_NAME, PhotonNetwork.NickName);
-        PhotonNetwork.JoinLobby();
+        if (!PhotonNetwork.InLobby)
+            PhotonNetwork.JoinLobby();
     }
 
     public override void OnDisconnected(DisconnectCause cause)

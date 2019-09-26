@@ -25,12 +25,14 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         _canvasesManager.CurrentRoomCanvas.Show();
+        _content.DestroyChildren();
+        _listings.Clear();
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         Debug.LogFormat("{0}: Received room list update.", CLASS_NAME);
-        if(roomList.Count == 0)
+        if (roomList.Count == 0)
         {
             Debug.LogFormat("{0}: Room list update is empty.", CLASS_NAME);
         }
@@ -48,15 +50,25 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
                     return;
                 }
             }
-
-            Debug.LogFormat("{0}: Instantiating Room '{1}'", 
-                CLASS_NAME, info.Name);
-            RoomListing listing = Instantiate(_roomListing, _content);
-            if (listing != null)
+            else
             {
-                listing.SetRoomInfo(info);
-                _listings.Add(listing);
+                Debug.LogFormat("{0}: Instantiating Room '{1}'",
+                    CLASS_NAME, info.Name);
+                int index = _listings.FindIndex(l => l.RoomInfo.Name == info.Name);
+                if (index == -1)
+                {
+                    RoomListing listing = Instantiate(_roomListing, _content);
+                    if (listing != null)
+                    {
+                        listing.SetRoomInfo(info);
+                        _listings.Add(listing);
+                    }
+                } else
+                {
+                    // modify listings here
+                }
             }
+
         }
     }
 }
