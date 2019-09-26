@@ -13,7 +13,9 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     [SerializeField]
     private byte _maxPlayers;
-    public int MaxPlayers => _maxPlayers; 
+    public int MaxPlayers => _maxPlayers;
+
+    private CanvasesManager _canvasesManager;
 
     public void OnClick_CreateRoom()
     {
@@ -27,12 +29,18 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     {
         Debug.LogFormat("{0}: Room '{1}' created successfully.", 
             CLASS_NAME, _roomName.text);
+        _canvasesManager.CurrentRoomCanvas.Show();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         Debug.LogFormat("{0}: Room '{1}' creation was unsuccessful - {2}", 
             CLASS_NAME, _roomName.text, message);
+    }
+
+    public void FirstInitialize(CanvasesManager mg)
+    {
+        _canvasesManager = mg;
     }
 
 }
