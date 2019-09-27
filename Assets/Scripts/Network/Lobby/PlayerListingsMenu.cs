@@ -1,5 +1,5 @@
-﻿using Photon.Realtime;
-using Photon.Pun;
+﻿using Photon.Pun;
+using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,12 +14,24 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     [SerializeField]
     private PlayerListing _playerListing;
 
+    [SerializeField]
+    private Text _readyText;
+
+    [SerializeField]
+    private GameObject _readyButton;
+
+    private Image _readyImage;
+
+    private bool _ready;
+
     private List<PlayerListing> _listings = new List<PlayerListing>();
     private CanvasesManager _canvasesManager;
 
     public override void OnEnable()
     {
         base.OnEnable();
+        _readyImage = _readyButton.gameObject.GetComponent<Image>();
+        SetNotReady();
         GetCurrentRoomPlayers();
     }
 
@@ -69,6 +81,12 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            for (int i = 0; i < _listings.Count; i++)
+            {
+                if (!_listings[i].Ready)
+                    return;
+            }
+
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel("Main Scene MP");
@@ -94,5 +112,48 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         _content.DestroyChildren();
+    }
+
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+    {
+        _canvasesManager.CurrentRoomCanvas.LeaveRoomMenu.OnClick_LeaveRoom();
+    }
+
+    public void OnClick_ToggleReady()
+    {
+        if (_ready)
+            SetNotReady();
+        else
+            SetReady();
+
+        // TODO: optimise - no need to send to all
+        base.photonView.RPC("RPC_ChangeReadyState", RpcTarget.All, PhotonNetwork.LocalPlayer, _ready);
+    }
+
+
+
+    public void SetReady()
+    {
+        _readyText.text = "Ready";
+        _readyImage.color = Color.green;
+        _ready = true;
+        Debug.LogFormat("{0}: Set Ready!", CLASS_NAME);
+    }
+
+    public void SetNotReady()
+    {
+        _readyText.text = "Not Ready";
+        _readyImage.color = Color.red;
+        _ready = false;
+        Debug.LogFormat("{0}: Set Not Ready.", CLASS_NAME);
+
+    }
+
+    [PunRPC]
+    private void RPC_ChangeReadyState(Photon.Realtime.Player player, bool ready)
+    {
+        int index = _listings.FindIndex(l => l.Player == player);
+        if (index != -1)
+            _listings[index].ToggleReady(ready);
     }
 }
