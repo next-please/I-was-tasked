@@ -26,5 +26,4 @@ public class CurrentRoomCanvas : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    
 }

@@ -16,5 +16,14 @@ public class CreateOrJoinRoomCanvas : MonoBehaviour
         _createRoomMenu.FirstInitialize(mg);
         _roomsListingMenu.FirstInitialize(mg);
     }
-    
+
+    public void Show()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+    }
 }
