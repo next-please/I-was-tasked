@@ -20,6 +20,9 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject _readyButton;
 
+    [SerializeField]
+    private GameObject _startGameButton;
+
     private Image _readyImage;
 
     private bool _ready;
@@ -46,6 +49,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     public void FirstInitialize(CanvasesManager mg)
     {
         _canvasesManager = mg;
+
     }
 
     private void GetCurrentRoomPlayers()
@@ -107,6 +111,12 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
             _listings.RemoveAt(index);
 
         }
+    }
+
+    public override void OnJoinedRoom()
+    {
+        if (PhotonNetwork.IsMasterClient)
+            _startGameButton.gameObject.SetActive(true);
     }
 
     public override void OnLeftRoom()
