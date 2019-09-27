@@ -1,6 +1,8 @@
-﻿using Photon.Pun;
+﻿using Photon.Realtime;
+using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
@@ -17,11 +19,13 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 
     public override void OnEnable()
     {
+        base.OnEnable();
         GetCurrentRoomPlayers();
     }
 
     public override void OnDisable()
     {
+        base.OnDisable();
         for (int i = 0; i < _listings.Count; i++)
             Destroy(_listings[i].gameObject);
         _listings.Clear();
@@ -40,7 +44,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         foreach (KeyValuePair<int, Photon.Realtime.Player> playerInfo in PhotonNetwork.CurrentRoom.Players)
         {
             AddPlayerListing(playerInfo.Value);
-
         }
     }
 
@@ -92,6 +95,4 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         _content.DestroyChildren();
     }
-
-
 }

@@ -32,13 +32,8 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         Debug.LogFormat("{0}: Received room list update.", CLASS_NAME);
-        if (roomList.Count == 0)
-        {
-            Debug.LogFormat("{0}: Room list update is empty.", CLASS_NAME);
-        }
         foreach (RoomInfo info in roomList)
         {
-            Debug.LogFormat("{0}: Room name: {1}", CLASS_NAME, info.Name);
             if (info.RemovedFromList)
             {
                 int index = _listings
@@ -47,13 +42,10 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
                 {
                     Destroy(_listings[index].gameObject);
                     _listings.RemoveAt(index);
-                    return;
                 }
             }
             else
             {
-                Debug.LogFormat("{0}: Instantiating Room '{1}'",
-                    CLASS_NAME, info.Name);
                 int index = _listings.FindIndex(l => l.RoomInfo.Name == info.Name);
                 if (index == -1)
                 {
@@ -65,7 +57,7 @@ public class RoomListingsMenu : MonoBehaviourPunCallbacks
                     }
                 } else
                 {
-                    // modify listings here
+                    _listings[index].SetRoomInfo(info);
                 }
             }
 
