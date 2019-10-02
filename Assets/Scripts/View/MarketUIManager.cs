@@ -72,6 +72,7 @@ public class MarketUIManager : MonoBehaviour
 
         ClearMarket();
 
+        SetCanvasVisibility(false);
         marketTooltipCanvas.enabled = false;
     }
 
@@ -79,7 +80,7 @@ public class MarketUIManager : MonoBehaviour
     {
         if (e.phase == Phase.Market)
         {
-            SetCanvasVisibility(true);
+            // SetCanvasVisibility(true);
         }
     }
 
@@ -87,7 +88,7 @@ public class MarketUIManager : MonoBehaviour
     {
         if (e.phase == Phase.Market)
         {
-            SetCanvasVisibility(false);
+            // SetCanvasVisibility(false);
         }
     }
 
