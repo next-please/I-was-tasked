@@ -63,6 +63,8 @@ public class ThunderstormSkill : Interaction
     {
         GameObject projectile = interactionView.gameObject;
 
+        projectile.transform.position = attackSource;
+
         if (ticksRemaining <= 0)
         {
             return false;
