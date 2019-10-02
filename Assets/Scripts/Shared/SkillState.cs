@@ -33,6 +33,10 @@ public class SkillState : State
             skill = new FireblastSkill(piece, piece.GetTarget());
         else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Mage && board.GetActiveEnemiesOnBoard().Count > 0)
             skill = new MagicMissileSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
+        else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Knight)
+            skill = new RotSkill(piece, board);
+        else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Priest)
+            skill = new UnholyAuraSkill(piece, board);
 
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
