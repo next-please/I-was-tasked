@@ -1,52 +1,49 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Com.Nextplease.IWT;
 
 public class CameraController : MonoBehaviour
 {
     public Transform[] CameraTransforms;
     private Transform playerTransform;
-    private Transform currTransform;
 
     float speed = 1f;
-    int count = 0;
+    int playerPosition = 0;
 
     void Awake()
     {
-        playerTransform = CameraTransforms[0];
-        currTransform = transform;
+        playerTransform = CameraTransforms[(int)RoomManager.GetLocalPlayer()];
+        playerPosition = -1; // -1 is the market
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow) && count + 1 < 3)
+        if (Input.GetKeyDown(KeyCode.RightArrow) && playerPosition + 1 < 3 && playerPosition >= 0)
         {
             StopAllCoroutines();
-            StartCoroutine(LerpToTransform(CameraTransforms[count + 1]));
-            count++;
+            StartCoroutine(LerpToTransform(CameraTransforms[playerPosition + 1]));
+            playerPosition++;
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && count - 1 >= 0)
+        else if (Input.GetKeyDown(KeyCode.LeftArrow) && playerPosition - 1 >= 0)
         {
             StopAllCoroutines();
-            StartCoroutine(LerpToTransform(CameraTransforms[count - 1]));
-            count--;
+            StartCoroutine(LerpToTransform(CameraTransforms[playerPosition - 1]));
+            playerPosition--;
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && currTransform != CameraTransforms[3])
+        if (Input.GetKeyDown(KeyCode.DownArrow) && playerPosition != -1)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[3]));
-            currTransform = CameraTransforms[3];
-            count = -1;
+            playerPosition = -1;
         }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow) && currTransform != playerTransform)
+        if (Input.GetKeyUp(KeyCode.UpArrow) && playerPosition == -1)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(playerTransform));
-            currTransform = playerTransform;
-            count = 0;
+            playerPosition = (int)RoomManager.GetLocalPlayer();
         }
     }
 
