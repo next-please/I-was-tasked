@@ -80,6 +80,7 @@ public class GreaterHealSkill : Interaction
         Debug.Log(caster.GetName() + " has GreaterHealed-ed " + target.GetName() + " for " + greaterHealDefaultHeal + " DMG, whose HP has risen to " + target.GetCurrentHitPoints() + " HP.");
     }
 }
+
 public class GreaterHealLingeringEffect : Interaction
 {
     private Vector3 effectPosition;
