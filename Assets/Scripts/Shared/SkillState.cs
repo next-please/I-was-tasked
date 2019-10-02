@@ -22,7 +22,7 @@ public class SkillState : State
         else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Knight)
             skill = new RampageSkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Rogue && board.GetActiveEnemiesOnBoard().Count > 0)
-            skill = new MarkForDeathSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
+            skill = new MarkForDeathSkill(piece, piece.GetTarget(), board);
         else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Mage && board.GetActiveFriendliesOnBoard().Count > 0)
             skill = new FrostArmourSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
         else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Priest && board.GetActiveEnemiesOnBoard().Count > 0)
