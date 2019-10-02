@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ForestSpiritsSkill : Interaction
 {
@@ -179,7 +180,7 @@ public class ForestSpiritSecondaryEffect : Interaction
             attackDestination.y = 0.5f;
         }
 
-        float fracJourney = (float)(ticksTilActivation - ticksRemaining) / ticksTilActivation;
+        float fracJourney = (float)Math.Pow(((ticksTilActivation - ticksRemaining) / ticksTilActivation), 2);
         projectile.transform.position = Vector3.Lerp(attackSource, attackDestination, fracJourney);
         projectile.transform.LookAt(attackDestination);
 
