@@ -67,3 +67,5 @@ MonoBehaviour:
     type: 3}
   CylinderTestSicklyGreenPrefab: {fileID: 6915423248205026257, guid: a7ef66b2147c2f248a04cbf32a1cd80f,
     type: 3}
+  CylinderTestLightBluePrefab: {fileID: 6915423248205026257, guid: a92725370f5e5f24b8d6ecfef7b1579b,
+    type: 3}

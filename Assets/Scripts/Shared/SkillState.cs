@@ -37,6 +37,8 @@ public class SkillState : State
             skill = new RotSkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Priest)
             skill = new UnholyAuraSkill(piece, board);
+        else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Mage)
+            skill = new ThunderstormSkill(piece, piece.GetTarget(), board);
 
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
