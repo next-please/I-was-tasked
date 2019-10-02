@@ -26,7 +26,7 @@ public class GreaterHealSkill : Interaction
         }
         else
         {
-            this.target = board.GetActiveFriendliesOnBoard()[0];
+            this.target = board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)];
         }
 
         attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
