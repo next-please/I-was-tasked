@@ -41,6 +41,8 @@ public class SkillState : State
             skill = new ThunderstormSkill(piece, piece.GetTarget(), board);
         else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Druid)
             skill = new MoonfireSkill(piece, piece.GetTarget(), board);
+        else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Priest)
+            skill = new GreaterHealSkill(piece, board);
 
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
