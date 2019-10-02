@@ -18,11 +18,15 @@ public class MarketItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 {
     public Piece piece;
 
+    void OnDestroy()
+    {
+        EventManager.Instance.Raise(new HoverMarketItemEvent { piece = null });
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         // TODO: change cursor? (with add/buy icon)
         EventManager.Instance.Raise(new HoverMarketItemEvent { piece = piece });
-
     }
 
     public void OnPointerExit(PointerEventData eventData)

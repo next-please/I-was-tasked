@@ -115,7 +115,6 @@ public class MarketUIManager : MonoBehaviour
 
     void OnPurchaseMarketItem(PurchaseMarketItemEvent e)
     {
-        HideMarketTooltip();
         Piece pieceToPurchase = e.piece;
         Player player = RoomManager.GetLocalPlayer();
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
