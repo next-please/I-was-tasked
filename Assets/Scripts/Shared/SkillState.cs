@@ -45,6 +45,8 @@ public class SkillState : State
             skill = new GreaterHealSkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Rogue)
             skill = new CheapShotSkill(piece, piece.GetTarget(), board);
+        else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Druid)
+            skill = new ForestSpiritsSkill(piece, board);
 
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
