@@ -70,5 +70,12 @@ public class Simulator : Tickable
                 interactionsToProcess.Enqueue(interaction);
             }
         }
+        foreach (Piece currentPiece in gameBoard.GetPiecesOnBoard())
+        {
+            if (currentPiece.IsDead())
+            {
+                gameBoard.DeactivatePieceOnBoard(currentPiece);
+            }
+        }
     }
 }
