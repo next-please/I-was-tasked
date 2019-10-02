@@ -5,18 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Launcher.unity
     guid: 6e669acb1e79d3746bdcdda12be9b4f0
-  - enabled: 0
-    path: Assets/Scenes/DragAndDropNetwork.unity
-    guid: 04218a0f94c6c461f832ec45d38b8c94
   - enabled: 0
     path: Assets/Scenes/HDRPDemo/samplescene.unity
     guid: cbfe36cfddfde964d9dfce63a355d5dd
   - enabled: 0
     path: Assets/Scenes/Main Scene.unity
     guid: 39268dd22e6b61742b611dfc056dd1fd
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 9ad26fd88fa98ee40b5b9aae4df7af1c
   - enabled: 1
     path: Assets/Scenes/Main Scene MP.unity
     guid: f13a7b92c1884bf4da5fb11f951e3b25

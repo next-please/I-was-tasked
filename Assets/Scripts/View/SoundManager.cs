@@ -40,6 +40,11 @@ public class SoundManager : MonoBehaviour
         s_Instance = null;
     }
 
+    public void SetAudioListenerVolume(float volume)
+    {
+        AudioListener.volume = volume;
+    }
+
     public void PlayPieceSound(PieceSound pieceSound)
     {
         AudioSource[] audioSources;
