@@ -45,6 +45,8 @@ public class SkillState : State
             skill = new GreaterHealSkill(piece, board);
         else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Rogue)
             skill = new CheapShotSkill(piece, piece.GetTarget(), board);
+        else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Rogue && board.GetActiveEnemiesOnBoard().Count > 0)
+            skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board);
         else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Druid)
             skill = new ForestSpiritsSkill(piece, board);
 
