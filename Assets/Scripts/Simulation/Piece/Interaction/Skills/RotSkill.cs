@@ -29,6 +29,7 @@ public class RotSkill : Interaction
     public RotSkill(Piece caster, Board board, int countRemaining)
     {
         this.caster = caster;
+        this.board = board;
         this.countRemaining = countRemaining;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;

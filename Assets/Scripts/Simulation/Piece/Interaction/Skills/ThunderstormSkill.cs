@@ -30,6 +30,7 @@ public class ThunderstormSkill : Interaction
     public ThunderstormSkill(Piece caster, Tile targetSpace, Board board, int countRemaining)
     {
         this.caster = caster;
+        this.board = board;
         this.countRemaining = countRemaining;
         this.targetSpace = targetSpace;
         this.ticksTotal = 50;
