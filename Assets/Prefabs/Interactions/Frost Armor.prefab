@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1142941915942832984}
   - component: {fileID: 1142941915942832967}
   m_Layer: 0
-  m_Name: Transparent Glow
+  m_Name: Frost Armor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

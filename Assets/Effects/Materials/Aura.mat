@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Laser
+  m_Name: Aura
   m_Shader: {fileID: -6465566751694194690, guid: 70eae5d2996ec8d4cbcb18bdb997f16b,
     type: 3}
   m_ShaderKeywords: _BLENDMODE_ALPHA _SURFACE_TYPE_TRANSPARENT
