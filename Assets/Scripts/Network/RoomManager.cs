@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 
 using Photon.Pun;
-using Photon.Realtime;
+//using Photon.Realtime;
 
 
 namespace Com.Nextplease.IWT
