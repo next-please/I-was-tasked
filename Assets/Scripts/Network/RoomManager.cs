@@ -14,7 +14,7 @@ namespace Com.Nextplease.IWT
     public class RoomManager : MonoBehaviourPunCallbacks
     {
         #region Public Fields
-        public int NumPlayersToStart = 3;
+        public int NumPlayersToStart = 3; // default set to 3
         public PhaseManager phaseManager;
         #endregion
         #region Private Serializable Fields
@@ -30,6 +30,10 @@ namespace Com.Nextplease.IWT
         #endregion
 
         #region Private Methods
+        private void Awake()
+        {
+            NumPlayersToStart = PhotonNetwork.CurrentRoom.MaxPlayers;
+        }
 
         void LoadArena()
         {
