@@ -28,9 +28,26 @@ namespace Com.Nextplease.IWT
         #endregion
 
         #region Public Methods
+        public void OnClick_LeaveCurrentGame()
+        {
+            if(IsOffline)
+            {
+                SceneManager.LoadScene("Lobby");
+                return;
+            }
+
+            LeaveRoom();
+        }
+
+        public void OnClick_QuitGame()
+        {
+            Application.Quit();
+        }
+
         public void LeaveRoom()
         {
             PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LoadLevel("Lobby");
         }
         #endregion
 
