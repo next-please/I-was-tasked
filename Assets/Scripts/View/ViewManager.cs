@@ -11,9 +11,6 @@ public class ViewManager : MonoBehaviour
     public GameObject BoardPlayerOne;
     public GameObject BoardPlayerTwo;
     public GameObject BoardPlayerThree;
-    public Material White;
-    public Material Black;
-
     public Transform[] TileOriginTransforms;
 
     static float TileSize = 1;
@@ -52,12 +49,8 @@ public class ViewManager : MonoBehaviour
             for (int j = 0; j < cols; ++j)
             {
                 GameObject tile = GetPlayerGameBoard(player).transform.GetChild(i * rows + j).gameObject;
-
                 TileView tileView = tile.GetComponent<TileView>();
                 tileView.TrackTile(gameBoard.GetTile(j, i));
-
-                Renderer rend = tile.GetComponent<Renderer>();
-                rend.material = toggle ? White : Black;
                 toggle = !toggle;
             }
             toggle = !toggle;
