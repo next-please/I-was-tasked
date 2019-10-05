@@ -14,12 +14,17 @@ namespace Com.Nextplease.IWT
     public class RoomManager : MonoBehaviourPunCallbacks
     {
         #region Public Fields
-        public int NumPlayersToStart = 3; // default set to 3
+        public int NumPlayersToStart = 1; // default set to 1 for single player
         public PhaseManager phaseManager;
         #endregion
         #region Private Serializable Fields
         [SerializeField]
         private Text playerList;
+        #endregion
+
+        #region Private Fields
+        private bool _offlineMode = false;
+        public bool IsOffline { get { return _offlineMode; } }
         #endregion
 
         #region Public Methods
@@ -32,6 +37,12 @@ namespace Com.Nextplease.IWT
         #region Private Methods
         private void Awake()
         {
+            Debug.Log(NumPlayersToStart);
+            if (!PhotonNetwork.IsConnected && NumPlayersToStart == 1)
+            {
+                _offlineMode = true;
+                return;
+            }
             NumPlayersToStart = PhotonNetwork.CurrentRoom.MaxPlayers;
         }
 
@@ -85,7 +96,7 @@ namespace Com.Nextplease.IWT
             {
                 if (p == photonPlayer)
                 {
-                    return (Player) index;
+                    return (Player)index;
                 }
                 index++;
             }
@@ -94,6 +105,10 @@ namespace Com.Nextplease.IWT
 
         public bool IsRoomFull()
         {
+            if(_offlineMode)
+            {
+                return true;
+            }
             return PhotonNetwork.PlayerList.Length == NumPlayersToStart;
         }
         #endregion
