@@ -48,6 +48,9 @@ namespace Com.Nextplease.IWT
 
         void LoadArena()
         {
+            if(IsOffline)
+                return;
+
             if (!PhotonNetwork.IsMasterClient)
             {
                 Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
@@ -116,7 +119,8 @@ namespace Com.Nextplease.IWT
         #region Monobehaviour Methods
         void Start()
         {
-            UpdatePlayerList();
+            if(!IsOffline)
+                UpdatePlayerList();
             StartGameIfPossible();
         }
         #endregion
@@ -158,8 +162,8 @@ namespace Com.Nextplease.IWT
 
         private void StartGameIfPossible()
         {
-            if (PhotonNetwork.PlayerList.Length >= NumPlayersToStart &&
-                PhotonNetwork.IsMasterClient)
+            if (IsOffline || (PhotonNetwork.PlayerList.Length >= NumPlayersToStart &&
+                PhotonNetwork.IsMasterClient))
             {
                 phaseManager.StartPhases(NumPlayersToStart);
             }
