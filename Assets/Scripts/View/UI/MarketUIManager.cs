@@ -45,8 +45,7 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.AddListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
         EventManager.Instance.AddListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
         EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
-        EventManager.Instance.AddListener<CameraPanToMarketEvent>(OnCameraPanToMarket);
-        EventManager.Instance.AddListener<CameraPanToBoardEvent>(OnCameraPanToBoard);
+        EventManager.Instance.AddListener<CameraPanEvent>(OnCameraPan);
     }
 
     void OnDisable()
@@ -57,8 +56,7 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.RemoveListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
         EventManager.Instance.RemoveListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
         EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
-        EventManager.Instance.RemoveListener<CameraPanToMarketEvent>(OnCameraPanToMarket);
-        EventManager.Instance.RemoveListener<CameraPanToBoardEvent>(OnCameraPanToBoard);
+        EventManager.Instance.RemoveListener<CameraPanEvent>(OnCameraPan);
     }
 
     void Awake()
@@ -97,16 +95,16 @@ public class MarketUIManager : MonoBehaviour
         }
     }
 
-    void OnCameraPanToMarket(CameraPanToMarketEvent e)
+    void OnCameraPan(CameraPanEvent e)
     {
-        marketInfoCanvas.enabled = true;
-        upgradeCanvas.enabled = true;
-    }
-
-    void OnCameraPanToBoard(CameraPanToBoardEvent e)
-    {
-        marketInfoCanvas.enabled = false;
-        upgradeCanvas.enabled = false;
+        if (e.targetView == CameraView.Market)
+        {
+            ShowMarketUI();
+        }
+        else
+        {
+            HideMarketUI();
+        }
     }
 
     void SetCanvasVisibility(bool visibility)
@@ -216,6 +214,18 @@ public class MarketUIManager : MonoBehaviour
         {
             ShowMarketTooltip(e.piece);
         }
+    }
+
+    private void HideMarketUI()
+    {
+        marketInfoCanvas.enabled = false;
+        upgradeCanvas.enabled = false;
+    }
+
+    private void ShowMarketUI()
+    {
+        marketInfoCanvas.enabled = true;
+        upgradeCanvas.enabled = true;
     }
 
     private void HideMarketTooltip()
