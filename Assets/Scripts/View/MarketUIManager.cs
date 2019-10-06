@@ -9,6 +9,7 @@ public class MarketUIManager : MonoBehaviour
 {
     public Canvas upgradeCanvas;
     public Canvas marketCanvas;
+    public Canvas marketInfoCanvas;
     public Canvas marketTooltipCanvas;
 
     public Text MarketSizeText;
@@ -44,6 +45,8 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.AddListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
         EventManager.Instance.AddListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
         EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
+        EventManager.Instance.AddListener<CameraPanToMarketEvent>(OnCameraPanToMarket);
+        EventManager.Instance.AddListener<CameraPanToBoardEvent>(OnCameraPanToBoard);
     }
 
     void OnDisable()
@@ -54,6 +57,8 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.RemoveListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
         EventManager.Instance.RemoveListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
         EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
+        EventManager.Instance.RemoveListener<CameraPanToMarketEvent>(OnCameraPanToMarket);
+        EventManager.Instance.RemoveListener<CameraPanToBoardEvent>(OnCameraPanToBoard);
     }
 
     void Awake()
@@ -90,6 +95,18 @@ public class MarketUIManager : MonoBehaviour
         {
             // SetCanvasVisibility(false);
         }
+    }
+
+    void OnCameraPanToMarket(CameraPanToMarketEvent e)
+    {
+        marketInfoCanvas.enabled = true;
+        upgradeCanvas.enabled = true;
+    }
+
+    void OnCameraPanToBoard(CameraPanToBoardEvent e)
+    {
+        marketInfoCanvas.enabled = false;
+        upgradeCanvas.enabled = false;
     }
 
     void SetCanvasVisibility(bool visibility)

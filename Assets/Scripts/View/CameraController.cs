@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Com.Nextplease.IWT;
 
+public class CameraPanToMarketEvent : GameEvent { }
+public class CameraPanToBoardEvent : GameEvent { }
+
 public class CameraController : MonoBehaviour
 {
     public Transform[] CameraTransforms;
@@ -37,6 +40,7 @@ public class CameraController : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[3]));
             playerPosition = -1;
+            EventManager.Instance.Raise(new CameraPanToMarketEvent { });
         }
 
         if (Input.GetKeyUp(KeyCode.UpArrow) && playerPosition == -1)
@@ -44,6 +48,7 @@ public class CameraController : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(playerTransform));
             playerPosition = (int)RoomManager.GetLocalPlayer();
+            EventManager.Instance.Raise(new CameraPanToBoardEvent { });
         }
     }
 
