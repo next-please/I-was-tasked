@@ -96,7 +96,7 @@ public class BenchItem : InteractablePiece
 
     private void SetBenchState()
     {
-        transform.localPosition = Vector3.up;
+        transform.localPosition = Vector3.up / 2;
         animator.Play("Idle");
     }
 

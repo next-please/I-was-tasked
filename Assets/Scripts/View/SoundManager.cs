@@ -5,11 +5,12 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     private static SoundManager s_Instance = null; // Singleton
-    private System.Random rngesus = new System.Random();
 
     // Standard Piece Sounds
     public AudioSource[] pieceSwordHitAudioSources;
     public AudioSource[] pieceArrowHitAudioSources;
+
+    private int count = 0;
 
     public enum PieceSound
     {
@@ -61,14 +62,15 @@ public class SoundManager : MonoBehaviour
                 break;
         }
 
-        while (true)
+        // Try to "rotate" the sounds being played (otherwise it gets repetitive).
+        while (audioSources[count % audioSources.Length].isPlaying)
         {
-            int i = rngesus.Next(0, audioSources.Length - 1);
-            if (!audioSources[i].isPlaying)
+            count++;
+            if (count % audioSources.Length == 0)
             {
-                audioSources[i].Play();
-                break;
+                count = 0;
             }
         }
+        audioSources[count % audioSources.Length].Play();
     }
 }
