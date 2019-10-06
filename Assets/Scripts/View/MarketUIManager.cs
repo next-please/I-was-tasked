@@ -191,7 +191,7 @@ public class MarketUIManager : MonoBehaviour
 
     void OnHoverMarketItem(HoverMarketItemEvent e)
     {
-        if (e.piece == null)
+        if (e.piece == null && marketTooltipCanvas)
         {
             HideMarketTooltip();
         }
