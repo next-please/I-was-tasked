@@ -36,6 +36,7 @@ public class MagicMissileSkill : Interaction
         this.caster = caster;
         this.target = target;
         this.countRemaining = countRemaining;
+        this.board = board;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ProjectileTestArcanePurple;

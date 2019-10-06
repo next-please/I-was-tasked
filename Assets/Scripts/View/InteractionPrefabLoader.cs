@@ -14,6 +14,9 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject ProjectileTestLightBluePrefab;
     public GameObject ProjectileTestFireRedPrefab;
     public GameObject ProjectileTestArcanePurplePrefab;
+    public GameObject ProjectileTestSicklyGreenPrefab;
+    public GameObject CylinderTestSicklyGreenPrefab;
+    public GameObject CylinderTestLightBluePrefab;
 
     private Dictionary<Enums.InteractionPrefab, GameObject> interactionPrefabMap;
 
@@ -30,7 +33,10 @@ public class InteractionPrefabLoader : MonoBehaviour
             { Enums.InteractionPrefab.ProjectileTestBlack, ProjectileTestBlackPrefab},
             { Enums.InteractionPrefab.ProjectileTestLightBlue, ProjectileTestLightBluePrefab},
             { Enums.InteractionPrefab.ProjectileTestFireRed, ProjectileTestFireRedPrefab},
-            { Enums.InteractionPrefab.ProjectileTestArcanePurple, ProjectileTestArcanePurplePrefab}
+            { Enums.InteractionPrefab.ProjectileTestArcanePurple, ProjectileTestArcanePurplePrefab},
+            { Enums.InteractionPrefab.ProjectileTestSicklyGreen, ProjectileTestSicklyGreenPrefab},
+            { Enums.InteractionPrefab.CylinderTestSicklyGreen, CylinderTestSicklyGreenPrefab},
+            { Enums.InteractionPrefab.CylinderTestLightBlue, CylinderTestLightBluePrefab}
         };
     }
 

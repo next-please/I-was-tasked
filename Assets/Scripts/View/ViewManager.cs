@@ -14,13 +14,15 @@ public class ViewManager : MonoBehaviour
     public Material White;
     public Material Black;
 
+    public Transform[] TileOriginTransforms;
+
     static float TileSize = 1;
     static float boardOffset = 20;
     struct BoardDimension
     {
         public int rows;
         public int cols;
-        public Vector3 startPos;
+        public Vector3 origin;
     }
 
     private static BoardDimension[] boardDimensions = new BoardDimension[3];
@@ -42,8 +44,8 @@ public class ViewManager : MonoBehaviour
         int rows = gameBoard.GetNumRows();
         int cols = gameBoard.GetNumCols();
         bool toggle = false;
-        Vector3 startPos = new Vector3(boardOffset, 0, 0) * (int)player; // board + offset
-        boardDimensions[(int)player] = new BoardDimension { rows = rows, cols = cols, startPos = startPos };
+        Transform startTransform = TileOriginTransforms[(int)player];
+        boardDimensions[(int)player] = new BoardDimension { rows = rows, cols = cols, origin = startTransform.position };
 
         for (int i = 0; i < rows; ++i)
         {
@@ -69,7 +71,6 @@ public class ViewManager : MonoBehaviour
         int j = e.col;
         Player player = e.player;
 
-        Vector3 startPos = (Vector3.right * e.board.GetNumRows() * TileSize + Vector3.right * 2) * (int)player; // board + offset
         GameObject pieceViewPrefab = piece.IsEnemy() ? EnemyPieceViewPrefab : FriendlyPieceViewPrefab;
 
         Vector3 tileWorldPos = CalculateTileWorldPosition(e.tile);
@@ -98,7 +99,10 @@ public class ViewManager : MonoBehaviour
         BoardDimension boardDimension = boardDimensions[(int)boardOwner];
         int i = tile.GetRow();
         int j = tile.GetCol();
-        return boardDimension.startPos + new Vector3(i, 0, j) * TileSize;
+        float rotation = (int)boardOwner * 45;
+        Vector3 up = Quaternion.Euler(0, rotation, 0) * new Vector3(0, 0, 1);
+        Vector3 right = Quaternion.Euler(0, rotation, 0) * new Vector3(1, 0, 0);
+        return boardDimension.origin + (right * i + up * j) * TileSize;
     }
 
     private GameObject GetPlayerGameBoard(Player player)

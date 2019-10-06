@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PriorityQueue;
 
 public class AddInteractionToProcessEvent : GameEvent
 {
@@ -98,7 +99,8 @@ public class Board
         }
 
         // Using Modified Breadth First Search (BFS) to find the path and Tile to move to.
-        List<Tile> queue = new List<Tile>();
+        //List<Tile> queue = new List<Tile>();
+        SimplePriorityQueue<Tile> queue = new SimplePriorityQueue<Tile>();
         bool[][] isVisited = new bool[numRows][];
         Tile[][] predecessors = new Tile[numRows][];
 
@@ -118,12 +120,11 @@ public class Board
                 }
             }
         }
-        queue.Add(currentTile); // Enqueue our source Tile.
+        queue.Enqueue(currentTile, 0); // Enqueue our source Tile.
 
         while (queue.Count > 0)
         {
-            Tile tile = queue[0];
-            queue.Remove(tile);
+            Tile tile = queue.Dequeue();
 
             // Enqueue all surrounding tiles that are Unvisited.
             int tileRow = tile.GetRow();
@@ -140,7 +141,7 @@ public class Board
                     if (!isVisited[i][j])
                     {
                         isVisited[i][j] = true;
-                        queue.Add(tiles[i][j]);
+                        queue.Enqueue(tiles[i][j], tiles[i][j].ManhattanDistanceToTile(targetTile));
                         predecessors[i][j] = tile;
 
                         if (tile.Equals(targetTile)) // Early termination.
@@ -150,7 +151,6 @@ public class Board
                     }
                 }
             }
-            queue.Sort((x, y) => x.ManhattanDistanceToTile(targetTile) - y.ManhattanDistanceToTile(targetTile));
         }
 
         // No unobstructed path to the Target; attempt to naively move closer to it.

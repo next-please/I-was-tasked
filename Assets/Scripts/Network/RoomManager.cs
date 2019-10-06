@@ -14,7 +14,7 @@ namespace Com.Nextplease.IWT
     public class RoomManager : MonoBehaviourPunCallbacks
     {
         #region Public Fields
-        public int NumPlayersToStart = 1;
+        public int NumPlayersToStart = 3;
         public PhaseManager phaseManager;
         #endregion
         #region Private Serializable Fields
@@ -98,6 +98,7 @@ namespace Com.Nextplease.IWT
         void Start()
         {
             UpdatePlayerList();
+            StartGameIfPossible();
         }
         #endregion
 
@@ -115,11 +116,7 @@ namespace Com.Nextplease.IWT
         {
             Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // not seen if you're the player connecting
             UpdatePlayerList();
-            if (PhotonNetwork.PlayerList.Length >= NumPlayersToStart &&
-                PhotonNetwork.IsMasterClient)
-            {
-                phaseManager.StartPhases(NumPlayersToStart);
-            }
+            StartGameIfPossible();
         }
 
 
@@ -139,5 +136,14 @@ namespace Com.Nextplease.IWT
             }
         }
         #endregion
+
+        private void StartGameIfPossible()
+        {
+            if (PhotonNetwork.PlayerList.Length >= NumPlayersToStart &&
+                PhotonNetwork.IsMasterClient)
+            {
+                phaseManager.StartPhases(NumPlayersToStart);
+            }
+        }
     }
 }

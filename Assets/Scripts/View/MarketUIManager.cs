@@ -9,17 +9,25 @@ public class MarketUIManager : MonoBehaviour
 {
     public Canvas upgradeCanvas;
     public Canvas marketCanvas;
+    public Canvas marketTooltipCanvas;
 
     public Text MarketSizeText;
     public Text MarketRarityText;
     public Text PassiveIncomeText;
     public Text CastleHealthText;
 
+    public MarketTooltip marketTooltip;
+
     public TransactionManager transactionManager;
 
     Button[] marketItemsButtons;
     IReadOnlyList<Piece> marketPieces;
     private bool visibility = true;
+
+    // world view market
+    public CharacterPrefabLoader characterPrefabLoader;
+    public GameObject marketObject;
+    MarketSlot[] marketSlots;
 
     private void Update()
     {
@@ -34,6 +42,8 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
         EventManager.Instance.AddListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.AddListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
+        EventManager.Instance.AddListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
+        EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
     }
 
     void OnDisable()
@@ -42,12 +52,16 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
         EventManager.Instance.RemoveListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.RemoveListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
+        EventManager.Instance.RemoveListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
+        EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
     }
 
     void Awake()
     {
         marketPieces = new List<Piece>();
         marketItemsButtons = marketCanvas.GetComponentsInChildren<Button>(true);
+        marketSlots = marketObject.GetComponentsInChildren<MarketSlot>();
+
         ClearMarketButtons();
         for (int i = 0; i < marketItemsButtons.Length; ++i)
         {
@@ -55,13 +69,18 @@ public class MarketUIManager : MonoBehaviour
             Button marketItemButton = marketItemsButtons[i];
             marketItemButton.onClick.AddListener(() => PurchasePiece(capturedIndex));
         }
+
+        ClearMarket();
+
+        SetCanvasVisibility(false);
+        marketTooltipCanvas.enabled = false;
     }
 
     void OnEnterPhase(EnterPhaseEvent e)
     {
         if (e.phase == Phase.Market)
         {
-            SetCanvasVisibility(true);
+            // SetCanvasVisibility(true);
         }
     }
 
@@ -69,7 +88,7 @@ public class MarketUIManager : MonoBehaviour
     {
         if (e.phase == Phase.Market)
         {
-            SetCanvasVisibility(false);
+            // SetCanvasVisibility(false);
         }
     }
 
@@ -86,11 +105,19 @@ public class MarketUIManager : MonoBehaviour
         MarketSizeText.text = "Market Size: " + e.readOnlyMarket.GetMarketSize().ToString();
         CastleHealthText.text = "Castle Health: " + e.readOnlyMarket.GetCastleHealth().ToString();
         UpdateMarketButtons(e);
+        UpdateMarket(e);
     }
 
     void OnPassiveIncomeUpdate(PassiveIncomeUpdateEvent e)
     {
-        PassiveIncomeText.text = "Additional Passive Income: "  + e.PassiveIncome.ToString();
+        PassiveIncomeText.text = "Additional Passive Income: " + e.PassiveIncome.ToString();
+    }
+
+    void OnPurchaseMarketItem(PurchaseMarketItemEvent e)
+    {
+        Piece pieceToPurchase = e.piece;
+        Player player = RoomManager.GetLocalPlayer();
+        transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
     }
 
     void UpdateMarketButtons(MarketUpdateEvent e)
@@ -111,8 +138,25 @@ public class MarketUIManager : MonoBehaviour
                 "\n" + piece.GetRace() + " (3)" +
                 "    " + piece.GetClass() + " (3)" +
                 "\nRarity: " + piece.GetRarity() +
-                "  Cost: " + Math.Pow(2, piece.GetRarity()-1);
+                "  Cost: " + Math.Pow(2, piece.GetRarity() - 1);
             marketItemButton.enabled = true;
+        }
+    }
+
+    void UpdateMarket(MarketUpdateEvent e)
+    {
+        ClearMarket();
+        marketPieces = e.readOnlyMarket.GetMarketPieces();
+        for (int i = 0; i < marketPieces.Count; ++i)
+        {
+            Piece piece = marketPieces[i]; // please don't modify the piece here T_T
+
+            if (piece == null)
+            {
+                continue;
+            }
+            MarketSlot marketSlot = marketSlots[i];
+            marketSlot.SetOccupant(piece, characterPrefabLoader.GetPrefab(piece));
         }
     }
 
@@ -130,6 +174,14 @@ public class MarketUIManager : MonoBehaviour
         button.enabled = false;
     }
 
+    void ClearMarket()
+    {
+        foreach (MarketSlot slot in marketSlots)
+        {
+            slot.ClearSlot();
+        }
+    }
+
     void PurchasePiece(int itemIndex)
     {
         Piece pieceToPurchase = marketPieces[itemIndex];
@@ -137,5 +189,26 @@ public class MarketUIManager : MonoBehaviour
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
     }
 
+    void OnHoverMarketItem(HoverMarketItemEvent e)
+    {
+        if (e.piece == null)
+        {
+            HideMarketTooltip();
+        }
+        else
+        {
+            ShowMarketTooltip(e.piece);
+        }
+    }
 
+    private void HideMarketTooltip()
+    {
+        marketTooltipCanvas.enabled = false;
+    }
+
+    private void ShowMarketTooltip(Piece piece)
+    {
+        marketTooltipCanvas.enabled = true;
+        marketTooltip.SetMarketItemInfo(piece);
+    }
 }

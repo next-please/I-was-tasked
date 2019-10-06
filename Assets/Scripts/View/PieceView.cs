@@ -105,7 +105,7 @@ public class PieceView : MonoBehaviour
         viewAction.OnViewUpdate(this);
         prevViewAction = viewAction;
 
-        Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        Vector3 lookAtPosition = statusBars.transform.position - Camera.main.transform.forward;
         statusBars.transform.LookAt(lookAtPosition);
     }
 

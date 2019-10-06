@@ -1,0 +1,155 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ShadowStrikeSkill : Interaction
+{
+    private Piece caster;
+    private Piece target;
+    private Board board;
+    private Vector3 attackSource;
+    private Vector3 attackDestination;
+    private Tile targetTile;
+    private int ticksTilActivation = 40;
+    public int shadowStrikeDefaultDamage = 90;
+
+    public ShadowStrikeSkill(Piece caster, Piece target, Board board)
+    {
+        this.caster = caster;
+        this.target = target;
+        this.board = board;
+        this.ticksTotal = 50;
+        this.ticksRemaining = ticksTilActivation;
+        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBlack;
+
+        int targetRow = target.GetCurrentTile().GetRow();
+        int targetCol = target.GetCurrentTile().GetCol();
+        int selfRow = caster.GetCurrentTile().GetRow();
+        int selfCol = caster.GetCurrentTile().GetCol();
+
+        if (!board.GetTile(targetRow + 1, targetCol).IsLocked() && !board.GetTile(targetRow + 1, targetCol).IsOccupied() && selfRow < targetRow)
+        {
+            targetTile = board.GetTile(targetRow + 1, targetCol);
+        }
+        else if (!board.GetTile(targetRow - 1, targetCol).IsLocked() && !board.GetTile(targetRow - 1, targetCol).IsOccupied() && selfRow > targetRow)
+        {
+            targetTile = board.GetTile(targetRow - 1, targetCol);
+        }
+        else if (!board.GetTile(targetRow, targetCol - 1).IsLocked() && !board.GetTile(targetRow, targetCol - 1).IsOccupied() && selfCol > targetCol)
+        {
+            targetTile = board.GetTile(targetRow, targetCol - 1);
+        }
+        else if (!board.GetTile(targetRow, targetCol + 1).IsLocked() && !board.GetTile(targetRow, targetCol + 1).IsOccupied() && selfCol < targetCol)
+        {
+            targetTile = board.GetTile(targetRow, targetCol + 1);
+        }
+        else
+        {
+            targetTile = caster.GetCurrentTile();
+        }
+
+        attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+        attackSource.y = 0.5f;
+
+        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+        attackDestination.y = 0.5f;
+
+        Interaction skill = new ShadowStrikeLingeringEffect(attackDestination);
+        board.AddInteractionToProcess(skill);
+    }
+
+    public override bool ProcessInteraction()
+    {
+        if (ticksRemaining > 0)
+        {
+            ticksRemaining--;
+            return true;
+        }
+        else
+        {
+            ApplyDamageToInflict();
+            return false;
+        }
+    }
+
+    public override void CleanUpInteraction()
+    {
+        interactionView.CleanUpInteraction();
+    }
+
+    public override bool ProcessInteractionView()
+    {
+        GameObject projectile = interactionView.gameObject;
+
+        projectile.transform.position = attackSource;
+
+        if (ticksRemaining <= 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private void ApplyDamageToInflict()
+    {
+        if (!target.IsDead())
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - shadowStrikeDefaultDamage);
+            Debug.Log(caster.GetName() + " has ShadowStrike-ed " + target.GetName() + " for " + shadowStrikeDefaultDamage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
+        }
+
+        if (caster.IsDead())
+            return;
+
+        board.MovePieceToTile(caster, targetTile);
+
+        Interaction skill = new ShadowStrikeLingeringEffect(attackSource);
+        board.AddInteractionToProcess(skill);
+        skill = new ShadowStrikeLingeringEffect(attackDestination);
+        board.AddInteractionToProcess(skill);
+    }
+}
+
+public class ShadowStrikeLingeringEffect : Interaction
+{
+    private Vector3 effectPosition;
+    public int ticksTilActivation = 40;
+
+    public ShadowStrikeLingeringEffect(Vector3 effectPosition)
+    {
+        this.effectPosition = effectPosition;
+        this.ticksRemaining = ticksTilActivation;
+        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBlack;
+    }
+
+    public override bool ProcessInteraction()
+    {
+        if (ticksRemaining > 0)
+        {
+            ticksRemaining--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public override void CleanUpInteraction()
+    {
+        interactionView.CleanUpInteraction();
+    }
+
+    public override bool ProcessInteractionView()
+    {
+        GameObject projectile = interactionView.gameObject;
+
+        projectile.transform.position = effectPosition;
+
+        if (ticksRemaining <= 0)
+        {
+            return false;
+        }
+        return true;
+    }
+}
