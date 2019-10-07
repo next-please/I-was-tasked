@@ -11,7 +11,7 @@ public class InteractionView : MonoBehaviour
         this.interaction = interaction;
     }
 
-    public void CleanUpInteraction()
+    public virtual void CleanUpInteraction()
     {
         Destroy(gameObject);
     }

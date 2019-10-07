@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1026796413723816821}
   - component: {fileID: 1026796413723816820}
+  - component: {fileID: -3996337122074348312}
   m_Layer: 0
   m_Name: Moon Fire
   m_TagString: Untagged
@@ -52,6 +53,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3996337122074348312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026796413723816823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a54c788fbc2b643a913f7b1fdfd6c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1026796414099049428
 GameObject:
   m_ObjectHideFlags: 0

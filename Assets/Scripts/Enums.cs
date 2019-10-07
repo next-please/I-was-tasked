@@ -25,6 +25,7 @@ public static class Enums
         EviscerateBleed,
         Fireblast,
         FrostArmour,
+        Moonfire,
         ProjectileTestBlue,
         ProjectileTestRed,
         FishBallTest,

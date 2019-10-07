@@ -10,6 +10,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject EviscerateBleed;
     public GameObject FrostArmour;
     public GameObject Fireblast;
+    public GameObject Moonfire;
 
     [Header("Debug SKills")]
     public GameObject ProjectileTestBluePrefab;
@@ -35,6 +36,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.EviscerateBleed, EviscerateBleed },
             { PrefabEnum.Fireblast, Fireblast },
             { PrefabEnum.FrostArmour, FrostArmour },
+            { PrefabEnum.Moonfire, Moonfire },
             { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },
             { PrefabEnum.ProjectileTestRed, ProjectileTestRedPrefab },
             { PrefabEnum.FishBallTest, FishBallTestPrefab },
