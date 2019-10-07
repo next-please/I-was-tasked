@@ -7,7 +7,7 @@ public class RotSkill : Interaction
     private Piece caster;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 10;
+    private int ticksTilActivation = 50;
     private int countRemaining;
     public int rotDefaultRadius = 1;
     public int rotDefaultCount = 20;
@@ -20,7 +20,7 @@ public class RotSkill : Interaction
         this.countRemaining = rotDefaultCount;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestSicklyGreen;
+        interactionPrefab = Enums.InteractionPrefab.Rot;
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
         attackSource.y = 0.5f;
@@ -33,7 +33,7 @@ public class RotSkill : Interaction
         this.countRemaining = countRemaining;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestSicklyGreen;
+        interactionPrefab = Enums.InteractionPrefab.Rot;
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
         attackSource.y = 0.5f;
@@ -41,16 +41,18 @@ public class RotSkill : Interaction
 
     public override bool ProcessInteraction()
     {
-        if (ticksRemaining > 0)
+        ticksRemaining--;
+        if (ticksRemaining == 0 && countRemaining > 0)
         {
-            ticksRemaining--;
-            return true;
-        }
-        else
-        {
+            countRemaining--;
             ApplyDamageToInflict();
-            return false;
+            if (caster.GetState().GetType() != typeof(InfiniteState) &&
+                board.GetActiveEnemiesOnBoard().Count > 0)
+            {
+                ticksRemaining = ticksTilActivation;
+            }
         }
+        return ticksRemaining >= 0;
     }
 
     public override void CleanUpInteraction()
@@ -82,15 +84,6 @@ public class RotSkill : Interaction
         foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), rotDefaultRadius))
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
-        }
-
-        if (countRemaining > 0)
-        {
-            if (caster.GetState().GetType() != typeof(InfiniteState) && board.GetActiveEnemiesOnBoard().Count > 0)
-            {
-                Interaction skill = new RotSkill(caster, board, countRemaining - 1);
-                board.AddInteractionToProcess(skill);
-            }
         }
 
         Debug.Log(caster.GetName() + " has Rot-ed targets around it for " + rotDefaultDamage + " DMG.");

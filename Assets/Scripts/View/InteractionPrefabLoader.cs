@@ -14,6 +14,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject GreaterHeal;
     public GameObject MagicMissile;
     public GameObject Moonfire;
+    public GameObject Rot;
 
     [Header("Debug SKills")]
     public GameObject ProjectileTestBluePrefab;
@@ -43,6 +44,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.GreaterHeal, GreaterHeal },
             { PrefabEnum.MagicMissile, MagicMissile },
             { PrefabEnum.Moonfire, Moonfire },
+            { PrefabEnum.Rot, Rot },
             { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },
             { PrefabEnum.ProjectileTestRed, ProjectileTestRedPrefab },
             { PrefabEnum.FishBallTest, FishBallTestPrefab },
