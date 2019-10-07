@@ -51,6 +51,8 @@ MonoBehaviour:
     type: 3}
   FrostArmour: {fileID: 1142941915942832966, guid: 368cfcdbd14eac049831877a8606b819,
     type: 3}
+  MagicMissile: {fileID: 3939746984077384847, guid: 5d22085f9a47f4d43ab475fdc6b637d9,
+    type: 3}
   Moonfire: {fileID: 1026796413723816823, guid: a2ada492991053d43b87299aa05a2157,
     type: 3}
   ProjectileTestBluePrefab: {fileID: 7409315148139022978, guid: a7db3d65ab4942b4cbbf2553d461c7b2,

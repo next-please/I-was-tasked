@@ -26,6 +26,7 @@ public static class Enums
         Fireblast,
         ForestSpirits,
         FrostArmour,
+        MagicMissile,
         Moonfire,
         ProjectileTestBlue,
         ProjectileTestRed,

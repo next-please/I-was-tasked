@@ -11,6 +11,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject Fireblast;
     public GameObject ForestSpirits;
     public GameObject FrostArmour;
+    public GameObject MagicMissile;
     public GameObject Moonfire;
 
     [Header("Debug SKills")]
@@ -38,6 +39,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.Fireblast, Fireblast },
             { PrefabEnum.ForestSpirits, ForestSpirits },
             { PrefabEnum.FrostArmour, FrostArmour },
+            { PrefabEnum.MagicMissile, MagicMissile },
             { PrefabEnum.Moonfire, Moonfire },
             { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },
             { PrefabEnum.ProjectileTestRed, ProjectileTestRedPrefab },

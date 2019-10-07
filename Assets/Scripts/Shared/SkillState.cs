@@ -12,7 +12,8 @@ public class SkillState : State
         if (!piece.IsEnemy())
         {
             if (true)
-                skill = new ForestSpiritsSkill(piece, board);
+                skill = new MagicMissileSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
+                // skill = new ForestSpiritsSkill(piece, board);
                 // skill = new MoonfireSkill(piece, piece.GetTarget(), board);
                 // skill = new FireblastSkill(piece, piece.GetTarget());
                 // skill = new EvicerateSkill(piece, piece.GetTarget(), board);
