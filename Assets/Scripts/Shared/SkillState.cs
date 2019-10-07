@@ -11,7 +11,10 @@ public class SkillState : State
         skill = new ShapeshiftLingeringEffect(piece);
         if (!piece.IsEnemy())
         {
-            if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
+            if (true)
+                skill = new EvicerateSkill(piece, piece.GetTarget(), board);
+                // skill = new FrostArmourSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
+            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
                 skill = new ShapeshiftSkill(piece, board);
             else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Knight)
                 skill = new ProtectAllySkill(piece, board);

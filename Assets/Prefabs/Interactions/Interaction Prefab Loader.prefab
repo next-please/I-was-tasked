@@ -43,6 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ebf41836d5f3d43bde52047e8745e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EviscerateBleed: {fileID: 2231283222839007319, guid: 4060437c8047ec846a82ff395b3e5fb9,
+    type: 3}
+  FrostArmour: {fileID: 1142941915942832966, guid: 368cfcdbd14eac049831877a8606b819,
+    type: 3}
   ProjectileTestBluePrefab: {fileID: 7409315148139022978, guid: a7db3d65ab4942b4cbbf2553d461c7b2,
     type: 3}
   ProjectileTestRedPrefab: {fileID: 7409315148139022978, guid: 3a270741ebbcfbe4bb1173d81000d715,

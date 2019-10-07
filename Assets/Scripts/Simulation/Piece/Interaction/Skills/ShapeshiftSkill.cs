@@ -95,12 +95,14 @@ public class ShapeshiftLingeringEffect : Interaction
 
     public override bool ProcessInteractionView()
     {
-        GameObject projectile = interactionView.gameObject;
+        if (!caster.IsDead())
+        {
+            GameObject projectile = interactionView.gameObject;
+            attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackDestination.y += 3.5f;
 
-        attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackDestination.y += 3.5f;
-
-        projectile.transform.position = attackDestination;
+            projectile.transform.position = attackDestination;
+        }
 
         if (ticksRemaining <= 0)
         {

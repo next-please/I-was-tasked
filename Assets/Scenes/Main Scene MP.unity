@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21952419, g: 0.43730193, b: 0.7127748, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -39415,6 +39415,12 @@ PrefabInstance:
       propertyPath: logText
       value: 
       objectReference: {fileID: 1981609194}
+    - target: {fileID: 358672374786686936, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: FrostArmour
+      value: 
+      objectReference: {fileID: 1142941915942832966, guid: 368cfcdbd14eac049831877a8606b819,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb924d3f4e127794c9dfc5fc10c21d58, type: 3}
 --- !u!1001 &366813031191007765

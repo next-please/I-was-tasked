@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using PrefabEnum = Enums.InteractionPrefab;
+
 public class InteractionPrefabLoader : MonoBehaviour
 {
+    [Header("Skills")]
+    public GameObject EviscerateBleed;
+    public GameObject FrostArmour;
+
+    [Header("Debug SKills")]
     public GameObject ProjectileTestBluePrefab;
     public GameObject ProjectileTestRedPrefab;
     public GameObject FishBallTestPrefab;
@@ -24,24 +31,29 @@ public class InteractionPrefabLoader : MonoBehaviour
     {
         interactionPrefabMap = new Dictionary<Enums.InteractionPrefab, GameObject>()
         {
-            { Enums.InteractionPrefab.ProjectileTestBlue, ProjectileTestBluePrefab },
-            { Enums.InteractionPrefab.ProjectileTestRed, ProjectileTestRedPrefab },
-            { Enums.InteractionPrefab.FishBallTest, FishBallTestPrefab },
-            { Enums.InteractionPrefab.ProjectileTestYellow, ProjectileTestYellowPrefab},
-            { Enums.InteractionPrefab.ProjectileTestGreen, ProjectileTestGreenPrefab},
-            { Enums.InteractionPrefab.ProjectileTestBloodRed, ProjectileTestBloodRedPrefab},
-            { Enums.InteractionPrefab.ProjectileTestBlack, ProjectileTestBlackPrefab},
-            { Enums.InteractionPrefab.ProjectileTestLightBlue, ProjectileTestLightBluePrefab},
-            { Enums.InteractionPrefab.ProjectileTestFireRed, ProjectileTestFireRedPrefab},
-            { Enums.InteractionPrefab.ProjectileTestArcanePurple, ProjectileTestArcanePurplePrefab},
-            { Enums.InteractionPrefab.ProjectileTestSicklyGreen, ProjectileTestSicklyGreenPrefab},
-            { Enums.InteractionPrefab.CylinderTestSicklyGreen, CylinderTestSicklyGreenPrefab},
-            { Enums.InteractionPrefab.CylinderTestLightBlue, CylinderTestLightBluePrefab}
+            { PrefabEnum.FrostArmour, FrostArmour },
+            { PrefabEnum.EviscerateBleed, EviscerateBleed },
+            { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },
+            { PrefabEnum.ProjectileTestRed, ProjectileTestRedPrefab },
+            { PrefabEnum.FishBallTest, FishBallTestPrefab },
+            { PrefabEnum.ProjectileTestYellow, ProjectileTestYellowPrefab},
+            { PrefabEnum.ProjectileTestGreen, ProjectileTestGreenPrefab},
+            { PrefabEnum.ProjectileTestBloodRed, ProjectileTestBloodRedPrefab},
+            { PrefabEnum.ProjectileTestBlack, ProjectileTestBlackPrefab},
+            { PrefabEnum.ProjectileTestLightBlue, ProjectileTestLightBluePrefab},
+            { PrefabEnum.ProjectileTestFireRed, ProjectileTestFireRedPrefab},
+            { PrefabEnum.ProjectileTestArcanePurple, ProjectileTestArcanePurplePrefab},
+            { PrefabEnum.ProjectileTestSicklyGreen, ProjectileTestSicklyGreenPrefab},
+            { PrefabEnum.CylinderTestSicklyGreen, CylinderTestSicklyGreenPrefab},
+            { PrefabEnum.CylinderTestLightBlue, CylinderTestLightBluePrefab}
         };
     }
 
     public GameObject GetPrefab(Enums.InteractionPrefab interactionPrefab)
     {
-        return interactionPrefabMap[interactionPrefab];
+        var prefab = interactionPrefabMap[interactionPrefab];
+        if (prefab == null)
+            Debug.Log(interactionPrefab + " Not Found!");
+        return prefab;
     }
 }
