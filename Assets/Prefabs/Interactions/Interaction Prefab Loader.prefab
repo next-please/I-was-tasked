@@ -51,6 +51,8 @@ MonoBehaviour:
     type: 3}
   FrostArmour: {fileID: 1142941915942832966, guid: 368cfcdbd14eac049831877a8606b819,
     type: 3}
+  GreaterHeal: {fileID: 5046789155405430073, guid: dcb3d2004ca687549b8ca73a01913af5,
+    type: 3}
   MagicMissile: {fileID: 3939746984077384847, guid: 5d22085f9a47f4d43ab475fdc6b637d9,
     type: 3}
   Moonfire: {fileID: 1026796413723816823, guid: a2ada492991053d43b87299aa05a2157,

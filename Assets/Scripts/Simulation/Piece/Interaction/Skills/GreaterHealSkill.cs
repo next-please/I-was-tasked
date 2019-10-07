@@ -30,7 +30,7 @@ public class GreaterHealSkill : Interaction
         }
 
         attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackSource.y = 2.0f;
+        attackSource.y = 0.55f;
     }
 
     public override bool ProcessInteraction()
@@ -84,26 +84,19 @@ public class GreaterHealSkill : Interaction
 public class GreaterHealLingeringEffect : Interaction
 {
     private Vector3 effectPosition;
-    public int ticksTilActivation = 50;
+    public int ticksTilActivation = 200;
 
     public GreaterHealLingeringEffect(Vector3 effectPosition)
     {
         this.effectPosition = effectPosition;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestYellow;
+        interactionPrefab = Enums.InteractionPrefab.GreaterHeal;
     }
 
     public override bool ProcessInteraction()
     {
-        if (ticksRemaining > 0)
-        {
-            ticksRemaining--;
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        ticksRemaining--;
+        return ticksRemaining >= 0;
     }
 
     public override void CleanUpInteraction()
@@ -114,13 +107,7 @@ public class GreaterHealLingeringEffect : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
-
         projectile.transform.position = effectPosition;
-
-        if (ticksRemaining <= 0)
-        {
-            return false;
-        }
-        return true;
+        return ticksRemaining > 0;
     }
 }
