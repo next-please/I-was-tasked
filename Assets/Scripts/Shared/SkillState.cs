@@ -11,15 +11,7 @@ public class SkillState : State
         skill = new ShapeshiftLingeringEffect(piece);
         if (!piece.IsEnemy())
         {
-            if (true)
-                skill = new GreaterHealSkill(piece, board);
-                // skill = new MagicMissileSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
-                // skill = new ForestSpiritsSkill(piece, board);
-                // skill = new MoonfireSkill(piece, piece.GetTarget(), board);
-                // skill = new FireblastSkill(piece, piece.GetTarget());
-                // skill = new EvicerateSkill(piece, piece.GetTarget(), board);
-                // skill = new FrostArmourSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
-            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
+            if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
                 skill = new ShapeshiftSkill(piece, board);
             else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Knight)
                 skill = new ProtectAllySkill(piece, board);
