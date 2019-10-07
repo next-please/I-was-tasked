@@ -24,6 +24,7 @@ public static class Enums
     {
         EviscerateBleed,
         Fireblast,
+        ForestSpirits,
         FrostArmour,
         Moonfire,
         ProjectileTestBlue,

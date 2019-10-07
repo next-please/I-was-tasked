@@ -45,9 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EviscerateBleed: {fileID: 2231283222839007319, guid: 4060437c8047ec846a82ff395b3e5fb9,
     type: 3}
-  FrostArmour: {fileID: 1142941915942832966, guid: 368cfcdbd14eac049831877a8606b819,
-    type: 3}
   Fireblast: {fileID: 2368481067273882786, guid: c9599095096809747be9c2a3e8d6a140,
+    type: 3}
+  ForestSpirits: {fileID: 8325048556619474201, guid: 8a381d23a12fc894f8f4193b37594a46,
+    type: 3}
+  FrostArmour: {fileID: 1142941915942832966, guid: 368cfcdbd14eac049831877a8606b819,
     type: 3}
   Moonfire: {fileID: 1026796413723816823, guid: a2ada492991053d43b87299aa05a2157,
     type: 3}

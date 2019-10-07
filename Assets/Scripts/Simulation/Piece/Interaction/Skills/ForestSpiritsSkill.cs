@@ -144,7 +144,7 @@ public class ForestSpiritSecondaryEffect : Interaction
         this.target = target;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestYellow;
+        interactionPrefab = Enums.InteractionPrefab.ForestSpirits;
 
         this.attackSource = attackSource;
         attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
