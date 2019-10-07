@@ -12,7 +12,8 @@ public class SkillState : State
         if (!piece.IsEnemy())
         {
             if (true)
-                skill = new EvicerateSkill(piece, piece.GetTarget(), board);
+                skill = new FireblastSkill(piece, piece.GetTarget());
+                // skill = new EvicerateSkill(piece, piece.GetTarget(), board);
                 // skill = new FrostArmourSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
             else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
                 skill = new ShapeshiftSkill(piece, board);

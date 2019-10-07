@@ -23,6 +23,7 @@ public static class Enums
     public enum InteractionPrefab
     {
         EviscerateBleed,
+        Fireblast,
         FrostArmour,
         ProjectileTestBlue,
         ProjectileTestRed,

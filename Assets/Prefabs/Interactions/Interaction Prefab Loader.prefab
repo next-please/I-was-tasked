@@ -47,6 +47,8 @@ MonoBehaviour:
     type: 3}
   FrostArmour: {fileID: 1142941915942832966, guid: 368cfcdbd14eac049831877a8606b819,
     type: 3}
+  Fireblast: {fileID: 2368481067273882786, guid: c9599095096809747be9c2a3e8d6a140,
+    type: 3}
   ProjectileTestBluePrefab: {fileID: 7409315148139022978, guid: a7db3d65ab4942b4cbbf2553d461c7b2,
     type: 3}
   ProjectileTestRedPrefab: {fileID: 7409315148139022978, guid: 3a270741ebbcfbe4bb1173d81000d715,

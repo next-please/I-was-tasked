@@ -9,6 +9,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     [Header("Skills")]
     public GameObject EviscerateBleed;
     public GameObject FrostArmour;
+    public GameObject Fireblast;
 
     [Header("Debug SKills")]
     public GameObject ProjectileTestBluePrefab;
@@ -31,8 +32,9 @@ public class InteractionPrefabLoader : MonoBehaviour
     {
         interactionPrefabMap = new Dictionary<Enums.InteractionPrefab, GameObject>()
         {
-            { PrefabEnum.FrostArmour, FrostArmour },
             { PrefabEnum.EviscerateBleed, EviscerateBleed },
+            { PrefabEnum.Fireblast, Fireblast },
+            { PrefabEnum.FrostArmour, FrostArmour },
             { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },
             { PrefabEnum.ProjectileTestRed, ProjectileTestRedPrefab },
             { PrefabEnum.FishBallTest, FishBallTestPrefab },
