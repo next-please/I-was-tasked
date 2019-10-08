@@ -68,7 +68,7 @@ public class CharacterGenerator
     public readonly int priestFlatAttackRangeAdditor = 4;
     public readonly double priestAttackDamageMultiplier = 0.8;
 
-    public readonly int[] tiersPoolMax = new int[] { 1, 1, 2, 1 };
+    public readonly int[] tiersPoolMax = new int[] { 4, 3, 2, 1 };
     public readonly int characterUpgradeDifferencePercentage = 20;
     public readonly int[,] rarityUpgradeTiers = {
                                             { 100, 0, 0, 0 },
