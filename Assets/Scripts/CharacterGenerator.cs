@@ -24,7 +24,7 @@ public class CharacterGenerator
     //human stat changes
     public readonly double humanHitPointMultiplier = 1.1;
     public readonly double humanAttackDamageMultiplier = 1.1;
-    public readonly int humanManaPointAdditor = -10;
+    public readonly int humanManaPointAdditor = -5;
 
     //orc stat changes
     public readonly int orcFlatMovementSpeedAdditor = -1;
@@ -35,38 +35,39 @@ public class CharacterGenerator
     //elf stat changes
     public readonly int elfFlatMovementSpeedAdditor = 1;
     public readonly int elfFlatAttackSpeedAdditor = 1;
-    public readonly double elfHitPointMultiplier = 0.9;
     public readonly int elfFlatConditionalAttackRangeAdditor = 1;
+    public readonly double elfAttackDamageMultiplier = 1.05;
+    public readonly int elfManaPointAdditor = -8;
 
     //undead stat changes
     public readonly int undeadFlatMovementSpeedAdditor = -3;
     public readonly int undeadFlatAttackSpeedAdditor = -2;
-    public readonly int undeadHitPointMultiplier = 2;
-
+    public readonly double undeadHitPointMultiplier = 1.35;
 
     //mage stat changes
     public readonly int mageFlatAttackRangeAdditor = 2;
-    public readonly int mageManaPointAdditor = -15;
-    public readonly double mageHitPointMultiplier = 0.8;
+    public readonly int mageManaPointAdditor = -8;
+    public readonly double mageAttackDamageMultiplier = 1.05;
 
     //rogue stat changes
     public readonly int rogueFlatMovementSpeedAdditor = 1;
     public readonly int rogueFlatAttackSpeedAdditor = 1;
-    public readonly double rogueHitPointMultiplier = 0.9;
+    public readonly double rogueHitPointMultiplier = 1.05;
+    public readonly double rogueAttackDamageMultiplier = 1.1;
 
     //druid stat changes
-    public readonly double druidHitPointMultiplier = 1.05;
-    public readonly double druidAttackDamageMultiplier = 1.05;
-    public readonly int druidManaPointAdditor = -5;
+    public readonly double druidHitPointMultiplier = 1.15;
+    public readonly double druidAttackDamageMultiplier = 1.15;
+    public readonly int druidManaPointAdditor = -3;
 
     //knight stat changes
     public readonly double knightHitPointMultiplier = 1.2;
-    public readonly double knightAttackDamageMultiplier = 1.1;
-    public readonly int knightFlatAttackSpeedAdditor = -1;
+    public readonly double knightAttackDamageMultiplier = 1.15;
 
     //priest stat changes
     public readonly int priestFlatAttackRangeAdditor = 4;
-    public readonly double priestAttackDamageMultiplier = 0.8;
+    public readonly int priestManaPointAdditor = -5;
+    public readonly double priestHitPointMultiplier = 1.1;
 
     public readonly int[] tiersPoolMax = new int[] { 4, 3, 2, 1 };
     public readonly int characterUpgradeDifferencePercentage = 20;
@@ -185,21 +186,22 @@ public class CharacterGenerator
                 currentManaPoints += druidManaPointAdditor*(characterRarity+1);
                 break;
             case Enums.Job.Priest:
-                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(priestAttackDamageMultiplier, characterRarity+1));
                 currentAttackRange += priestFlatAttackRangeAdditor;
+                currentManaPoints += priestManaPointAdditor * (characterRarity + 1);
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(priestHitPointMultiplier, characterRarity + 1));
                 break;
             case Enums.Job.Knight:
                 currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(knightHitPointMultiplier, characterRarity+1));
                 currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(knightAttackDamageMultiplier, characterRarity+1));
-                currentAttackSpeed += knightFlatAttackSpeedAdditor;
                 break;
             case Enums.Job.Rogue:
                 currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(rogueHitPointMultiplier, characterRarity+1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(rogueAttackDamageMultiplier, characterRarity + 1));
                 currentMovementSpeed += rogueFlatMovementSpeedAdditor;
                 currentAttackSpeed += rogueFlatAttackSpeedAdditor;
                 break;
             case Enums.Job.Mage:
-                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(mageHitPointMultiplier, characterRarity+1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(mageAttackDamageMultiplier, characterRarity+1));
                 currentAttackRange += mageFlatAttackRangeAdditor;
                 currentManaPoints += mageManaPointAdditor*(characterRarity+1);
                 break;
@@ -209,7 +211,8 @@ public class CharacterGenerator
             case Enums.Race.Elf:
                 currentMovementSpeed += elfFlatMovementSpeedAdditor;
                 currentAttackSpeed += elfFlatAttackSpeedAdditor;
-                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(elfHitPointMultiplier,characterRarity+1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(elfAttackDamageMultiplier,characterRarity+1));
+                currentManaPoints += elfManaPointAdditor * (characterRarity + 1);
                 if (currentAttackRange > 1)
                 {
                     currentAttackRange += elfFlatConditionalAttackRangeAdditor;
