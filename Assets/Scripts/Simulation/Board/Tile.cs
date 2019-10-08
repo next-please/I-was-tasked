@@ -32,8 +32,8 @@ public class Tile : ISerializable
     public Tile(SerializationInfo info, StreamingContext context)
     {
         // In Order of Declaration
-        row = (int) info.GetValue("row", typeof(int));
-        col = (int) info.GetValue("col", typeof(int));
+        row = (int)info.GetValue("row", typeof(int));
+        col = (int)info.GetValue("col", typeof(int));
     }
 
     public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -76,6 +76,11 @@ public class Tile : ISerializable
     public bool IsOccupied()
     {
         return (occupant != null);
+    }
+
+    public bool IsEnemyTile()
+    {
+        return col < 4;
     }
 
     public bool IsLocked()

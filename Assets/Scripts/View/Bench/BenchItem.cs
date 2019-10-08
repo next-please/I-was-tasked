@@ -68,7 +68,7 @@ public class BenchItem : InteractablePiece
 
     public override void OnTileDrop(Tile tile)
     {
-        if (tile.IsOccupied() || !IsTileDropAllowed())
+        if (tile.IsOccupied() | !tile.IsEnemyTile() || !IsTileDropAllowed())
         {
             OnEmptyDrop();
             return;

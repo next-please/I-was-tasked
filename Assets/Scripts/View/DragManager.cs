@@ -43,7 +43,7 @@ public class DragManager : MonoBehaviour
 
     void OnMoveFromBenchToBoard(MoveFromBenchToBoardEvent e)
     {
-        if (e.tile.IsOccupied())
+        if (e.tile.IsOccupied() || !e.tile.IsEnemyTile())
         {
             return;
         }
