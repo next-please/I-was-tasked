@@ -47,7 +47,14 @@ public class BenchItem : InteractablePiece
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        SetDraggedState();
+        if (IsDragAllowed())
+        {
+            SetDraggedState();
+        }
+        else
+        {
+            eventData.pointerDrag = null;
+        }
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -103,5 +110,11 @@ public class BenchItem : InteractablePiece
     bool IsTileDropAllowed()
     {
         return PhaseManager.GetCurrentPhase() == Phase.Market;
+    }
+
+    private bool IsDragAllowed()
+    {
+        Debug.Log("view: " + CameraController.GetCameraView());
+        return CameraController.GetCameraView() != CameraView.Market;
     }
 }

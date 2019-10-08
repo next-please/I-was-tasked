@@ -18,11 +18,12 @@ public class CameraPanEvent : GameEvent
 
 public class CameraController : MonoBehaviour
 {
-    float speed = 1f;
     public Transform[] CameraTransforms;
 
     private Transform playerTransform;
-    private int playerPosition = 0;
+    private float speed = 1f;
+
+    static int playerPosition = 0;
 
     void Awake()
     {
@@ -62,6 +63,11 @@ public class CameraController : MonoBehaviour
             playerPosition = (int)RoomManager.GetLocalPlayer();
             EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
+    }
+
+    public static CameraView GetCameraView()
+    {
+        return (CameraView)playerPosition;
     }
 
     IEnumerator LerpToTransform(Transform newTransform)
