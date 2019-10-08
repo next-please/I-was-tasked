@@ -24,7 +24,6 @@ public class EventUIManager : MonoBehaviour
 
     void OnGlobalMessage(GlobalMessageEvent e)
     {
-        Debug.Log("DISPATCHING: " + e.message);
         animator.Play("Dispatch");
         currentLog.Add(e.message);
         string logMessage = "";
