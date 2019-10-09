@@ -3,49 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PassiveIncomeUpdateEvent : GameEvent
-{
-    public int PassiveIncome;
-}
-
 public class IncomeManager : MonoBehaviour
 {
-    public int MaxFixedIncome = 5;
-    [SerializeField]
-    private int incomeFromUpgrades = 0;
-    public readonly decimal InterestRate = 1m / 10;
     public InventoryManager inventoryManager;
+    private int[] incomesGenerated = { 0, 0, 0 }; 
 
-    public void GenerateIncome(int currentRound)
+    public void GenerateIncome()
     {
-        // if I'm master client
-        int currentIncome = Math.Min(currentRound, MaxFixedIncome);
-        currentIncome += incomeFromUpgrades;
+        // If I'm master client
         for (int i = 0; i < 3; ++i)
         {
-            Player player = (Player) i;
-            int playerGold = inventoryManager.GetGold(player);
-            decimal incomeFromInterest = Math.Floor(playerGold * InterestRate);
-            int income = currentIncome + Convert.ToInt32(incomeFromInterest);
-            inventoryManager.AddGold(player, income);
+            inventoryManager.AddGold((Player) i, incomesGenerated[i]);
+            
         }
-        // for now
-        EventManager.Instance.Raise(new PassiveIncomeUpdateEvent{ PassiveIncome = incomeFromUpgrades });
+        Debug.Log("Players have earned { " + incomesGenerated[0] + ", " + incomesGenerated[1] + ", " + +incomesGenerated[2] + " }");
     }
 
-    public void IncreasePassiveIncome()
+    public void SetIncomeGeneratedByPlayer(Player player, int incomeGenerated)
     {
-        incomeFromUpgrades++;
-
-        //retroactive upgrades
-        int income = 1;
-        for (int i = 0; i < 3; ++i)
-        {
-            Player player = (Player)i;
-            inventoryManager.AddGold(player, income);
-        }
-
-        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Passive Income Purchased! Everyone received 1 gold." });
-        EventManager.Instance.Raise(new PassiveIncomeUpdateEvent{ PassiveIncome = incomeFromUpgrades });
+        incomesGenerated[(int) player] = incomeGenerated;
     }
 }

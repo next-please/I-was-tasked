@@ -42,7 +42,6 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
         EventManager.Instance.AddListener<MarketUpdateEvent>(OnMarketUpdate);
-        EventManager.Instance.AddListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
         EventManager.Instance.AddListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
         EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
         EventManager.Instance.AddListener<CameraPanEvent>(OnCameraPan);
@@ -53,7 +52,6 @@ public class MarketUIManager : MonoBehaviour
         EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
         EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
         EventManager.Instance.RemoveListener<MarketUpdateEvent>(OnMarketUpdate);
-        EventManager.Instance.RemoveListener<PassiveIncomeUpdateEvent>(OnPassiveIncomeUpdate);
         EventManager.Instance.RemoveListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
         EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
         EventManager.Instance.RemoveListener<CameraPanEvent>(OnCameraPan);
@@ -121,11 +119,6 @@ public class MarketUIManager : MonoBehaviour
         CastleHealthText.text = "Castle Health: " + e.readOnlyMarket.GetCastleHealth().ToString();
         UpdateMarketButtons(e);
         UpdateMarket(e);
-    }
-
-    void OnPassiveIncomeUpdate(PassiveIncomeUpdateEvent e)
-    {
-        PassiveIncomeText.text = "Additional Passive Income: " + e.PassiveIncome.ToString();
     }
 
     void OnPurchaseMarketItem(PurchaseMarketItemEvent e)

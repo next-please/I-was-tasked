@@ -180,7 +180,7 @@ public class PhaseManager : MonoBehaviour
     {
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
-        incomeManager.GenerateIncome(round);
+        incomeManager.GenerateIncome();
         yield return Countdown(10);
         TryPreCombat();
     }

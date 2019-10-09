@@ -10,11 +10,9 @@ public class UpgradeUIManager : MonoBehaviour
     public GameObject UpgradeArmy;
     public GameObject UpgradeMarketRarity;
     public GameObject UpgradeMarketSize;
-    public GameObject UpgradeIncome;
 
     Button rarityButton;
     Button sizeButton;
-    Button incomeButton;
     Button armyButton;
 
     void OnEnable()
@@ -33,9 +31,7 @@ public class UpgradeUIManager : MonoBehaviour
     {
         SetMarketRarityButtons();
         SetArmySizeButtons();
-        SetIncomeButtons();
         SetMarketSizeButtons();
-
         UpdateMarketRarityButtonsText(new MarketUpdateEvent());
         UpdateArmySizeButtonsText(new InventoryChangeEvent());
     }
@@ -69,14 +65,6 @@ public class UpgradeUIManager : MonoBehaviour
         sizeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketSize(RoomManager.GetLocalPlayer()));
         Text text = sizeButton.GetComponentInChildren<Text>();
         text.text = "Upgrade Market Size $(" + transactionManager.UpgradeMarketSizeCost + ")";
-    }
-
-    void SetIncomeButtons()
-    {
-        incomeButton = UpgradeIncome.GetComponentInChildren<Button>(true);
-        incomeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreasePassiveIncome(RoomManager.GetLocalPlayer()));
-        Text text = incomeButton.GetComponentInChildren<Text>();
-        text.text = "Upgrade Passive Income $(" + transactionManager.UpgradeIncomeCost + ")";
     }
 
     void SetArmySizeButtons()
