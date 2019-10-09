@@ -51,6 +51,7 @@ public class SkillState : State
                 skill = new ChargeSkill(piece, board.FindFarthestTarget(piece), board);
             else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Druid)
                 skill = new ForestSpiritsSkill(piece, board);
+            skill = new UnholyAuraSkill(piece, board);
         }
 
         board.AddInteractionToProcess(skill);

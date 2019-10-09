@@ -20,10 +20,10 @@ public class UnholyAuraSkill : Interaction
         this.countRemaining = unholyAuraDefaultCount;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.CylinderTestSicklyGreen;
+        interactionPrefab = Enums.InteractionPrefab.UnholyAura;
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackSource.y = 0.5f;
+        attackSource.y += 1f;
     }
 
     public UnholyAuraSkill(Piece caster, Board board, int countRemaining)
@@ -33,24 +33,28 @@ public class UnholyAuraSkill : Interaction
         this.countRemaining = countRemaining;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.CylinderTestSicklyGreen;
+        interactionPrefab = Enums.InteractionPrefab.UnholyAura;
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackSource.y = 0.5f;
+        attackSource.y += 1f;
     }
 
     public override bool ProcessInteraction()
     {
-        if (ticksRemaining > 0)
-        {
-            ticksRemaining--;
-            return true;
-        }
-        else
+        ticksRemaining--;
+        if (ticksRemaining == 0)
         {
             ApplyDamageToInflict();
-            return false;
+            if (countRemaining > 0 &&
+                caster.GetState().GetType() != typeof(InfiniteState) &&
+                board.GetActiveEnemiesOnBoard().Count > 0)
+            {
+                countRemaining--;
+                ticksRemaining = ticksTilActivation;
+            }
+
         }
+        return ticksRemaining > 0;
     }
 
     public override void CleanUpInteraction()
@@ -61,15 +65,8 @@ public class UnholyAuraSkill : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
-
-        // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
         projectile.transform.position = attackSource;
-
-        if (ticksRemaining <= 0 || caster.IsDead())
-        {
-            return false;
-        }
-        return true;
+        return (ticksRemaining > 0 && !caster.IsDead());
     }
 
     private void ApplyDamageToInflict()
@@ -82,15 +79,6 @@ public class UnholyAuraSkill : Interaction
         foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), unholyAuraDefaultRadius))
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - unholyAuraDefaultDamage);
-        }
-
-        if (countRemaining > 0)
-        {
-            if (caster.GetState().GetType() != typeof(InfiniteState) && board.GetActiveEnemiesOnBoard().Count > 0)
-            {
-                Interaction skill = new UnholyAuraSkill(caster, board, countRemaining - 1);
-                board.AddInteractionToProcess(skill);
-            }
         }
 
         Debug.Log(caster.GetName() + " has UnholyAura-ed targets around it for " + unholyAuraDefaultDamage + " DMG.");
