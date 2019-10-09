@@ -17,7 +17,7 @@ public class MarkForDeathSkill : Interaction
         this.board = board;
         this.ticksRemaining = ticksTilActivation;
         this.ticksTotal = 50;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBlack;
+        interactionPrefab = Enums.InteractionPrefab.MarkForDeath;
     }
 
     public override bool ProcessInteraction()
@@ -42,11 +42,12 @@ public class MarkForDeathSkill : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
-
-        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y += 3.5f;
-
-        projectile.transform.position = attackDestination;
+        if (!target.IsDead())
+        {
+            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination.y += 1f;
+            projectile.transform.position = attackDestination;
+        }
 
         if (ticksRemaining <= 0)
         {

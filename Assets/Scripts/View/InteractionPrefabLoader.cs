@@ -13,6 +13,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject FrostArmour;
     public GameObject GreaterHeal;
     public GameObject MagicMissile;
+    public GameObject MarkForDeath;
     public GameObject Moonfire;
     public GameObject Rot;
     public GameObject UnholyAura;
@@ -44,6 +45,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.FrostArmour, FrostArmour },
             { PrefabEnum.GreaterHeal, GreaterHeal },
             { PrefabEnum.MagicMissile, MagicMissile },
+            { PrefabEnum.MarkForDeath, MarkForDeath },
             { PrefabEnum.Moonfire, Moonfire },
             { PrefabEnum.Rot, Rot },
             { PrefabEnum.UnholyAura, UnholyAura },

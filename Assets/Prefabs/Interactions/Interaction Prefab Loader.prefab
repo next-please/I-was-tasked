@@ -55,6 +55,8 @@ MonoBehaviour:
     type: 3}
   MagicMissile: {fileID: 3939746984077384847, guid: 5d22085f9a47f4d43ab475fdc6b637d9,
     type: 3}
+  MarkForDeath: {fileID: 8321562651604499611, guid: 3ff94967b6b03014c88ad22af2412662,
+    type: 3}
   Moonfire: {fileID: 1026796413723816823, guid: a2ada492991053d43b87299aa05a2157,
     type: 3}
   Rot: {fileID: 7975379792769807137, guid: a14dcc1043e73e84e835c54119b51393, type: 3}

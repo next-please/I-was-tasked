@@ -28,6 +28,7 @@ public static class Enums
         FrostArmour,
         GreaterHeal,
         MagicMissile,
+        MarkForDeath,
         Moonfire,
         Rot,
         UnholyAura,
