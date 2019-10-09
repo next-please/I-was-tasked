@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractionView : MonoBehaviour
 {
-    private Interaction interaction;
+    protected Interaction interaction;
 
     public void TrackInteraction(Interaction interaction)
     {

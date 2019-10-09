@@ -63,7 +63,7 @@ public class RampageSkill : Interaction
 
 public class RampageLingeringEffect : Interaction
 {
-    private Piece caster;
+    public Piece caster;
     private int attackSpeedChange;
     private double armourChange;
     private Vector3 attackDestination;
@@ -76,7 +76,7 @@ public class RampageLingeringEffect : Interaction
         this.attackSpeedChange = attackSpeedChange;
         this.armourChange = armourChange;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBloodRed;
+        interactionPrefab = Enums.InteractionPrefab.Rampage;
     }
 
     public override bool ProcessInteraction()
@@ -125,5 +125,4 @@ public class RampageLingeringEffect : Interaction
 
         Debug.Log(caster.GetName() + "'s Rampage has expired.");
     }
-
 }

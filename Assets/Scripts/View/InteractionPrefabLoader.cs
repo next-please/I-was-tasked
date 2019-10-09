@@ -15,6 +15,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject MagicMissile;
     public GameObject MarkForDeath;
     public GameObject Moonfire;
+    public GameObject Rampage;
     public GameObject Rot;
     public GameObject UnholyAura;
 
@@ -47,6 +48,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.MagicMissile, MagicMissile },
             { PrefabEnum.MarkForDeath, MarkForDeath },
             { PrefabEnum.Moonfire, Moonfire },
+            { PrefabEnum.Rampage, Rampage },
             { PrefabEnum.Rot, Rot },
             { PrefabEnum.UnholyAura, UnholyAura },
             { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },

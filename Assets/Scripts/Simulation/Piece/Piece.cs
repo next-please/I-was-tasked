@@ -66,6 +66,7 @@ public class Piece : ISerializable
     private int damageIfSurvive;
 #endregion
 
+    private PieceView pieceView;
     private Piece target;
     private State state;
     private State entryState;
@@ -361,7 +362,7 @@ public class Piece : ISerializable
         if (simAction.hasFinished())
         {
             State nextState = this.state.TransitNextState(this);
-            
+
             // Always checking if we can cast a skill.
             // To-do: A "Stunned" State.
             SkillState skill = new SkillState();
@@ -840,5 +841,15 @@ public class Piece : ISerializable
     public void SetDamageIfSurvive(int damageIfSurvive)
     {
         this.damageIfSurvive = damageIfSurvive;
+    }
+
+    public void SetPieceView(PieceView pieceView)
+    {
+        this.pieceView = pieceView;
+    }
+
+    public PieceView GetPieceView()
+    {
+        return this.pieceView;
     }
 }

@@ -30,6 +30,7 @@ public static class Enums
         MagicMissile,
         MarkForDeath,
         Moonfire,
+        Rampage,
         Rot,
         UnholyAura,
         ProjectileTestBlue,

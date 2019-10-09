@@ -59,6 +59,7 @@ MonoBehaviour:
     type: 3}
   Moonfire: {fileID: 1026796413723816823, guid: a2ada492991053d43b87299aa05a2157,
     type: 3}
+  Rampage: {fileID: 612557514318640263, guid: e292addeb89cecb469c9e718d36023a8, type: 3}
   Rot: {fileID: 7975379792769807137, guid: a14dcc1043e73e84e835c54119b51393, type: 3}
   UnholyAura: {fileID: 6682529148806516562, guid: ac490b422f460af41964984c364d21ab,
     type: 3}
