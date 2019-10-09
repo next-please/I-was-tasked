@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
+using TMPro;
 
 using Com.Nextplease.IWT;
 
@@ -19,9 +20,10 @@ public enum Phase
 
 public class PhaseManager : MonoBehaviour
 {
-    public Text CurrentPhaseText;
-    public Text CurrentTimeText;
-    public Text CurrentRoundText;
+    public TextMeshProUGUI CurrentPhaseText;
+    public TextMeshProUGUI CurrentTimeText;
+    public TextMeshProUGUI CurrentRoundText;
+    public Image SwordImage;
     public Canvas WinScreen;
 
     public IncomeManager incomeManager;
@@ -43,6 +45,11 @@ public class PhaseManager : MonoBehaviour
 
     private int numPlayers = 1;
     private bool phasesRunning = false;
+
+    void Awake()
+    {
+        SwordImage.enabled = false;
+    }
 
     public void StartPhases(int numPlayers = 1)
     {
@@ -91,6 +98,7 @@ public class PhaseManager : MonoBehaviour
 
     IEnumerator Countdown(int time)
     {
+        SwordImage.enabled = false;
         while (time > 0)
         {
             CurrentTimeText.text = time.ToString();
@@ -118,7 +126,8 @@ public class PhaseManager : MonoBehaviour
         requestHandler.SendRequest(req);
     }
 
-    public void Initialize(int numPlayers, int[] seeds) {
+    public void Initialize(int numPlayers, int[] seeds)
+    {
         this.round = 0;
         this.numPlayers = numPlayers;
         ChangePhase(Phase.Initialization);
@@ -203,7 +212,8 @@ public class PhaseManager : MonoBehaviour
     void Combat()
     {
         ChangePhase(Phase.Combat);
-        CurrentTimeText.text = "Combat In Progress";
+        CurrentTimeText.text = "";
+        SwordImage.enabled = true;
         simulationPlayerCount = 0;
         boardManager.StartSim(numPlayers);
     }
@@ -233,7 +243,7 @@ public class PhaseManager : MonoBehaviour
         EventManager.Instance.Raise(new ExitPhaseEvent { phase = currentPhase });
         currentPhase = phase;
         Debug.Log("Entering Phase " + currentPhase);
-        EventManager.Instance.Raise(new EnterPhaseEvent{ phase = currentPhase, round = this.round  });
+        EventManager.Instance.Raise(new EnterPhaseEvent { phase = currentPhase, round = this.round });
         CurrentPhaseText.text = currentPhase.ToString();
     }
 }

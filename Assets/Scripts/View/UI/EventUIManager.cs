@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class EventUIManager : MonoBehaviour
 {
-    public Text logText;
+    public Animator animator;
+    public TextMeshProUGUI logText;
     public int MaxNumberOfLines;
     public List<string> currentLog = new List<string>();
 
@@ -22,9 +24,10 @@ public class EventUIManager : MonoBehaviour
 
     void OnGlobalMessage(GlobalMessageEvent e)
     {
+        animator.Play("Dispatch");
         currentLog.Add(e.message);
         string logMessage = "";
-        for (int i= Math.Max(0, currentLog.Count - MaxNumberOfLines); i< currentLog.Count; i++)
+        for (int i = Math.Max(0, currentLog.Count - MaxNumberOfLines); i < currentLog.Count; i++)
         {
             logMessage += currentLog[i];
             logMessage += "\n";

@@ -3,13 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using Com.Nextplease.IWT;
 
+public enum CameraView
+{
+    PlayerOne = 0,
+    PlayerTwo = 1,
+    PlayerThree = 2,
+    Market = -1
+}
+
+public class CameraPanEvent : GameEvent
+{
+    public CameraView targetView;
+}
+
 public class CameraController : MonoBehaviour
 {
     public Transform[] CameraTransforms;
-    private Transform playerTransform;
 
-    float speed = 1f;
-    int playerPosition = 0;
+    private Transform playerTransform;
+    private float speed = 1f;
+
+    static int playerPosition = 0;
 
     void Awake()
     {
@@ -24,12 +38,14 @@ public class CameraController : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[playerPosition + 1]));
             playerPosition++;
+            EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow) && playerPosition - 1 >= 0)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[playerPosition - 1]));
             playerPosition--;
+            EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow) && playerPosition != -1)
@@ -37,6 +53,7 @@ public class CameraController : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[3]));
             playerPosition = -1;
+            EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
 
         if (Input.GetKeyUp(KeyCode.UpArrow) && playerPosition == -1)
@@ -44,7 +61,13 @@ public class CameraController : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(playerTransform));
             playerPosition = (int)RoomManager.GetLocalPlayer();
+            EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
+    }
+
+    public static CameraView GetCameraView()
+    {
+        return (CameraView)playerPosition;
     }
 
     IEnumerator LerpToTransform(Transform newTransform)

@@ -95,7 +95,7 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnTileDrop(Tile tile)
     {
-        if (tile.IsOccupied())
+        if (tile.IsOccupied() || !tile.IsEnemyTile())
         {
             OnEmptyDrop();
             return;
@@ -136,6 +136,7 @@ public class PieceDragHandler : InteractablePiece
 
     private bool IsDragAllowed()
     {
-        return PhaseManager.GetCurrentPhase() == Phase.Market;
+        return PhaseManager.GetCurrentPhase() == Phase.Market
+            && CameraController.GetCameraView() != CameraView.Market;
     }
 }
