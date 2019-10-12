@@ -17,6 +17,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject Moonfire;
     public GameObject Rampage;
     public GameObject Rot;
+    public GameObject ShadowStrike;
     public GameObject UnholyAura;
 
     [Header("Debug SKills")]
@@ -50,6 +51,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.Moonfire, Moonfire },
             { PrefabEnum.Rampage, Rampage },
             { PrefabEnum.Rot, Rot },
+            { PrefabEnum.ShadowStrike, ShadowStrike },
             { PrefabEnum.UnholyAura, UnholyAura },
             { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },
             { PrefabEnum.ProjectileTestRed, ProjectileTestRedPrefab },

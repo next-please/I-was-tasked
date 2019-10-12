@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ShadowStrikeSkill : Interaction
 {
-    private Piece caster;
-    private Piece target;
+    public Piece caster;
+    public Piece target;
     private Board board;
-    private Vector3 attackSource;
-    private Vector3 attackDestination;
-    private Tile targetTile;
+    public Vector3 attackSource;
+    public Vector3 attackDestination;
+    public Tile targetTile;
     private int ticksTilActivation = 40;
     public int shadowStrikeDefaultDamage = 90;
 
@@ -20,7 +20,7 @@ public class ShadowStrikeSkill : Interaction
         this.board = board;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBlack;
+        interactionPrefab = Enums.InteractionPrefab.ShadowStrike;
 
         int targetRow = target.GetCurrentTile().GetRow();
         int targetCol = target.GetCurrentTile().GetCol();
@@ -102,11 +102,6 @@ public class ShadowStrikeSkill : Interaction
             return;
 
         board.MovePieceToTile(caster, targetTile);
-
-        Interaction skill = new ShadowStrikeLingeringEffect(attackSource);
-        board.AddInteractionToProcess(skill);
-        skill = new ShadowStrikeLingeringEffect(attackDestination);
-        board.AddInteractionToProcess(skill);
     }
 }
 

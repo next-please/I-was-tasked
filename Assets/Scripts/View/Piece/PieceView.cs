@@ -147,4 +147,18 @@ public class PieceView : MonoBehaviour
         Destroy(gameObject);
         piece.SetPieceView(null);
     }
+
+    public void TransportToTile(Tile tile)
+    {
+        Vector3 pos = ViewManager.CalculateTileWorldPosition(tile);
+        float y = transform.position.y;
+        transform.position = new Vector3(pos.x, y, pos.z);
+    }
+
+    public void LookAtTile(Tile tile)
+    {
+        Vector3 pos = ViewManager.CalculateTileWorldPosition(tile);
+        pos.y = 0.5f;
+        transform.LookAt(pos);
+    }
 }

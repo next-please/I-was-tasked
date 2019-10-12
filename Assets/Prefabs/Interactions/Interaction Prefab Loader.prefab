@@ -61,6 +61,8 @@ MonoBehaviour:
     type: 3}
   Rampage: {fileID: 612557514318640263, guid: e292addeb89cecb469c9e718d36023a8, type: 3}
   Rot: {fileID: 7975379792769807137, guid: a14dcc1043e73e84e835c54119b51393, type: 3}
+  ShadowStrike: {fileID: 8385000828705475333, guid: da74511139ed90942a903fdcee406ed0,
+    type: 3}
   UnholyAura: {fileID: 6682529148806516562, guid: ac490b422f460af41964984c364d21ab,
     type: 3}
   ProjectileTestBluePrefab: {fileID: 7409315148139022978, guid: a7db3d65ab4942b4cbbf2553d461c7b2,

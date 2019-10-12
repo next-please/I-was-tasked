@@ -32,6 +32,7 @@ public static class Enums
         Moonfire,
         Rampage,
         Rot,
+        ShadowStrike,
         UnholyAura,
         ProjectileTestBlue,
         ProjectileTestRed,

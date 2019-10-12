@@ -5,6 +5,7 @@ using UnityEngine;
 public class InteractionView : MonoBehaviour
 {
     protected Interaction interaction;
+    protected bool isCleaningUp = false;
 
     public void TrackInteraction(Interaction interaction)
     {
@@ -25,7 +26,11 @@ public class InteractionView : MonoBehaviour
 
         if (!interaction.ProcessInteractionView())
         {
-            CleanUpInteraction();
+            if (!isCleaningUp)
+            {
+                isCleaningUp = true;
+                CleanUpInteraction();
+            }
         }
     }
 }
