@@ -19,7 +19,18 @@ public class Simulator : Tickable
         int numFriends = piecesOnBoard.Where(piece => !piece.IsEnemy()).Count();
         if (numEnemies == 0 || numFriends == 0)
         {
-            Debug.Log("Game has been resolved");
+            Debug.Log("Game has been resolved.");
+
+            // Increase the rounds survived count for each piece and upgrade if possible.
+            if (numFriends > 0)
+            {
+                foreach (Piece piece in piecesOnBoard.Where(piece => !piece.IsEnemy()))
+                {
+                    piece.SetRoundsSurvived(piece.GetRoundsSurvived() + 1);
+                    phaseManager.marketManager.characterGenerator.TryUpgradeCharacterRoundsSurvived(piece);
+                }
+            }
+
             return true;
         }
         return false;
