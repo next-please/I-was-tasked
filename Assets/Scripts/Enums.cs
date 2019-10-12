@@ -22,6 +22,7 @@ public static class Enums
 
     public enum InteractionPrefab
     {
+        Charge,
         EviscerateBleed,
         Fireblast,
         ForestSpirits,

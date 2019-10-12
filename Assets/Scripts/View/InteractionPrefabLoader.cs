@@ -7,6 +7,7 @@ using PrefabEnum = Enums.InteractionPrefab;
 public class InteractionPrefabLoader : MonoBehaviour
 {
     [Header("Skills")]
+    public GameObject Charge;
     public GameObject EviscerateBleed;
     public GameObject Fireblast;
     public GameObject ForestSpirits;
@@ -41,6 +42,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     {
         interactionPrefabMap = new Dictionary<Enums.InteractionPrefab, GameObject>()
         {
+            { PrefabEnum.Charge, Charge },
             { PrefabEnum.EviscerateBleed, EviscerateBleed },
             { PrefabEnum.Fireblast, Fireblast },
             { PrefabEnum.ForestSpirits, ForestSpirits },
