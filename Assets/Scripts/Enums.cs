@@ -31,6 +31,7 @@ public static class Enums
         MagicMissile,
         MarkForDeath,
         Moonfire,
+        ProtectAlly,
         Rampage,
         Rot,
         ShadowStrike,
