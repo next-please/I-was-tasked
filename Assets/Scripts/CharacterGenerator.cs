@@ -145,6 +145,20 @@ public class CharacterGenerator
                 totalPool += TierRaceJobPoolSize[characterRarity,i,j];
             }
         }
+
+        //in case all units are bought out from the current rarity tier, repopulate one in each
+        if (totalPool < 1)
+        {
+            for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
+            {
+                for (int j = 0; j < Enum.GetNames(typeof(Enums.Job)).Length; j++)
+                {
+                    TierRaceJobPoolSize[characterRarity, i, j] = 1;
+                    totalPool++;
+                }
+            }
+        }
+
         int poolNumber = rngesus.Next(1, totalPool + 1);
         Enums.Race race = 0;
         Enums.Job job = 0;
