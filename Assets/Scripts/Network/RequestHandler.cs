@@ -29,6 +29,11 @@ namespace Com.Nextplease.IWT
         /// <param name="req"></param>
         public void SendRequest(Request req)
         {
+            if(roomManager.IsOffline)
+            {
+                ExecuteRequest(ValidateRequest(req));
+                return;
+            }
             req.SetRequester(this.networkManager.GetLocalPlayerID());
             this.networkManager.ProcessRequest(req);
         }
@@ -73,7 +78,7 @@ namespace Com.Nextplease.IWT
                 case MARKET_PHASE:
                 case PRECOMBAT_PHASE:
                 case POSTCOMBAT_PHASE: // TODO: wait for all clients to finish before approving
-                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
+                    if (roomManager.IsOffline || req.GetRequester() == networkManager.GetLocalPlayerID())
                     {
                         req.Approve();
                     }
