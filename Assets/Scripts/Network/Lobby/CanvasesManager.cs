@@ -23,11 +23,6 @@ public class CanvasesManager : MonoBehaviour
     private void Awake()
     {
         FirstInitialize();
-        if (PhotonNetwork.IsConnected)
-        {
-            returnToLobby();
-            return;
-        }
         returnToConnect();
     }
 
