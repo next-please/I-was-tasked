@@ -237,4 +237,15 @@ public class SynergyManager : MonoBehaviour
                 break;
         }
     }
+
+    private Dictionary<String, int> GetCurrentPlayerSynergyInfo()
+    {
+        Dictionary<String, int> info = new Dictionary<string, int>();
+
+        // get player index from other manager
+
+        // filter out counts >= 2 and map to string
+
+        return info;
+    }
 }
