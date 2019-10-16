@@ -47,6 +47,6 @@ public class SynergyTab : MonoBehaviour
 
     private bool isActive()
     {
-        return _count > 0; // TODO: Change to 1 
+        return _count > 1;
     }
 }
