@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Com.Nextplease.IWT;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     PlayerInventory[] playerInventories;
     public SynergyManager synergyManager;
+    public RoomManager roomManager;
+
+    [SerializeField]
+    private SynergyTabMenu _synergyTabMenu;
 
     public void ResetInventories()
     {
@@ -114,6 +119,14 @@ public class InventoryManager : MonoBehaviour
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+
+            if((int)player == roomManager.GetLocalPlayerIndex())
+            {
+                Enums.Job pieceClass = piece.GetClass();
+                Enums.Race pieceRace = piece.GetRace();
+                _synergyTabMenu.IncrementSynergyTab(pieceClass.ToString(), SynergyManager.jobSynergyRequirement[(int)pieceClass]);
+                _synergyTabMenu.IncrementSynergyTab(pieceRace.ToString(), SynergyManager.jobSynergyRequirement[(int)pieceRace]);
+            }
         }
         return success;
     }
@@ -137,6 +150,14 @@ public class InventoryManager : MonoBehaviour
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Removed" });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+
+            if((int)player == roomManager.GetLocalPlayerIndex())
+            {
+                Enums.Job pieceClass = piece.GetClass();
+                Enums.Race pieceRace = piece.GetRace();
+                _synergyTabMenu.DecrementSynergyTab(pieceClass.ToString());
+                _synergyTabMenu.DecrementSynergyTab(pieceRace.ToString());
+            }
         }
         return success;
     }

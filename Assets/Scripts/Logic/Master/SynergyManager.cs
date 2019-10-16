@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Linq;
 
@@ -14,11 +12,11 @@ public class SynergyManager : MonoBehaviour
     private double mageStartingManaPercentage = 2.0 / 3.0;
     private double orcHealthMultiplier = 1.5;
 
-
     private int[] jobSynergyCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
     public static int[] jobSynergyRequirement = new int[] { 3, 3, 3, 3, 3 };
     public static int[] raceSynergyRequirement = new int[] { 3, 3, 3, 3 };
+
     public InventoryManager inventoryManager;
     public BoardManager boardManager;
     public System.Random rngesus;
@@ -54,7 +52,7 @@ public class SynergyManager : MonoBehaviour
 
     public void Reset()
     {
-        for (int i=0; i< jobSynergyCount.Length; i++)
+        for (int i = 0; i < jobSynergyCount.Length; i++)
         {
             jobSynergyCount[i] = 0;
         }
@@ -77,7 +75,7 @@ public class SynergyManager : MonoBehaviour
         Player player = (Player)index;
         var playerInv = inventoryManager.GetPlayerInventory(player);
         var board = boardManager.GetBoard(player);
-        for (int i = 0; i<jobSynergyCount.Length; i++)
+        for (int i = 0; i < jobSynergyCount.Length; i++)
         {
             if (jobSynergyCount[i] >= 2 || playerInv.HasSynergy((Enums.Job)i))
             {
@@ -238,14 +236,5 @@ public class SynergyManager : MonoBehaviour
         }
     }
 
-    private Dictionary<String, int> GetCurrentPlayerSynergyInfo()
-    {
-        Dictionary<String, int> info = new Dictionary<string, int>();
 
-        // get player index from other manager
-
-        // filter out counts >= 2 and map to string
-
-        return info;
-    }
 }

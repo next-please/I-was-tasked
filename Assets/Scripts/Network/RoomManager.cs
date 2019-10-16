@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,8 +7,6 @@ using UnityEngine.UI;
 
 
 using Photon.Pun;
-//using Photon.Realtime;
-
 
 namespace Com.Nextplease.IWT
 {
@@ -25,6 +24,8 @@ namespace Com.Nextplease.IWT
         #region Private Fields
         private bool _offlineMode = false;
         public bool IsOffline { get { return _offlineMode; } }
+
+        private Dictionary<string, int> _playerMap;
         #endregion
 
         #region Public Methods
@@ -60,6 +61,7 @@ namespace Com.Nextplease.IWT
                 return;
             }
             NumPlayersToStart = PhotonNetwork.CurrentRoom.MaxPlayers;
+            _playerMap = new Dictionary<string, int>();
         }
 
         void LoadArena()
@@ -72,7 +74,18 @@ namespace Com.Nextplease.IWT
                 }
                 Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
             }
+            UpdatePlayerMap();
             UpdatePlayerList();
+        }
+
+        private void UpdatePlayerMap()
+        {
+            for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            {
+                Photon.Realtime.Player player = PhotonNetwork.PlayerList[i];
+                _playerMap.Add(player.NickName, i);
+            }
+            return;
         }
 
         void UpdatePlayerList()
@@ -97,7 +110,15 @@ namespace Com.Nextplease.IWT
             }
             playerList.text = sb.ToString();
         }
+        #endregion
 
+        #region Public Methods
+        public int GetLocalPlayerIndex()
+        {
+            if (IsOffline)
+                return 0;
+            return _playerMap[PhotonNetwork.LocalPlayer.NickName];
+        }
         public static Player GetLocalPlayer()
         {
             return PhotonPlayerToPlayer(PhotonNetwork.LocalPlayer);
