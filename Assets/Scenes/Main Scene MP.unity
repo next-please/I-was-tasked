@@ -19256,6 +19256,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 977949491}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &978819165 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 366813032134322069, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
+    type: 3}
+  m_PrefabInstance: {fileID: 366813031191007765}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a8fbf4ea6f75544fb0fd67dd0a9afc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &982413100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41237,16 +41249,31 @@ PrefabInstance:
       propertyPath: phaseManager
       value: 
       objectReference: {fileID: 72740322}
+    - target: {fileID: 2531607478194152820, guid: 85d11239ab947de42aafd19e31e19dee,
+        type: 3}
+      propertyPath: incomeManager
+      value: 
+      objectReference: {fileID: 978819165}
     - target: {fileID: 2531607478436070545, guid: 85d11239ab947de42aafd19e31e19dee,
+        type: 3}
+      propertyPath: phaseManager
+      value: 
+      objectReference: {fileID: 72740322}
+    - target: {fileID: 2531607478436070545, guid: 85d11239ab947de42aafd19e31e19dee,
+        type: 3}
+      propertyPath: incomeManager
+      value: 
+      objectReference: {fileID: 978819165}
+    - target: {fileID: 2531607478162523506, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
       propertyPath: phaseManager
       value: 
       objectReference: {fileID: 72740322}
     - target: {fileID: 2531607478162523506, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
-      propertyPath: phaseManager
+      propertyPath: incomeManager
       value: 
-      objectReference: {fileID: 72740322}
+      objectReference: {fileID: 978819165}
     - target: {fileID: 2531607479105195238, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
       propertyPath: m_LocalPosition.x
