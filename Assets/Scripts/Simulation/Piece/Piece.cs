@@ -298,7 +298,6 @@ public class Piece : ISerializable
     {
         FindNewTargetState findTarget = new FindNewTargetState();
         MoveState move = new MoveState();
-        SkillState skill = new SkillState();
         AttackState attack = new AttackState();
         InfiniteState inf = new InfiniteState();
 
@@ -365,9 +364,7 @@ public class Piece : ISerializable
         if (simAction.hasFinished())
         {
             State nextState = this.state.TransitNextState(this);
-            
             // Always checking if we can cast a skill.
-            // To-do: A "Stunned" State.
             SkillState skill = new SkillState();
             HasFullMP hasFullMP = new HasFullMP();
             Transition canCastSkill = new Transition(hasFullMP);

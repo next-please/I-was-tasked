@@ -201,6 +201,7 @@ public class PhaseManager : MonoBehaviour
     IEnumerator PreCombatToCombat(List<List<Piece>> enemies)
     {
         ChangePhase(Phase.PreCombat);
+        // We might want to change the summonManager placement because the dead bodies still linger after the round.
         summonManager.RemoveAllEnemyPieces(numPlayers);
         summonManager.SummonEnemies(enemies);
         summonManager.RemoveExcessPlayerPieces(numPlayers);

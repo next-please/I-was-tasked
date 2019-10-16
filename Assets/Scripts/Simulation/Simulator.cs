@@ -55,8 +55,7 @@ public class Simulator : Tickable
             return;
         }
 
-        // copy because list gets sorted
-        List<Piece> activePiecesOnBoard = new List<Piece>(gameBoard.GetActivePiecesOnBoard());
+        List<Piece> activePiecesOnBoard = new List<Piece>(gameBoard.GetActivePiecesOnBoard()); // Copy because list gets sorted
         if (IsResolved())
         {
             shouldRun = false;
