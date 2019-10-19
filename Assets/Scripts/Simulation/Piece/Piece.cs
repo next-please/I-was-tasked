@@ -20,6 +20,7 @@ public class Piece : ISerializable
     private Enums.Job job;
     private int rarity;
     private bool isEnemy;
+    private int roundsSurvived; // To check for the level (rarity) increase.
 
     private int defaultMaximumHitPoints;
     private int currentHitPoints;
@@ -84,6 +85,7 @@ public class Piece : ISerializable
         SetTitle(title);
         SetRarity(rarity);
         SetIsEnemy(isEnemy);
+        SetRoundsSurvived(0);
         SetMovementSpeed(1);
 
         SetDefaultMaximumHitPoints(defaultMaximumHitPoints);
@@ -140,6 +142,7 @@ public class Piece : ISerializable
         this.state = CreateState();
         this.entryState = this.state;
     }
+
      // The special constructor is used to deserialize values.
     public Piece(SerializationInfo info, StreamingContext context)
     {
@@ -156,6 +159,7 @@ public class Piece : ISerializable
         job = (Enums.Job) info.GetValue("job", typeof(Enums.Job));
         rarity = (int) info.GetValue("rarity", typeof(int));
         isEnemy = (bool) info.GetValue("isEnemy", typeof(bool));
+        roundsSurvived = (int) info.GetValue("roundsSurvived", typeof(int));
 
         defaultMaximumHitPoints = (int) info.GetValue("defaultMaximumHitPoints", typeof(int));
         maximumHitPoints = (int) info.GetValue("maximumHitPoints", typeof(int));
@@ -217,6 +221,7 @@ public class Piece : ISerializable
         info.AddValue("job", job, typeof(Enums.Job));
         info.AddValue("rarity", rarity, typeof(int));
         info.AddValue("isEnemy", isEnemy, typeof(bool));
+        info.AddValue("roundsSurvived", roundsSurvived, typeof(int));
 
         info.AddValue("defaultMaximumHitPoints", defaultMaximumHitPoints, typeof(int));
         info.AddValue("currentHitPoints", currentHitPoints, typeof(int));
@@ -257,7 +262,7 @@ public class Piece : ISerializable
         info.AddValue("damageIfSurvive", damageIfSurvive, typeof(int));
     }
 
-     public override bool Equals(object obj)
+    public override bool Equals(object obj)
     {
         if ((obj == null) || ! this.GetType().Equals(obj.GetType()))
         {
@@ -289,12 +294,10 @@ public class Piece : ISerializable
         return !(a == b);
     }
 
-
     public virtual State CreateState()
     {
         FindNewTargetState findTarget = new FindNewTargetState();
         MoveState move = new MoveState();
-        SkillState skill = new SkillState();
         AttackState attack = new AttackState();
         InfiniteState inf = new InfiniteState();
 
@@ -361,9 +364,7 @@ public class Piece : ISerializable
         if (simAction.hasFinished())
         {
             State nextState = this.state.TransitNextState(this);
-            
             // Always checking if we can cast a skill.
-            // To-do: A "Stunned" State.
             SkillState skill = new SkillState();
             HasFullMP hasFullMP = new HasFullMP();
             Transition canCastSkill = new Transition(hasFullMP);
@@ -446,6 +447,11 @@ public class Piece : ISerializable
     public int GetRarity()
     {
         return rarity;
+    }
+
+    public int GetRoundsSurvived()
+    {
+        return roundsSurvived;
     }
 
     public string GetTitle()
@@ -671,6 +677,11 @@ public class Piece : ISerializable
     public void SetIsEnemy(bool isEnemy)
     {
         this.isEnemy = isEnemy;
+    }
+
+    public void SetRoundsSurvived(int roundsSurvived)
+    {
+        this.roundsSurvived = roundsSurvived;
     }
 
     public void SetDefaultMaximumHitPoints(int defaultMaximumHitPoints)

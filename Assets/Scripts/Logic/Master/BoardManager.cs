@@ -39,7 +39,7 @@ public class BoardManager : MonoBehaviour
             Simulator sim = Simulators[i];
             Board board = new Board(8, 8, player, seeds[i + 1]);
             boards[i] = board;
-            sim.SetGameBoard(board);
+            sim.SetGameBoard(board, (Player) i);
             viewManager.OnBoardCreated(board, player);
         }
     }

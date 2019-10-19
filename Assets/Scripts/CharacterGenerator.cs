@@ -256,7 +256,7 @@ public class CharacterGenerator
         }
     }
 
-    public bool TryUpgradeCharacter(ref Piece piece, int currentMarketTier)
+    public bool TryUpgradeCharacterMarketTier(ref Piece piece, int currentMarketTier)
     {
         //if new rarity does not exist
         if (piece.GetRarity() > tiersPoolMax.Length)
@@ -275,5 +275,99 @@ public class CharacterGenerator
             }
         }
         return false;
+    }
+
+    public bool TryUpgradeCharacterRoundsSurvived(Piece piece)
+    {
+        // Don't upgrade the piece if it has not survived enough rounds or is at max rarity.
+        if (piece.GetRoundsSurvived() < 2 || piece.GetRarity() >= 4)
+        {
+            return false;
+        }
+
+        // Calculate upgraded Stats
+        int currentHitPoints = defaultHitPoints;
+        int currentManaPoints = defaultManaPoints;
+        int currentAttackDamage = defaultAttackDamage;
+        int currentAttackRange = defaultAttackRange;
+        int currentAttackSpeed = defaultAttackSpeed;
+        int currentMovementSpeed = defaultMovementSpeed;
+        int characterRarity = piece.GetRarity() + 1;
+
+        switch (piece.GetClass())
+        {
+            case Enums.Job.Druid:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(druidHitPointMultiplier, characterRarity + 1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(druidAttackDamageMultiplier, characterRarity + 1));
+                currentManaPoints += druidManaPointAdditor * (characterRarity + 1);
+                break;
+            case Enums.Job.Priest:
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(priestAttackDamageMultiplier, characterRarity + 1));
+                currentAttackRange += priestFlatAttackRangeAdditor;
+                break;
+            case Enums.Job.Knight:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(knightHitPointMultiplier, characterRarity + 1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(knightAttackDamageMultiplier, characterRarity + 1));
+                currentAttackSpeed += knightFlatAttackSpeedAdditor;
+                break;
+            case Enums.Job.Rogue:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(rogueHitPointMultiplier, characterRarity + 1));
+                currentMovementSpeed += rogueFlatMovementSpeedAdditor;
+                currentAttackSpeed += rogueFlatAttackSpeedAdditor;
+                break;
+            case Enums.Job.Mage:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(mageHitPointMultiplier, characterRarity + 1));
+                currentAttackRange += mageFlatAttackRangeAdditor;
+                currentManaPoints += mageManaPointAdditor * (characterRarity + 1);
+                break;
+        }
+
+        switch (piece.GetRace())
+        {
+            case Enums.Race.Elf:
+                currentMovementSpeed += elfFlatMovementSpeedAdditor;
+                currentAttackSpeed += elfFlatAttackSpeedAdditor;
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(elfHitPointMultiplier, characterRarity + 1));
+                if (currentAttackRange > 1)
+                {
+                    currentAttackRange += elfFlatConditionalAttackRangeAdditor;
+                }
+                break;
+            case Enums.Race.Orc:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(orcHitPointMultiplier, characterRarity + 1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(orcAttackDamageMultiplier, characterRarity + 1));
+                currentMovementSpeed += orcFlatMovementSpeedAdditor;
+                currentAttackSpeed += orcFlatAttackSpeedAdditor;
+                break;
+            case Enums.Race.Human:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(humanHitPointMultiplier, characterRarity + 1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(humanAttackDamageMultiplier, characterRarity + 1));
+                currentManaPoints += humanManaPointAdditor * (characterRarity + 1);
+                break;
+            case Enums.Race.Undead:
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(undeadHitPointMultiplier, characterRarity + 1));
+                currentAttackSpeed += undeadFlatAttackSpeedAdditor;
+                currentHitPoints += undeadFlatMovementSpeedAdditor;
+                break;
+        }
+
+        // Set the upgraded stats to the piece.
+        piece.SetDefaultMaximumHitPoints(currentHitPoints);
+        piece.SetMaximumHitPoints(currentHitPoints);
+        piece.SetMaximumManaPoints(currentManaPoints);
+        piece.SetCurrentManaPoints(0);
+        piece.SetDefaultAttackDamage(currentAttackDamage);
+        piece.SetAttackDamage(currentAttackDamage);
+        piece.SetDefaultAttackRange(currentAttackRange);
+        piece.SetAttackRange(currentAttackRange);
+        piece.SetDefaultAttackSpeed(currentAttackSpeed);
+        piece.SetAttackSpeed(currentAttackSpeed);
+        piece.SetDefaultMovementSpeed(currentMovementSpeed);
+        piece.SetMovementSpeed(currentMovementSpeed);
+
+        Debug.Log(piece.GetName() + " has upgraded from Rarity " + piece.GetRarity() + " to " + characterRarity + "!");
+        piece.SetRarity(characterRarity);
+        piece.SetRoundsSurvived(0);
+        return true;
     }
 }
