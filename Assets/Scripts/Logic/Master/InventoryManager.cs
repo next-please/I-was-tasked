@@ -124,8 +124,10 @@ public class InventoryManager : MonoBehaviour
             {
                 Enums.Job pieceClass = piece.GetClass();
                 Enums.Race pieceRace = piece.GetRace();
-                _synergyTabMenu.IncrementSynergyTab(pieceClass.ToString(), SynergyManager.jobSynergyRequirement[(int)pieceClass]);
-                _synergyTabMenu.IncrementSynergyTab(pieceRace.ToString(), SynergyManager.jobSynergyRequirement[(int)pieceRace]);
+                string classDescription = Enums.JobSynergyDescription[(int)pieceClass];
+                string raceDescription = Enums.RaceSynergyDescription[(int)pieceRace];
+                _synergyTabMenu.IncrementSynergyTab(pieceClass.ToString(), classDescription, SynergyManager.jobSynergyRequirement[(int)pieceClass]);
+                _synergyTabMenu.IncrementSynergyTab(pieceRace.ToString(), raceDescription, SynergyManager.jobSynergyRequirement[(int)pieceRace]);
             }
         }
         return success;

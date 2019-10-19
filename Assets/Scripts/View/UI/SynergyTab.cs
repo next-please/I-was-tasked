@@ -1,8 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class SynergyTab : MonoBehaviour
+public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Image _icon;
@@ -33,8 +33,44 @@ public class SynergyTab : MonoBehaviour
     private string _synergyName;
     public string SynergyName { get { return _synergyName; } }
 
+    private string _synergyDescription;
     private int _count;
     private int _requirementCount;
+    private SynergyInfoPanel _synergyInfoPanel;
+
+    public void Initialise(string synergyName, string synergyDescription, int requirementCount, SynergyInfoPanel ip)
+    {
+        _synergyName = synergyName;
+        _synergyDescription = synergyDescription;
+        _requirementCount = requirementCount;
+        _synergyInfoPanel = ip;
+        setIcon();
+    }
+
+    public void AddCount()
+    {
+        _count++;
+        this.gameObject.SetActive(isActive());
+        setIndicatorStatus();
+    }
+
+    public void DecreaseCount()
+    {
+        _count--;
+        Debug.Assert(_count >= 0);
+        this.gameObject.SetActive(isActive());
+        setIndicatorStatus();
+    }
+
+    public void OnPointerEnter(PointerEventData data)
+    {
+        _synergyInfoPanel.Show(_synergyName, _synergyDescription, _count, _requirementCount);
+    }
+
+    public void OnPointerExit(PointerEventData data)
+    {
+        _synergyInfoPanel.Hide();
+    }
 
     private void setIcon()
     {
@@ -99,27 +135,6 @@ public class SynergyTab : MonoBehaviour
         }
     }
 
-    public void Initialise(string synergyName, int requirementCount)
-    {
-        _synergyName = synergyName;
-        _requirementCount = requirementCount;
-        setIcon();
-    }
-
-    public void AddCount()
-    {
-        _count++;
-        this.gameObject.SetActive(isActive());
-        setIndicatorStatus();
-    }
-
-    public void DecreaseCount()
-    {
-        _count--;
-        Debug.Assert(_count >= 0);
-        this.gameObject.SetActive(isActive());
-        setIndicatorStatus();
-    }
 
     private bool isActive()
     {

@@ -10,11 +10,14 @@ public class SynergyTabMenu : MonoBehaviour
     private Transform _content;
 
     [SerializeField]
+    private SynergyInfoPanel _info;
+
+    [SerializeField]
     private SynergyTab _synergyTab;
 
     private List<SynergyTab> _synergyTabs = new List<SynergyTab>();
 
-    public void IncrementSynergyTab(string synergyName, int requirementCount)
+    public void IncrementSynergyTab(string synergyName, string synergyDescription, int requirementCount)
     {
         foreach(SynergyTab s in _synergyTabs) {
             Debug.LogFormat("{0} : {1}", s.SynergyName, synergyName);
@@ -27,7 +30,7 @@ public class SynergyTabMenu : MonoBehaviour
         {
             SynergyTab tab = Instantiate(_synergyTab, _content);
             _synergyTabs.Add(tab);
-            tab.Initialise(synergyName, requirementCount);
+            tab.Initialise(synergyName, synergyDescription, requirementCount, _info);
             tab.AddCount();
         }
     }
