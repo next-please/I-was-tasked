@@ -4,20 +4,29 @@ using UnityEngine.UI;
 public class PieceUIManager : MonoBehaviour
 {
     public Canvas pieceCanvas;
-    public Sprite[] classIcons;
-    public Sprite[] raceIcons;
-    public Sprite[] meleeRangeIcons;
+
+    public Text nameText;
+
     public Image classIcon;
     public Image raceIcon;
-    public Text nameText;
+    public Sprite[] classIcons;
+    public Sprite[] raceIcons;
+
     public Text skillName;
     public Text skillDescription;
+
     public Text attackDamage;
+    public Image MeleeRangeIcon;
+    public Sprite[] meleeRangeIcons;
+
     public Text currentHP;
     public Text currentMP; // Might not be an imporant value.
-    public Image MeleeRangeIcon;
+
     public GameObject[] rarityStars;
     private int previousRarityIndex = 0;
+
+    public Camera portraitCamera;
+    public Transform rootCameraPosition;
 
     void Start()
     {
@@ -62,6 +71,7 @@ public class PieceUIManager : MonoBehaviour
         nameText.text = piece.GetName();
         currentHP.text = string.Format("{0}", piece.GetMaximumHitPoints());
         currentMP.text = string.Format("{0}", piece.GetMaximumManaPoints());
+        SetPortraitCamera(piece.GetClass(), piece.GetRace());
         SetClassRaceIcons(piece.GetClass(), piece.GetRace());
         SetSkillInfo(piece.GetClass(), piece.GetRace());
         SetAttackInfo(piece.GetAttackRange(), piece.GetAttackDamage());
@@ -90,6 +100,11 @@ public class PieceUIManager : MonoBehaviour
             rarityStars[rarity - 1].SetActive(true);
             previousRarityIndex = rarity - 1;
         }
+    }
+
+    private void SetPortraitCamera(Enums.Job job, Enums.Race race)
+    {
+        portraitCamera.transform.position = rootCameraPosition.transform.position + new Vector3(3 * (int) job, 0, 5 * (int) race);
     }
 
     private void SetSkillInfo(Enums.Job job, Enums.Race race)
