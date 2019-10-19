@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -43,6 +44,7 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private string _synergyDescription;
     private int _count;
+    public int Count { get { return _count; } }
     private int _requirementCount;
     private SynergyInfoPanel _synergyInfoPanel;
 
