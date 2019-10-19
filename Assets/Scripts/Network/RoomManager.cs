@@ -62,10 +62,13 @@ namespace Com.Nextplease.IWT
             }
             NumPlayersToStart = PhotonNetwork.CurrentRoom.MaxPlayers;
             _playerMap = new Dictionary<string, int>();
+            UpdatePlayerMap();
+            UpdatePlayerList();
         }
 
         void LoadArena()
         {
+            Debug.Log("Load Arena");
             if (!IsOffline)
             {
                 if (!PhotonNetwork.IsMasterClient)
@@ -80,10 +83,12 @@ namespace Com.Nextplease.IWT
 
         private void UpdatePlayerMap()
         {
+            Debug.LogFormat("{0}: Updating Player Map", "RoomManager");
             for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
             {
                 Photon.Realtime.Player player = PhotonNetwork.PlayerList[i];
                 _playerMap.Add(player.NickName, i);
+                Debug.LogFormat("{0}: Added {1} to playerMap as index {1}", "RoomManager", player.NickName, i);
             }
             return;
         }
