@@ -114,7 +114,6 @@ public class BenchItem : InteractablePiece
 
     private bool IsDragAllowed()
     {
-        Debug.Log("view: " + CameraController.GetCameraView());
-        return CameraController.GetCameraView() != CameraView.Market;
+        return CameraController.IsViewingOwnBoard();
     }
 }

@@ -65,9 +65,9 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public static CameraView GetCameraView()
+    public static bool IsViewingOwnBoard()
     {
-        return (CameraView)playerPosition;
+        return playerPosition == (int)RoomManager.GetLocalPlayer();
     }
 
     IEnumerator LerpToTransform(Transform newTransform)

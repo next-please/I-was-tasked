@@ -8,11 +8,9 @@ public class TransactionManager : MonoBehaviour
 {
     public InventoryManager inventoryManager;
     public MarketManager marketManager;
-    public IncomeManager incomeManager;
     public RequestHandler requestHandler;
     public BoardManager boardManager;
 
-    public readonly int UpgradeIncomeCost = 10;
     public readonly int UpgradeMarketSizeCost = 5;
 
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
@@ -97,33 +95,6 @@ public class TransactionManager : MonoBehaviour
     }
 
 #region Upgrades
-
-#region Passive Income
-    public bool CanPurchaseIncreasePassiveIncome(Player player)
-    {
-        int price = UpgradeIncomeCost;
-        return inventoryManager.EnoughGoldToPurchase(player, price);
-    }
-
-    public void TryPurchaseIncreasePassiveIncome(Player player)
-    {
-        if (!CanPurchaseIncreasePassiveIncome(player))
-            return;
-        UpgradeIncomeData data = new UpgradeIncomeData(player);
-        Request req = new Request(100, data);
-        requestHandler.SendRequest(req);
-    }
-
-    public void PurchaseIncreasePassiveIncome(Player player)
-    {
-        if (!CanPurchaseIncreasePassiveIncome(player))
-            return;
-
-        int price = UpgradeIncomeCost;
-        incomeManager.IncreasePassiveIncome();
-        inventoryManager.DeductGold(player, price);
-    }
-#endregion
 
 #region Market Rarity
     public bool CanPurchaseIncreaseMarketRarity(Player player)

@@ -25,7 +25,7 @@ public class MarketTooltip : MonoBehaviour
             "\n<size=10>" + piece.GetName() + "</size>" +
             "\n" + piece.GetRace() + " (3)" +
             "    " + piece.GetClass() + " (3)" +
-            "\nRarity: " + piece.GetRarity() +
+            "\nTier: " + piece.GetRarity() + // Using another word for Piece Rarity.
             "  Cost: " + Math.Pow(2, piece.GetRarity() - 1);
     }
 }

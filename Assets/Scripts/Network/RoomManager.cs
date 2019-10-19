@@ -14,7 +14,7 @@ namespace Com.Nextplease.IWT
     public class RoomManager : MonoBehaviourPunCallbacks
     {
         #region Public Fields
-        public int NumPlayersToStart = 3;
+        public int NumPlayersToStart = 1; // default set to 1 for single player
         public PhaseManager phaseManager;
         #endregion
         #region Private Serializable Fields
@@ -22,45 +22,79 @@ namespace Com.Nextplease.IWT
         private Text playerList;
         #endregion
 
+        #region Private Fields
+        private bool _offlineMode = false;
+        public bool IsOffline { get { return _offlineMode; } }
+        #endregion
+
         #region Public Methods
+        public void OnClick_LeaveCurrentGame()
+        {
+            if (IsOffline)
+            {
+                SceneManager.LoadScene("Lobby");
+                return;
+            }
+
+            LeaveRoom();
+        }
+
+        public void OnClick_QuitGame()
+        {
+            Application.Quit();
+        }
+
         public void LeaveRoom()
         {
             PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LoadLevel("Lobby");
         }
         #endregion
 
         #region Private Methods
+        private void Awake()
+        {
+            if (!PhotonNetwork.IsConnected && NumPlayersToStart == 1)
+            {
+                _offlineMode = true;
+                return;
+            }
+            NumPlayersToStart = PhotonNetwork.CurrentRoom.MaxPlayers;
+        }
 
         void LoadArena()
         {
-            if (!PhotonNetwork.IsMasterClient)
+            if (!IsOffline)
             {
-                Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
+                if (!PhotonNetwork.IsMasterClient)
+                {
+                    Debug.LogError("PhotonNetwork : Trying to Load a level but we are not the master Client");
+                }
+                Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
             }
-            Debug.LogFormat("PhotonNetwork : Loading Level : {0}", PhotonNetwork.CurrentRoom.PlayerCount);
-            // PhotonNetwork.LoadLevel("Main Scene");
             UpdatePlayerList();
         }
 
         void UpdatePlayerList()
         {
             if (playerList == null)
-            {
-                // Debug.Log("UI: Player List is not set. Ignoring UpdatePlayerList().");
                 return;
-            }
-
-            Debug.Log("UI: Updating Player List...");
 
             StringBuilder sb = new StringBuilder("Players: ");
-            foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+            Debug.Log("UI: Updating Player List...");
+
+            if (IsOffline)
             {
-                sb.Append(player.NickName + ", ");
+                sb.Append("LocalPlayer");
             }
+            else
+            {
+                foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+                    sb.Append(player.NickName + ", ");
 
-            sb.Remove(sb.Length - 2, 1);
-
-            // Debug.Log("UI: Player list: " + sb.ToString());
+                sb.Remove(sb.Length - 2, 1);
+                playerList.text = sb.ToString();
+            }
             playerList.text = sb.ToString();
         }
 
@@ -81,7 +115,7 @@ namespace Com.Nextplease.IWT
             {
                 if (p == photonPlayer)
                 {
-                    return (Player) index;
+                    return (Player)index;
                 }
                 index++;
             }
@@ -90,6 +124,10 @@ namespace Com.Nextplease.IWT
 
         public bool IsRoomFull()
         {
+            if (_offlineMode)
+            {
+                return true;
+            }
             return PhotonNetwork.PlayerList.Length == NumPlayersToStart;
         }
         #endregion
@@ -139,8 +177,8 @@ namespace Com.Nextplease.IWT
 
         private void StartGameIfPossible()
         {
-            if (PhotonNetwork.PlayerList.Length >= NumPlayersToStart &&
-                PhotonNetwork.IsMasterClient)
+            if (IsOffline || (PhotonNetwork.PlayerList.Length >= NumPlayersToStart &&
+                PhotonNetwork.IsMasterClient))
             {
                 phaseManager.StartPhases(NumPlayersToStart);
             }

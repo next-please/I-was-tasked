@@ -2,6 +2,7 @@
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 
 public class ConnectCanvas : MonoBehaviourPunCallbacks
@@ -23,6 +24,11 @@ public class ConnectCanvas : MonoBehaviourPunCallbacks
     public void FirstInitialize(CanvasesManager mg)
     {
         _canvasesManager = mg; 
+    }
+
+    public void OnClick_SinglePlayer()
+    {
+        SceneManager.LoadScene("Main Scene MP");
     }
 
     public void OnClick_Connect()

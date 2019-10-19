@@ -29,6 +29,11 @@ namespace Com.Nextplease.IWT
         /// <param name="req"></param>
         public void SendRequest(Request req)
         {
+            if(roomManager.IsOffline)
+            {
+                ExecuteRequest(ValidateRequest(req));
+                return;
+            }
             req.SetRequester(this.networkManager.GetLocalPlayerID());
             this.networkManager.ProcessRequest(req);
         }
@@ -73,7 +78,7 @@ namespace Com.Nextplease.IWT
                 case MARKET_PHASE:
                 case PRECOMBAT_PHASE:
                 case POSTCOMBAT_PHASE: // TODO: wait for all clients to finish before approving
-                    if (req.GetRequester() == networkManager.GetLocalPlayerID())
+                    if (roomManager.IsOffline || req.GetRequester() == networkManager.GetLocalPlayerID())
                     {
                         req.Approve();
                     }
@@ -91,13 +96,6 @@ namespace Com.Nextplease.IWT
                 case SELL_BOARD_PIECE:
                     PieceData sellBoardPieceData = req.GetData() as PieceData;
                     if (transactionManager.CanSellBoardPiece(sellBoardPieceData.player, sellBoardPieceData.piece)) { req.Approve(); }
-                    break;
-                case UPGRADE_INCOME:
-                    UpgradeIncomeData data_100 = req.GetData() as UpgradeIncomeData;
-                    if (transactionManager.CanPurchaseIncreasePassiveIncome(data_100.player))
-                    {
-                        req.Approve();
-                    }
                     break;
                 case UPGRADE_MARKET_RARITY:
                     UpgradeMarketRarityData data_101 = req.GetData() as UpgradeMarketRarityData;
@@ -185,10 +183,6 @@ namespace Com.Nextplease.IWT
                 case SELL_BOARD_PIECE:
                     PieceData data_7 = req.GetData() as PieceData;
                     transactionManager.SellBoardPiece(data_7.player, data_7.piece);
-                    break;
-                case UPGRADE_INCOME:
-                    UpgradeIncomeData data_100 = req.GetData() as UpgradeIncomeData;
-                    transactionManager.PurchaseIncreasePassiveIncome(data_100.player);
                     break;
                 case UPGRADE_MARKET_RARITY:
                     UpgradeMarketRarityData data_101 = req.GetData() as UpgradeMarketRarityData;
