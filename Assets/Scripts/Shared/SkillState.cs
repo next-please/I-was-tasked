@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillState : State
 {
     private Interaction skill;
-
     public override void OnStart(Piece piece, Board board)
     {
         piece.SetCurrentManaPoints(0);
-
         skill = new ShapeshiftLingeringEffect(piece);
         if (!piece.IsEnemy())
         {

@@ -43,6 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ebf41836d5f3d43bde52047e8745e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BarkSkin: {fileID: 7021586923193809163, guid: fce06343d5b3b8944ad955b7efd6498c,
+    type: 3}
   BlessingOfNature: {fileID: 6503707260906391424, guid: 50ab62a049c6ff748b3f330583c826c1,
     type: 3}
   Charge: {fileID: 4273996715918841092, guid: 49705e96df848174a8e9e1b1070d6a79, type: 3}

@@ -22,6 +22,8 @@ public static class Enums
 
     public enum InteractionPrefab
     {
+        None,
+        BarkSkin,
         BlessingOfNature,
         Charge,
         EviscerateBleed,
@@ -49,7 +51,7 @@ public static class Enums
         ProjectileTestArcanePurple,
         ProjectileTestSicklyGreen,
         CylinderTestSicklyGreen,
-        CylinderTestLightBlue
+        CylinderTestLightBlue,
     }
 
     public static string[] JobSynergyDescription = new string[]

@@ -78,6 +78,8 @@ public class ViewManager : MonoBehaviour
     public void OnInteractionAdded(AddInteractionToProcessEvent e)
     {
         Interaction interaction = e.interaction;
+        if (interaction.interactionPrefab == Enums.InteractionPrefab.None)
+            return;
         GameObject interactionViewPrefab = interactionPrefabLoader.GetPrefab(interaction.interactionPrefab);
         GameObject interactionObj = Instantiate(interactionViewPrefab, Vector3.zero, Quaternion.identity);
         InteractionView interactionView = interactionObj.GetComponent<InteractionView>();
