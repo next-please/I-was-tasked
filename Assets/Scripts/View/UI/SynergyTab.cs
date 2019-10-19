@@ -4,9 +4,11 @@ using UnityEngine.EventSystems;
 
 public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private readonly float BLUR_OPACITY_VALUE = 0.5f;
+    private readonly float CLEAR_OPACTITY_VALUE = 1f;
+
     [SerializeField]
     private Image _icon;
-
     [SerializeField]
     private Image _hex1;
     [SerializeField]
@@ -19,6 +21,12 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private Image _hex5;
     [SerializeField]
     private Image _hex6;
+    [SerializeField]
+    private Image _background1;
+    [SerializeField]
+    private Image _background2;
+    [SerializeField]
+    private Image _background3;
 
     public Sprite humanIcon;
     public Sprite orcIcon;
@@ -117,6 +125,16 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         _hex4.gameObject.SetActive(false);
         _hex5.gameObject.SetActive(false);
         _hex6.gameObject.SetActive(false);
+        setOpacity(_hex1, BLUR_OPACITY_VALUE);
+        setOpacity(_hex2, BLUR_OPACITY_VALUE);
+        setOpacity(_hex3, BLUR_OPACITY_VALUE);
+        setOpacity(_hex4, BLUR_OPACITY_VALUE);
+        setOpacity(_hex5, BLUR_OPACITY_VALUE);
+        setOpacity(_hex6, BLUR_OPACITY_VALUE);
+        setOpacity(_background1, BLUR_OPACITY_VALUE);
+        setOpacity(_background2, BLUR_OPACITY_VALUE);
+        setOpacity(_background3, BLUR_OPACITY_VALUE);
+        setOpacity(_icon, BLUR_OPACITY_VALUE);
 
         switch (_count)
         {
@@ -131,8 +149,20 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 _hex1.gameObject.SetActive(true);
                 _hex2.gameObject.SetActive(true);
                 _hex3.gameObject.SetActive(true);
+                setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
+                setOpacity(_hex2, CLEAR_OPACTITY_VALUE);
+                setOpacity(_hex3, CLEAR_OPACTITY_VALUE);
+                setOpacity(_background1, CLEAR_OPACTITY_VALUE);
+                setOpacity(_background2, CLEAR_OPACTITY_VALUE);
+                setOpacity(_background3, CLEAR_OPACTITY_VALUE);
+                setOpacity(_icon, CLEAR_OPACTITY_VALUE);
                 break;
         }
+    }
+
+    private void setOpacity(Image image, float opacity)
+    {
+        image.color = new Color(image.color.r, image.color.g, image.color.b, opacity);
     }
 
 

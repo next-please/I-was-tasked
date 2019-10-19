@@ -740,6 +740,9 @@ MonoBehaviour:
   _hex4: {fileID: 6407231785196943171}
   _hex5: {fileID: 3557141908795899897}
   _hex6: {fileID: 5891973929756668841}
+  _background1: {fileID: 1470015148891844972}
+  _background2: {fileID: 5207465518850692344}
+  _background3: {fileID: 2038794131627095860}
   humanIcon: {fileID: 21300000, guid: 7fdc8d15d57f57b4cb2477865f4b76d4, type: 3}
   orcIcon: {fileID: 21300000, guid: 2f47270520bb29243a9cfce847dc5a7d, type: 3}
   elfIcon: {fileID: 21300000, guid: 4f6c19c38c140804ebfab6268fccb94b, type: 3}
