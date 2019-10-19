@@ -1,11 +1,20 @@
 ﻿using System;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class SynergyTab : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI _text;
+    private Image _icon;
+    public Sprite humanIcon;
+    public Sprite orcIcon;
+    public Sprite elfIcon;
+    public Sprite undeadIcon;
+    public Sprite knightIcon;
+    public Sprite mageIcon;
+    public Sprite druidIcon;
+    public Sprite rogueIcon;
+    public Sprite priestIcon;
 
     private string _synergyName;
     public string SynergyName { get { return _synergyName; } }
@@ -13,27 +22,53 @@ public class SynergyTab : MonoBehaviour
     private int _count;
     private int _requirementCount;
 
-    private void Awake()
+    private void setIcon()
     {
-        if (_text == null)
-            Debug.LogError("SynergyTab: text element not set");
-    }
-
-    public void SetText()
-    {
-        _text.SetText(string.Format("{0}: {1}/{2}", _synergyName, _count, _requirementCount));
+        Debug.Log("SynergyTab: Setting Icon");
+        switch(_synergyName)
+        {
+            case "Human":
+                _icon.sprite = humanIcon;
+                break;
+            case "Elf":
+                _icon.sprite = elfIcon;
+                break;
+            case "Orc":
+                _icon.sprite = orcIcon;
+                break;
+            case "Undead":
+                _icon.sprite = undeadIcon;
+                break;
+            case "Knight":
+                _icon.sprite = knightIcon;
+                break;
+            case "Mage":
+                _icon.sprite = mageIcon;
+                break;
+            case "Druid":
+                _icon.sprite = druidIcon;
+                break;
+            case "Rogue":
+                _icon.sprite = rogueIcon;
+                break;
+            case "Priest":
+                _icon.sprite = priestIcon;
+                break;
+            default:
+                break;
+        }
     }
 
     public void Initialise(string synergyName, int requirementCount)
     {
         _synergyName = synergyName;
         _requirementCount = requirementCount;
+        setIcon();
     }
 
     public void AddCount()
     {
         _count++;
-        SetText();
         this.gameObject.SetActive(isActive());
     }
 
@@ -41,7 +76,6 @@ public class SynergyTab : MonoBehaviour
     {
         _count--;
         Debug.Assert(_count >= 0);
-        SetText();
         this.gameObject.SetActive(isActive());
     }
 
