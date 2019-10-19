@@ -199,7 +199,7 @@ public class MarketUIManager : MonoBehaviour
 
     void OnHoverMarketItem(HoverMarketItemEvent e)
     {
-        if (e.piece == null && marketTooltipCanvas)
+        if (e.piece == null)
         {
             HideMarketTooltip();
         }
@@ -223,12 +223,18 @@ public class MarketUIManager : MonoBehaviour
 
     private void HideMarketTooltip()
     {
-        marketTooltipCanvas.enabled = false;
+        if (marketTooltipCanvas)
+        {
+            marketTooltipCanvas.enabled = false;
+        }
     }
 
     private void ShowMarketTooltip(Piece piece)
     {
-        marketTooltipCanvas.enabled = true;
-        marketTooltip.SetMarketItemInfo(piece);
+        if (marketTooltipCanvas && marketTooltip)
+        {
+            marketTooltipCanvas.enabled = true;
+            marketTooltip.SetMarketItemInfo(piece);
+        }
     }
 }

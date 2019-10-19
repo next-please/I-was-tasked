@@ -25,7 +25,6 @@ public class MarketItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // TODO: change cursor? (with add/buy icon)
         EventManager.Instance.Raise(new HoverMarketItemEvent { piece = piece });
     }
 
