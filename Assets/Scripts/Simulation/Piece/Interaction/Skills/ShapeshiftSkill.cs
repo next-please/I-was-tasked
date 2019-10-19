@@ -63,15 +63,15 @@ public class ShapeshiftSkill : Interaction
 
 public class ShapeshiftLingeringEffect : Interaction
 {
-    private Piece caster;
+    public Piece caster;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 100;
+    public int ticksTilActivation = 200;
 
     public ShapeshiftLingeringEffect(Piece caster)
     {
         this.caster = caster;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestRed;
+        interactionPrefab = Enums.InteractionPrefab.ShapeShift;
     }
 
     public override bool ProcessInteraction()
@@ -83,7 +83,6 @@ public class ShapeshiftLingeringEffect : Interaction
         }
         else
         {
-            Fizzle();
             return false;
         }
     }
@@ -95,24 +94,10 @@ public class ShapeshiftLingeringEffect : Interaction
 
     public override bool ProcessInteractionView()
     {
-        if (!caster.IsDead())
-        {
-            GameObject projectile = interactionView.gameObject;
-            attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-            attackDestination.y += 3.5f;
-
-            projectile.transform.position = attackDestination;
-        }
-
         if (ticksRemaining <= 0)
         {
             return false;
         }
         return true;
     }
-
-    private void Fizzle()
-    {
-    }
-
 }

@@ -38,6 +38,7 @@ public static class Enums
         Rampage,
         Rot,
         ShadowStrike,
+        ShapeShift,
         UnholyAura,
         ProjectileTestBlue,
         ProjectileTestRed,

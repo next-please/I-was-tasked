@@ -22,6 +22,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject Rampage;
     public GameObject Rot;
     public GameObject ShadowStrike;
+    public GameObject ShapeShift;
     public GameObject UnholyAura;
 
     [Header("Debug SKills")]
@@ -60,6 +61,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.Rampage, Rampage },
             { PrefabEnum.Rot, Rot },
             { PrefabEnum.ShadowStrike, ShadowStrike },
+            { PrefabEnum.ShapeShift, ShapeShift },
             { PrefabEnum.UnholyAura, UnholyAura },
             { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },
             { PrefabEnum.ProjectileTestRed, ProjectileTestRedPrefab },
