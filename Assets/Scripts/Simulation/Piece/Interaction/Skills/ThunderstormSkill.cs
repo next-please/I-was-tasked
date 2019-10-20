@@ -21,24 +21,10 @@ public class ThunderstormSkill : Interaction
         this.countRemaining = thunderStormDefaultCount;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.CylinderTestLightBlue;
+        interactionPrefab = Enums.InteractionPrefab.ThunderStorm;
 
         attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackSource.y = 2.0f;
-    }
-
-    public ThunderstormSkill(Piece caster, Tile targetSpace, Board board, int countRemaining)
-    {
-        this.caster = caster;
-        this.board = board;
-        this.countRemaining = countRemaining;
-        this.targetSpace = targetSpace;
-        this.ticksTotal = 50;
-        this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.CylinderTestLightBlue;
-
-        attackSource = ViewManager.CalculateTileWorldPosition(targetSpace);
-        attackSource.y = 2.0f;
+        attackSource.y = 3.0f;
     }
 
     public override bool ProcessInteraction()
@@ -46,11 +32,19 @@ public class ThunderstormSkill : Interaction
         if (ticksRemaining > 0)
         {
             ticksRemaining--;
+            if (ticksRemaining == 0)
+            {
+                ApplyDamageToInflict();
+                if (countRemaining > 0 && board.GetActiveEnemiesOnBoard().Count > 0)
+                {
+                    countRemaining--;
+                    ticksRemaining = ticksTilActivation;
+                }
+            }
             return true;
         }
         else
         {
-            ApplyDamageToInflict();
             return false;
         }
     }
@@ -83,15 +77,6 @@ public class ThunderstormSkill : Interaction
             Interaction skill = new ThunderstormBoltEffect(target);
             board.AddInteractionToProcess(skill);
         }
-
-        if (countRemaining > 0)
-        {
-            if (board.GetActiveEnemiesOnBoard().Count > 0)
-            {
-                Interaction skill = new ThunderstormSkill(caster, targetSpace, board, countRemaining - 1);
-                board.AddInteractionToProcess(skill);
-            }
-        }
     }
 }
 
@@ -99,7 +84,7 @@ public class ThunderstormBoltEffect : Interaction
 {
     private Piece target;
     private Vector3 attackSource;
-    private int ticksTilActivation = 9;
+    private int ticksTilActivation = 25;
     public int thunderStormDefaultDamage = 60;
 
     public ThunderstormBoltEffect(Piece target)
@@ -107,10 +92,9 @@ public class ThunderstormBoltEffect : Interaction
         this.target = target;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestYellow;
-
+        interactionPrefab = Enums.InteractionPrefab.ThunderStormLightning;
         attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackSource.y = 1.0f;
+        attackSource.y = 3.0f;
     }
 
     public override bool ProcessInteraction()

@@ -39,6 +39,8 @@ public static class Enums
         Rot,
         ShadowStrike,
         ShapeShift,
+        ThunderStorm,
+        ThunderStormLightning,
         UnholyAura,
         ProjectileTestBlue,
         ProjectileTestRed,

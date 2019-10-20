@@ -23,6 +23,8 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject Rot;
     public GameObject ShadowStrike;
     public GameObject ShapeShift;
+    public GameObject ThunderStorm;
+    public GameObject ThunderStormLightning;
     public GameObject UnholyAura;
 
     [Header("Debug SKills")]
@@ -62,6 +64,8 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.Rot, Rot },
             { PrefabEnum.ShadowStrike, ShadowStrike },
             { PrefabEnum.ShapeShift, ShapeShift },
+            { PrefabEnum.ThunderStorm, ThunderStorm },
+            { PrefabEnum.ThunderStormLightning, ThunderStormLightning },
             { PrefabEnum.UnholyAura, UnholyAura },
             { PrefabEnum.ProjectileTestBlue, ProjectileTestBluePrefab },
             { PrefabEnum.ProjectileTestRed, ProjectileTestRedPrefab },
