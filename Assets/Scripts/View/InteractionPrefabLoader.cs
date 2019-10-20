@@ -10,6 +10,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject BarkSkin;
     public GameObject BlessingOfNature;
     public GameObject Charge;
+    public GameObject CheapShot;
     public GameObject CurseOfAgony;
     public GameObject EviscerateBleed;
     public GameObject Fireblast;
@@ -52,6 +53,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.BarkSkin, BarkSkin },
             { PrefabEnum.BlessingOfNature, BlessingOfNature },
             { PrefabEnum.Charge, Charge },
+            { PrefabEnum.CheapShot, CheapShot },
             { PrefabEnum.CurseOfAgony, CurseOfAgony },
             { PrefabEnum.EviscerateBleed, EviscerateBleed },
             { PrefabEnum.Fireblast, Fireblast },

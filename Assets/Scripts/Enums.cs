@@ -26,6 +26,7 @@ public static class Enums
         BarkSkin,
         BlessingOfNature,
         Charge,
+        CheapShot,
         CurseOfAgony,
         EviscerateBleed,
         Fireblast,

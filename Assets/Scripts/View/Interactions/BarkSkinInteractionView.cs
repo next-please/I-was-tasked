@@ -25,5 +25,6 @@ public class BarkSkinInteractionView : InteractionView
         // this shouldn't be a problem as we should only trigger 1 bark skin
         // should tweak the mana
         poeV.meshRenderer.material = originalMat;
+        Destroy(gameObject);
     }
 }
