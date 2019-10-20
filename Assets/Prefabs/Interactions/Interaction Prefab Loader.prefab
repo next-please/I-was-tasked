@@ -48,6 +48,8 @@ MonoBehaviour:
   BlessingOfNature: {fileID: 6503707260906391424, guid: 50ab62a049c6ff748b3f330583c826c1,
     type: 3}
   Charge: {fileID: 4273996715918841092, guid: 49705e96df848174a8e9e1b1070d6a79, type: 3}
+  CurseOfAgony: {fileID: 1883248093773755512, guid: 1a83343d4f5147646b5009d17e5fb7e8,
+    type: 3}
   EviscerateBleed: {fileID: 2231283222839007319, guid: 4060437c8047ec846a82ff395b3e5fb9,
     type: 3}
   Fireblast: {fileID: 2368481067273882786, guid: c9599095096809747be9c2a3e8d6a140,
