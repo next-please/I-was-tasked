@@ -7,7 +7,6 @@ using Com.Nextplease.IWT;
 
 public class MarketUIManager : MonoBehaviour
 {
-    public Canvas upgradeCanvas;
     public Canvas marketCanvas;
     public Canvas marketInfoCanvas;
     public Canvas marketTooltipCanvas;
@@ -39,22 +38,16 @@ public class MarketUIManager : MonoBehaviour
     }
     void OnEnable()
     {
-        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-        EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
         EventManager.Instance.AddListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.AddListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
         EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
-        EventManager.Instance.AddListener<CameraPanEvent>(OnCameraPan);
     }
 
     void OnDisable()
     {
-        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
-        EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
         EventManager.Instance.RemoveListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.RemoveListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
         EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
-        EventManager.Instance.RemoveListener<CameraPanEvent>(OnCameraPan);
     }
 
     void Awake()
@@ -72,43 +65,14 @@ public class MarketUIManager : MonoBehaviour
         }
 
         ClearMarket();
-
         SetCanvasVisibility(false);
+
         marketTooltipCanvas.enabled = false;
-    }
-
-    void OnEnterPhase(EnterPhaseEvent e)
-    {
-        if (e.phase == Phase.Market)
-        {
-            // SetCanvasVisibility(true);
-        }
-    }
-
-    void OnExitPhase(ExitPhaseEvent e)
-    {
-        if (e.phase == Phase.Market)
-        {
-            // SetCanvasVisibility(false);
-        }
-    }
-
-    void OnCameraPan(CameraPanEvent e)
-    {
-        if (e.targetView == CameraView.Market)
-        {
-            ShowMarketUI();
-        }
-        else
-        {
-            HideMarketUI();
-        }
     }
 
     void SetCanvasVisibility(bool visibility)
     {
         marketCanvas.enabled = visibility;
-        upgradeCanvas.enabled = visibility;
         this.visibility = visibility;
     }
 
@@ -207,18 +171,6 @@ public class MarketUIManager : MonoBehaviour
         {
             ShowMarketTooltip(e.piece);
         }
-    }
-
-    private void HideMarketUI()
-    {
-        marketInfoCanvas.enabled = false;
-        upgradeCanvas.enabled = false;
-    }
-
-    private void ShowMarketUI()
-    {
-        marketInfoCanvas.enabled = true;
-        upgradeCanvas.enabled = true;
     }
 
     private void HideMarketTooltip()
