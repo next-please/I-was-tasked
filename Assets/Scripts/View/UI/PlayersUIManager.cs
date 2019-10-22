@@ -10,28 +10,25 @@ public class PlayersUIManager : MonoBehaviour
     public static readonly int marketIndex = 3;
     public GameObject[] PlayerAvatars;
     public Image HealthBar;
-    public MarketManager marketManager;
+    public Animator coreAnimator;
 
-    private List<Animator> playerAvatarAnimators;
+    private readonly float lerpSpeed = 1f;
+    private readonly int fullHealth = 10;
+    private int currentHealth = 10;
     private int prevSelectedAvatar;
     private int currSelectedAvatar;
+    private List<Animator> playerAvatarAnimators;
 
     void OnEnable()
     {
         EventManager.Instance.AddListener<CameraPanEvent>(OnCameraPan);
-        EventManager.Instance.AddListener<MarketUpdateEvent>(OnMarketUpdate);
+        EventManager.Instance.AddListener<DamageTakenEvent>(OnDamageTaken);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<CameraPanEvent>(OnCameraPan);
-        EventManager.Instance.RemoveListener<MarketUpdateEvent>(OnMarketUpdate);
-    }
-
-    void Update()
-    {
-        float newFillAmount = (float)marketManager.GetCastleHealth() / marketManager.StartingCastleHealth;
-        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, newFillAmount, Time.deltaTime * 1f);
+        EventManager.Instance.RemoveListener<DamageTakenEvent>(OnDamageTaken);
     }
 
     void Awake()
@@ -43,6 +40,25 @@ public class PlayersUIManager : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (currentHealth == fullHealth)
+            return;
+
+        float newFillAmount = (float)currentHealth / fullHealth;
+        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, newFillAmount, Time.deltaTime * lerpSpeed);
+
+        if (HealthBar.fillAmount < 0.3f)
+        {
+            HealthBar.color = Color.Lerp(HealthBar.color, Color.red, Time.deltaTime * lerpSpeed);
+        }
+    }
+
+    void OnDamageTaken(DamageTakenEvent e)
+    {
+        StartCoroutine(TakeDamage(e.currentHealth));
+    }
+
     void OnCameraPan(CameraPanEvent e)
     {
         int playerNum = (int)e.targetView == -1 ? marketIndex : (int)e.targetView;
@@ -51,12 +67,6 @@ public class PlayersUIManager : MonoBehaviour
 
         DeselectPreviousAvatar();
         SelectAvatar(playerNum);
-    }
-
-    void OnMarketUpdate(MarketUpdateEvent e)
-    {
-        float newFillAmount = (float)e.readOnlyMarket.GetCastleHealth() / 10;
-        HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, newFillAmount, Time.deltaTime * 1f);
     }
 
     private void SelectAvatar(int playerNum)
@@ -73,5 +83,12 @@ public class PlayersUIManager : MonoBehaviour
         {
             playerAvatarAnimators[prevSelectedAvatar].Play("Deselect");
         }
+    }
+
+    IEnumerator TakeDamage(int newHealth)
+    {
+        coreAnimator.SetTrigger("TakeDamage");
+        yield return new WaitForSeconds(0.5f);
+        currentHealth = newHealth;
     }
 }

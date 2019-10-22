@@ -31,6 +31,7 @@ public class MarketManager : MonoBehaviour
         if (totalDamage > 0)
         {
             EventManager.Instance.Raise(new GlobalMessageEvent { message = "Combat is over! " + totalDamage + " damage done to castle!" });
+            EventManager.Instance.Raise(new DamageTakenEvent { currentHealth = market.CastleHealth });
         }
         EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
     }
@@ -59,16 +60,16 @@ public class MarketManager : MonoBehaviour
     public void SetMarketItems(List<Piece> marketPieces)
     {
         this.market.MarketPieces = marketPieces;
-        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+        EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
     }
 
     public void RemoveMarketPiece(Piece piece)
     {
-        var marketPieces =  market.MarketPieces;
+        var marketPieces = market.MarketPieces;
         int index = marketPieces.IndexOf(piece);
         marketPieces.RemoveAt(index);
         marketPieces.Insert(index, null);
-        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+        EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
     }
 
     public void IncreaseMarketTier(List<Piece> pieces)
@@ -77,14 +78,14 @@ public class MarketManager : MonoBehaviour
         market.MarketPieces = pieces;
         //reactive upgrades
         EventManager.Instance.Raise(new GlobalMessageEvent { message = "Market tier has been upgraded! New mercenaries may be stronger!" });
-        EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+        EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
     }
 
     public List<Piece> UpgradePiecesWithTier(int marketTier)
     {
         var marketPieceCopy = new List<Piece>(market.MarketPieces);
         Piece marketPiece;
-        for (int i=0; i< marketPieceCopy.Count; i++)
+        for (int i = 0; i < marketPieceCopy.Count; i++)
         {
             marketPiece = marketPieceCopy[i];
             if (marketPiece == null)
@@ -116,7 +117,7 @@ public class MarketManager : MonoBehaviour
             //reactive upgrades
             EventManager.Instance.Raise(new GlobalMessageEvent { message = "Market space increased! A new mercenary has entered the market." });
             market.MarketPieces.Add(piece);
-            EventManager.Instance.Raise(new MarketUpdateEvent{ readOnlyMarket = market });
+            EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
         }
         return success;
     }
@@ -135,4 +136,9 @@ public class MarketManager : MonoBehaviour
 public class MarketUpdateEvent : GameEvent
 {
     public IReadOnlyMarket readOnlyMarket;
+}
+
+public class DamageTakenEvent : GameEvent
+{
+    public int currentHealth;
 }
