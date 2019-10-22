@@ -12,8 +12,6 @@ public class PlayersUIManager : MonoBehaviour
     public Image HealthBar;
     public MarketManager marketManager;
 
-    
-
     private List<Animator> playerAvatarAnimators;
     private int prevSelectedAvatar;
     private int currSelectedAvatar;
@@ -55,7 +53,8 @@ public class PlayersUIManager : MonoBehaviour
         SelectAvatar(playerNum);
     }
 
-    void OnMarketUpdate(MarketUpdateEvent e) {
+    void OnMarketUpdate(MarketUpdateEvent e)
+    {
         float newFillAmount = (float)e.readOnlyMarket.GetCastleHealth() / 10;
         HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, newFillAmount, Time.deltaTime * 1f);
     }
