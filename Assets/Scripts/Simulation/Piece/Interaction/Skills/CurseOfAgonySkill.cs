@@ -71,7 +71,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
         this.target = target;
         this.curseChange = curseChange;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBlack;
+        interactionPrefab = Enums.InteractionPrefab.CurseOfAgony;
     }
 
     public override bool ProcessInteraction()
@@ -98,7 +98,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
         GameObject projectile = interactionView.gameObject;
 
         attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y += 3.5f;
+        attackDestination.y = 2f;
 
         projectile.transform.position = attackDestination;
 

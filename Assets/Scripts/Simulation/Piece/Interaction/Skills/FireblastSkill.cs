@@ -18,7 +18,7 @@ public class FireblastSkill : Interaction
         this.target = target;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestFireRed;
+        interactionPrefab = Enums.InteractionPrefab.Fireblast;
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
         attackSource.y = 1.0f;

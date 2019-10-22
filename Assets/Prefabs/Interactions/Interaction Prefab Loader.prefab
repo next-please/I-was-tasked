@@ -43,6 +43,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59ebf41836d5f3d43bde52047e8745e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BarkSkin: {fileID: 7021586923193809163, guid: fce06343d5b3b8944ad955b7efd6498c,
+    type: 3}
+  BlessingOfNature: {fileID: 6503707260906391424, guid: 50ab62a049c6ff748b3f330583c826c1,
+    type: 3}
+  Charge: {fileID: 4273996715918841092, guid: 49705e96df848174a8e9e1b1070d6a79, type: 3}
+  CheapShot: {fileID: 4201609336117377134, guid: fec9ae3fb4f95674ab344f1263986533,
+    type: 3}
+  CurseOfAgony: {fileID: 1883248093773755512, guid: 1a83343d4f5147646b5009d17e5fb7e8,
+    type: 3}
+  EviscerateBleed: {fileID: 2231283222839007319, guid: 4060437c8047ec846a82ff395b3e5fb9,
+    type: 3}
+  Fireblast: {fileID: 2368481067273882786, guid: c9599095096809747be9c2a3e8d6a140,
+    type: 3}
+  ForestSpirits: {fileID: 8325048556619474201, guid: 8a381d23a12fc894f8f4193b37594a46,
+    type: 3}
+  FrostArmour: {fileID: 1142941915942832966, guid: 368cfcdbd14eac049831877a8606b819,
+    type: 3}
+  GreaterHeal: {fileID: 5046789155405430073, guid: dcb3d2004ca687549b8ca73a01913af5,
+    type: 3}
+  MagicMissile: {fileID: 3939746984077384847, guid: 5d22085f9a47f4d43ab475fdc6b637d9,
+    type: 3}
+  MarkForDeath: {fileID: 8321562651604499611, guid: 3ff94967b6b03014c88ad22af2412662,
+    type: 3}
+  Moonfire: {fileID: 1026796413723816823, guid: a2ada492991053d43b87299aa05a2157,
+    type: 3}
+  ProtectAlly: {fileID: 8478258411443082741, guid: 83fe8d00db33e704d98a4c131c5454c0,
+    type: 3}
+  Rampage: {fileID: 612557514318640263, guid: e292addeb89cecb469c9e718d36023a8, type: 3}
+  Rot: {fileID: 7975379792769807137, guid: a14dcc1043e73e84e835c54119b51393, type: 3}
+  ShadowStrike: {fileID: 8385000828705475333, guid: da74511139ed90942a903fdcee406ed0,
+    type: 3}
+  ShapeShift: {fileID: 4593032799540356023, guid: fa88b913ace16a04b9761ebeb181fdcf,
+    type: 3}
+  ThunderStorm: {fileID: 4484730273484225776, guid: 67cd16c5b0bd4534d808c25551649b5f,
+    type: 3}
+  ThunderStormLightning: {fileID: 7385476253302904792, guid: 6a114592cec5dcc4a82fc7ea0792fcdd,
+    type: 3}
+  UnholyAura: {fileID: 6682529148806516562, guid: ac490b422f460af41964984c364d21ab,
+    type: 3}
   ProjectileTestBluePrefab: {fileID: 7409315148139022978, guid: a7db3d65ab4942b4cbbf2553d461c7b2,
     type: 3}
   ProjectileTestRedPrefab: {fileID: 7409315148139022978, guid: 3a270741ebbcfbe4bb1173d81000d715,
@@ -62,4 +101,10 @@ MonoBehaviour:
   ProjectileTestFireRedPrefab: {fileID: 6915423248205026257, guid: 1851094c8d172044bae2c137de6ae033,
     type: 3}
   ProjectileTestArcanePurplePrefab: {fileID: 6915423248205026257, guid: 7b4cbe8aef24cb5449a24095c0fe717d,
+    type: 3}
+  ProjectileTestSicklyGreenPrefab: {fileID: 6915423248205026257, guid: f690d0e0cb73d8f4bb3c66829d44b10d,
+    type: 3}
+  CylinderTestSicklyGreenPrefab: {fileID: 6915423248205026257, guid: a7ef66b2147c2f248a04cbf32a1cd80f,
+    type: 3}
+  CylinderTestLightBluePrefab: {fileID: 6915423248205026257, guid: a92725370f5e5f24b8d6ecfef7b1579b,
     type: 3}

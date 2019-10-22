@@ -67,6 +67,7 @@ public class Piece : ISerializable
     private int damageIfSurvive;
 #endregion
 
+    private PieceView pieceView;
     private Piece target;
     private State state;
     private State entryState;
@@ -851,5 +852,15 @@ public class Piece : ISerializable
     public void SetDamageIfSurvive(int damageIfSurvive)
     {
         this.damageIfSurvive = damageIfSurvive;
+    }
+
+    public void SetPieceView(PieceView pieceView)
+    {
+        this.pieceView = pieceView;
+    }
+
+    public PieceView GetPieceView()
+    {
+        return this.pieceView;
     }
 }

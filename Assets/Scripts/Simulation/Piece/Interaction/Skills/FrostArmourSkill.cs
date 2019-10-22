@@ -72,7 +72,7 @@ public class FrostArmourLingeringEffect : Interaction
         this.target = target;
         this.armourChange = armourChange;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestLightBlue;
+        interactionPrefab = Enums.InteractionPrefab.FrostArmour;
     }
 
     public override bool ProcessInteraction()
@@ -96,12 +96,13 @@ public class FrostArmourLingeringEffect : Interaction
 
     public override bool ProcessInteractionView()
     {
-        GameObject projectile = interactionView.gameObject;
-
-        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y += 3.5f;
-
-        projectile.transform.position = attackDestination;
+        if (!target.IsDead())
+        {
+            GameObject projectile = interactionView.gameObject;
+            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination.y += 1.0f;
+            projectile.transform.position = attackDestination;
+        }
 
         if (ticksRemaining <= 0)
         {

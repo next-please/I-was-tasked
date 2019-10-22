@@ -89,7 +89,7 @@ public class BlessingOfNatureLingeringEffect : Interaction
         this.currentHitPointChange = currentHitPointChange;
         this.maximumHitPointChange = maximumHitPointChange;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestGreen;
+        interactionPrefab = Enums.InteractionPrefab.BlessingOfNature;
     }
 
     public override bool ProcessInteraction()
@@ -116,7 +116,7 @@ public class BlessingOfNatureLingeringEffect : Interaction
         GameObject projectile = interactionView.gameObject;
 
         attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y += 3.5f;
+        attackDestination.y += 1.0f;
 
         projectile.transform.position = attackDestination;
 

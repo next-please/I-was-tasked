@@ -58,7 +58,7 @@ public class BarkskinSkill : Interaction
 
 public class BarkskinLingeringEffect : Interaction
 {
-    private Piece caster;
+    public Piece caster;
     private Vector3 attackDestination;
     public int ticksTilActivation = 250;
     public int blockAmount;
@@ -68,7 +68,7 @@ public class BarkskinLingeringEffect : Interaction
         this.caster = caster;
         this.blockAmount = blockAmount;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestRed;
+        interactionPrefab = Enums.InteractionPrefab.BarkSkin;
     }
 
     public override bool ProcessInteraction()

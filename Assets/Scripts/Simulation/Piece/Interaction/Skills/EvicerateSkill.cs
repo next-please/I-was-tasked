@@ -7,9 +7,9 @@ public class EvicerateSkill : Interaction
     private Piece caster;
     private Piece target;
     private Board board;
-    public int evicerateDefaultInitialDamage = 50;
+    public int evicerateDefaultInitialDamage = 5;
     public int evicerateDefaultBleedCount = 10;
-    public int evicerateDefaultBleedDamage = 15;
+    public int evicerateDefaultBleedDamage = 1;
     public int ticksTilActivation = 0;
 
     public EvicerateSkill(Piece caster, Piece target, Board board)
@@ -77,7 +77,7 @@ public class EvicerateLingeringEffect : Interaction
         this.bleedDamage = bleedDamage;
         this.countRemaining = countRemaining;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestBloodRed;
+        interactionPrefab = Enums.InteractionPrefab.EviscerateBleed;
     }
 
     public override bool ProcessInteraction()
@@ -85,11 +85,16 @@ public class EvicerateLingeringEffect : Interaction
         if (ticksRemaining > 0)
         {
             ticksRemaining--;
+            if (ticksRemaining == 0 && countRemaining > 0)
+            {
+                ApplyEffect();
+                ticksRemaining = ticksTilActivation;
+                countRemaining--;
+            }
             return true;
         }
         else
         {
-            ApplyEffect();
             return false;
         }
     }
@@ -101,18 +106,15 @@ public class EvicerateLingeringEffect : Interaction
 
     public override bool ProcessInteractionView()
     {
-        GameObject projectile = interactionView.gameObject;
-
-        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y += 3.5f;
-
-        projectile.transform.position = attackDestination;
-
-        if (ticksRemaining <= 0)
+        if (!target.IsDead())
         {
-            return false;
+            GameObject projectile = interactionView.gameObject;
+            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination.y += 1.5f;
+            projectile.transform.position = attackDestination;
         }
-        return true;
+
+        return (ticksRemaining > 0);
     }
 
     private void ApplyEffect()
@@ -122,13 +124,6 @@ public class EvicerateLingeringEffect : Interaction
             return;
         }
         target.SetCurrentHitPoints(target.GetCurrentHitPoints() - bleedDamage);
-
-        if (countRemaining > 0)
-        {
-            Interaction skill = new EvicerateLingeringEffect(target, bleedDamage, countRemaining-1, board);
-            board.AddInteractionToProcess(skill);
-        }
-
         Debug.Log(target.GetName() + "'s Evicerate has bled for " + bleedDamage + ". " + countRemaining + " bleed ticks left.");
     }
 

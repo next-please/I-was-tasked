@@ -31,6 +31,8 @@ public class PieceView : MonoBehaviour
         {
             nameText.text = piece.GetRace().ToString() + " " + piece.GetClass().ToString();
         }
+
+        piece.SetPieceView(this);
     }
 
     public void InstantiateModelPrefab(GameObject characterModel)
@@ -112,7 +114,9 @@ public class PieceView : MonoBehaviour
     void OnPieceRemoved(RemovePieceFromBoardEvent e)
     {
         if (e.piece == piece)
-            Destroy(gameObject);
+        {
+            DestroyPieceView();
+        }
     }
 
     void OnPieceMove(PieceMoveEvent e)
@@ -122,7 +126,7 @@ public class PieceView : MonoBehaviour
             Vector3 piecePosition = ViewManager.CalculateTileWorldPosition(e.tile);
             piecePosition.y = 0.5f;
             transform.position = piecePosition;
-            transform.rotation = Quaternion.identity;
+            transform.rotation = Quaternion.identity; // there's a bug with this.. where the rotation drifts...
         }
     }
 
@@ -136,5 +140,25 @@ public class PieceView : MonoBehaviour
     {
         float currMPScale = Mathf.SmoothDamp(currentMPBar.transform.localScale.x, (float)piece.GetCurrentManaPoints() / piece.GetMaximumManaPoints(), ref velocityMP, smoothTime);
         currentMPBar.transform.localScale = new Vector3(currMPScale, 1, 1);
+    }
+
+    public void DestroyPieceView()
+    {
+        Destroy(gameObject);
+        piece.SetPieceView(null);
+    }
+
+    public void TransportToTile(Tile tile)
+    {
+        Vector3 pos = ViewManager.CalculateTileWorldPosition(tile);
+        float y = transform.position.y;
+        transform.position = new Vector3(pos.x, y, pos.z);
+    }
+
+    public void LookAtTile(Tile tile)
+    {
+        Vector3 pos = ViewManager.CalculateTileWorldPosition(tile);
+        pos.y = 0.5f;
+        transform.LookAt(pos);
     }
 }

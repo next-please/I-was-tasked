@@ -82,7 +82,7 @@ public class ProtectAllyLingeringEffect : Interaction
     {
         this.target = target;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestYellow;
+        interactionPrefab = Enums.InteractionPrefab.ProtectAlly;
     }
 
     public override bool ProcessInteraction()
@@ -107,11 +107,12 @@ public class ProtectAllyLingeringEffect : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
+        PieceView pv = target.GetPieceView();
+        projectile.transform.parent = pv.transform;
+        Vector3 pos = pv.transform.position;
+        pos.y = 1.8f;
 
-        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y += 3.5f;
-
-        projectile.transform.position = attackDestination;
+        projectile.transform.position = pos;
 
         if (ticksRemaining <= 0)
         {

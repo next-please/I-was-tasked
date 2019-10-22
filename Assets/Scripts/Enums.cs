@@ -22,6 +22,28 @@ public static class Enums
 
     public enum InteractionPrefab
     {
+        None,
+        BarkSkin,
+        BlessingOfNature,
+        Charge,
+        CheapShot,
+        CurseOfAgony,
+        EviscerateBleed,
+        Fireblast,
+        ForestSpirits,
+        FrostArmour,
+        GreaterHeal,
+        MagicMissile,
+        MarkForDeath,
+        Moonfire,
+        ProtectAlly,
+        Rampage,
+        Rot,
+        ShadowStrike,
+        ShapeShift,
+        ThunderStorm,
+        ThunderStormLightning,
+        UnholyAura,
         ProjectileTestBlue,
         ProjectileTestRed,
         FishBallTest,
@@ -31,7 +53,10 @@ public static class Enums
         ProjectileTestBlack,
         ProjectileTestLightBlue,
         ProjectileTestFireRed,
-        ProjectileTestArcanePurple
+        ProjectileTestArcanePurple,
+        ProjectileTestSicklyGreen,
+        CylinderTestSicklyGreen,
+        CylinderTestLightBlue,
     }
 
     public static string[] JobSynergyDescription = new string[]

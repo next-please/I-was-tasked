@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class InteractionView : MonoBehaviour
 {
-    private Interaction interaction;
+    protected Interaction interaction;
+    protected bool isCleaningUp = false;
 
     public void TrackInteraction(Interaction interaction)
     {
         this.interaction = interaction;
     }
 
-    public void CleanUpInteraction()
+    public virtual void CleanUpInteraction()
     {
         Destroy(gameObject);
     }
@@ -25,7 +26,11 @@ public class InteractionView : MonoBehaviour
 
         if (!interaction.ProcessInteractionView())
         {
-            CleanUpInteraction();
+            if (!isCleaningUp)
+            {
+                isCleaningUp = true;
+                CleanUpInteraction();
+            }
         }
     }
 }

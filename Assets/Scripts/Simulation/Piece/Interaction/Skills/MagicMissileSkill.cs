@@ -23,7 +23,7 @@ public class MagicMissileSkill : Interaction
         this.countRemaining = magicMissileDefaultCount;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestArcanePurple;
+        interactionPrefab = Enums.InteractionPrefab.MagicMissile;
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
         attackSource.y = 1.0f;
@@ -39,7 +39,7 @@ public class MagicMissileSkill : Interaction
         this.board = board;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestArcanePurple;
+        interactionPrefab = Enums.InteractionPrefab.MagicMissile;
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
         attackSource.y = 1.0f;

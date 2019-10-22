@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4724823433855342015}
   - component: {fileID: 2960067214793122089}
   - component: {fileID: 5424560165761441381}
+  - component: {fileID: 8438696852794221328}
   m_Layer: 0
   m_Name: Human Druid
   m_TagString: Untagged
@@ -89,6 +90,19 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &8438696852794221328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655288745425940841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddf80d291f898e40b492b45b6c48607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Head: {fileID: 9001963884443859994}
 --- !u!1 &9001963884443861040
 GameObject:
   m_ObjectHideFlags: 0
