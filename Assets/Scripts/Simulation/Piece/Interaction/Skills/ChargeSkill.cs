@@ -28,6 +28,8 @@ public class ChargeSkill : Interaction
         int selfRow = caster.GetCurrentTile().GetRow();
         int selfCol = caster.GetCurrentTile().GetCol();
 
+        interactionPrefab = Enums.InteractionPrefab.Charge;
+
         Tile tile = null;
 
         if (targetCol > 0 && selfCol < targetCol)
@@ -38,6 +40,7 @@ public class ChargeSkill : Interaction
                 targetTile = tile;
             }
         }
+
         if (targetTile == null && targetCol + 1 < board.GetNumCols() && selfCol > targetCol)
         {
             tile = board.GetTile(targetRow, targetCol + 1);
@@ -93,17 +96,6 @@ public class ChargeSkill : Interaction
         }
     }
 
-    // public ChargeSkill(Piece caster, Piece target, Board board, Tile targetTile, int totalDamage)
-    // {
-    //     this.caster = caster;
-    //     this.target = target;
-    //     this.board = board;
-    //     this.ticksTotal = 50;
-    //     this.ticksRemaining = ticksTilActivation;
-    //     this.targetTile = targetTile;
-    //     this.totalDamage = totalDamage;
-    // }
-
     public override bool ProcessInteraction()
     {
         if (ticksRemaining > 0)
@@ -124,19 +116,21 @@ public class ChargeSkill : Interaction
         targetTilePos.y = 0.5f;
         pv.transform.position = targetTilePos;
         if (!target.IsDead())
+        {
             pv.LookAtTile(target.GetCurrentTile());
+        }
         interactionView.CleanUpInteraction();
     }
 
     public override bool ProcessInteractionView()
     {
-        if (ticksTotal > 0)
+        if (ticksRemaining > 0)
         {
             interactionView.transform.forward = forward;
             PieceView pv = caster.GetPieceView();
             pv.transform.Translate(forward * speedToTranslate * Time.deltaTime, Space.World);
             interactionView.transform.position = pv.transform.position;
-            return (ticksRemaining > 0);
+            return true;
         }
         return false;
     }
@@ -146,37 +140,6 @@ public class ChargeSkill : Interaction
         if (caster.IsDead() || target.IsDead())
             return;
 
-        // int newRow = caster.GetCurrentTile().GetRow();
-        // int newCol = caster.GetCurrentTile().GetCol();
-
-        // if (caster.GetCurrentTile().GetRow() < targetTile.GetRow())
-        // {
-        //     newRow++;
-        // }
-        // if (caster.GetCurrentTile().GetRow() > targetTile.GetRow())
-        // {
-        //     newRow--;
-        // }
-        // if (caster.GetCurrentTile().GetCol() < targetTile.GetCol())
-        // {
-        //     newCol++;
-        // }
-        // if (caster.GetCurrentTile().GetCol() > targetTile.GetCol())
-        // {
-        //     newCol--;
-        // }
-        // board.MovePieceToTile(caster, board.GetTile(newRow, newCol));
-
-        // if (caster.GetCurrentTile().GetCol() == targetTile.GetCol() && caster.GetCurrentTile().GetRow() == targetTile.GetRow())
-        // {
-        //     target.SetCurrentHitPoints(target.GetCurrentHitPoints() - totalDamage);
-        //     Debug.Log(caster.GetName() + " has Charge-ed " + target.GetName() + " for " + totalDamage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
-        // }
-        // else
-        // {
-        //     Interaction skill = new ChargeSkill(caster, target, board, targetTile, totalDamage);
-        //     board.AddInteractionToProcess(skill);
-        // }
         target.SetCurrentHitPoints(target.GetCurrentHitPoints() - totalDamage);
         Debug.Log(caster.GetName() + " has Charge-ed " + target.GetName() + " for " + totalDamage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
     }
