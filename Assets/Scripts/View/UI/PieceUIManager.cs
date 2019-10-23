@@ -112,60 +112,117 @@ public class PieceUIManager : MonoBehaviour
         skillName.text = "Undone Skill";
         skillDescription.text = "No description";
 
-        if (race == Enums.Race.Human && job == Enums.Job.Druid)
+        if (race == Enums.Race.Elf)
         {
-            skillName.text = "Shapeshift";
-            skillDescription.text = "FURRIES AYAYA Clap";
+            if (job == Enums.Job.Druid)
+            {
+                skillName.text = "Forest Spirits";
+                skillDescription.text = "Come get healing!";
+            }
+            else if (job == Enums.Job.Knight)
+            {
+                skillName.text = "Protect Ally";
+                skillDescription.text = "Squire, attend me! Ready sir! gachiBASS Clap";
+            }
+            else if (job == Enums.Job.Mage)
+            {
+                skillName.text = "Magic Missile";
+                skillDescription.text = "Pew pew pew! Totally not from Warcraft.";
+            }
+            else if (job == Enums.Job.Priest)
+            {
+                skillName.text = "Blessing of Nature";
+                skillDescription.text = "Two's a Pair, Tree's a Crowd.";
+            }
+            else if (job == Enums.Job.Rogue)
+            {
+                skillName.text = "Marked for Death";
+                skillDescription.text = "Heh, this guy's toast!";
+            }
         }
-        else if (race == Enums.Race.Elf && job == Enums.Job.Knight)
+        else if (race == Enums.Race.Human)
         {
-            skillName.text = "Protect Ally";
-            skillDescription.text = "Squire, attend me!";
+            if (job == Enums.Job.Druid)
+            {
+                skillName.text = "Shapeshift";
+                skillDescription.text = "FURRIES AYAYA Clap";
+            }
+            else if (job == Enums.Job.Knight)
+            {
+                skillName.text = "Charge";
+                skillDescription.text = "勧め!";
+            }
+            else if (job == Enums.Job.Mage)
+            {
+                skillName.text = "Fireblast";
+                skillDescription.text = "Hello.";
+            }
+            else if (job == Enums.Job.Priest)
+            {
+                skillName.text = "Greater Heal";
+                skillDescription.text = "You are purified!";
+            }
+            else if (job == Enums.Job.Rogue)
+            {
+                skillName.text = "Cheap Shot";
+                skillDescription.text = "Only costs Tree Fiddy.";
+            }
         }
-        else if (race == Enums.Race.Orc && job == Enums.Job.Druid)
+        else if (race == Enums.Race.Orc)
         {
-            skillName.text = "Barkskin";
-            skillDescription.text = "Woof Woof";
+            if (job == Enums.Job.Druid)
+            {
+                skillName.text = "Barkskin";
+                skillDescription.text = "Woof Woof";
+            }
+            else if (job == Enums.Job.Knight)
+            {
+                skillName.text = "Rampage";
+                skillDescription.text = "ARHHHHHHHHHHHHH";
+            }
+            else if (job == Enums.Job.Mage)
+            {
+                skillName.text = "Thunder Storm";
+                skillDescription.text = "The Sounds of Thunder will Electrify You, I guess.";
+            }
+            else if (job == Enums.Job.Priest)
+            {
+                skillName.text = "Curse of Agony";
+                skillDescription.text = "yOu ArE cUrSeD";
+            }
+            else if (job == Enums.Job.Rogue)
+            {
+                skillName.text = "Evicerate";
+                skillDescription.text = "sn1p sn4p";
+            }
         }
-        else if (race == Enums.Race.Elf && job == Enums.Job.Priest)
+        else if (race == Enums.Race.Undead)
         {
-            skillName.text = "Blessing of Nature";
-            skillDescription.text = "Come get healing!";
-        }
-        else if (race == Enums.Race.Orc && job == Enums.Job.Knight)
-        {
-            skillName.text = "Rampage";
-            skillDescription.text = "ARHHHHHHHHHHHHH";
-        }
-        else if (race == Enums.Race.Elf && job == Enums.Job.Rogue)
-        {
-            skillName.text = "Marked for Death";
-            skillDescription.text = "This guy's toast";
-        }
-        else if (race == Enums.Race.Undead && job == Enums.Job.Mage)
-        {
-            skillName.text = "Frost Armour";
-            skillDescription.text = "So cold";
-        }
-        else if (race == Enums.Race.Orc && job == Enums.Job.Priest)
-        {
-            skillName.text = "Curse of Agony";
-            skillDescription.text = "yOu ArE cUrSeD";
-        }
-        else if (race == Enums.Race.Orc && job == Enums.Job.Rogue)
-        {
-            skillName.text = "Evicerate";
-            skillDescription.text = "sn1p sn4p";
-        }
-        else if (race == Enums.Race.Human && job == Enums.Job.Mage)
-        {
-            skillName.text = "Fireblast";
-            skillDescription.text = "Hello";
-        }
-        else if (race == Enums.Race.Elf && job == Enums.Job.Mage)
-        {
-            skillName.text = "Magic Missile";
-            skillDescription.text = "Pew pew pew";
+            if (job == Enums.Job.Druid)
+            {
+                skillName.text = "Moonfire";
+                skillDescription.text = "Best results on a Full Moon.";
+            }
+            else if (job == Enums.Job.Knight)
+            {
+                skillName.text = "Rot";
+                skillDescription.text = "Frostmourne? Who needs that?";
+            }
+            else if (job == Enums.Job.Mage)
+            {
+                skillName.text = "Frost Armour";
+                skillDescription.text = "So cold.";
+            }
+            else if (job == Enums.Job.Priest)
+            {
+                skillName.text = "Unholy Aura";
+                skillDescription.text = "For immoral people only.";
+            }
+            else if (job == Enums.Job.Rogue)
+            {
+                skillName.text = "Mark For Death";
+                skillDescription.text = "That living creature will join us!";
+            }
         }
     }
 }
