@@ -68,6 +68,7 @@ public class AttackState : State
         tilePos.y = 0.5f;
         pieceView.transform.LookAt(tilePos);
         pieceView.animator.Play("Attack", 0);
+        pieceView.pieceSounds.PlayAttackSound();
     }
 
     public override void OnViewFinish(PieceView pieceView)

@@ -42,7 +42,7 @@ public class RangedAttack : Interaction
         }
         else
         {
-            SoundManager.instance.PlayPieceSound(SoundManager.PieceSound.ArrowHit);
+            
             ApplyDamageToInflict();
             return false;
         }
