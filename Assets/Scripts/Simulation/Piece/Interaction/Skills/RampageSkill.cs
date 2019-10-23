@@ -102,12 +102,15 @@ public class RampageLingeringEffect : Interaction
     {
         GameObject projectile = interactionView.gameObject;
 
-        attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackDestination.y += 3.5f;
+        if (!caster.IsDead())
+        {
+            attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackDestination.y += 3.5f;
+        }
 
         projectile.transform.position = attackDestination;
 
-        if (ticksRemaining <= 0)
+        if (ticksRemaining <= 0 || caster.IsDead())
         {
             return false;
         }
@@ -116,10 +119,6 @@ public class RampageLingeringEffect : Interaction
 
     private void ApplyEffect()
     {
-        if (caster.IsDead())
-        {
-            return;
-        }
         caster.SetAttackSpeed(caster.GetAttackSpeed() - attackSpeedChange);
         caster.SetArmourPercentage(caster.GetArmourPercentage() - armourChange);
 

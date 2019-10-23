@@ -68,7 +68,7 @@ public class CheapShotSkill : Interaction
             target.GetState().ticksRemaining = cheapShotDefaultStunDuration;
         }
 
-        Interaction skill = new CheapShotLingeringEffect(attackSource);
+        Interaction skill = new CheapShotLingeringEffect(target);
         board.AddInteractionToProcess(skill);
 
         Debug.Log(caster.GetName() + " has CheapShot-ed " + target.GetName() + ", stunning them for " + cheapShotDefaultStunDuration + " ticks.");
@@ -78,11 +78,17 @@ public class CheapShotSkill : Interaction
 public class CheapShotLingeringEffect : Interaction
 {
     private Vector3 effectPosition;
+    private Piece target;
     public int ticksTilActivation = 250;
 
-    public CheapShotLingeringEffect(Vector3 effectPosition)
+    public CheapShotLingeringEffect(Piece target)
     {
-        this.effectPosition = effectPosition;
+        this.target = target;
+        if (!target.IsDead())
+        {
+            effectPosition = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            effectPosition.y = 2f;
+        }
         this.ticksRemaining = ticksTilActivation;
     }
 
@@ -107,10 +113,15 @@ public class CheapShotLingeringEffect : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
+        if (!target.IsDead())
+        {
+            effectPosition = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            effectPosition.y = 2f;
+        }
 
         projectile.transform.position = effectPosition;
 
-        if (ticksRemaining <= 0)
+        if (ticksRemaining <= 0 || target.IsDead())
         {
             return false;
         }

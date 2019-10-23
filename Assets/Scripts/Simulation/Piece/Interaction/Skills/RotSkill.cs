@@ -7,7 +7,7 @@ public class RotSkill : Interaction
     private Piece caster;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 50;
+    private int ticksTilActivation = 30;
     private int countRemaining;
     public int rotDefaultRadius = 1;
     public int rotDefaultCount = 20;
@@ -42,7 +42,7 @@ public class RotSkill : Interaction
     public override bool ProcessInteraction()
     {
         ticksRemaining--;
-        if (ticksRemaining == 0 && countRemaining > 0)
+        if (ticksRemaining == 0 && countRemaining > 0 && !caster.IsDead())
         {
             countRemaining--;
             ApplyDamageToInflict();
@@ -52,7 +52,7 @@ public class RotSkill : Interaction
                 ticksRemaining = ticksTilActivation;
             }
         }
-        return ticksRemaining >= 0;
+        return ticksRemaining >= 0 && !caster.IsDead();
     }
 
     public override void CleanUpInteraction()

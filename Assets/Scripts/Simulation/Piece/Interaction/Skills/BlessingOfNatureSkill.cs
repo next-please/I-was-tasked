@@ -140,12 +140,15 @@ public class BlessingOfNatureLingeringEffect : Interaction
     {
         GameObject projectile = interactionView.gameObject;
 
-        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y += 1.0f;
+        if (!target.IsDead())
+        {
+            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination.y += 1.0f;
+        }
 
         projectile.transform.position = attackDestination;
 
-        if (ticksRemaining <= 0)
+        if (ticksRemaining <= 0 || target.IsDead())
         {
             return false;
         }
@@ -154,13 +157,13 @@ public class BlessingOfNatureLingeringEffect : Interaction
 
     private void ApplyEffect()
     {
+        target.SetMaximumHitPoints(target.GetMaximumHitPoints() - maximumHitPointChange);
+        target.SetAttackDamage(target.GetAttackDamage() - attackDamageChange);
         if (target.IsDead())
         {
             return;
         }
-        target.SetAttackDamage(target.GetAttackDamage() - attackDamageChange);
         target.SetCurrentHitPoints(target.GetCurrentHitPoints() - currentHitPointChange);
-        target.SetMaximumHitPoints(target.GetMaximumHitPoints() - maximumHitPointChange);
 
         Debug.Log(target.GetName() + "'s Blessing of Nature has expired.");
     }
