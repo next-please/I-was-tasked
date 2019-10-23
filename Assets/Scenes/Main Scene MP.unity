@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2195255, g: 0.43730193, b: 0.7127729, a: 1}
+  m_IndirectSpecularColor: {r: 0.21655925, g: 0.43496558, b: 0.71360886, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15978,7 +15978,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761928974}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
@@ -15988,7 +15988,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -631.5, y: -298.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1001 &763325507
@@ -25763,6 +25763,16 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.90000075
       objectReference: {fileID: 0}
+    - target: {fileID: 6448999620719597298, guid: a0f4d4c6b680301498750c356043900a,
+        type: 3}
+      propertyPath: maxSmoothness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448999620719597298, guid: a0f4d4c6b680301498750c356043900a,
+        type: 3}
+      propertyPath: displayLightIntensity
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 9032133071189779849, guid: a0f4d4c6b680301498750c356043900a,
         type: 3}
       propertyPath: m_Intensity
@@ -25782,16 +25792,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6448999620719597298, guid: a0f4d4c6b680301498750c356043900a,
-        type: 3}
-      propertyPath: maxSmoothness
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6448999620719597298, guid: a0f4d4c6b680301498750c356043900a,
-        type: 3}
-      propertyPath: displayLightIntensity
-      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f4d4c6b680301498750c356043900a, type: 3}
@@ -26497,7 +26497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 207}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1254393208
@@ -26513,7 +26513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -26521,8 +26521,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 100
+    m_Font: {fileID: 12800000, guid: 289ebaa228ec94f72891035103dc7639, type: 3}
+    m_FontSize: 64
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -31423,7 +31423,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.16, y: -11.76}
+  m_AnchoredPosition: {x: -1.1600037, y: -11.760002}
   m_SizeDelta: {x: -33.89, y: -52.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1501619386
@@ -39534,6 +39534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Medieval_Windmill
       objectReference: {fileID: 0}
+    - target: {fileID: 1222728547879670, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4032395409819742, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5517216
@@ -39609,10 +39613,6 @@ PrefabInstance:
     - target: {fileID: 4278356127332818, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.179
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222728547879670, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
@@ -44224,6 +44224,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: House
       objectReference: {fileID: 0}
+    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.9056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.86382776
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.9894367
+      objectReference: {fileID: 0}
     - target: {fileID: 4017359017749981955, guid: fb539cc724255d2498155cd1c8c64d87,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -44293,26 +44313,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7500008
-      objectReference: {fileID: 0}
-    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.9056604
-      objectReference: {fileID: 0}
-    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.86382776
-      objectReference: {fileID: 0}
-    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.9894367
       objectReference: {fileID: 0}
     - target: {fileID: 8232734100878810423, guid: fb539cc724255d2498155cd1c8c64d87,
         type: 3}
@@ -45828,6 +45828,31 @@ PrefabInstance:
       propertyPath: menuSettingsCanvas
       value: 
       objectReference: {fileID: 1313146722}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: transactionManager
+      value: 
+      objectReference: {fileID: 596478379}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: UpgradeArmy
+      value: 
+      objectReference: {fileID: 794309645}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: UpgradeMarketRarity
+      value: 
+      objectReference: {fileID: 2074863528}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: UpgradeMarketSize
+      value: 
+      objectReference: {fileID: 1397113536}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: UpgradeIncome
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 358672373647474002, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: arrangementManager
@@ -45853,6 +45878,21 @@ PrefabInstance:
       propertyPath: ArmySizeText
       value: 
       objectReference: {fileID: 576337080}
+    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: logText
+      value: 
+      objectReference: {fileID: 855603992}
+    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 710942694}
+    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: MaxNumberOfLines
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 358672374894567157, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: upgradeCanvas
@@ -45913,46 +45953,6 @@ PrefabInstance:
       propertyPath: marketInfoCanvas
       value: 
       objectReference: {fileID: 295576515}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: transactionManager
-      value: 
-      objectReference: {fileID: 596478379}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: UpgradeArmy
-      value: 
-      objectReference: {fileID: 794309645}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: UpgradeMarketRarity
-      value: 
-      objectReference: {fileID: 2074863528}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: UpgradeMarketSize
-      value: 
-      objectReference: {fileID: 1397113536}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: UpgradeIncome
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: logText
-      value: 
-      objectReference: {fileID: 855603992}
-    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 710942694}
-    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: MaxNumberOfLines
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4717154128688263282, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: PlayerPanels.Array.size
