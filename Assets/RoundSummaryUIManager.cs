@@ -47,13 +47,13 @@ public class RoundSummaryUIManager : MonoBehaviour
         {
             if (PhaseManager.damageResults[i])
             {
-                playerBadgeAnimators[i].SetTrigger("Lose");
+                playerBadgeAnimators[i].Play("Lose");
             }
             else
             {
-                playerBadgeAnimators[i].SetTrigger("Win");
+                playerBadgeAnimators[i].Play("Win");
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSecondsRealtime(0.3f);
         }
 
         yield return new WaitForSeconds(5f);
