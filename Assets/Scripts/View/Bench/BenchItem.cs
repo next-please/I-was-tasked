@@ -109,7 +109,8 @@ public class BenchItem : InteractablePiece
 
     bool IsTileDropAllowed()
     {
-        return PhaseManager.GetCurrentPhase() == Phase.Market;
+        Phase currentPhase = PhaseManager.GetCurrentPhase();
+        return (currentPhase == Phase.Market || currentPhase == Phase.PreCombat);
     }
 
     private bool IsDragAllowed()
