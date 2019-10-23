@@ -167,6 +167,7 @@ namespace Com.Nextplease.IWT
                     break;
                 case PRECOMBAT_PHASE:
                     PreCombatData data_12 = req.GetData() as PreCombatData;
+                    phaseManager.randomRoundIndex = data_12.randomIndex;
                     phaseManager.StartPreCombat(data_12.enemies);
                     break;
                 case POSTCOMBAT_PHASE:

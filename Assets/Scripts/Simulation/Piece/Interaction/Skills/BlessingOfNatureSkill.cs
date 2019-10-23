@@ -48,16 +48,41 @@ public class BlessingOfNatureSkill : Interaction
         {
             return;
         }
-        int targetIndex = board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count - 1);
-        Piece target;
-        if (board.GetActiveFriendliesOnBoard()[targetIndex].Equals(caster))
+
+        int targetIndex;
+        if (!caster.IsEnemy())
         {
-            target = board.GetActiveFriendliesOnBoard()[board.GetActiveFriendliesOnBoard().Count - 1];
+           targetIndex = board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count - 1);
         }
         else
         {
-            target = board.GetActiveFriendliesOnBoard()[targetIndex];
+            targetIndex = board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count - 1);
         }
+
+        Piece target;
+        if (!caster.IsEnemy())
+        {
+            if (board.GetActiveFriendliesOnBoard()[targetIndex].Equals(caster))
+            {
+                target = board.GetActiveFriendliesOnBoard()[board.GetActiveFriendliesOnBoard().Count - 1];
+            }
+            else
+            {
+                target = board.GetActiveFriendliesOnBoard()[targetIndex];
+            }
+        }
+        else
+        {
+            if (board.GetActiveEnemiesOnBoard()[targetIndex].Equals(caster))
+            {
+                target = board.GetActiveEnemiesOnBoard()[board.GetActiveEnemiesOnBoard().Count - 1];
+            }
+            else
+            {
+                target = board.GetActiveEnemiesOnBoard()[targetIndex];
+            }
+        }
+
         int attackDamageChange = (int)Math.Floor(target.GetAttackDamage() * blessingOfNatureDefaultMultiplierIncrease);
         target.SetAttackDamage(target.GetAttackDamage() + attackDamageChange);
         int currentHitPointChange = (int)Math.Floor(target.GetCurrentHitPoints() * blessingOfNatureDefaultMultiplierIncrease);

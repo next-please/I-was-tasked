@@ -22,6 +22,11 @@ public class MagicMissileSkill : Interaction
         this.board = board;
         this.countRemaining = magicMissileDefaultCount;
         this.ticksTotal = 50;
+        if (caster.GetClass() == Enums.Job.Rogue)
+        {
+            this.ticksTotal = 999999999;
+            this.countRemaining = 999999999;
+        }
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.MagicMissile;
 
@@ -98,11 +103,17 @@ public class MagicMissileSkill : Interaction
 
         if (countRemaining > 0)
         {
-            if (!caster.IsDead() && caster.GetState().GetType() != typeof(InfiniteState) && board.GetActiveEnemiesOnBoard().Count > 0)
+            if (!caster.IsDead() && caster.GetState().GetType() != typeof(InfiniteState) && board.GetActiveEnemiesOnBoard().Count > 0 && !caster.IsEnemy())
             {
                 Interaction skill = new MagicMissileSkill(caster, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board, countRemaining - 1);
                 board.AddInteractionToProcess(skill);
             }
+            else if (!caster.IsDead() && caster.GetState().GetType() != typeof(InfiniteState) && board.GetActiveEnemiesOnBoard().Count > 0 && caster.IsEnemy())
+            {
+                Interaction skill = new MagicMissileSkill(caster, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board, countRemaining - 1);
+                board.AddInteractionToProcess(skill);
+            }
+
         }
 
         Debug.Log(caster.GetName() + " has MagicMissile-ed " + target.GetName() + " for " + magicMissileDefaultDamage + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");

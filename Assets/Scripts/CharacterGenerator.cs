@@ -69,32 +69,32 @@ public class CharacterGenerator
     public readonly int priestManaPointAdditor = -5;
     public readonly double priestHitPointMultiplier = 1.1;
 
-    public readonly int[] tiersPoolMax = new int[] { 4, 3, 2, 1 };
+    public readonly int[] tiersPoolMax = new int[] { 4, 3, 2, 1, 0, 0, 0, 0, 0, 0 };
     public readonly int characterUpgradeDifferencePercentage = 20;
     public readonly int[,] rarityUpgradeTiers = {
-                                            { 100, 0, 0, 0 },
-                                            { 90, 10, 0, 0 },
-                                            { 80, 20, 0, 0 },
-                                            { 70, 30, 0, 0 },
-                                            { 70, 20, 10, 0 },
-                                            { 60, 30, 10, 0 },
-                                            { 50, 40, 10, 0 },
-                                            { 50, 30, 20, 0 },
-                                            { 40, 40, 20, 0 },
-                                            { 40, 30, 30, 0 },
-                                            { 40, 30, 20, 10 },
-                                            { 30, 40, 20, 10 },
-                                            { 30, 30, 30, 10 },
-                                            { 20, 40, 30, 10 },
-                                            { 10, 50, 30, 10 },
-                                            { 10, 40, 40, 10 },
-                                            { 10, 40, 30, 20 },
-                                            { 0, 50, 30, 20 },
-                                            { 0, 40, 40, 20 },
-                                            { 0, 40, 30, 30 },
-                                            { 0, 30, 40, 30 },
-                                            { 0, 30, 30, 40 },
-                                            { 0, 20, 40, 40 }
+                                            { 100, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 90, 10, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 80, 20, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 70, 30, 0, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 70, 20, 10, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 60, 30, 10, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 50, 40, 10, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 50, 30, 20, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 40, 40, 20, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 40, 30, 30, 0, 0, 0, 0, 0, 0, 0 },
+                                            { 40, 30, 20, 10, 0, 0, 0, 0, 0, 0 },
+                                            { 30, 40, 20, 10, 0, 0, 0, 0, 0, 0 },
+                                            { 30, 30, 30, 10, 0, 0, 0, 0, 0, 0 },
+                                            { 20, 40, 30, 10, 0, 0, 0, 0, 0, 0 },
+                                            { 10, 50, 30, 10, 0, 0, 0, 0, 0, 0 },
+                                            { 10, 40, 40, 10, 0, 0, 0, 0, 0, 0 },
+                                            { 10, 40, 30, 20, 0, 0, 0, 0, 0, 0 },
+                                            { 0, 50, 30, 20, 0, 0, 0, 0, 0, 0 },
+                                            { 0, 40, 40, 20, 0, 0, 0, 0, 0, 0 },
+                                            { 0, 40, 30, 30, 0, 0, 0, 0, 0, 0 },
+                                            { 0, 30, 40, 30, 0, 0, 0, 0, 0, 0 },
+                                            { 0, 30, 30, 40, 0, 0, 0, 0, 0, 0 },
+                                            { 0, 20, 40, 40, 0, 0, 0, 0, 0, 0 }
                                         };
     private int[,,] TierRaceJobPoolSize;
 
@@ -319,13 +319,13 @@ public class CharacterGenerator
                 currentManaPoints += druidManaPointAdditor * (characterRarity + 1);
                 break;
             case Enums.Job.Priest:
-                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(priestAttackDamageMultiplier, characterRarity + 1));
+                //currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(priestAttackDamageMultiplier, characterRarity + 1));
                 currentAttackRange += priestFlatAttackRangeAdditor;
                 break;
             case Enums.Job.Knight:
                 currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(knightHitPointMultiplier, characterRarity + 1));
                 currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(knightAttackDamageMultiplier, characterRarity + 1));
-                currentAttackSpeed += knightFlatAttackSpeedAdditor;
+                //currentAttackSpeed += knightFlatAttackSpeedAdditor;
                 break;
             case Enums.Job.Rogue:
                 currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(rogueHitPointMultiplier, characterRarity + 1));
@@ -333,7 +333,7 @@ public class CharacterGenerator
                 currentAttackSpeed += rogueFlatAttackSpeedAdditor;
                 break;
             case Enums.Job.Mage:
-                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(mageHitPointMultiplier, characterRarity + 1));
+                //currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(mageHitPointMultiplier, characterRarity + 1));
                 currentAttackRange += mageFlatAttackRangeAdditor;
                 currentManaPoints += mageManaPointAdditor * (characterRarity + 1);
                 break;
@@ -344,7 +344,7 @@ public class CharacterGenerator
             case Enums.Race.Elf:
                 currentMovementSpeed += elfFlatMovementSpeedAdditor;
                 currentAttackSpeed += elfFlatAttackSpeedAdditor;
-                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(elfHitPointMultiplier, characterRarity + 1));
+                //currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(elfHitPointMultiplier, characterRarity + 1));
                 if (currentAttackRange > 1)
                 {
                     currentAttackRange += elfFlatConditionalAttackRangeAdditor;

@@ -58,7 +58,7 @@ public class ForestSpiritsSkill : Interaction
     {
         for (int i=0; i<forestSpiritsDefaultCount; i++)
         {
-            Interaction skill = new ForestSpiritInitialEffect(attackSource, board, initialTicksTilActivation + (i*subsequentTicksTilActivation));
+            Interaction skill = new ForestSpiritInitialEffect(caster, attackSource, board, initialTicksTilActivation + (i*subsequentTicksTilActivation));
             board.AddInteractionToProcess(skill);
             attackSource.y += attackSourceOffset;
         }
@@ -69,9 +69,11 @@ public class ForestSpiritInitialEffect : Interaction
 {
     private Vector3 effectSpace;
     private Board board;
+    private Piece caster;
 
-    public ForestSpiritInitialEffect(Vector3 effectSpace, Board board, int ticksTilActivation)
+    public ForestSpiritInitialEffect(Piece caster, Vector3 effectSpace, Board board, int ticksTilActivation)
     {
+        this.caster = caster;
         this.ticksTotal = 50;
         this.board = board;
         this.ticksRemaining = ticksTilActivation;
@@ -116,7 +118,17 @@ public class ForestSpiritInitialEffect : Interaction
             return;
 
         Piece target;
-        List<Piece> damagedFriendlies = board.GetActiveFriendliesOnBoard().FindAll(piece => piece.GetCurrentHitPoints() < piece.GetMaximumHitPoints());
+        List<Piece> damagedFriendlies;
+
+        if (!caster.IsEnemy())
+        {
+            damagedFriendlies = board.GetActiveFriendliesOnBoard().FindAll(piece => piece.GetCurrentHitPoints() < piece.GetMaximumHitPoints());
+        }
+        else
+        {
+            damagedFriendlies = board.GetActiveEnemiesOnBoard().FindAll(piece => piece.GetCurrentHitPoints() < piece.GetMaximumHitPoints());
+        }
+
         if (damagedFriendlies.Count > 0)
         {
             target = damagedFriendlies[board.GetRNGesus().Next(0, damagedFriendlies.Count)];

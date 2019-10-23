@@ -7,10 +7,12 @@ namespace Com.Nextplease.IWT
     public class PreCombatData : Data
     {
         public List<List<Piece>> enemies;
+        public int randomIndex;
 
-        public PreCombatData(List<List<Piece>> enemies)
+        public PreCombatData(List<List<Piece>> enemies, int randomIndex)
         {
             this.enemies = enemies;
+            this.randomIndex = randomIndex;
         }
 
     }

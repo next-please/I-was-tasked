@@ -51,7 +51,42 @@ public class SkillState : State
             else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Druid)
                 skill = new ForestSpiritsSkill(piece, board);
         }
+        if (piece.IsEnemy())
+        {
+            if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Rogue)
+                skill = new CheapShotSkill(piece, piece.GetTarget(), board);
+            else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Rogue)
+                skill = new EvicerateSkill(piece, piece.GetTarget(), board);
+            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
+                skill = new ShapeshiftSkill(piece, board);
+            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Mage)
+                skill = new FireblastSkill(piece, piece.GetTarget());
+            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Priest)
+                skill = new GreaterHealSkill(piece, board);
+            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Rogue && board.GetActiveFriendliesOnBoard().Count > 0)
+                skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board);
+            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Priest)
+                skill = new RaiseDeadSkill(piece, board);
+            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Druid)
+                skill = new ForestSpiritsSkill(piece, board);
+            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Priest)
+                skill = new BlessingOfNatureSkill(piece, board);
+            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Knight)
+                skill = new ProtectAllySkill(piece, board);
+            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Knight)
+                skill = new RotSkill(piece, board);
+            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Rogue && board.GetActiveFriendliesOnBoard().Count > 0)
+                skill = new MagicMissileSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
+            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Mage && board.GetActiveFriendliesOnBoard().Count > 0)
+                skill = new MagicMissileSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
+            else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Druid)
+                skill = new BarkskinSkill(piece, board);
+            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Druid)
+                skill = new MoonfireSkill(piece, piece.GetTarget(), board);
+            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Mage)
+                skill = new BerserkSkill(piece, board);
 
+        }
         board.AddInteractionToProcess(skill);
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
         Debug.Log(piece.GetName() + " has casted a skill!");
