@@ -70,7 +70,7 @@ public class MoonfireSkill : Interaction
 public class MoonfireLingeringEffect : Interaction
 {
     private Vector3 effectPosition;
-    public int ticksTilActivation = 50;
+    public int ticksTilActivation = 20;
 
     public MoonfireLingeringEffect(Vector3 effectPosition)
     {

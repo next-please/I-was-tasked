@@ -7,7 +7,7 @@ public class RotSkill : Interaction
     private Piece caster;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 50;
+    private int ticksTilActivation = 30;
     private int countRemaining;
     public int rotDefaultRadius = 1;
     public int rotDefaultCount = 20;
@@ -42,7 +42,7 @@ public class RotSkill : Interaction
     public override bool ProcessInteraction()
     {
         ticksRemaining--;
-        if (ticksRemaining == 0 && countRemaining > 0)
+        if (ticksRemaining == 0 && countRemaining > 0 && !caster.IsDead())
         {
             countRemaining--;
             ApplyDamageToInflict();
@@ -52,7 +52,7 @@ public class RotSkill : Interaction
                 ticksRemaining = ticksTilActivation;
             }
         }
-        return ticksRemaining >= 0;
+        return ticksRemaining >= 0 && !caster.IsDead();
     }
 
     public override void CleanUpInteraction()
@@ -65,6 +65,12 @@ public class RotSkill : Interaction
         GameObject projectile = interactionView.gameObject;
 
         // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
+
+        if (!caster.IsDead())
+        {
+            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackSource.y = 0.5f;
+        }
         projectile.transform.position = attackSource;
 
         if (ticksRemaining <= 0 || caster.IsDead())

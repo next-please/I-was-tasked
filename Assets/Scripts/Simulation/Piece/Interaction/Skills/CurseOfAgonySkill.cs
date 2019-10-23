@@ -96,13 +96,15 @@ public class CurseOfAgonyLingeringEffect : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
-
-        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y = 2f;
+        if (!target.IsDead())
+        {
+            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination.y = 2f;
+        }
 
         projectile.transform.position = attackDestination;
 
-        if (ticksRemaining <= 0)
+        if (ticksRemaining <= 0 || target.IsDead())
         {
             return false;
         }

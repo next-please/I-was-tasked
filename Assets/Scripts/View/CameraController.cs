@@ -33,14 +33,14 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow) && playerPosition + 1 < 3 && playerPosition >= 0)
+        if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && playerPosition + 1 < 3 && playerPosition >= 0)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[playerPosition + 1]));
             playerPosition++;
             EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && playerPosition - 1 >= 0)
+        else if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && playerPosition - 1 >= 0)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[playerPosition - 1]));
@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
             EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && playerPosition != -1)
+        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && playerPosition != -1)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[3]));
@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
             EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow) && playerPosition == -1)
+        if ((Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(playerTransform));

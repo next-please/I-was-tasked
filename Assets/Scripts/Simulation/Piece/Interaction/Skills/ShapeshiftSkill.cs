@@ -76,7 +76,7 @@ public class ShapeshiftLingeringEffect : Interaction
 
     public override bool ProcessInteraction()
     {
-        if (ticksRemaining > 0)
+        if (ticksRemaining > 0 && !caster.IsDead())
         {
             ticksRemaining--;
             return true;
@@ -94,7 +94,7 @@ public class ShapeshiftLingeringEffect : Interaction
 
     public override bool ProcessInteractionView()
     {
-        if (ticksRemaining <= 0)
+        if (ticksRemaining <= 0 || caster.IsDead())
         {
             return false;
         }

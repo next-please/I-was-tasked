@@ -95,7 +95,7 @@ public class PhaseManager : MonoBehaviour
         simulationPlayerCount++;
         Assert.IsTrue(currentPhase == Phase.Combat);
         damageResults[(int)player] = marketManager.CalculateAndApplyDamageToCastle(piecesOnBoard);
-        if (marketManager.GetCastleHealth() < 0)
+        if (marketManager.GetCastleHealth() <= 0)
         {
             OnGameOver();
         }
