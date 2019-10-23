@@ -28,7 +28,7 @@ public abstract class InteractablePiece :
     ISelectHandler,
     IDeselectHandler
 {
-    private readonly float zPosOnDrag = 10f;
+    private readonly float zPosOnDrag = 8f;
 
     public Piece piece;
     protected GameObject targetObject;
