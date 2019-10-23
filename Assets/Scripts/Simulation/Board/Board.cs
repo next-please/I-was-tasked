@@ -27,6 +27,11 @@ public class Board
             Tile tileX = x.GetCurrentTile();
             Tile tileY = y.GetCurrentTile();
 
+            if (tileX == null || tileY == null)
+            {
+                return 0;
+            }
+            
             // The Rightmost Piece.
             if (tileX.GetCol() > tileY.GetCol())
             {
