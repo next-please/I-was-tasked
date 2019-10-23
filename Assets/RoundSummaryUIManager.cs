@@ -10,7 +10,6 @@ public class RoundSummaryUIManager : MonoBehaviour
     public Animator[] playerBadgeAnimators;
 
     private int playerNum;
-    private bool isLose;
 
     void Awake()
     {
@@ -21,7 +20,6 @@ public class RoundSummaryUIManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
-        EventManager.Instance.AddListener<DamageTakenEvent>(OnDamageTaken);
     }
 
     void OnDisable()
@@ -37,11 +35,6 @@ public class RoundSummaryUIManager : MonoBehaviour
         }
     }
 
-    void OnDamageTaken(DamageTakenEvent e)
-    {
-        isLose = true;
-    }
-
     IEnumerator ShowRoundSummary()
     {
         yield return new WaitForSeconds(1f);
@@ -50,23 +43,18 @@ public class RoundSummaryUIManager : MonoBehaviour
         roundSummaryAnimator.Play("Enter");
 
         // play win/lose
-        yield return new WaitForSeconds(playerNum * 0.3f);
-
-        foreach (Animator animator in playerBadgeAnimators)
+        for (int i = 0; i < 3; i++)
         {
-            // fix this
+            if (PhaseManager.damageResults[i])
+            {
+                playerBadgeAnimators[i].SetTrigger("Lose");
+            }
+            else
+            {
+                playerBadgeAnimators[i].SetTrigger("Win");
+            }
+            yield return new WaitForSeconds(0.5f);
         }
-
-
-        if (isLose)
-        {
-            playerBadgeAnimators[playerNum].SetTrigger("Lose");
-        }
-        else
-        {
-            playerBadgeAnimators[playerNum].SetTrigger("Win");
-        }
-        isLose = false;
 
         yield return new WaitForSeconds(5f);
         roundSummaryAnimator.Play("Exit");
@@ -74,6 +62,14 @@ public class RoundSummaryUIManager : MonoBehaviour
 
         // reset state
         roundSummaryCanvas.enabled = false;
-        playerBadgeAnimators[playerNum].Play("Idle");
+        resetBadges();
+    }
+
+    private void resetBadges()
+    {
+        foreach (Animator animator in playerBadgeAnimators)
+        {
+            animator.Play("Idle");
+        }
     }
 }

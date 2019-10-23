@@ -20,7 +20,7 @@ public class MarketManager : MonoBehaviour
         market.CastleHealth = StartingCastleHealth;
     }
 
-    public void CalculateAndApplyDamageToCastle(List<Piece> piecesOnBoard)
+    public bool CalculateAndApplyDamageToCastle(List<Piece> piecesOnBoard)
     {
         int totalDamage = 0;
         foreach (Piece piece in piecesOnBoard)
@@ -34,6 +34,7 @@ public class MarketManager : MonoBehaviour
             EventManager.Instance.Raise(new DamageTakenEvent { currentHealth = market.CastleHealth });
         }
         EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
+        return totalDamage > 0;
     }
 
     // probably migrate this? - nic

@@ -20,6 +20,8 @@ public enum Phase
 
 public class PhaseManager : MonoBehaviour
 {
+    public static bool[] damageResults;
+
     public TextMeshProUGUI CurrentPhaseText;
     public TextMeshProUGUI CurrentTimeText;
     public TextMeshProUGUI CurrentRoundText;
@@ -50,11 +52,13 @@ public class PhaseManager : MonoBehaviour
     private int numPlayers = 1;
     private bool phasesRunning = false;
 
+
     private HashSet<string> playerReadySet = new HashSet<string>();
 
     void Awake()
     {
         SwordImage.enabled = false;
+        damageResults = new bool[3];
     }
 
     public void StartPhases(int numPlayers = 1)
@@ -90,7 +94,7 @@ public class PhaseManager : MonoBehaviour
     {
         simulationPlayerCount++;
         Assert.IsTrue(currentPhase == Phase.Combat);
-        marketManager.CalculateAndApplyDamageToCastle(piecesOnBoard);
+        damageResults[(int)player] = marketManager.CalculateAndApplyDamageToCastle(piecesOnBoard);
         if (marketManager.GetCastleHealth() < 0)
         {
             OnGameOver();
@@ -237,15 +241,18 @@ public class PhaseManager : MonoBehaviour
         requestHandler.SendRequest(req);
     }
 
-    public void SetPlayerReadyForPostCombat(string playerID) {
+    public void SetPlayerReadyForPostCombat(string playerID)
+    {
         playerReadySet.Add(playerID);
     }
 
-    public bool PlayersReadyForPostCombat() {
+    public bool PlayersReadyForPostCombat()
+    {
         return playerReadySet.Count == roomManager.NumPlayersToStart;
     }
 
-    public void ClearPlayerReadySet() {
+    public void ClearPlayerReadySet()
+    {
         playerReadySet.Clear();
     }
 
