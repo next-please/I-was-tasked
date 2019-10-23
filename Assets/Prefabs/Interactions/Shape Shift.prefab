@@ -284,7 +284,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 10
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -4833,7 +4833,7 @@ ParticleSystemRenderer:
   m_ApplyActiveColorSpace: 1
   m_AllowRoll: 1
   m_VertexStreams: 00010302040522
-  m_Mesh: {fileID: 271131481203588390, guid: fe691771c92645846ba01314e00aa08e, type: 3}
+  m_Mesh: {fileID: 271131481203588390, guid: 9c8f7f09caf1d0548b52180cc388f521, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
