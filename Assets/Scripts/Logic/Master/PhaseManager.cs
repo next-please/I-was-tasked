@@ -129,7 +129,7 @@ public class PhaseManager : MonoBehaviour
 
     public void Initialize(int numPlayers, int[] seeds)
     {
-        this.round = 11;
+        this.round = 0;
         this.numPlayers = numPlayers;
         ChangePhase(Phase.Initialization);
         synergyManager.SetSeed(seeds[0]);
