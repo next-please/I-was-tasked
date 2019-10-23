@@ -9,14 +9,11 @@ public class MarketUIManager : MonoBehaviour
 {
     public Canvas marketCanvas;
     public Canvas marketInfoCanvas;
-    public Canvas marketTooltipCanvas;
 
     public Text MarketSizeText;
     public Text MarketRarityText;
     public Text PassiveIncomeText;
     public Text CastleHealthText;
-
-    public MarketTooltip marketTooltip;
 
     public TransactionManager transactionManager;
 
@@ -40,14 +37,12 @@ public class MarketUIManager : MonoBehaviour
     {
         EventManager.Instance.AddListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.AddListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
-        EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<MarketUpdateEvent>(OnMarketUpdate);
         EventManager.Instance.RemoveListener<PurchaseMarketItemEvent>(OnPurchaseMarketItem);
-        EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
     }
 
     void Awake()
@@ -66,8 +61,6 @@ public class MarketUIManager : MonoBehaviour
 
         ClearMarket();
         SetCanvasVisibility(false);
-
-        marketTooltipCanvas.enabled = false;
     }
 
     void SetCanvasVisibility(bool visibility)
@@ -159,34 +152,5 @@ public class MarketUIManager : MonoBehaviour
         Piece pieceToPurchase = marketPieces[itemIndex];
         Player player = RoomManager.GetLocalPlayer();
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
-    }
-
-    void OnHoverMarketItem(HoverMarketItemEvent e)
-    {
-        if (e.piece == null)
-        {
-            HideMarketTooltip();
-        }
-        else
-        {
-            ShowMarketTooltip(e.piece);
-        }
-    }
-
-    private void HideMarketTooltip()
-    {
-        if (marketTooltipCanvas)
-        {
-            marketTooltipCanvas.enabled = false;
-        }
-    }
-
-    private void ShowMarketTooltip(Piece piece)
-    {
-        if (marketTooltipCanvas && marketTooltip)
-        {
-            marketTooltipCanvas.enabled = true;
-            marketTooltip.SetMarketItemInfo(piece);
-        }
     }
 }

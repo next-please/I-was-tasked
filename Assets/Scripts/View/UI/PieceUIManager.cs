@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class PieceUIManager : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class PieceUIManager : MonoBehaviour
     public Text currentHP;
     public Text currentMP; // Might not be an imporant value.
 
+    public Image priceIcon;
+    public Image priceBackdrop;
+    public Text price;
+
     public GameObject[] rarityStars;
     private int previousRarityIndex = 0;
 
@@ -37,17 +42,20 @@ public class PieceUIManager : MonoBehaviour
     {
         EventManager.Instance.AddListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.AddListener<DeselectPieceEvent>(OnPieceDeselected);
+        EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.RemoveListener<DeselectPieceEvent>(OnPieceDeselected);
+        EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
     }
 
     void OnPieceSelected(SelectPieceEvent e)
     {
         ShowCanvas(e.piece);
+        ShowCost(false);
     }
 
     void OnPieceDeselected(DeselectPieceEvent e)
@@ -66,6 +74,20 @@ public class PieceUIManager : MonoBehaviour
         pieceCanvas.enabled = false;
     }
 
+    void OnHoverMarketItem(HoverMarketItemEvent e)
+    {
+        if (e.piece != null)
+        {
+            ShowCanvas(e.piece);
+            ShowCost(true);
+        }
+        else
+        {
+            HideCanvas();
+            ShowCost(false);
+        }
+    }
+
     private void SetPieceInfo(Piece piece)
     {
         nameText.text = piece.GetName();
@@ -76,6 +98,19 @@ public class PieceUIManager : MonoBehaviour
         SetSkillInfo(piece.GetClass(), piece.GetRace());
         SetAttackInfo(piece.GetAttackRange(), piece.GetAttackDamage());
         SetRarity(piece.GetRarity());
+        SetCost((int) Math.Pow(2, piece.GetRarity() - 1));
+    }
+
+    private void SetCost(int price)
+    {
+        this.price.text = string.Format("{0}", price);
+    }
+
+    private void ShowCost(bool showCost)
+    {
+        priceIcon.enabled = showCost;
+        priceBackdrop.enabled = showCost;
+        price.enabled = showCost;
     }
 
     private void SetClassRaceIcons(Enums.Job job, Enums.Race race)
