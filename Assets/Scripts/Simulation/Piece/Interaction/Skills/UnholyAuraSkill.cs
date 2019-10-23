@@ -65,6 +65,13 @@ public class UnholyAuraSkill : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
+
+        if (!caster.IsDead())
+        {
+            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackSource.y += 1f;
+        }
+
         projectile.transform.position = attackSource;
         return (ticksRemaining > 0 && !caster.IsDead());
     }
