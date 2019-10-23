@@ -4214,6 +4214,7 @@ GameObject:
   - component: {fileID: 4724823433855342015}
   - component: {fileID: 2960067214793122089}
   - component: {fileID: 5424560165761441381}
+  - component: {fileID: 7412065515462810218}
   m_Layer: 0
   m_Name: Undead Priest
   m_TagString: Untagged
@@ -4295,3 +4296,18 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &7412065515462810218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655288745425940841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48878f6aed57b3146aacea3d9ac55ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackAudioSource: {fileID: 1407180156934519477, guid: 7170fea43e461a64f843ea05459862fd,
+    type: 3}
+  skillAudioSource: {fileID: 0}

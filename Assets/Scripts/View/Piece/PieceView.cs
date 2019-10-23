@@ -10,6 +10,7 @@ public class PieceView : MonoBehaviour
     public GameObject currentMPBar;
     public TextMeshPro nameText; // todo: remove later
     public Piece piece; // The piece being displayed.
+    public PieceSounds pieceSounds;
     private IViewState prevViewAction;
     private float velocityHP = 0.0f;
     private float velocityMP = 0.0f;
@@ -20,6 +21,8 @@ public class PieceView : MonoBehaviour
         Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
         statusBars.transform.LookAt(lookAtPosition);
         currentMPBar.transform.localScale = new Vector3(0, 1, 1);
+        pieceSounds = GetComponentInChildren<PieceSounds>();
+        pieceSounds.InstantiateSounds(this.transform);
     }
 
     public void TrackPiece(Piece piece)
@@ -41,7 +44,6 @@ public class PieceView : MonoBehaviour
         modelPrefab.transform.SetParent(this.transform);
         modelPrefab.transform.localPosition = Vector3.zero;
         modelPrefab.transform.rotation = transform.rotation;
-
         animator = modelPrefab.GetComponent<Animator>();
     }
 

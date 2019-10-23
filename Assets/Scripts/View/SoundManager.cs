@@ -6,18 +6,6 @@ public class SoundManager : MonoBehaviour
 {
     private static SoundManager s_Instance = null; // Singleton
 
-    // Standard Piece Sounds
-    public AudioSource[] pieceSwordHitAudioSources;
-    public AudioSource[] pieceArrowHitAudioSources;
-
-    private int count = 0;
-
-    public enum PieceSound
-    {
-        SwordHit,
-        ArrowHit
-    }
-
     public static SoundManager instance
     {
         get
@@ -46,31 +34,5 @@ public class SoundManager : MonoBehaviour
         AudioListener.volume = volume;
     }
 
-    public void PlayPieceSound(PieceSound pieceSound)
-    {
-        AudioSource[] audioSources;
-        switch (pieceSound)
-        {
-            case PieceSound.SwordHit:
-                audioSources = pieceSwordHitAudioSources;
-                break;
-            case PieceSound.ArrowHit:
-                audioSources = pieceArrowHitAudioSources;
-                break;
-            default:
-                audioSources = new AudioSource[0];
-                break;
-        }
-
-        // Try to "rotate" the sounds being played (otherwise it gets repetitive).
-        while (audioSources[count % audioSources.Length].isPlaying)
-        {
-            count++;
-            if (count % audioSources.Length == 0)
-            {
-                count = 0;
-            }
-        }
-        audioSources[count % audioSources.Length].Play();
-    }
+    // To-do: handle music?
 }
