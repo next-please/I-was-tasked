@@ -60,10 +60,7 @@ public class ViewManager : MonoBehaviour
     public void OnPieceAdded(AddPieceToBoardEvent e)
     {
         Piece piece = e.piece;
-        int i = e.row;
-        int j = e.col;
-        Player player = e.player;
-
+        Player boardOwner = e.player;
         GameObject pieceViewPrefab = piece.IsEnemy() ? EnemyPieceViewPrefab : FriendlyPieceViewPrefab;
 
         Vector3 tileWorldPos = CalculateTileWorldPosition(e.tile);
@@ -71,7 +68,7 @@ public class ViewManager : MonoBehaviour
         GameObject pieceObj = Instantiate(pieceViewPrefab, tileWorldPos, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
-        pieceView.InstantiateModelPrefab(characterPrefabLoader.GetPrefab(piece));
+        pieceView.InstantiateModelPrefab(characterPrefabLoader.GetPrefab(piece), boardOwner);
         pieceObj.transform.parent = transform;
     }
 

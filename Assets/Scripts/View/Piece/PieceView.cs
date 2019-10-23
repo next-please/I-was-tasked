@@ -38,13 +38,16 @@ public class PieceView : MonoBehaviour
         piece.SetPieceView(this);
     }
 
-    public void InstantiateModelPrefab(GameObject characterModel)
+    public void InstantiateModelPrefab(GameObject characterModel, Player boardOwner)
     {
         GameObject modelPrefab = Instantiate(characterModel) as GameObject;
         modelPrefab.transform.SetParent(this.transform);
         modelPrefab.transform.localPosition = Vector3.zero;
         modelPrefab.transform.rotation = transform.rotation;
         animator = modelPrefab.GetComponent<Animator>();
+        float rotation = (int) boardOwner * 45;
+        rotation += piece.IsEnemy() ? 180 : 0;
+        modelPrefab.transform.parent.Rotate(new Vector3(0, 1, 0), rotation);
     }
 
     void OnEnable()
@@ -128,7 +131,6 @@ public class PieceView : MonoBehaviour
             Vector3 piecePosition = ViewManager.CalculateTileWorldPosition(e.tile);
             piecePosition.y = 0.5f;
             transform.position = piecePosition;
-            transform.rotation = Quaternion.identity; // there's a bug with this.. where the rotation drifts...
         }
     }
 
