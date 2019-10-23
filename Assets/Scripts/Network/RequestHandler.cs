@@ -78,9 +78,15 @@ namespace Com.Nextplease.IWT
                 case MARKET_PHASE:
                 case PRECOMBAT_PHASE:
                 case POSTCOMBAT_PHASE: // TODO: wait for all clients to finish before approving
-                    if (roomManager.IsOffline || req.GetRequester() == networkManager.GetLocalPlayerID())
-                    {
+                    if (roomManager.IsOffline) {
                         req.Approve();
+                        break;
+                    }
+
+                    phaseManager.SetPlayerReadyForPostCombat(req.GetRequester());
+                    if(phaseManager.PlayersReadyForPostCombat()) {
+                        req.Approve();
+                        phaseManager.ClearPlayerReadySet();
                     }
                     break;
                 case BUY_PIECE:

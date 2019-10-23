@@ -50,6 +50,8 @@ public class PhaseManager : MonoBehaviour
     private int numPlayers = 1;
     private bool phasesRunning = false;
 
+    private HashSet<string> playerReadySet = new HashSet<string>();
+
     void Awake()
     {
         SwordImage.enabled = false;
@@ -233,6 +235,18 @@ public class PhaseManager : MonoBehaviour
         Data data = new PhaseManagementData(this.numPlayers, round);
         Request req = new Request(ActionTypes.POSTCOMBAT_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
+    }
+
+    public void SetPlayerReadyForPostCombat(string playerID) {
+        playerReadySet.Add(playerID);
+    }
+
+    public bool PlayersReadyForPostCombat() {
+        return playerReadySet.Count == roomManager.NumPlayersToStart;
+    }
+
+    public void ClearPlayerReadySet() {
+        playerReadySet.Clear();
     }
 
     public void StartPostCombat()
