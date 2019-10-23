@@ -170,6 +170,7 @@ public class PhaseManager : MonoBehaviour
             yield break;
         }
         CurrentRoundText.text = "Round " + round;
+        summonManager.RemoveAllEnemyPieces(numPlayers);
         TryMarketPhase();
     }
 
@@ -215,10 +216,7 @@ public class PhaseManager : MonoBehaviour
     IEnumerator PreCombatToCombat(List<List<Piece>> enemies)
     {
         ChangePhase(Phase.PreCombat);
-        // We might want to change the summonManager placement because the dead bodies still linger after the round.
-        summonManager.RemoveAllEnemyPieces(numPlayers);
         summonManager.SummonEnemies(enemies);
-        summonManager.RemoveExcessPlayerPieces(numPlayers);
         synergyManager.ApplySynergiesToArmies(numPlayers);
         yield return Countdown(preCombatDuration);
         Combat();
@@ -227,6 +225,7 @@ public class PhaseManager : MonoBehaviour
     void Combat()
     {
         ChangePhase(Phase.Combat);
+        summonManager.RemoveExcessPlayerPieces(numPlayers);
         CurrentTimeText.text = "";
         SwordImage.enabled = true;
         simulationPlayerCount = 0;
