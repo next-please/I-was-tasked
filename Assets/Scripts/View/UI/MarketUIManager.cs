@@ -4,14 +4,15 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Com.Nextplease.IWT;
+using TMPro;
 
 public class MarketUIManager : MonoBehaviour
 {
     public Canvas marketCanvas;
     public Canvas marketInfoCanvas;
 
-    public Text MarketSizeText;
-    public Text MarketRarityText;
+    public TextMeshProUGUI MarketSizeText;
+    public TextMeshProUGUI MarketRarityText;
 
     public TransactionManager transactionManager;
 
@@ -69,7 +70,7 @@ public class MarketUIManager : MonoBehaviour
 
     void OnMarketUpdate(MarketUpdateEvent e)
     {
-        MarketRarityText.text = "Market Rarity: Tier " + e.readOnlyMarket.GetMarketTier().ToString();
+        MarketRarityText.text = "Market Level: " + e.readOnlyMarket.GetMarketTier().ToString();
         MarketSizeText.text = "Market Size: " + e.readOnlyMarket.GetMarketSize().ToString();
         UpdateMarketButtons(e);
         UpdateMarket(e);
