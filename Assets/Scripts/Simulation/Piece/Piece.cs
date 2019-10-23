@@ -13,6 +13,7 @@ public class Piece : ISerializable
     private Tile initialTile;
     private Tile currentTile;
     private Tile lockedTile;
+    public Tuple<int, int> startingSpot;
 
     private string name;
     private string title;
@@ -99,13 +100,13 @@ public class Piece : ISerializable
         // Placeholder Mana Gain Values.
         if (!isEnemy)
         {
-            SetManaPointsGainedOnAttack(20);
-            SetManaPointsGainedOnDamaged(20);
+            SetManaPointsGainedOnAttack(12);
+            SetManaPointsGainedOnDamaged(6);
         }
         else
         {
-            SetManaPointsGainedOnAttack(10);
-            SetManaPointsGainedOnDamaged(10);
+            SetManaPointsGainedOnAttack(12);
+            SetManaPointsGainedOnDamaged(6);
         }
 
         SetDefaultAttackDamage(defaultAttackDamage);
@@ -139,6 +140,8 @@ public class Piece : ISerializable
         linkedProtectingPiece = null;
 
         SetDamageIfSurvive(0);
+
+        startingSpot = new Tuple<int, int>(0, 0);
 
         this.state = CreateState();
         this.entryState = this.state;
@@ -203,6 +206,8 @@ public class Piece : ISerializable
 
         damageIfSurvive = (int) info.GetValue("damageIfSurvive", typeof(int));
 
+        startingSpot = (Tuple<int, int>)info.GetValue("startingSpot", typeof(Tuple<int, int>));
+
         this.state = CreateState();
         this.entryState = this.state;
     }
@@ -261,6 +266,8 @@ public class Piece : ISerializable
         info.AddValue("curseDamageAmount", curseDamageAmount, typeof(int));
 
         info.AddValue("damageIfSurvive", damageIfSurvive, typeof(int));
+
+        info.AddValue("startingSpot", startingSpot, typeof(Tuple<int, int>));
     }
 
     public override bool Equals(object obj)

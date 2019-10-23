@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SummonManager : MonoBehaviour
 {
@@ -17,22 +18,32 @@ public class SummonManager : MonoBehaviour
             Player player = (Player) i;
             for (int _i = 0; _i < enemyPieces.Count; _i++)
             {
-                boardManager.AddPieceToBoard(player,(Piece)enemyPieces[_i], 7 - (_i / 8), 7 - (_i % 8));
+                boardManager.AddPieceToBoard(player, enemyPieces[_i], enemyPieces[_i].startingSpot.Item1, enemyPieces[_i].startingSpot.Item2);
             }
             i++;
         }
     }
 
-    public List<List<Piece>> GenerateEnemies(int currentRound, int numPlayers = 1)
+    public int GenerateRandomIndex(int currentRound)
+    {
+        return enemyGenerator.getWaveRandomIndex(currentRound);
+    }
+
+    public List<List<Piece>> GenerateEnemies(int currentRound, int index, int numPlayers = 1)
     {
         List<List<Piece>> enemies = new List<List<Piece>>();
         for (int i = 0; i < numPlayers; ++i)
         {
             Player player = (Player) i;
-            List<Piece> enemyPieces = enemyGenerator.generateEnemies(currentRound);
+            List<Piece> enemyPieces = enemyGenerator.generateEnemies(currentRound, index);
             enemies.Add(enemyPieces);
         }
         return enemies;
+    }
+
+    public String GetWaveName(int currentRound, int index)
+    {
+        return enemyGenerator.generateWaveNames(currentRound, index);
     }
 
     public void RemoveExcessPlayerPieces(int numPlayers = 1)

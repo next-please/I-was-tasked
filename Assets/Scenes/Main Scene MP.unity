@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21952419, g: 0.43730193, b: 0.7127748, a: 1}
+  m_IndirectSpecularColor: {r: 0.2191462, g: 0.43654716, b: 0.71157724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26318,16 +26318,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.90000075
       objectReference: {fileID: 0}
-    - target: {fileID: 6448999620719597298, guid: a0f4d4c6b680301498750c356043900a,
-        type: 3}
-      propertyPath: maxSmoothness
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6448999620719597298, guid: a0f4d4c6b680301498750c356043900a,
-        type: 3}
-      propertyPath: displayLightIntensity
-      value: 75
-      objectReference: {fileID: 0}
     - target: {fileID: 9032133071189779849, guid: a0f4d4c6b680301498750c356043900a,
         type: 3}
       propertyPath: m_Intensity
@@ -26347,6 +26337,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448999620719597298, guid: a0f4d4c6b680301498750c356043900a,
+        type: 3}
+      propertyPath: maxSmoothness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448999620719597298, guid: a0f4d4c6b680301498750c356043900a,
+        type: 3}
+      propertyPath: displayLightIntensity
+      value: 75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f4d4c6b680301498750c356043900a, type: 3}
@@ -39632,10 +39632,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Medieval_Windmill
       objectReference: {fileID: 0}
-    - target: {fileID: 1222728547879670, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4032395409819742, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.5517216
@@ -39711,6 +39707,10 @@ PrefabInstance:
     - target: {fileID: 4278356127332818, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
       propertyPath: m_LocalPosition.z
       value: 2.179
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222728547879670, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d9ffac09535f23449762fd769a551d4, type: 3}
@@ -44177,26 +44177,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: House
       objectReference: {fileID: 0}
-    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 0.9056604
-      objectReference: {fileID: 0}
-    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 0.86382776
-      objectReference: {fileID: 0}
-    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 1.9894367
-      objectReference: {fileID: 0}
     - target: {fileID: 4017359017749981955, guid: fb539cc724255d2498155cd1c8c64d87,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -44266,6 +44246,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.7500008
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.9056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.86382776
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639319538429952655, guid: fb539cc724255d2498155cd1c8c64d87,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.9894367
       objectReference: {fileID: 0}
     - target: {fileID: 8232734100878810423, guid: fb539cc724255d2498155cd1c8c64d87,
         type: 3}
@@ -45843,31 +45843,6 @@ PrefabInstance:
       propertyPath: menuSettingsCanvas
       value: 
       objectReference: {fileID: 1313146722}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: transactionManager
-      value: 
-      objectReference: {fileID: 596478379}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: UpgradeArmy
-      value: 
-      objectReference: {fileID: 794309645}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: UpgradeMarketRarity
-      value: 
-      objectReference: {fileID: 2074863528}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: UpgradeMarketSize
-      value: 
-      objectReference: {fileID: 1397113536}
-    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: UpgradeIncome
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 358672373647474002, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: arrangementManager
@@ -45893,21 +45868,6 @@ PrefabInstance:
       propertyPath: ArmySizeText
       value: 
       objectReference: {fileID: 2112804145}
-    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: logText
-      value: 
-      objectReference: {fileID: 855603992}
-    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: animator
-      value: 
-      objectReference: {fileID: 710942694}
-    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-        type: 3}
-      propertyPath: MaxNumberOfLines
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 358672374894567157, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: upgradeCanvas
@@ -45968,6 +45928,46 @@ PrefabInstance:
       propertyPath: marketInfoCanvas
       value: 
       objectReference: {fileID: 295576515}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: transactionManager
+      value: 
+      objectReference: {fileID: 596478379}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: UpgradeArmy
+      value: 
+      objectReference: {fileID: 794309645}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: UpgradeMarketRarity
+      value: 
+      objectReference: {fileID: 2074863528}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: UpgradeMarketSize
+      value: 
+      objectReference: {fileID: 1397113536}
+    - target: {fileID: 358672373550472359, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: UpgradeIncome
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: logText
+      value: 
+      objectReference: {fileID: 855603992}
+    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 710942694}
+    - target: {fileID: 358672373948157515, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: MaxNumberOfLines
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4717154128688263282, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: PlayerPanels.Array.size
@@ -46076,6 +46076,11 @@ PrefabInstance:
       propertyPath: SwordImage
       value: 
       objectReference: {fileID: 1064405634}
+    - target: {fileID: 366813031126679543, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
+        type: 3}
+      propertyPath: PopUpScreen
+      value: 
+      objectReference: {fileID: 761928977}
     - target: {fileID: 366813031605747994, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
         type: 3}
       propertyPath: m_LocalPosition.x

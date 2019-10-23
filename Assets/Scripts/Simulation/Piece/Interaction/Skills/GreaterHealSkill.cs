@@ -19,14 +19,30 @@ public class GreaterHealSkill : Interaction
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ProjectileTestYellow;
 
-        List<Piece> damagedFriendlies = board.GetActiveFriendliesOnBoard().FindAll(piece => piece.GetCurrentHitPoints() < piece.GetMaximumHitPoints());
+        List<Piece> damagedFriendlies;
+        if (!caster.IsEnemy())
+        {
+            damagedFriendlies = board.GetActiveFriendliesOnBoard().FindAll(piece => piece.GetCurrentHitPoints() < piece.GetMaximumHitPoints());
+        }
+        else
+        {
+            damagedFriendlies = board.GetActiveEnemiesOnBoard().FindAll(piece => piece.GetCurrentHitPoints() < piece.GetMaximumHitPoints());
+        }
+
         if (damagedFriendlies.Count > 0)
         {
             this.target = damagedFriendlies[board.GetRNGesus().Next(0, damagedFriendlies.Count)];
         }
         else
         {
-            this.target = board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)];
+            if (!caster.IsEnemy())
+            {
+                this.target = board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)];
+            }
+            else
+            {
+                this.target = board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)];
+            }
         }
 
         attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());

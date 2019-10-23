@@ -362,6 +362,11 @@ public class Board
         return activePiecesOnBoard.FindAll(p => p.IsEnemy() && (Math.Abs(p.GetCurrentTile().GetRow() - tile.GetRow()) <= radius) && (Math.Abs(p.GetCurrentTile().GetCol() - tile.GetCol()) <= radius));
     }
 
+    public List<Piece> GetActiveFriendliesWithinRadiusOfTile(Tile tile, int radius)
+    {
+        return activePiecesOnBoard.FindAll(p => !p.IsEnemy() && (Math.Abs(p.GetCurrentTile().GetRow() - tile.GetRow()) <= radius) && (Math.Abs(p.GetCurrentTile().GetCol() - tile.GetCol()) <= radius));
+    }
+
     public List<Piece> GetActiveFriendliesOnBoard()
     {
         return activePiecesOnBoard.FindAll(p => !p.IsEnemy());

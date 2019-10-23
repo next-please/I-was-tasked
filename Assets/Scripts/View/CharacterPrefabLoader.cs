@@ -64,10 +64,10 @@ public class CharacterPrefabLoader : MonoBehaviour
 
     public GameObject GetPrefab(Piece piece)
     {
-        if (piece.IsEnemy())
-        {
-            return EnemyPrefab;
-        }
+        //if (piece.IsEnemy())
+        //{
+        //    return EnemyPrefab;
+        //}
         return characterPrefabMap[(piece.GetRace(), piece.GetClass())];
     }
 }

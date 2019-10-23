@@ -81,9 +81,19 @@ public class RotSkill : Interaction
             return;
         }
 
-        foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), rotDefaultRadius))
+        if (!caster.IsEnemy())
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+            foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), rotDefaultRadius))
+            {
+                target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+            }
+        }
+        else
+        {
+            foreach (Piece target in board.GetActiveFriendliesWithinRadiusOfTile(caster.GetCurrentTile(), rotDefaultRadius))
+            {
+                target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+            }
         }
 
         Debug.Log(caster.GetName() + " has Rot-ed targets around it for " + rotDefaultDamage + " DMG.");

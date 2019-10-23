@@ -24,7 +24,7 @@ public class PhaseManager : MonoBehaviour
     public TextMeshProUGUI CurrentTimeText;
     public TextMeshProUGUI CurrentRoundText;
     public Image SwordImage;
-    public Canvas WinScreen;
+    public Canvas PopUpScreen;
 
     public IncomeManager incomeManager;
     public BoardManager boardManager;
@@ -36,9 +36,13 @@ public class PhaseManager : MonoBehaviour
     public RoomManager roomManager;
     public SynergyManager synergyManager;
 
+    public const int marketDuration = 20;
+    public const int preCombatDuration = 10;
+
     static Phase currentPhase = Phase.NIL;
 
     private int round = 0;
+    public int randomRoundIndex = 0;
     private int RoundsNeededToSurvive = 15;
     private float countdown = 0;
     private int simulationPlayerCount = 0;
@@ -69,15 +73,15 @@ public class PhaseManager : MonoBehaviour
     {
         if (round <= RoundsNeededToSurvive)
         {
-            WinScreen.GetComponentInChildren<Text>().text = "You Lose!";
+            PopUpScreen.GetComponentInChildren<Text>().text = "You Lose!";
             EventManager.Instance.Raise(new GlobalMessageEvent { message = "Game is over, you lost!" });
         }
         else
         {
-            WinScreen.GetComponentInChildren<Text>().text = "You Win!";
+            PopUpScreen.GetComponentInChildren<Text>().text = "You Win!";
             EventManager.Instance.Raise(new GlobalMessageEvent { message = "Game is over, you won!" });
         }
-        WinScreen.enabled = true;
+        PopUpScreen.enabled = true;
     }
 
     public void SimulationEnded(Player player, List<Piece> piecesOnBoard)
@@ -181,20 +185,24 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
         incomeManager.GenerateIncome();
-        yield return Countdown(10);
+        yield return Countdown(marketDuration);
         TryPreCombat();
     }
 
     void TryPreCombat()
     {
-        var enemies = summonManager.GenerateEnemies(round, numPlayers);
-        Data data = new PreCombatData(enemies);
+        randomRoundIndex = summonManager.GenerateRandomIndex(round);
+        var enemies = summonManager.GenerateEnemies(round, randomRoundIndex, numPlayers);
+        Data data = new PreCombatData(enemies, randomRoundIndex);
         Request req = new Request(ActionTypes.PRECOMBAT_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
     }
 
     public void StartPreCombat(List<List<Piece>> enemies)
     {
+        Debug.Log(summonManager.GetWaveName(round, randomRoundIndex));
+        PopUpScreen.GetComponentInChildren<Text>().text = "Round " + round + ": " + summonManager.GetWaveName(round, randomRoundIndex);
+        PopUpScreen.enabled = true;
         StartCoroutine(PreCombatToCombat(enemies));
     }
 
@@ -206,7 +214,7 @@ public class PhaseManager : MonoBehaviour
         summonManager.SummonEnemies(enemies);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
         synergyManager.ApplySynergiesToArmies(numPlayers);
-        yield return Countdown(2);
+        yield return Countdown(preCombatDuration);
         Combat();
     }
 
@@ -217,6 +225,7 @@ public class PhaseManager : MonoBehaviour
         SwordImage.enabled = true;
         simulationPlayerCount = 0;
         boardManager.StartSim(numPlayers);
+        PopUpScreen.enabled = false;
     }
 
     void TryPostCombat()

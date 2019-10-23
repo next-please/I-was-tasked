@@ -136,7 +136,7 @@ public class PieceDragHandler : InteractablePiece
 
     private bool IsDragAllowed()
     {
-        return PhaseManager.GetCurrentPhase() == Phase.Market
-            && CameraController.IsViewingOwnBoard();
+        Phase currentPhase = PhaseManager.GetCurrentPhase();
+        return (currentPhase == Phase.Market || currentPhase == Phase.PreCombat) && CameraController.IsViewingOwnBoard();
     }
 }

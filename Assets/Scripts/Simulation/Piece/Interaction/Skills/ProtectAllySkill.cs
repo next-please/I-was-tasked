@@ -50,7 +50,17 @@ public class ProtectAllySkill : Interaction
         {
             return;
         }
-        int targetIndex = board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count - 1);
+
+        int targetIndex;
+        if (!caster.IsEnemy())
+        {
+            targetIndex = board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count - 1);
+        }
+        else
+        {
+            targetIndex = board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count - 1);
+        }
+
         Piece target;
         if (!caster.IsEnemy())
         {
@@ -62,13 +72,25 @@ public class ProtectAllySkill : Interaction
             {
                 target = board.GetActiveFriendliesOnBoard()[targetIndex];
             }
-            target.SetLinkedProtectingPiece(ref caster);
-
-            Interaction skill = new ProtectAllyLingeringEffect(target);
-            board.AddInteractionToProcess(skill);
-
-            Debug.Log(caster.GetName() + " has ProtectAlly-ed " + target.GetName() + " to take damage from attacks instead of them.");
         }
+        else
+        {
+            if (board.GetActiveEnemiesOnBoard()[targetIndex].Equals(caster))
+            {
+                target = board.GetActiveEnemiesOnBoard()[board.GetActiveEnemiesOnBoard().Count - 1];
+            }
+            else
+            {
+                target = board.GetActiveEnemiesOnBoard()[targetIndex];
+            }
+        }
+
+        target.SetLinkedProtectingPiece(ref caster);
+        Interaction skill = new ProtectAllyLingeringEffect(target);
+        board.AddInteractionToProcess(skill);
+
+        Debug.Log(caster.GetName() + " has ProtectAlly-ed " + target.GetName() + " to take damage from attacks instead of them.");
+
     }
 }
 
