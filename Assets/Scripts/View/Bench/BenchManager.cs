@@ -72,6 +72,6 @@ public class BenchManager : MonoBehaviour
             return;
         }
         GameObject characterPrefab = characterPrefabLoader.GetPrefab(piece);
-        slots[index].SetOccupant(piece, characterPrefab);
+        slots[index].SetOccupant(piece, characterPrefab, player);
     }
 }
