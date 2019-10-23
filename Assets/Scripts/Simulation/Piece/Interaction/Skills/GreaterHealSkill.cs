@@ -65,7 +65,10 @@ public class GreaterHealSkill : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()
@@ -117,7 +120,10 @@ public class GreaterHealLingeringEffect : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()
