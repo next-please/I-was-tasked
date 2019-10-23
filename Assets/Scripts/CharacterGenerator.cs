@@ -319,21 +319,22 @@ public class CharacterGenerator
                 currentManaPoints += druidManaPointAdditor * (characterRarity + 1);
                 break;
             case Enums.Job.Priest:
-                //currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(priestAttackDamageMultiplier, characterRarity + 1));
+                currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(priestHitPointMultiplier, characterRarity + 1));
                 currentAttackRange += priestFlatAttackRangeAdditor;
+                currentManaPoints += priestManaPointAdditor * (characterRarity + 1);
                 break;
             case Enums.Job.Knight:
                 currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(knightHitPointMultiplier, characterRarity + 1));
                 currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(knightAttackDamageMultiplier, characterRarity + 1));
-                //currentAttackSpeed += knightFlatAttackSpeedAdditor;
                 break;
             case Enums.Job.Rogue:
                 currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(rogueHitPointMultiplier, characterRarity + 1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(rogueAttackDamageMultiplier, characterRarity + 1));
                 currentMovementSpeed += rogueFlatMovementSpeedAdditor;
                 currentAttackSpeed += rogueFlatAttackSpeedAdditor;
                 break;
             case Enums.Job.Mage:
-                //currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(mageHitPointMultiplier, characterRarity + 1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(mageAttackDamageMultiplier, characterRarity + 1));
                 currentAttackRange += mageFlatAttackRangeAdditor;
                 currentManaPoints += mageManaPointAdditor * (characterRarity + 1);
                 break;
@@ -344,7 +345,8 @@ public class CharacterGenerator
             case Enums.Race.Elf:
                 currentMovementSpeed += elfFlatMovementSpeedAdditor;
                 currentAttackSpeed += elfFlatAttackSpeedAdditor;
-                //currentHitPoints = (int)Math.Floor(currentHitPoints * Math.Pow(elfHitPointMultiplier, characterRarity + 1));
+                currentAttackDamage = (int)Math.Floor(currentAttackDamage * Math.Pow(elfAttackDamageMultiplier, characterRarity + 1));
+                currentManaPoints += elfManaPointAdditor * (characterRarity + 1);
                 if (currentAttackRange > 1)
                 {
                     currentAttackRange += elfFlatConditionalAttackRangeAdditor;
