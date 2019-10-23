@@ -36,6 +36,9 @@ public class PhaseManager : MonoBehaviour
     public RoomManager roomManager;
     public SynergyManager synergyManager;
 
+    public const int marketDuration = 20;
+    public const int preCombatDuration = 10;
+
     static Phase currentPhase = Phase.NIL;
 
     private int round = 0;
@@ -182,7 +185,7 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
         incomeManager.GenerateIncome();
-        yield return Countdown(10);
+        yield return Countdown(marketDuration);
         TryPreCombat();
     }
 
@@ -211,7 +214,7 @@ public class PhaseManager : MonoBehaviour
         summonManager.SummonEnemies(enemies);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
         synergyManager.ApplySynergiesToArmies(numPlayers);
-        yield return Countdown(2);
+        yield return Countdown(preCombatDuration);
         Combat();
     }
 
