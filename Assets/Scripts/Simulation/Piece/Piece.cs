@@ -100,13 +100,13 @@ public class Piece : ISerializable
         // Placeholder Mana Gain Values.
         if (!isEnemy)
         {
-            SetManaPointsGainedOnAttack(20);
-            SetManaPointsGainedOnDamaged(20);
+            SetManaPointsGainedOnAttack(12);
+            SetManaPointsGainedOnDamaged(6);
         }
         else
         {
-            SetManaPointsGainedOnAttack(10);
-            SetManaPointsGainedOnDamaged(10);
+            SetManaPointsGainedOnAttack(12);
+            SetManaPointsGainedOnDamaged(6);
         }
 
         SetDefaultAttackDamage(defaultAttackDamage);
