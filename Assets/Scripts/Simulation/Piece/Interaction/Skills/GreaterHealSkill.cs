@@ -8,14 +8,14 @@ public class GreaterHealSkill : Interaction
     private Piece target;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 20;
+    private int ticksTilActivation = 100;
     public int greaterHealDefaultHeal = 150;
 
     public GreaterHealSkill(Piece caster, Board board)
     {
         this.caster = caster;
         this.board = board;
-        this.ticksTotal = 50;
+        this.ticksTotal = 100;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ProjectileTestYellow;
 
@@ -83,7 +83,7 @@ public class GreaterHealSkill : Interaction
 
     private void ApplyDamageToInflict()
     {
-        if (target.IsDead())
+        if (target.IsDead() || caster.IsDead())
         {
             return;
         }
