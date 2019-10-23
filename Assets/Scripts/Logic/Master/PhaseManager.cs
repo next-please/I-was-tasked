@@ -28,6 +28,8 @@ public class PhaseManager : MonoBehaviour
     public Image SwordImage;
     public Canvas PopUpScreen;
 
+    public Canvas tutorialPopUp;
+
     public IncomeManager incomeManager;
     public BoardManager boardManager;
     public MarketManager marketManager;
@@ -114,6 +116,10 @@ public class PhaseManager : MonoBehaviour
             CurrentTimeText.text = time.ToString();
             yield return new WaitForSecondsRealtime(1);
             time -= 1;
+            if (time == 20 && round == 1)
+            {
+                tutorialPopUp.enabled = false;
+            }
         }
     }
 
@@ -192,7 +198,14 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
         incomeManager.GenerateIncome();
-        yield return Countdown(marketDuration);
+        if (round == 1)
+        {
+            yield return Countdown(marketDuration + 10);
+        }
+        else
+        {
+            yield return Countdown(marketDuration);
+        }
         TryPreCombat();
     }
 
