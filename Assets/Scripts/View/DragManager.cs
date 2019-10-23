@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Com.Nextplease.IWT;
+using UnityEngine.EventSystems;
 
 public class DragManager : MonoBehaviour
 {
     public ArrangementManager arrangementManager;
     public TransactionManager transactionManager;
+    public Canvas trashCan;
+
     void OnEnable()
     {
         EventManager.Instance.AddListener<MoveOnBoardEvent>(OnMovePieceOnBoard);
@@ -15,6 +18,7 @@ public class DragManager : MonoBehaviour
         EventManager.Instance.AddListener<MoveOnBenchEvent>(OnMoveOnBench);
         EventManager.Instance.AddListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.AddListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
+        EventManager.Instance.AddListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
     }
 
     void OnDisable()
@@ -25,6 +29,12 @@ public class DragManager : MonoBehaviour
         EventManager.Instance.RemoveListener<MoveOnBenchEvent>(OnMoveOnBench);
         EventManager.Instance.RemoveListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.RemoveListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
+        EventManager.Instance.RemoveListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
+    }
+
+    void OnShowTrashCanEvent(ShowTrashCanEvent e)
+    {
+        trashCan.enabled = e.showTrashCan;
     }
 
     void OnMovePieceOnBoard(MoveOnBoardEvent e)

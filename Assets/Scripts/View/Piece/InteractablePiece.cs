@@ -62,6 +62,7 @@ public abstract class InteractablePiece :
             default:
                 break;
         }
+        EventManager.Instance.Raise(new ShowTrashCanEvent { showTrashCan = false });
     }
 
     public void OnPointerDown(PointerEventData eventData)
