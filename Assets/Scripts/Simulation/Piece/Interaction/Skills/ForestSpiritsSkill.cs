@@ -77,7 +77,6 @@ public class ForestSpiritInitialEffect : Interaction
         this.ticksTotal = 50;
         this.board = board;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestYellow;
         this.effectSpace = effectSpace;
     }
 

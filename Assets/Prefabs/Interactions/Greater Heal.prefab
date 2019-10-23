@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6942867458274902751}
   - component: {fileID: 1532953064623554836}
   - component: {fileID: 754625776819199247}
-  - component: {fileID: 9123439433617730424}
+  - component: {fileID: -4306721241352201020}
   m_Layer: 0
   m_Name: Greater Heal
   m_TagString: Untagged
@@ -105,7 +105,7 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &9123439433617730424
+--- !u!114 &-4306721241352201020
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,6 +114,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5046789155405430073}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b328cf63751d9a47a70057dbfb993e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 992ceeb8e07ce994babad917b034ba76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effect: {fileID: 1532953064623554836}
+  SecondsTillDespawn: 3

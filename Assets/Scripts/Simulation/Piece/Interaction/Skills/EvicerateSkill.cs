@@ -113,6 +113,10 @@ public class EvicerateLingeringEffect : Interaction
             attackDestination.y += 1.5f;
             projectile.transform.position = attackDestination;
         }
+        else
+        {
+            ticksRemaining = 0;
+        }
 
         return (ticksRemaining > 0);
     }

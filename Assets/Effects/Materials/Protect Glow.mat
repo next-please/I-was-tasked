@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lightning
-  m_Shader: {fileID: -6465566751694194690, guid: 3298546cb85eb644c9d3e378689b2f53,
+  m_Name: Protect Glow
+  m_Shader: {fileID: -6465566751694194690, guid: 0a4fa3f301c1003448eb77ae8dbad3c4,
     type: 3}
   m_ShaderKeywords: _BLENDMODE_ALPHA _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
@@ -20,14 +20,17 @@ Material:
     RenderType: Transparent
   disabledShaderPasses:
   - MOTIONVECTORS
+  - TransparentBackface
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _SampleTexture2D_B3C084C2_Texture_1:
-        m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+    - _SampleTexture2D_13FA7962_Texture_1:
+        m_Texture: {fileID: 2800000, guid: aff49e94bec5b8849bc345697709cdb4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_6C93AEEB: 0.5
+    - Vector1_8F7792BE: 0.1
     - _AlphaCutoff: 0.5
     - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
@@ -38,19 +41,19 @@ Material:
     - _DoubleSidedEnable: 0
     - _DoubleSidedNormalMode: 2
     - _DstBlend: 10
-    - _ReceivesSSR: 1
+    - _ReceivesSSR: 0
     - _RenderQueueType: 5
     - _RequireSplitLighting: 0
     - _SrcBlend: 1
-    - _StencilRef: 2
-    - _StencilRefDepth: 0
+    - _StencilRef: 0
+    - _StencilRefDepth: 32
     - _StencilRefDistortionVec: 64
     - _StencilRefGBuffer: 2
-    - _StencilRefMV: 128
+    - _StencilRefMV: 160
     - _StencilWriteMask: 3
     - _StencilWriteMaskDepth: 48
     - _StencilWriteMaskDistortionVec: 64
-    - _StencilWriteMaskGBuffer: 51
+    - _StencilWriteMaskGBuffer: 3
     - _StencilWriteMaskMV: 176
     - _SurfaceType: 1
     - _TransparentBackfaceEnable: 0
@@ -60,8 +63,9 @@ Material:
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
-    - Color_83AC714C: {r: 383.49805, g: 383.49805, b: 383.49805, a: 0}
+    - Color_EA766D97: {r: 0.56069773, g: 0.990566, b: 0.67125136, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Tiling: {r: 8, g: 8, b: 0, a: 0}

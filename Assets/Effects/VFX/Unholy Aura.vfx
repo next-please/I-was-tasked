@@ -24,7 +24,9 @@ MonoBehaviour:
   m_Data: {fileID: 0}
   m_InputFlowSlot:
   - link: []
-  - link: []
+  - link:
+    - context: {fileID: 8926484042661618603}
+      slotIndex: 0
   m_OutputFlowSlot:
   - link:
     - context: {fileID: 114946465509916290}
@@ -211,8 +213,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 1110
     y: -1586
-    width: 1435
-    height: 2155
+    width: 1871
+    height: 2156
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,7 +225,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4c867f6b72b714dbb5fd1780afe208, type: 3}
-  m_Name: Unholy aura
+  m_Name: Unholy Aura
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 0}
   m_Children:
@@ -251,6 +253,7 @@ MonoBehaviour:
   - {fileID: 8926484042661618554}
   - {fileID: 8926484042661618566}
   - {fileID: 8926484042661618601}
+  - {fileID: 8926484042661618603}
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
@@ -694,7 +697,7 @@ VisualEffectResource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Unholy aura
+  m_Name: Unholy Aura
   m_Graph: {fileID: 114350483966674976}
   m_ShaderSources:
   - compute: 1
@@ -1578,6 +1581,9 @@ VisualEffectResource:
       playSystems: 00000000
       stopSystems: 
     - name: OnStop
+      playSystems: 
+      stopSystems: 
+    - name: OnEnd
       playSystems: 
       stopSystems: 00000000
     m_RuntimeVersion: 10
@@ -7221,3 +7227,31 @@ MonoBehaviour:
   m_Direction: 1
   m_LinkedSlots:
   - {fileID: 8926484042661615129}
+--- !u!114 &8926484042661618603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2461f61b3c026d54db1951a4e17ab20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Parent: {fileID: 114350483966674976}
+  m_Children: []
+  m_UIPosition: {x: 2604.9429, y: -1559.1683}
+  m_UICollapsed: 0
+  m_UISuperCollapsed: 0
+  m_InputSlots: []
+  m_OutputSlots: []
+  m_Label: 
+  m_Data: {fileID: 0}
+  m_InputFlowSlot:
+  - link: []
+  m_OutputFlowSlot:
+  - link:
+    - context: {fileID: 114023846229194376}
+      slotIndex: 1
+  eventName: OnEnd

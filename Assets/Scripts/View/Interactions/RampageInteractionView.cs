@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.VFX;
 
 public class RampageInteractionView : InteractionView
 {
     // Start is called before the first frame update
     public GameObject RampageParticlesEyes;
     public GameObject RampageParticlesHands;
+
+    private VisualEffect lEye;
+    private VisualEffect rEye;
+    private VisualEffect hand;
 
     private List<GameObject> spawnedObjects;
 
@@ -43,7 +48,18 @@ public class RampageInteractionView : InteractionView
     {
         foreach (var o in spawnedObjects)
         {
+            o.GetComponent<VisualEffect>().SendEvent("OnEnd");
             Destroy(o);
         }
+    }
+
+    IEnumerator DestroyInSeconds(float time)
+    {
+        yield return new WaitForSeconds(time);
+        foreach (var o in spawnedObjects)
+        {
+            Destroy(o);
+        }
+        Destroy(gameObject);
     }
 }

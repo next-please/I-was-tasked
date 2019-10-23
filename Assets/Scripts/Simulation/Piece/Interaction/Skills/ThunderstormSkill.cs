@@ -8,10 +8,11 @@ public class ThunderstormSkill : Interaction
     private Tile targetSpace;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 70;
+    private int initialStartUp = 25;
+    private int ticksTilActivation = 50;
     private int countRemaining;
-    public int thunderStormDefaultRadius = 4;
-    public int thunderStormDefaultCount = 3;
+    public int thunderStormDefaultRadius = 1;
+    public int thunderStormDefaultCount = 5;
 
     public ThunderstormSkill(Piece caster, Piece target, Board board)
     {
@@ -20,11 +21,11 @@ public class ThunderstormSkill : Interaction
         this.targetSpace = target.GetCurrentTile();
         this.countRemaining = thunderStormDefaultCount;
         this.ticksTotal = 50;
-        this.ticksRemaining = ticksTilActivation;
+        this.ticksRemaining = initialStartUp;
         interactionPrefab = Enums.InteractionPrefab.ThunderStorm;
 
         attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackSource.y = 3.0f;
+        attackSource.y = 5.0f;
     }
 
     public override bool ProcessInteraction()
@@ -85,7 +86,7 @@ public class ThunderstormBoltEffect : Interaction
     private Piece target;
     private Vector3 attackSource;
     private int ticksTilActivation = 25;
-    public int thunderStormDefaultDamage = 60;
+    public int thunderStormDefaultDamage = 30;
 
     public ThunderstormBoltEffect(Piece target)
     {
@@ -94,7 +95,7 @@ public class ThunderstormBoltEffect : Interaction
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ThunderStormLightning;
         attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackSource.y = 3.0f;
+        attackSource.y = 5.0f;
     }
 
     public override bool ProcessInteraction()
