@@ -65,6 +65,12 @@ public class RotSkill : Interaction
         GameObject projectile = interactionView.gameObject;
 
         // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
+
+        if (!caster.IsDead())
+        {
+            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackSource.y = 0.5f;
+        }
         projectile.transform.position = attackSource;
 
         if (ticksRemaining <= 0 || caster.IsDead())
