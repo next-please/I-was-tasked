@@ -257,7 +257,7 @@ public class PhaseManager : MonoBehaviour
     IEnumerator PostCombatToStartRound()
     {
         ChangePhase(Phase.PostCombat);
-        yield return Countdown(5);
+        yield return Countdown(7);
         TryStartRound();
     }
 
