@@ -68,7 +68,10 @@ public class MagicMissileSkill : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()
@@ -76,7 +79,7 @@ public class MagicMissileSkill : Interaction
         GameObject projectile = interactionView.gameObject;
 
         // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
-        if (target != null && !target.IsDead() && (target.GetCurrentTile().GetRow() != (int)attackDestination.x || target.GetCurrentTile().GetCol() != (int)attackDestination.z))
+        if (!target.IsDead())
         {
             attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
             attackDestination.y = 1.0f;
