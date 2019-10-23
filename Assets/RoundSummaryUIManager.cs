@@ -51,6 +51,13 @@ public class RoundSummaryUIManager : MonoBehaviour
 
         // play win/lose
         yield return new WaitForSeconds(playerNum * 0.3f);
+
+        foreach (Animator animator in playerBadgeAnimators)
+        {
+            // fix this
+        }
+
+
         if (isLose)
         {
             playerBadgeAnimators[playerNum].SetTrigger("Lose");
