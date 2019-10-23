@@ -97,7 +97,10 @@ public class ForestSpiritInitialEffect : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()
@@ -114,7 +117,7 @@ public class ForestSpiritInitialEffect : Interaction
 
     private void ApplyDamageToInflict()
     {
-        if (board.GetActiveFriendliesOnBoard().Count == 0)
+        if (board.GetActiveFriendliesOnBoard().Count == 0 || board.GetActiveEnemiesOnBoard().Count == 0)
             return;
 
         Piece target;
@@ -179,14 +182,17 @@ public class ForestSpiritSecondaryEffect : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
 
-        if (target != null && !target.IsDead() && (target.GetCurrentTile().GetRow() != (int)attackDestination.x || target.GetCurrentTile().GetCol() != (int)attackDestination.z))
+        if (!target.IsDead())
         {
             attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
             attackDestination.y = 0.5f;

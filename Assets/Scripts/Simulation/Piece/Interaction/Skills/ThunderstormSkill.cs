@@ -69,7 +69,7 @@ public class ThunderstormSkill : Interaction
 
     private void ApplyDamageToInflict()
     {
-        List<Piece> enemiesWithinRange = board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), thunderStormDefaultRadius);
+        List<Piece> enemiesWithinRange = board.GetActiveEnemiesWithinRadiusOfTile(targetSpace, thunderStormDefaultRadius);
         int numEnemiesWithinRange = enemiesWithinRange.Count;
         if (numEnemiesWithinRange > 0)
         {
