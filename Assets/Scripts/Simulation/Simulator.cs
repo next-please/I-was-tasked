@@ -44,6 +44,7 @@ public class Simulator : Tickable
 
     public void StartSim()
     {
+        gameBoard.ClearInteractionsToProcess();
         shouldRun = true;
         incomeGenerated = 0;
     }
