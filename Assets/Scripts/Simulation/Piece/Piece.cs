@@ -21,7 +21,7 @@ public class Piece : ISerializable
     private Enums.Job job;
     private int rarity;
     private bool isEnemy;
-    private int roundsSurvived; // To check for the level (rarity) increase.
+    private int roundsSurvived; // Previously: To check for the level (rarity) increase.
 
     private int defaultMaximumHitPoints;
     private int currentHitPoints;

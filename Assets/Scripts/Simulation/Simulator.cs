@@ -21,13 +21,14 @@ public class Simulator : Tickable
         {
             Debug.Log("Game has been resolved.");
 
-            // Increase the rounds survived count for each piece and upgrade if possible.
+            // Increase the rounds survived count for each piece.
             if (numFriends > 0)
             {
                 foreach (Piece piece in piecesOnBoard.Where(piece => !piece.IsEnemy()))
                 {
                     piece.SetRoundsSurvived(piece.GetRoundsSurvived() + 1);
-                    phaseManager.marketManager.characterGenerator.TryUpgradeCharacterRoundsSurvived(piece);
+                    // Pieces no longer upgrade in rarity and attributes.
+                    // phaseManager.marketManager.characterGenerator.TryUpgradeCharacterRoundsSurvived(piece);
                 }
             }
 
