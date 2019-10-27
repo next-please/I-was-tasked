@@ -10,32 +10,7 @@ public class Simulator : Tickable
 
     private Player player;
     private Board gameBoard;
-    private int incomeGenerated;
-
-    bool IsResolved()
-    {
-        List<Piece> piecesOnBoard = gameBoard.GetActivePiecesOnBoard();
-        int numEnemies = piecesOnBoard.Where(piece => piece.IsEnemy()).Count();
-        int numFriends = piecesOnBoard.Where(piece => !piece.IsEnemy()).Count();
-        if (numEnemies == 0 || numFriends == 0)
-        {
-            Debug.Log("Game has been resolved.");
-
-            // Increase the rounds survived count for each piece.
-            if (numFriends > 0)
-            {
-                foreach (Piece piece in piecesOnBoard.Where(piece => !piece.IsEnemy()))
-                {
-                    piece.SetRoundsSurvived(piece.GetRoundsSurvived() + 1);
-                    // Pieces no longer upgrade in rarity and attributes.
-                    // phaseManager.marketManager.characterGenerator.TryUpgradeCharacterRoundsSurvived(piece);
-                }
-            }
-
-            return true;
-        }
-        return false;
-    }
+    private int bonusGold = 1; // Earn 1 Bonus Gold for winning the round.
 
     public void SetGameBoard(Board board, Player player)
     {
@@ -47,7 +22,7 @@ public class Simulator : Tickable
     {
         gameBoard.ClearInteractionsToProcess();
         shouldRun = true;
-        incomeGenerated = 0;
+        incomeManager.SetIncomeGeneratedByPlayer(player, 0); // Reset any bonus gold from winning.
     }
 
     public override void Tick(long tick)
@@ -68,15 +43,6 @@ public class Simulator : Tickable
             }
             phaseManager.SimulationEnded(player, activePiecesOnBoard);
             gameBoard.ClearInteractionsToProcess();
-            foreach (Piece piece in gameBoard.GetPiecesOnBoard()) // Calculate income earned.
-            {
-                // If an enemy was killed, add that to the total income generated.
-                if (piece.IsEnemy() && piece.IsDead())
-                {
-                    incomeGenerated += piece.GetRarity() * 2; // Placeholder gain of income.
-                }
-            }
-            incomeManager.SetIncomeGeneratedByPlayer(player, incomeGenerated);
             return;
         }
 
@@ -103,5 +69,31 @@ public class Simulator : Tickable
                 gameBoard.DeactivatePieceOnBoard(currentPiece);
             }
         }
+    }
+
+    private bool IsResolved()
+    {
+        List<Piece> piecesOnBoard = gameBoard.GetActivePiecesOnBoard();
+        int numEnemies = piecesOnBoard.Where(piece => piece.IsEnemy()).Count();
+        int numFriends = piecesOnBoard.Where(piece => !piece.IsEnemy()).Count();
+        if (numEnemies == 0 || numFriends == 0)
+        {
+            Debug.Log("Game has been resolved.");
+
+            // Increase the rounds survived count for each piece.
+            if (numFriends > 0)
+            {
+                foreach (Piece piece in piecesOnBoard.Where(piece => !piece.IsEnemy()))
+                {
+                    piece.SetRoundsSurvived(piece.GetRoundsSurvived() + 1);
+                    // Pieces no longer upgrade in rarity and attributes.
+                    // phaseManager.marketManager.characterGenerator.TryUpgradeCharacterRoundsSurvived(piece);
+                }
+                incomeManager.SetIncomeGeneratedByPlayer(player, bonusGold);
+            }
+
+            return true;
+        }
+        return false;
     }
 }
