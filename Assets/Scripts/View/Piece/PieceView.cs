@@ -14,6 +14,7 @@ public class PieceView : MonoBehaviour
     private float velocityHP = 0.0f;
     private float velocityMP = 0.0f;
     private float smoothTime = 0.01f;
+    private Player boardOwner;
 
     private void Start()
     {
@@ -37,6 +38,7 @@ public class PieceView : MonoBehaviour
         modelPrefab.transform.localPosition = Vector3.zero;
         modelPrefab.transform.rotation = transform.rotation;
         animator = modelPrefab.GetComponent<Animator>();
+        this.boardOwner = boardOwner;
         float rotation = (int) boardOwner * 45;
         rotation += piece.IsEnemy() ? 180 : 0;
         modelPrefab.transform.parent.Rotate(new Vector3(0, 1, 0), rotation);
@@ -52,17 +54,6 @@ public class PieceView : MonoBehaviour
     {
         EventManager.Instance.RemoveListener<RemovePieceFromBoardEvent>(OnPieceRemoved);
         EventManager.Instance.RemoveListener<PieceMoveEvent>(OnPieceMove);
-    }
-
-    void OnDrawGizmos()
-    {
-        if (piece != null)
-        {
-            GUIStyle style = new GUIStyle();
-            style.fontStyle = FontStyle.Bold;
-            style.fontSize = 24;
-            // Handles.Label(transform.position + Vector3.up * 0.5f, piece.GetViewState().ToString(), style);
-        }
     }
 
     private void Update()
@@ -124,6 +115,9 @@ public class PieceView : MonoBehaviour
             piecePosition.y = 0.5f;
             transform.position = piecePosition;
             transform.rotation = Quaternion.identity;
+            float rotation = (int) boardOwner * 45;
+            rotation += piece.IsEnemy() ? 180 : 0;
+            transform.Rotate(new Vector3(0, 1, 0), rotation);
         }
     }
 
