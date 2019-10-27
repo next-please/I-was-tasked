@@ -8,7 +8,6 @@ public class PieceView : MonoBehaviour
     public GameObject statusBars;
     public GameObject currentHPBar;
     public GameObject currentMPBar;
-    public TextMeshPro nameText; // todo: remove later
     public Piece piece; // The piece being displayed.
     public PieceSounds pieceSounds;
     private IViewState prevViewAction;
@@ -28,13 +27,6 @@ public class PieceView : MonoBehaviour
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
-
-        // todo: remove later
-        if (nameText != null)
-        {
-            nameText.text = piece.GetRace().ToString() + " " + piece.GetClass().ToString();
-        }
-
         piece.SetPieceView(this);
     }
 

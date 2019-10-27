@@ -868,6 +868,6 @@ public class Piece : ISerializable
 
     public PieceView GetPieceView()
     {
-        return this.pieceView;
+        return pieceView;
     }
 }
