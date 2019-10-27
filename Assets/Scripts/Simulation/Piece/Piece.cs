@@ -414,7 +414,9 @@ public class Piece : ISerializable
         SetCurseDamageAmount(GetDefaultCurseDamageAmount());
         SetLinkedProtectingPiece(ref defaultLinkedProtectingPiece);
 
-        this.state = entryState;
+        GetPieceView().animator.Play("Idle", 0);
+
+        state = entryState;
     }
 
     public Piece GetTarget()
