@@ -43,10 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35f6b94174aadd34a961d9b41daebc25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingGold: 11
+  StartingGold: 3
   StartingArmySize: 1
   playerInventories:
   - {fileID: 11400000, guid: 9b4ba8980ec952445aabd51853afb1a7, type: 2}
   - {fileID: 11400000, guid: d1f8fdb8dbb43a5489dee67f9cf086d9, type: 2}
   - {fileID: 11400000, guid: b2464b155fddd2f4eadb0c39dc629506, type: 2}
   synergyManager: {fileID: 0}
+  roomManager: {fileID: 0}
+  _synergyTabMenu: {fileID: 0}
