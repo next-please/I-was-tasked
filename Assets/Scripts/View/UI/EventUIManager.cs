@@ -7,10 +7,11 @@ using TMPro;
 
 public class EventUIManager : MonoBehaviour
 {
-    public Animator animator;
-    public TextMeshProUGUI logText;
-    public int MaxNumberOfLines;
-    public List<string> currentLog = new List<string>();
+    public int MaxNumberOfLogs = 3;
+    public GameObject Panel;
+    public GameObject Log;
+
+    private Queue<GameObject> logs = new Queue<GameObject>();
 
     void OnEnable()
     {
@@ -24,15 +25,42 @@ public class EventUIManager : MonoBehaviour
 
     void OnGlobalMessage(GlobalMessageEvent e)
     {
-        animator.Play("Dispatch");
-        currentLog.Add(e.message);
-        string logMessage = "";
-        for (int i = Math.Max(0, currentLog.Count - MaxNumberOfLines); i < currentLog.Count; i++)
+        StartCoroutine(DispatchLog(e.message));
+    }
+
+    IEnumerator DispatchLog(String message)
+    {
+        GameObject newLog = Instantiate(Log);
+        newLog.transform.SetParent(Panel.transform);
+        newLog.transform.localScale = Vector3.one;
+        newLog.transform.SetAsFirstSibling(); // spawn on top of previous log
+
+        TextMeshProUGUI logText = newLog.GetComponentInChildren<TextMeshProUGUI>();
+        logText.text = message;
+
+        logs.Enqueue(newLog);
+
+        if (logs.Count > MaxNumberOfLogs)
         {
-            logMessage += currentLog[i];
-            logMessage += "\n";
+            StartCoroutine(RemoveOldestLog());
         }
-        logText.text = logMessage;
+
+        // remove log after some time
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(RemoveOldestLog());
+    }
+
+    IEnumerator RemoveOldestLog()
+    {
+        if (logs.Count == 0)
+        {
+            yield break;
+        }
+        GameObject firstLog = logs.Dequeue();
+        Animator animator = firstLog.GetComponent<Animator>();
+        animator.Play("Exit");
+        yield return new WaitForSeconds(0.5f);
+        Destroy(firstLog);
     }
 }
 
