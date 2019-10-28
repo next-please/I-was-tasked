@@ -35,6 +35,8 @@ public class PieceUIManager : MonoBehaviour
     public Camera portraitCamera;
     public Transform rootCameraPosition;
 
+    private bool isSelected = false;
+
     void Start()
     {
         pieceCanvas.enabled = false;
@@ -44,25 +46,27 @@ public class PieceUIManager : MonoBehaviour
     {
         EventManager.Instance.AddListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.AddListener<DeselectPieceEvent>(OnPieceDeselected);
-        EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
+        EventManager.Instance.AddListener<HoverPieceEvent>(OnHoverPiece);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.RemoveListener<DeselectPieceEvent>(OnPieceDeselected);
-        EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
+        EventManager.Instance.RemoveListener<HoverPieceEvent>(OnHoverPiece);
     }
 
     void OnPieceSelected(SelectPieceEvent e)
     {
         ShowCanvas(e.piece);
         ShowCost(false);
+        isSelected = true;
     }
 
     void OnPieceDeselected(DeselectPieceEvent e)
     {
         HideCanvas();
+        isSelected = false;
     }
 
     private void ShowCanvas(Piece piece)
@@ -76,17 +80,23 @@ public class PieceUIManager : MonoBehaviour
         pieceCanvas.enabled = false;
     }
 
-    void OnHoverMarketItem(HoverMarketItemEvent e)
+    void OnHoverPiece(HoverPieceEvent e)
     {
+        // Don't change the card if there's a Piece that is selected.
+        if (isSelected)
+        {
+            return;
+        }
+
         if (e.piece != null)
         {
             ShowCanvas(e.piece);
-            ShowCost(true);
+            ShowCost(true); // To be removed.
         }
         else
         {
             HideCanvas();
-            ShowCost(false);
+            ShowCost(false); // To be removed.
         }
     }
 
