@@ -29,13 +29,13 @@ public class PieceDragHandler : InteractablePiece
     void OnEnable()
     {
         EventManager.Instance.AddListener<PieceMoveEvent>(OnPieceMove);
-        EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
+        EventManager.Instance.AddListener<EnterPhaseEvent>(OnEnterPhase);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<PieceMoveEvent>(OnPieceMove);
-        EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
+        EventManager.Instance.RemoveListener<EnterPhaseEvent>(OnEnterPhase);
     }
 
     void Start()
@@ -48,9 +48,9 @@ public class PieceDragHandler : InteractablePiece
         originalPos = transform.position;
     }
 
-    public void OnExitPhase(ExitPhaseEvent e)
+    public void OnEnterPhase(EnterPhaseEvent e)
     {
-        if (e.phase == Phase.Market)
+        if (e.phase == Phase.Combat)
         {
             OnEmptyDrop();
         }

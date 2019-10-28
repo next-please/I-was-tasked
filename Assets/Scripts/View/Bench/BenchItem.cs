@@ -34,7 +34,6 @@ public class BenchItem : InteractablePiece
 
     [HideInInspector]
     public int index;
-    public TextMeshPro nameText; // TODO: prob remove later
 
     public void InstantiateModelPrefab(GameObject characterModel)
     {
@@ -44,10 +43,6 @@ public class BenchItem : InteractablePiece
         modelPrefab.transform.localScale = Vector3.one;
 
         animator = modelPrefab.GetComponent<Animator>();
-
-        // TODO: remove later
-        nameText.text = piece.GetRace().ToString() + " " + piece.GetClass().ToString();
-        nameText.transform.rotation = Camera.main.transform.rotation;
     }
 
     public override void OnBeginDrag(PointerEventData eventData)
