@@ -9,6 +9,8 @@ public class MarketSlot : MonoBehaviour
     public MarketItem marketItem;
     public bool isOccupied;
 
+    public Material[] materials;
+
     public void SetOccupant(Piece piece, GameObject characterModel)
     {
         isOccupied = true;
@@ -30,5 +32,10 @@ public class MarketSlot : MonoBehaviour
         isOccupied = false;
         if (marketItem)
             Destroy(marketItem.gameObject);
+    }
+
+    public void SetActiveSlot(bool isActive)
+    {
+        GetComponent<Renderer>().material = materials[(isActive) ? 1 : 0];
     }
 }
