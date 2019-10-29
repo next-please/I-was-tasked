@@ -90,7 +90,6 @@ public class ChargeSkill : Interaction
             forward = Vector3.Normalize(targetTilePos - currentTilePos);
             board.MovePieceToTile(caster, targetTile); // move to tile straight away
             totalDamage = (int)Math.Floor(chargeBaseDefaultDamage * (Math.Pow(chargeStackingDefaultPercentageIncrease, distance)));
-            totalDamage = 1;
             this.ticksRemaining = this.ticksTotal;
             caster.GetPieceView().animator.Play("Walk");
         }
