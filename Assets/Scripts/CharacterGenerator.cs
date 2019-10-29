@@ -21,6 +21,8 @@ public class CharacterGenerator
     public readonly double hitPointMultiplier = 1.5;
     public readonly double attackDamageMultiplier = 1.5;
 
+    public readonly double humanPriestManaMultiplier = 2;
+
     //human stat changes
     public readonly double humanHitPointMultiplier = 1.1;
     public readonly double humanAttackDamageMultiplier = 1.1;
@@ -253,7 +255,10 @@ public class CharacterGenerator
         {
             currentAttackRange++;
         }
-
+        if (race == Enums.Race.Human && job == Enums.Job.Priest)
+        {
+            currentManaPoints = (int)Math.Floor(currentManaPoints * humanPriestManaMultiplier);
+        }
         Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), race, job, characterRarity + 1, false,
                                        currentHitPoints, currentManaPoints,
                                        currentAttackDamage, currentAttackRange,
