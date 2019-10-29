@@ -71,7 +71,51 @@ public class CharacterGenerator
     public readonly int priestManaPointAdditor = -5;
     public readonly double priestHitPointMultiplier = 1.1;
 
-    public readonly int[] tiersPoolMax = new int[] { 4, 3, 2, 1, 0, 0, 0, 0, 0, 0 };
+    public readonly int[,,] tiersRaceJobPoolMax = {
+        {
+            { 4, 4, 4, 4, 4 },
+            { 4, 4, 4, 4, 4 },
+            { 4, 4, 4, 4, 4 },
+            { 4, 4, 4, 4, 4 }
+        },
+        {
+            { 3, 3, 3, 3, 3 },
+            { 3, 3, 3, 3, 3 },
+            { 3, 3, 3, 3, 3 },
+            { 3, 3, 3, 3, 3 }
+        },
+        {
+            { 2, 2, 2, 2, 2 },
+            { 2, 2, 2, 2, 2 },
+            { 2, 2, 2, 2, 2 },
+            { 2, 2, 2, 2, 2 }
+        },
+        {
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 },
+            { 1, 1, 1, 1, 1 }
+        },
+        {
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 }
+        },
+        {
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 }
+        },
+        {
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 }
+        }
+    };
+
     public readonly int characterUpgradeDifferencePercentage = 20;
     public readonly int[,] rarityUpgradeTiers = {
                                             { 100, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -106,14 +150,14 @@ public class CharacterGenerator
         rngesus = new System.Random();
 
         //creating pools for race and job limits
-        TierRaceJobPoolSize = new int[tiersPoolMax.Length, Enum.GetNames(typeof(Enums.Race)).Length, Enum.GetNames(typeof(Enums.Job)).Length];
-        for (int i = 0; i < tiersPoolMax.Length; i++)
+        TierRaceJobPoolSize = new int[tiersRaceJobPoolMax.GetLength(0), Enum.GetNames(typeof(Enums.Race)).Length, Enum.GetNames(typeof(Enums.Job)).Length];
+        for (int i = 0; i < tiersRaceJobPoolMax.GetLength(0); i++)
         {
             for (int j = 0; j < Enum.GetNames(typeof(Enums.Race)).Length; j++)
             {
                 for (int k = 0; k < Enum.GetNames(typeof(Enums.Job)).Length; k++)
                 {
-                    TierRaceJobPoolSize[i, j, k] = tiersPoolMax[i];
+                    TierRaceJobPoolSize[i, j, k] = tiersRaceJobPoolMax[i, j, k];
                 }
             }
         }
@@ -286,7 +330,7 @@ public class CharacterGenerator
     public bool TryUpgradeCharacterMarketTier(ref Piece piece, int currentMarketTier)
     {
         //if new rarity does not exist
-        if (piece.GetRarity() > tiersPoolMax.Length)
+        if (piece.GetRarity() > tiersRaceJobPoolMax.GetLength(0))
             return false;
         //if character rarity can be found in the new market tier
         if (rarityUpgradeTiers[currentMarketTier - 1, piece.GetRarity()] > 0)
