@@ -96,18 +96,16 @@ public class FrostArmourLingeringEffect : Interaction
 
     public override bool ProcessInteractionView()
     {
-        if (!target.IsDead())
-        {
-            GameObject projectile = interactionView.gameObject;
-            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-            attackDestination.y += 1.0f;
-            projectile.transform.position = attackDestination;
-        }
-
-        if (ticksRemaining <= 0)
+        if (ticksRemaining <= 0 || target.IsDead())
         {
             return false;
         }
+
+        GameObject projectile = interactionView.gameObject;
+        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+        attackDestination.y += 1.0f;
+        projectile.transform.position = attackDestination;
+
         return true;
     }
 

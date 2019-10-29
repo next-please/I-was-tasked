@@ -100,8 +100,11 @@ public class BarkskinLingeringEffect : Interaction
     {
         GameObject projectile = interactionView.gameObject;
 
-        attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackDestination.y += 3.5f;
+        if (!caster.IsDead())
+        {
+            attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackDestination.y += 3.5f;
+        }
 
         projectile.transform.position = attackDestination;
 
