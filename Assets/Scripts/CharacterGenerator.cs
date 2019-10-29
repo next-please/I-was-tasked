@@ -8,7 +8,7 @@ public class CharacterGenerator
     private string name;
     private System.Random rngesus;
 
-    public readonly int defaultHitPoints = 100;
+    public readonly int defaultHitPoints = 150;
     public readonly int defaultManaPoints = 100;
     public readonly int defaultAttackDamage = 10;
     public readonly int defaultAttackRange = 1;
