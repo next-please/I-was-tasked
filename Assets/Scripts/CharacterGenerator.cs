@@ -21,7 +21,7 @@ public class CharacterGenerator
     public readonly double hitPointMultiplier = 1.5;
     public readonly double attackDamageMultiplier = 1.5;
 
-    public readonly double humanPriestManaMultiplier = 2;
+    public readonly double humanPriestManaMultiplier = 1.3;
 
     //human stat changes
     public readonly double humanHitPointMultiplier = 1.1;
