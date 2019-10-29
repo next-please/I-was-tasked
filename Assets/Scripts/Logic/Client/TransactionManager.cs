@@ -12,6 +12,8 @@ public class TransactionManager : MonoBehaviour
     public BoardManager boardManager;
 
     public readonly int UpgradeMarketSizeCost = 5;
+    public readonly int UpgradeArmySizeArmyMultiplier = 2;
+    public readonly int UpgradeArmySizeLinearAdditor = -2;
 
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
     {
@@ -189,7 +191,7 @@ public class TransactionManager : MonoBehaviour
     {
         // based on GameController.cs,
         // https://github.com/next-please/I-was-tasked/blob/8ab8c6782787c40371ab6c65fe04c8f755552a03/Assets/Scripts/GameController.cs
-        return inventoryManager.GetArmySize(player);
+        return inventoryManager.GetArmySize(player)*UpgradeArmySizeArmyMultiplier + UpgradeArmySizeLinearAdditor;
     }
 #endregion
 
