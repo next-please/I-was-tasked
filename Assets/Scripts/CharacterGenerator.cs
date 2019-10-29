@@ -249,11 +249,16 @@ public class CharacterGenerator
                 currentHitPoints += undeadFlatMovementSpeedAdditor;
                 break;
         }
+        if (race == Enums.Race.Elf && job == Enums.Job.Druid)
+        {
+            currentAttackRange++;
+        }
 
         Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), race, job, characterRarity + 1, false,
                                        currentHitPoints, currentManaPoints,
                                        currentAttackDamage, currentAttackRange,
                                        currentAttackSpeed, currentMovementSpeed);
+
         return currentPiece;
     }
 
