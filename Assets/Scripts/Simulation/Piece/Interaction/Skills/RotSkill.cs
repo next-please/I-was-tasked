@@ -7,11 +7,11 @@ public class RotSkill : Interaction
     private Piece caster;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 30;
+    private int ticksTilActivation = 20;
     private int countRemaining;
     public int rotDefaultRadius = 1;
     public int rotDefaultCount = 20;
-    public int rotDefaultDamage = 7;
+    public int rotDefaultDamage = 6;
 
     public RotSkill(Piece caster, Board board)
     {

@@ -10,7 +10,7 @@ public class MoonfireSkill : Interaction
     private Vector3 attackSource;
     private int ticksTilActivation = 20;
     public double moonfireDefaultManaRetainPercentage = 0.5;
-    private int moonfireDefaultDamage = 65;
+    private int moonfireDefaultDamage = 58;
 
     public MoonfireSkill(Piece caster, Piece target, Board board)
     {

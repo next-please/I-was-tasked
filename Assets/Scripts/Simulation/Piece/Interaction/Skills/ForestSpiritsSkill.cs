@@ -151,7 +151,7 @@ public class ForestSpiritSecondaryEffect : Interaction
     private Vector3 attackSource;
     private Vector3 attackDestination;
     private int ticksTilActivation = 70;
-    public int forestSpiritsDefaultHealAmount = 35;
+    public int forestSpiritsDefaultHealAmount = 30;
 
     public ForestSpiritSecondaryEffect(Vector3 attackSource, Piece target)
     {

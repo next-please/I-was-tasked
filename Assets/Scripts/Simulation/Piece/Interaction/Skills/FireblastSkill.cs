@@ -6,7 +6,7 @@ public class FireblastSkill : Interaction
 {
     private Piece caster;
     private Piece target;
-    public int fireblastDefaultDamage = 150;
+    public int fireblastDefaultDamage = 120;
     private Vector3 attackSource;
     private Vector3 attackDestination;
     private int ticksTilActivation = 120;

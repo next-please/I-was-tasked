@@ -7,11 +7,11 @@ public class UnholyAuraSkill : Interaction
     private Piece caster;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 30;
+    private int ticksTilActivation = 25;
     private int countRemaining;
     public int unholyAuraDefaultRadius = 4;
-    public int unholyAuraDefaultCount = 7;
-    public int unholyAuraDefaultDamage = 8;
+    public int unholyAuraDefaultCount = 15;
+    public int unholyAuraDefaultDamage = 6;
 
     public UnholyAuraSkill(Piece caster, Board board)
     {

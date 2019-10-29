@@ -86,7 +86,7 @@ public class ThunderstormBoltEffect : Interaction
     private Piece target;
     private Vector3 attackSource;
     private int ticksTilActivation = 25;
-    public int thunderStormDefaultDamage = 30;
+    public int thunderStormDefaultDamage = 28;
 
     public ThunderstormBoltEffect(Piece target)
     {

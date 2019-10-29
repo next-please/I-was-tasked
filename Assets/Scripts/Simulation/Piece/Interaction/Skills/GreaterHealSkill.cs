@@ -9,7 +9,7 @@ public class GreaterHealSkill : Interaction
     private Board board;
     private Vector3 attackSource;
     private int ticksTilActivation = 100;
-    public int greaterHealDefaultHeal = 150;
+    public int greaterHealDefaultHeal = 120;
 
     public GreaterHealSkill(Piece caster, Board board)
     {

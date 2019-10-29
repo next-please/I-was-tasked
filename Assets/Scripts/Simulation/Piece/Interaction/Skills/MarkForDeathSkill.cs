@@ -8,7 +8,7 @@ public class MarkForDeathSkill : Interaction
     private Piece target;
     private Board board;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 250;
+    public int ticksTilActivation = 300;
 
     public MarkForDeathSkill(Piece caster, Piece target, Board board)
     {

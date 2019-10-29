@@ -8,7 +8,7 @@ public class MagicMissileSkill : Interaction
     private Piece target;
     private Board board;
     public int magicMissileDefaultCount = 3;
-    public int magicMissileDefaultDamage = 40;
+    public int magicMissileDefaultDamage = 35;
     private Vector3 attackSource;
     private Vector3 attackDestination;
     private int ticksTilActivation = 30;

@@ -6,7 +6,7 @@ public class BarkskinSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    public int barkskinDefaultBlockAmount = 7;
+    public int barkskinDefaultBlockAmount = 6;
     public int ticksTilActivation = 0;
 
     public BarkskinSkill(Piece caster, Board board)
