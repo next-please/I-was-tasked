@@ -8,11 +8,11 @@ public class ThunderstormSkill : Interaction
     private Tile targetSpace;
     private Board board;
     private Vector3 attackSource;
-    private int initialStartUp = 25;
-    private int ticksTilActivation = 50;
+    private int initialStartUp = GameLogicManager.Inst.Data.Skills.ThunderStormInitialTick;
+    private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.ThunderStormSubsequentTick;
     private int countRemaining;
-    public int thunderStormDefaultRadius = 1;
-    public int thunderStormDefaultCount = 5;
+    public int thunderStormDefaultRadius = GameLogicManager.Inst.Data.Skills.ThunderStormRadius;
+    public int thunderStormDefaultCount = GameLogicManager.Inst.Data.Skills.ThunderStormCount;
 
     public ThunderstormSkill(Piece caster, Piece target, Board board)
     {
@@ -86,7 +86,7 @@ public class ThunderstormBoltEffect : Interaction
     private Piece target;
     private Vector3 attackSource;
     private int ticksTilActivation = 25;
-    public int thunderStormDefaultDamage = 28;
+    public int thunderStormDefaultDamage = GameLogicManager.Inst.Data.Skills.ThunderStormBoltDamage;
 
     public ThunderstormBoltEffect(Piece target)
     {

@@ -7,7 +7,7 @@ public class FrostArmourSkill : Interaction
     private Piece caster;
     private Piece target;
     private Board board;
-    public double frostArmourDefaultArmourPercentage = 0.3;
+    public double frostArmourDefaultArmourPercentage = GameLogicManager.Inst.Data.Skills.FrostArmourPercentage;
     public int ticksTilActivation = 0;
 
     public FrostArmourSkill(Piece caster, Piece target, Board board)
@@ -64,7 +64,7 @@ public class FrostArmourLingeringEffect : Interaction
     private Piece target;
     private double armourChange;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 250;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.FrostArmourLingerTicks;
     public int blockAmount;
 
     public FrostArmourLingeringEffect(Piece target, double armourChange)

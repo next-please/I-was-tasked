@@ -7,8 +7,8 @@ public class RampageSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    public int rampageDefaultAttackSpeedAmount = 3;
-    public double rampageDefaultArmourPercentage = -0.25;
+    public int rampageDefaultAttackSpeedAmount = GameLogicManager.Inst.Data.Skills.RampageAttackSpeed;
+    public double rampageDefaultArmourPercentage = GameLogicManager.Inst.Data.Skills.RampageArmourPercentage;
     public int ticksTilActivation = 0;
 
     public RampageSkill(Piece caster, Board board)
@@ -67,7 +67,7 @@ public class RampageLingeringEffect : Interaction
     private int attackSpeedChange;
     private double armourChange;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 250;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.RampageLingerTicks;
     public int blockAmount;
 
     public RampageLingeringEffect(Piece caster, int attackSpeedChange, double armourChange)

@@ -7,11 +7,11 @@ public class MagicMissileSkill : Interaction
     private Piece caster;
     private Piece target;
     private Board board;
-    public int magicMissileDefaultCount = 3;
-    public int magicMissileDefaultDamage = 35;
+    public int magicMissileDefaultCount = GameLogicManager.Inst.Data.Skills.MagicMissileCount;
+    public int magicMissileDefaultDamage = GameLogicManager.Inst.Data.Skills.MagicMissileDamage;
     private Vector3 attackSource;
     private Vector3 attackDestination;
-    private int ticksTilActivation = 30;
+    private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.MagicMissileTicks;
     private int countRemaining;
 
 

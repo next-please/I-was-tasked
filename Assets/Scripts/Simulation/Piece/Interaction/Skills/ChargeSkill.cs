@@ -10,8 +10,8 @@ public class ChargeSkill : Interaction
     private Board board;
     private Tile targetTile;
     private int ticksTilActivation = 6;
-    public double chargeStackingDefaultPercentageIncrease = 1.2;
-    public double chargeBaseDefaultDamage = 40;
+    public double chargeStackingDefaultPercentageIncrease = GameLogicManager.Inst.Data.Skills.ChargeStackingPercentIncrease;
+    public double chargeBaseDefaultDamage = GameLogicManager.Inst.Data.Skills.ChargeBaseDamage;
     private int totalDamage;
     private Vector3 targetTilePos;
     private float speedToTranslate;

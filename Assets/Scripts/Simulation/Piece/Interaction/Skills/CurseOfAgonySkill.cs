@@ -7,7 +7,7 @@ public class CurseOfAgonySkill : Interaction
     private Piece caster;
     private Piece target;
     private Board board;
-    public int curseOfAgonyDefaultCurseAmount = 20;
+    public int curseOfAgonyDefaultCurseAmount = GameLogicManager.Inst.Data.Skills.CurseOfAgonyCurseAmount;
     public int ticksTilActivation = 0;
 
     public CurseOfAgonySkill(Piece caster, Piece target, Board board)
@@ -64,7 +64,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
     private Piece target;
     private double curseChange;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 250;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CurseOfAgonyLingerTicks;
 
     public CurseOfAgonyLingeringEffect(Piece target, int curseChange)
     {

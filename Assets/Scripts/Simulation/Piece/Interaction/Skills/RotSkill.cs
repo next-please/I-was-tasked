@@ -7,11 +7,11 @@ public class RotSkill : Interaction
     private Piece caster;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 20;
+    private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.RotTickPerCount;
     private int countRemaining;
-    public int rotDefaultRadius = 1;
-    public int rotDefaultCount = 20;
-    public int rotDefaultDamage = 6;
+    public int rotDefaultRadius = GameLogicManager.Inst.Data.Skills.RotRadius;
+    public int rotDefaultCount = GameLogicManager.Inst.Data.Skills.RotCount;
+    public int rotDefaultDamage = GameLogicManager.Inst.Data.Skills.RotDamage;
 
     public RotSkill(Piece caster, Board board)
     {

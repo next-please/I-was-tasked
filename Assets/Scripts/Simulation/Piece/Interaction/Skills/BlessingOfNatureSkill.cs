@@ -7,7 +7,7 @@ public class BlessingOfNatureSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    public double blessingOfNatureDefaultMultiplierIncrease = 0.6;
+    public double blessingOfNatureDefaultMultiplierIncrease = GameLogicManager.Inst.Data.Skills.BlessingOfNatureMultiplierIncrease;
     public int ticksTilActivation = 0;
 
     public BlessingOfNatureSkill(Piece caster, Board board)
@@ -104,7 +104,7 @@ public class BlessingOfNatureLingeringEffect : Interaction
     private int currentHitPointChange;
     private int maximumHitPointChange;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 250;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.BlessingOfNatureLingerTicks;
     public int blockAmount;
 
     public BlessingOfNatureLingeringEffect(Piece target, int attackDamageChange, int currentHitPointChange, int maximumHitPointChange)

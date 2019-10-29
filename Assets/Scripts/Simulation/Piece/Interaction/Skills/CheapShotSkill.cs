@@ -9,7 +9,7 @@ public class CheapShotSkill : Interaction
     private Board board;
     private Vector3 attackSource;
     private int ticksTilActivation = 50;
-    public int cheapShotDefaultStunDuration = 250;
+    public int cheapShotDefaultStunDuration = GameLogicManager.Inst.Data.Skills.CheapShotStunTicks;
 
     public CheapShotSkill(Piece caster, Piece target, Board board)
     {
@@ -82,7 +82,7 @@ public class CheapShotLingeringEffect : Interaction
 {
     private Vector3 effectPosition;
     private Piece target;
-    public int ticksTilActivation = 250;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CheapShotLingerTicks;
 
     public CheapShotLingeringEffect(Piece target)
     {

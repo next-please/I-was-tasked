@@ -10,8 +10,8 @@ public class ShadowStrikeSkill : Interaction
     public Vector3 attackSource;
     public Vector3 attackDestination;
     public Tile targetTile;
-    private int ticksTilActivation = 40;
-    public int shadowStrikeDefaultDamage = 90;
+    private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.ShadowStrikeInitialTick;
+    public int shadowStrikeDefaultDamage = GameLogicManager.Inst.Data.Skills.ShadowStrikeDamage;
 
     public ShadowStrikeSkill(Piece caster, Piece target, Board board)
     {

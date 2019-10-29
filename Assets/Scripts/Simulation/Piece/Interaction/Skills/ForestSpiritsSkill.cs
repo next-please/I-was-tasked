@@ -11,9 +11,9 @@ public class ForestSpiritsSkill : Interaction
     private Vector3 attackSource;
     private float attackSourceOffset = 0.5f;
     private int ticksTilActivation = 0;
-    private int initialTicksTilActivation = 120;
-    private int subsequentTicksTilActivation = 40;
-    public int forestSpiritsDefaultCount = 5;
+    private int initialTicksTilActivation = GameLogicManager.Inst.Data.Skills.ForestSpiritsInitialTicks;
+    private int subsequentTicksTilActivation = GameLogicManager.Inst.Data.Skills.ForestSpiritsSubsequentTicks;
+    public int forestSpiritsDefaultCount = GameLogicManager.Inst.Data.Skills.ForestSpiritsCount;
 
     public ForestSpiritsSkill(Piece caster, Board board)
     {
@@ -150,8 +150,8 @@ public class ForestSpiritSecondaryEffect : Interaction
     private Piece target;
     private Vector3 attackSource;
     private Vector3 attackDestination;
-    private int ticksTilActivation = 70;
-    public int forestSpiritsDefaultHealAmount = 30;
+    private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.ForestSpiritsSecondaryTicks;
+    public int forestSpiritsDefaultHealAmount = GameLogicManager.Inst.Data.Skills.ForestSpiritsHeal;
 
     public ForestSpiritSecondaryEffect(Vector3 attackSource, Piece target)
     {

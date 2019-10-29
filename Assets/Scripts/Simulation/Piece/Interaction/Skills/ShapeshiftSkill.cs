@@ -7,8 +7,8 @@ public class ShapeshiftSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    public double shapeshiftDefaultMultiplierIncrease = 1.2;
-    public int shapeshiftDefaultAttackSpeedIncrease = 1;
+    public double shapeshiftDefaultMultiplierIncrease = GameLogicManager.Inst.Data.Skills.ShapeShiftMultiplierIncrease;
+    public int shapeshiftDefaultAttackSpeedIncrease = GameLogicManager.Inst.Data.Skills.ShapeShiftDefaultAttackSpeedIncrease;
     public int ticksTilActivation = 0;
 
     public ShapeshiftSkill(Piece caster, Board board)
@@ -68,7 +68,7 @@ public class ShapeshiftLingeringEffect : Interaction
 {
     public Piece caster;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 200;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.ShapeShiftLingerTicks;
 
     public ShapeshiftLingeringEffect(Piece caster)
     {

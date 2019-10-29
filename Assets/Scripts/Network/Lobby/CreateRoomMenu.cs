@@ -13,7 +13,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     [SerializeField]
     private InputField _numPlayersInput;
-    
+
     private CanvasesManager _canvasesManager;
 
     private void Awake()
@@ -42,14 +42,14 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     public override void OnCreatedRoom()
     {
-        Debug.LogFormat("{0}: Room '{1}' created successfully with maximum of {2} players", 
+        Debug.LogFormat("{0}: Room '{1}' created successfully with maximum of {2} players",
             CLASS_NAME, _roomName.text, PhotonNetwork.CurrentRoom.MaxPlayers);
         _canvasesManager.CurrentRoomCanvas.Show();
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
-        Debug.LogFormat("{0}: Room '{1}' creation was unsuccessful - {2}", 
+        Debug.LogFormat("{0}: Room '{1}' creation was unsuccessful - {2}",
             CLASS_NAME, _roomName.text, message);
     }
 

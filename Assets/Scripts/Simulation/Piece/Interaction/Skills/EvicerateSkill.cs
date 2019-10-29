@@ -7,9 +7,9 @@ public class EvicerateSkill : Interaction
     private Piece caster;
     private Piece target;
     private Board board;
-    public int evicerateDefaultInitialDamage = 5;
-    public int evicerateDefaultBleedCount = 10;
-    public int evicerateDefaultBleedDamage = 1;
+    public int evicerateDefaultInitialDamage = GameLogicManager.Inst.Data.Skills.EviscerateInitialDamage;
+    public int evicerateDefaultBleedCount = GameLogicManager.Inst.Data.Skills.EviscerateBleedCount;
+    public int evicerateDefaultBleedDamage = GameLogicManager.Inst.Data.Skills.EviscerateBleedDamage;
     public int ticksTilActivation = 0;
 
     public EvicerateSkill(Piece caster, Piece target, Board board)
@@ -68,7 +68,7 @@ public class EvicerateLingeringEffect : Interaction
     public int bleedDamage;
     public int countRemaining;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 30;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.EviscerateLingerTicks;
 
     public EvicerateLingeringEffect(Piece target, int bleedDamage, int countRemaining, Board board)
     {

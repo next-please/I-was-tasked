@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59925352536633f43b3df973c22ff866, type: 3}
+  m_Name: GameLogic
+  m_EditorClassIdentifier: 
+  Version: master
+  Skills:
+    BarkSkinBlockAmount: 6
+    BarkSkinLingerTicks: 250
+    BerserkMultiplerIncrease: 2
+    BlessingOfNatureMultiplierIncrease: 0.6
+    BlessingOfNatureLingerTicks: 250
+    ChargeStackingPercentIncrease: 1.2
+    ChargeBaseDamage: 40
+    CheapShotStunTicks: 250
+    CheapShotLingerTicks: 250
+    CurseOfAgonyCurseAmount: 20
+    CurseOfAgonyLingerTicks: 250
+    EviscerateInitialDamage: 5
+    EviscerateBleedCount: 10
+    EviscerateBleedDamage: 1
+    EviscerateLingerTicks: 30
+    FireblastDamage: 120
+    FireblastTicks: 120
+    ForestSpiritsInitialTicks: 120
+    ForestSpiritsSubsequentTicks: 40
+    ForestSpiritsCount: 5
+    ForestSpiritsSecondaryTicks: 70
+    ForestSpiritsHeal: 30
+    FrostArmourPercentage: 0.3
+    FrostArmourLingerTicks: 250
+    GreaterHealInitialTicks: 100
+    GreaterHealAmount: 120
+    GreaterHealLingerTicks: 200
+    MagicMissileCount: 3
+    MagicMissileDamage: 35
+    MagicMissileTicks: 30
+    MarkForDeathTicks: 300
+    MoonfireInitialTicks: 20
+    MoonfireManaRetainPercentage: 0.5
+    MoonfireDefaultDamage: 58
+    MoonfireLingerTicks: 20
+    ProtectAllyLingerTicks: 100
+    RampageAttackSpeed: 3
+    RampageArmourPercentage: -0.25
+    RampageLingerTicks: 250
+    RotTickPerCount: 20
+    RotRadius: 1
+    RotCount: 20
+    RotDamage: 6
+    ShadowStrikeDamage: 90
+    ShadowStrikeInitialTick: 40
+    ShapeShiftMultiplierIncrease: 1.2
+    ShapeShiftDefaultAttackSpeedIncrease: 1
+    ShapeShiftLingerTicks: 200
+    ThunderStormInitialTick: 25
+    ThunderStormSubsequentTick: 50
+    ThunderStormRadius: 1
+    ThunderStormCount: 5
+    ThunderStormBoltDamage: 28
+    UnholyAuraTickPerCount: 25
+    UnholyAuraRadius: 4
+    UnholyAuraCount: 15
+    UnholyAuraDamage: 6
+  Gen:
+    DefaultHitPoints: 150
+    DefaultManaPoints: 150
+    HitPointMultiplier: 1.5
+    DefaultAttackDamage: 10
+    AttackDamageMultiplier: 1.5
+    DefaultAttackRange: 1
+    DefaultAttackSpeed: 1
+    MinAttackSpeed: 1
+    MaxAttackSpeed: 10
+    DefaulMovementSpeed: 5
+    MinMovementSpeed: 1
+    MaxMovementSpeed: 10
+    HumanHitPointMultiplier: 1.1
+    HumanAttackDamageMultiplier: 1.1
+    HumanManaPointAdditor: -5
+    OrcFlatMovementSpeedAdditor: -1
+    OrcHitPointMultipler: 1.25
+    OrcAttackDamageMultiplier: 1.25
+    OrcFlatAttackSpeedAdditor: -1
+    ElfFlatMovementSpeedAdditor: 0
+    ElfFlatAttackSpeedAdditor: 1
+    ElfFlatConditionalAttackRangeAdditor: 1
+    ElfAttackDamageMultiplier: 1.05
+    ElfManaPointAdditor: -8
+    UndeadFlatMovementSpeedAdditor: -3
+    UndeadFlatAttackSpeedAdditor: -2
+    UndeadHitPointMultiplier: 1.35
+    MageFlatAttackRangeAdditor: 2
+    MageManaPointAdditor: -8
+    MageAttackDamageMultiplier: 1.05
+    RogueFlatMovementSpeedAdditor: 1
+    RogueFlatAttackSpeedAdditor: 1
+    RogueHitPointMultiplier: 1.05
+    RogueAttackDamageMultiplier: 1.1
+    DruidHitPointMultiplier: 1.15
+    DruidAttackDamageMultiplier: 1.15
+    DruidManaPointAdditor: -3
+    KnightHitPointMultiplier: 1.2
+    KnightAttackDamageMultiplier: 1.15
+    PriestFlatAttackRangeAdditor: 4
+    PriestManaPointAdditor: -5
+    PriestHitPointMultiplier: 1.1
+    HumanPriestManaMultiplier: 1.3
