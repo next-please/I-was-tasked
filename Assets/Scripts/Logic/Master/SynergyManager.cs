@@ -11,6 +11,7 @@ public class SynergyManager : MonoBehaviour
     private int priestStatMultiplier = 3;
     private double mageStartingManaPercentage = 2.0 / 3.0;
     private double orcHealthMultiplier = 1.5;
+    private int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount;
 
     private int[] jobSynergyCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
@@ -102,19 +103,19 @@ public class SynergyManager : MonoBehaviour
         {
             if (jobSynergyCount[i] >= jobSynergyRequirement[i])
             {
-                ApplyJobSynergy(board, i);
+                ApplyJobSynergy(board, i, player);
             }
         }
         for (int i = 0; i < raceSynergyCount.Length; i++)
         {
             if (raceSynergyCount[i] >= raceSynergyRequirement[i])
             {
-                ApplyRaceSynergy(board, i);
+                ApplyRaceSynergy(board, i, player);
             }
         }
     }
 
-    private void ApplyJobSynergy(Board board, int i)
+    private void ApplyJobSynergy(Board board, int i, Player player)
     {
         var friendlyPieces = board.GetActiveFriendliesOnBoard();
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
@@ -167,7 +168,7 @@ public class SynergyManager : MonoBehaviour
         }
     }
 
-    private void ApplyRaceSynergy(Board board, int i)
+    private void ApplyRaceSynergy(Board board, int i, Player player)
     {
         var friendlyPieces = board.GetActiveFriendliesOnBoard();
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
@@ -184,7 +185,8 @@ public class SynergyManager : MonoBehaviour
                     }
                 }
                 break;
-            case (int)Enums.Race.Human://humans activate a random race synergy
+            case (int)Enums.Race.Human://humans get money
+                inventoryManager.AddGold(player, humanGoldAmount);
                 break;
             case (int)Enums.Race.Orc://orcs gain health
                 for (int target = 0; target < friendlyPieces.Count; target++)

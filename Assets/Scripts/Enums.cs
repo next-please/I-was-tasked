@@ -70,7 +70,7 @@ public static class Enums
 
     public static string[] RaceSynergyDescription = new string[]
     {
-        "Humans gain a random racial synergy",
+        "Humans gain extra gold",
         "Elves gain range",
         "Orcs gain health",
         "Undead gain lifesteal"
