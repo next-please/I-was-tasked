@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.VFX;
 
 public class KnightSynergyView : MonoBehaviour
 {
     public Material ShieldEffectMaterial;
     public MeshRenderer ShieldRenderer;
+    public VisualEffect vfx;
 
     private PieceView pieceView;
     private Material originalMaterial;
@@ -30,7 +32,10 @@ public class KnightSynergyView : MonoBehaviour
     {
         Piece piece = pieceView.piece;
         if (piece.IsOnBoard() && !piece.IsEnemy())
+        {
             ShieldRenderer.material = ShieldEffectMaterial;
+            vfx.SendEvent("Start");
+        }
     }
 
     void OnExitPhase(ExitPhaseEvent e)
@@ -38,6 +43,7 @@ public class KnightSynergyView : MonoBehaviour
         if (e.phase == Phase.Combat)
         {
             ShieldRenderer.material = originalMaterial;
+            vfx.SendEvent("Stop");
         }
     }
 }

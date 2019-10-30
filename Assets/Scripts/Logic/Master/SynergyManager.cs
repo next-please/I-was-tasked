@@ -190,6 +190,7 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Race.Undead://undead gain lifesteal
+                EventManager.Instance.Raise(new UndeadSynergyAppliedEvent());
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetRace() == Enums.Race.Undead)
@@ -252,5 +253,9 @@ public class SynergyManager : MonoBehaviour
 }
 
 public class KnightSynergyAppliedEvent : GameEvent
+{
+}
+
+public class UndeadSynergyAppliedEvent : GameEvent
 {
 }
