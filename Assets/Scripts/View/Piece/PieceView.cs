@@ -25,8 +25,7 @@ public class PieceView : MonoBehaviour
 
     private void Start()
     {
-        Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
-        statusBars.transform.LookAt(lookAtPosition);
+        statusBars.transform.LookAt(statusBars.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
         pieceSounds = GetComponentInChildren<PieceSounds>();
         pieceSounds.InstantiateSounds(this.transform);
         foreach (GameObject rarity in rarities)
@@ -106,8 +105,7 @@ public class PieceView : MonoBehaviour
         viewAction.OnViewUpdate(this);
         prevViewAction = viewAction;
 
-        Vector3 lookAtPosition = statusBars.transform.position - Camera.main.transform.forward;
-        statusBars.transform.LookAt(lookAtPosition);
+        statusBars.transform.LookAt(statusBars.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
     }
 
     void OnPieceRemoved(RemovePieceFromBoardEvent e)
