@@ -65,7 +65,7 @@ public static class Enums
         "Knights returns damage to opponent",
         "Mages starts with Mana",
         "A random ally is buffed",
-        "A random enemy is damaged"
+        "Rogues gain massive damage but lose massive health"
     };
 
     public static string[] RaceSynergyDescription = new string[]

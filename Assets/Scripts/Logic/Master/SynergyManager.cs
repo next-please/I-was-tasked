@@ -11,7 +11,10 @@ public class SynergyManager : MonoBehaviour
     private int priestStatMultiplier = 3;
     private double mageStartingManaPercentage = 2.0 / 3.0;
     private double orcHealthMultiplier = 1.5;
+
     private int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount;
+    private double rogueDamageMultiplier = GameLogicManager.Inst.Data.Synergy.RogueDamageMultiplier;
+    private double rogueHitPointMultiplier = GameLogicManager.Inst.Data.Synergy.RogueHitPointMultiplier;
 
     private int[] jobSynergyCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
@@ -155,8 +158,16 @@ public class SynergyManager : MonoBehaviour
                 friendlyPieces[randomFriendly].SetMaximumHitPoints(friendlyPieces[randomFriendly].GetMaximumHitPoints() * priestStatMultiplier);
                 friendlyPieces[randomFriendly].SetCurrentHitPoints(friendlyPieces[randomFriendly].GetMaximumHitPoints());
                 break;
-            case (int)Enums.Job.Rogue:
-                enemyPieces[randomEnemy].SetCurrentHitPoints(enemyPieces[randomEnemy].GetMaximumHitPoints() / rogueHealthDivider);
+            case (int)Enums.Job.Rogue://rogues gain massive damage but lose massive health
+                for (int target = 0; target < friendlyPieces.Count; target++)
+                {
+                    if (friendlyPieces[target].GetClass() == Enums.Job.Rogue)
+                    {
+                        friendlyPieces[target].SetAttackDamage((int)Math.Floor(friendlyPieces[target].GetAttackDamage() * rogueDamageMultiplier));
+                        friendlyPieces[target].SetMaximumHitPoints((int)Math.Floor(friendlyPieces[target].GetMaximumHitPoints() * rogueHitPointMultiplier));
+                        friendlyPieces[target].SetCurrentHitPoints((int)Math.Floor(friendlyPieces[target].GetCurrentHitPoints() * rogueHitPointMultiplier));
+                    }
+                }
                 break;
             default:
                 Debug.Log("Error, unknown job synergy found: " + ((Enums.Job)i).ToString());
