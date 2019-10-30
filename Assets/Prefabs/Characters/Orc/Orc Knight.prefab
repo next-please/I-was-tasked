@@ -4047,6 +4047,7 @@ GameObject:
   - component: {fileID: 5424560165761441381}
   - component: {fileID: 8635716624998533826}
   - component: {fileID: 4920041305897847191}
+  - component: {fileID: 2102212632672537018}
   m_Layer: 0
   m_Name: Orc Knight
   m_TagString: Untagged
@@ -4155,6 +4156,21 @@ MonoBehaviour:
   attackAudioSource: {fileID: 848881499994822456, guid: 27ccff784251548428f54de26b5199b3,
     type: 3}
   skillAudioSource: {fileID: 0}
+--- !u!114 &2102212632672537018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655288745425940841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517e5ce54f07c4a4db3857b4870ff5e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShieldEffectMaterial: {fileID: 2100000, guid: 6af915d5669bef0439eaccfcdce1190b,
+    type: 2}
+  ShieldRenderer: {fileID: 3520812702243221159}
 --- !u!1 &9211791321704380000
 GameObject:
   m_ObjectHideFlags: 0

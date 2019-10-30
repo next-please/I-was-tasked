@@ -126,6 +126,7 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Job.Knight://knights do recoil damage
+                EventManager.Instance.Raise(new KnightSynergyAppliedEvent());
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetClass() == Enums.Job.Knight)
@@ -248,6 +249,8 @@ public class SynergyManager : MonoBehaviour
                 break;
         }
     }
+}
 
-
+public class KnightSynergyAppliedEvent : GameEvent
+{
 }

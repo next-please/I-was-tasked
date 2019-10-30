@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2960067214793122089}
   - component: {fileID: 5424560165761441381}
   - component: {fileID: 7463876148444206193}
+  - component: {fileID: 2673670365139655821}
   m_Layer: 0
   m_Name: Human Knight
   m_TagString: Untagged
@@ -105,6 +106,22 @@ MonoBehaviour:
   attackAudioSource: {fileID: 8843802531626136726, guid: be9c1f65a26962c4f94b00b47202dc1c,
     type: 3}
   skillAudioSource: {fileID: 0}
+--- !u!114 &2673670365139655821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655288745425940841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517e5ce54f07c4a4db3857b4870ff5e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pieceView: {fileID: 0}
+  ShieldEffectMaterial: {fileID: 2100000, guid: 6af915d5669bef0439eaccfcdce1190b,
+    type: 2}
+  ShieldRenderer: {fileID: 9001963884441604398}
 --- !u!1 &9001963884443861040
 GameObject:
   m_ObjectHideFlags: 0
