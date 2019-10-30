@@ -38,11 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-<<<<<<< HEAD
   m_IndirectSpecularColor: {r: 0.21952419, g: 0.43730193, b: 0.7127748, a: 1}
-=======
-  m_IndirectSpecularColor: {r: 0.2191462, g: 0.43654716, b: 0.71157724, a: 1}
->>>>>>> fix: army size starts at 2
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -34539,8 +34535,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-<<<<<<< HEAD
-=======
     - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
         type: 3}
       propertyPath: synergyManager
@@ -34561,7 +34555,6 @@ PrefabInstance:
       propertyPath: StartingArmySize
       value: 2
       objectReference: {fileID: 0}
->>>>>>> fix: army size starts at 2
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f12f44e1f36d6254ea38b508910df451, type: 3}
 --- !u!1001 &1509855595

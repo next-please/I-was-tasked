@@ -240,3 +240,6 @@ public class SynergyManager : MonoBehaviour
 public class KnightSynergyAppliedEvent : GameEvent
 {
 }
+public class UndeadSynergyAppliedEvent : GameEvent
+{
+}
