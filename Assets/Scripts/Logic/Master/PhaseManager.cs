@@ -26,7 +26,7 @@ public class PhaseManager : MonoBehaviour
     public TextMeshProUGUI CurrentRoundText;
     public Image SwordImage;
     public Canvas PopUpScreen;
-    public Canvas WinScreen;
+    public Canvas GameOverScreen;
 
     public Canvas tutorialPopUp;
 
@@ -81,12 +81,12 @@ public class PhaseManager : MonoBehaviour
     {
         if (round <= RoundsNeededToSurvive)
         {
-            PopUpScreen.GetComponentInChildren<Text>().text = "You Lose!";
+            GameOverScreen.GetComponent<Animator>().Play("Lose");
             EventManager.Instance.Raise(new GlobalMessageEvent { message = "Game is over, you lost!" });
         }
         else
         {
-            PopUpScreen.GetComponentInChildren<Text>().text = "You Win!";
+            GameOverScreen.GetComponent<Animator>().Play("Win");
             EventManager.Instance.Raise(new GlobalMessageEvent { message = "Game is over, you won!" });
         }
         PopUpScreen.enabled = true;
