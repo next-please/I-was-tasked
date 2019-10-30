@@ -77,14 +77,14 @@ public class SynergyManager : MonoBehaviour
         var board = boardManager.GetBoard(player);
         for (int i = 0; i < jobSynergyCount.Length; i++)
         {
-            if (jobSynergyCount[i] >= 2 || playerInv.HasSynergy((Enums.Job)i))
+            if (jobSynergyCount[i] >= 1 || playerInv.HasSynergy((Enums.Job)i))
             {
                 ApplyJobSynergy(board, i);
             }
         }
         for (int i = 0; i < raceSynergyCount.Length; i++)
         {
-            if (raceSynergyCount[i] >= 2 || playerInv.HasSynergy((Enums.Race)i))
+            if (raceSynergyCount[i] >= 1 || playerInv.HasSynergy((Enums.Race)i))
             {
                 ApplyRaceSynergy(board, i);
             }
