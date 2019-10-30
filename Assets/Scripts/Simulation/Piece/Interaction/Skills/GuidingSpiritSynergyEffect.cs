@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Experimental.VFX;
 
 public class GuidingSpiritSynergyEffect : Interaction
 {
@@ -61,14 +62,27 @@ public class GuidingSpiritSynergyEffect : Interaction
         }
         target.SetAttackSpeed(target.GetAttackSpeed() + attackSpeed);
         target.SetAttackDamage(target.GetAttackDamage() + attackDamage);
-     
-        board.AddInteractionToProcess(new GuidingSpiritLingeringEffect(lastKnownTile, target));
+
         if (target.interactions.Find(x => x.identifier.Equals("GuidingSpirit")) != null)
         {
             GuidingSpiritSynergyEffect skill = (GuidingSpiritSynergyEffect)target.interactions.Find(x => x.identifier.Equals("GuidingSpirit"));
             skill.attackDamage += attackDamage;
             skill.attackSpeed += attackSpeed;
         }
+
+        List<Interaction> lingers = (List<Interaction>)caster.interactions.FindAll(x => x.identifier.Equals("GuidingSpiritLinger"));
+
+        if (lingers.Count > 0)
+        {
+            foreach (var l in lingers)
+            {
+               GuidingSpiritLingeringEffect lingerEffect = l as GuidingSpiritLingeringEffect;
+               lingerEffect.SetPath(lastKnownTile, target);
+            }
+        }
+        GuidingSpiritLingeringEffect linger = new GuidingSpiritLingeringEffect(lastKnownTile, target);
+        board.AddInteractionToProcess(linger);
+        target.interactions.Add(linger);
 
         Debug.Log("Guiding spirits has been sent with an attack speed of " + attackSpeed + " and an attack damage of " + attackDamage + ". It also healed for " + lastKnownMana + ".");
     }
@@ -82,13 +96,10 @@ public class GuidingSpiritLingeringEffect : Interaction
 
     public GuidingSpiritLingeringEffect(Tile startingTile, Piece targetPiece)
     {
-        this.startDestination = ViewManager.CalculateTileWorldPosition(startingTile);
-        startDestination.y = 1.0f;
-        this.attackDestination = ViewManager.CalculateTileWorldPosition(targetPiece.GetCurrentTile());
-        attackDestination.y = 1.0f;
-        this.target = targetPiece;
+        SetPath(startingTile, targetPiece);
+        this.identifier = "GuidingSpiritLinger";
+        interactionPrefab = Enums.InteractionPrefab.GuidingSpirits;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.BlessingOfNature;
     }
 
     public override bool ProcessInteraction()
@@ -96,12 +107,20 @@ public class GuidingSpiritLingeringEffect : Interaction
         if (ticksRemaining > 0)
         {
             ticksRemaining--;
-            return true;
         }
-        else
-        {
-            return false;
-        }
+        // only cleared on board clear process
+        return true;
+    }
+
+    public void SetPath(Tile startTile, Piece target)
+    {
+        this.startDestination = ViewManager.CalculateTileWorldPosition(startTile);
+        startDestination.y = 3.0f;
+        this.attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+        attackDestination.y = 3.0f;
+        // this.ticksRemaining = ticksTilActivation;
+        this.ticksRemaining = ticksTilActivation;
+        this.target = target;
     }
 
     public override void CleanUpInteraction()
@@ -113,21 +132,16 @@ public class GuidingSpiritLingeringEffect : Interaction
     {
         GameObject projectile = interactionView.gameObject;
 
-        // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
+        // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on and be destroyed
         if (!target.IsDead())
         {
             attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-            attackDestination.y = 1.0f;
+            attackDestination.y = 3.0f;
         }
 
         float fracJourney = (float)(ticksTilActivation - ticksRemaining) / ticksTilActivation;
         projectile.transform.position = Vector3.Lerp(startDestination, attackDestination, fracJourney);
         projectile.transform.LookAt(attackDestination);
-
-        if (ticksRemaining <= 0)
-        {
-            return false;
-        }
         return true;
     }
 }

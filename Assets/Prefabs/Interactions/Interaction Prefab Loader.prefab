@@ -64,6 +64,8 @@ MonoBehaviour:
     type: 3}
   GreaterHeal: {fileID: 5046789155405430073, guid: dcb3d2004ca687549b8ca73a01913af5,
     type: 3}
+  GuidingSpirits: {fileID: 326774986444329875, guid: 1417b755fd96a264eb9db0dbd2b50dac,
+    type: 3}
   MagicMissile: {fileID: 3939746984077384847, guid: 5d22085f9a47f4d43ab475fdc6b637d9,
     type: 3}
   MarkForDeath: {fileID: 8321562651604499611, guid: 3ff94967b6b03014c88ad22af2412662,

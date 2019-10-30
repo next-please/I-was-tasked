@@ -18,6 +18,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject ForestSpirits;
     public GameObject FrostArmour;
     public GameObject GreaterHeal;
+    public GameObject GuidingSpirits;
     public GameObject MagicMissile;
     public GameObject MarkForDeath;
     public GameObject Moonfire;
@@ -62,6 +63,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.ForestSpirits, ForestSpirits },
             { PrefabEnum.FrostArmour, FrostArmour },
             { PrefabEnum.GreaterHeal, GreaterHeal },
+            { PrefabEnum.GuidingSpirits, GuidingSpirits },
             { PrefabEnum.MagicMissile, MagicMissile },
             { PrefabEnum.MarkForDeath, MarkForDeath },
             { PrefabEnum.Moonfire, Moonfire },

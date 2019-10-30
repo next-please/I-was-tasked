@@ -34,6 +34,7 @@ public static class Enums
         ForestSpirits,
         FrostArmour,
         GreaterHeal,
+        GuidingSpirits,
         MagicMissile,
         MarkForDeath,
         Moonfire,
