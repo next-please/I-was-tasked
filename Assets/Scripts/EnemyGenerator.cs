@@ -254,7 +254,7 @@ public class EnemyGenerator
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 0, true, 90, 100, 5, 1, 4, 5);
+                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 5, 1, 4, 5);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
@@ -266,7 +266,7 @@ public class EnemyGenerator
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 7);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #5)", "", Enums.Race.Orc, Enums.Job.Knight, 0, true, 90, 100, 8, 1, 6, 5);
+                enemy = new Piece("Enemy #5)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 6, 5);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
@@ -429,7 +429,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(0);
+                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
@@ -453,7 +453,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
-                enemy.SetRarity(0);
+                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
