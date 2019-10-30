@@ -165,7 +165,6 @@ public class SynergyManager : MonoBehaviour
                     if (friendlyPieces[target].GetClass() == Enums.Job.Rogue)
                     {
                         friendlyPieces[target].SetAttackDamage((int)Math.Floor(friendlyPieces[target].GetAttackDamage() * rogueDamageMultiplier));
-                        friendlyPieces[target].SetMaximumHitPoints((int)Math.Floor(friendlyPieces[target].GetMaximumHitPoints() * rogueHitPointMultiplier));
                         friendlyPieces[target].SetCurrentHitPoints((int)Math.Floor(friendlyPieces[target].GetCurrentHitPoints() * rogueHitPointMultiplier));
                     }
                 }
