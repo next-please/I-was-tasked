@@ -27,6 +27,7 @@ public class PhaseManager : MonoBehaviour
     public TextMeshProUGUI CurrentRoundText;
     public Image SwordImage;
     public Canvas PopUpScreen;
+    public Canvas WinScreen;
 
     public Canvas tutorialPopUp;
 
@@ -221,7 +222,7 @@ public class PhaseManager : MonoBehaviour
     public void StartPreCombat(List<List<Piece>> enemies)
     {
         Debug.Log(summonManager.GetWaveName(round, randomRoundIndex));
-        PopUpScreen.GetComponentInChildren<Text>().text = "Round " + round + ": " + summonManager.GetWaveName(round, randomRoundIndex);
+        PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = "Round " + round + ":\n" + summonManager.GetWaveName(round, randomRoundIndex);
         PopUpScreen.enabled = true;
         StartCoroutine(PreCombatToCombat(enemies));
     }
