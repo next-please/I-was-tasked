@@ -45,6 +45,8 @@ public class MarketManager : MonoBehaviour
 
     public List<Piece> GenerateMarketItems()
     {
+        bool orcCountry = inventoryManager.synergyManager.HasSynergy(Enums.Race.Orc);
+
         if (market.MarketPieces != null)
         {
             characterGenerator.ReturnPieces(market.MarketPieces);
@@ -53,6 +55,13 @@ public class MarketManager : MonoBehaviour
         for (int i = 0; i < market.GetMarketSize(); ++i)
         {
             Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
+            if (orcCountry)
+            {
+                while (piece.GetRace() != Enums.Race.Orc)
+                {
+                    piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
+                }
+            }
             marketPieces.Add(piece);
         }
         return marketPieces;

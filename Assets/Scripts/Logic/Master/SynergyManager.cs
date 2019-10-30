@@ -201,15 +201,13 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Race.Human://humans get money
-                inventoryManager.AddGold(player, humanGoldAmount);
                 break;
-            case (int)Enums.Race.Orc://orcs gain health
+            case (int)Enums.Race.Orc://orcs rule the world! and they're angry!
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetRace() == Enums.Race.Orc)
                     {
-                        friendlyPieces[target].SetMaximumHitPoints((int)Math.Floor(friendlyPieces[target].GetMaximumHitPoints() * orcHealthMultiplier));
-                        friendlyPieces[target].SetCurrentHitPoints(friendlyPieces[target].GetMaximumHitPoints());
+                        board.AddInteractionToProcess(new RampageSynergyEffect(friendlyPieces[target], board));
                     }
                 }
                 break;

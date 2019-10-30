@@ -72,7 +72,7 @@ public static class Enums
     {
         "Humans gain extra gold",
         "Elves gain range",
-        "Orcs gain health",
+        "Orcs rule the world! And they're angry!",
         "Undead gain immortality. Then they die."
     };
 }
