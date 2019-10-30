@@ -120,7 +120,8 @@ public class PieceUIManager : MonoBehaviour
     private void SetAttackInfo(int attackDamage, int attackSpeed)
     {
         damage.text = string.Format("{0}", attackDamage);
-        attackRate.text = string.Format("{0:0.00}", (attackDamage / (attackSpeed * 50.0f)));
+        attackRate.text = string.Format("{0}", attackSpeed);
+        dps.text = string.Format("{0:0.00}", attackDamage * (attackSpeed / 10.0f) * (50.0f / 250.0f));
     }
 
     private void SetRarity(int rarity)

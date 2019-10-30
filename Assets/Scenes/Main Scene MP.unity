@@ -48631,21 +48631,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 579021117158246147, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
         type: 3}
-      propertyPath: boardManager
-      value: 
-      objectReference: {fileID: 4975045671528403756}
-    - target: {fileID: 579021117158246147, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: marketManager
-      value: 
-      objectReference: {fileID: 4975045671528403757}
-    - target: {fileID: 579021117158246147, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 4975045671528403758}
-    - target: {fileID: 579021117158246147, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
       propertyPath: requestHandler
       value: 
       objectReference: {fileID: 896799267}
@@ -48669,16 +48654,6 @@ PrefabInstance:
       propertyPath: viewManager
       value: 
       objectReference: {fileID: 1063249072}
-    - target: {fileID: 5559441429111672054, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 4975045671528403758}
-    - target: {fileID: 1915346576537754647, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: synergyManager
-      value: 
-      objectReference: {fileID: 4975045671528403759}
     - target: {fileID: 1915346576537754647, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
         type: 3}
       propertyPath: roomManager
@@ -48689,11 +48664,6 @@ PrefabInstance:
       propertyPath: _synergyTabMenu
       value: 
       objectReference: {fileID: 1820415200}
-    - target: {fileID: 1086914354691310725, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 4975045671528403758}
     - target: {fileID: 915754268812539770, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
         type: 3}
       propertyPath: CurrentPhaseText
@@ -48731,31 +48701,6 @@ PrefabInstance:
       objectReference: {fileID: 2126706115}
     - target: {fileID: 915754268812539770, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
         type: 3}
-      propertyPath: incomeManager
-      value: 
-      objectReference: {fileID: 4975045671528403761}
-    - target: {fileID: 915754268812539770, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: boardManager
-      value: 
-      objectReference: {fileID: 4975045671528403756}
-    - target: {fileID: 915754268812539770, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: marketManager
-      value: 
-      objectReference: {fileID: 4975045671528403757}
-    - target: {fileID: 915754268812539770, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 4975045671528403758}
-    - target: {fileID: 915754268812539770, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: summonManager
-      value: 
-      objectReference: {fileID: 4975045671528403760}
-    - target: {fileID: 915754268812539770, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
       propertyPath: requestHandler
       value: 
       objectReference: {fileID: 896799267}
@@ -48764,51 +48709,11 @@ PrefabInstance:
       propertyPath: roomManager
       value: 
       objectReference: {fileID: 1904457109}
-    - target: {fileID: 915754268812539770, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: synergyManager
-      value: 
-      objectReference: {fileID: 4975045671528403759}
-    - target: {fileID: 3331137874333155773, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: boardManager
-      value: 
-      objectReference: {fileID: 4975045671528403756}
-    - target: {fileID: 3331137874333155773, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 4975045671528403758}
-    - target: {fileID: 2371845140430920368, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 4975045671528403758}
-    - target: {fileID: 2371845140430920368, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: boardManager
-      value: 
-      objectReference: {fileID: 4975045671528403756}
-    - target: {fileID: 610956473223598867, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 4975045671528403758}
-    - target: {fileID: 610956473223598867, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: marketManager
-      value: 
-      objectReference: {fileID: 4975045671528403757}
     - target: {fileID: 610956473223598867, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
         type: 3}
       propertyPath: requestHandler
       value: 
       objectReference: {fileID: 896799267}
-    - target: {fileID: 610956473223598867, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-        type: 3}
-      propertyPath: boardManager
-      value: 
-      objectReference: {fileID: 4975045671528403756}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5e4679c5708bdd4982b2e3b7cd76dfd, type: 3}
 --- !u!4 &4975045671528403755 stripped
@@ -48817,18 +48722,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4975045671528403754}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4975045671528403756 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1385507874807105083, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-    type: 3}
-  m_PrefabInstance: {fileID: 4975045671528403754}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2450a262876e9147acd0d0e7133c367, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4975045671528403757 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1086914354691310725, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
@@ -48851,30 +48744,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35f6b94174aadd34a961d9b41daebc25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4975045671528403759 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2371845140430920368, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-    type: 3}
-  m_PrefabInstance: {fileID: 4975045671528403754}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26bee2cc6d541df46b28465567b6a539, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4975045671528403760 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3331137874333155773, guid: c5e4679c5708bdd4982b2e3b7cd76dfd,
-    type: 3}
-  m_PrefabInstance: {fileID: 4975045671528403754}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ac42d16a148ea4c8aeb6e34e14f5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4975045671528403761 stripped
