@@ -87,7 +87,7 @@ public class SynergyManager : MonoBehaviour
     {
         return jobSynergyCount[(int)job] >= jobSynergyRequirement[(int)job];
     }
-    
+
     public bool HasSynergy(Enums.Race race)
     {
         return raceSynergyCount[(int)race] >= raceSynergyRequirement[(int)race];
@@ -140,6 +140,7 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Job.Knight://knights do recoil damage
+                EventManager.Instance.Raise(new KnightSynergyAppliedEvent());
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetClass() == Enums.Job.Knight)
@@ -230,10 +231,8 @@ public class SynergyManager : MonoBehaviour
         }
     }
 
-public class KnightSynergyAppliedEvent : GameEvent
-{
 }
 
-public class UndeadSynergyAppliedEvent : GameEvent
+public class KnightSynergyAppliedEvent : GameEvent
 {
 }
