@@ -19,32 +19,28 @@ public class GameLogicManager : MonoBehaviour
     {
         get
         {
-            if (instanceInternal == null)
-            {
-                Debug.Log("should be an error");
-            }
-
             return instanceInternal;
         }
     }
 
     void Awake()
     {
-        if (instanceInternal != null)
+        if (instanceInternal != null && instanceInternal != this)
         {
             Destroy(this.gameObject);
         }
         else
         {
             instanceInternal = this;
-            VersionText.text = Data.Version;
+            if (VersionText != null)
+                VersionText.text = Data.Version;
             DontDestroyOnLoad(this.gameObject);
         }
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (VersionText != null && Input.GetKeyDown(KeyCode.Escape))
         {
             OtherCanvas.SetActive(isOpen);
             isOpen = !isOpen;
