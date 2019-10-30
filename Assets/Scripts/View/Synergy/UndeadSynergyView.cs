@@ -3,20 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.VFX;
 
-public class KnightSynergyView : MonoBehaviour
+public class UndeadSynergyView : MonoBehaviour
 {
-    public Material ShieldEffectMaterial;
-    public MeshRenderer ShieldRenderer;
     public VisualEffect vfx;
-
     private PieceView pieceView;
-    private Material originalMaterial;
 
     void Start()
     {
-        EventManager.Instance.AddListener<JobSynergyAppliedEvent>(OnSynergyApplied);
+        EventManager.Instance.AddListener<RaceSynergyAppliedEvent>(OnSynergyApplied);
         EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
-        originalMaterial = ShieldRenderer.material;
         pieceView = GetComponentInParent<PieceView>();
         if (pieceView == null)
             Destroy(this);
@@ -24,18 +19,17 @@ public class KnightSynergyView : MonoBehaviour
 
     void OnDestroy()
     {
-        EventManager.Instance.RemoveListener<JobSynergyAppliedEvent>(OnSynergyApplied);
+        EventManager.Instance.RemoveListener<RaceSynergyAppliedEvent>(OnSynergyApplied);
         EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
     }
 
-    void OnSynergyApplied(JobSynergyAppliedEvent e)
+    void OnSynergyApplied(RaceSynergyAppliedEvent e)
     {
-        if (e.Job != Enums.Job.Knight)
+         if (e.Race != Enums.Race.Undead)
             return;
         Piece piece = pieceView.piece;
         if (piece.IsOnBoard() && !piece.IsEnemy())
         {
-            ShieldRenderer.material = ShieldEffectMaterial;
             vfx.SendEvent("Start");
         }
     }
@@ -44,7 +38,6 @@ public class KnightSynergyView : MonoBehaviour
     {
         if (e.phase == Phase.Combat)
         {
-            ShieldRenderer.material = originalMaterial;
             vfx.SendEvent("Stop");
         }
     }

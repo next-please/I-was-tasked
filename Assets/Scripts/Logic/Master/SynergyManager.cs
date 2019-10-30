@@ -126,7 +126,7 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Job.Knight://knights do recoil damage
-                EventManager.Instance.Raise(new KnightSynergyAppliedEvent());
+                EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = Enums.Job.Knight });
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetClass() == Enums.Job.Knight)
@@ -190,7 +190,7 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Race.Undead://undead gain lifesteal
-                EventManager.Instance.Raise(new UndeadSynergyAppliedEvent());
+                EventManager.Instance.Raise(new RaceSynergyAppliedEvent { Race = Enums.Race.Undead });
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetRace() == Enums.Race.Undead)
@@ -252,10 +252,12 @@ public class SynergyManager : MonoBehaviour
     }
 }
 
-public class KnightSynergyAppliedEvent : GameEvent
+public class RaceSynergyAppliedEvent : GameEvent
 {
+    public Enums.Race Race;
 }
 
-public class UndeadSynergyAppliedEvent : GameEvent
+public class JobSynergyAppliedEvent : GameEvent
 {
+    public Enums.Job Job;
 }
