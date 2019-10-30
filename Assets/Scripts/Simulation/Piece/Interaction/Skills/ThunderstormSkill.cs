@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ThunderstormSkill : Interaction
 {
@@ -75,7 +76,7 @@ public class ThunderstormSkill : Interaction
         if (numEnemiesWithinRange > 0)
         {
             Piece target = enemiesWithinRange[board.GetRNGesus().Next(0, numEnemiesWithinRange)];
-            Interaction skill = new ThunderstormBoltEffect(target);
+            Interaction skill = new ThunderstormBoltEffect(target, caster);
             board.AddInteractionToProcess(skill);
         }
     }
@@ -84,13 +85,15 @@ public class ThunderstormSkill : Interaction
 public class ThunderstormBoltEffect : Interaction
 {
     private Piece target;
+    private Piece caster;
     private Vector3 attackSource;
     private int ticksTilActivation = 25;
     public int thunderStormDefaultDamage = GameLogicManager.Inst.Data.Skills.ThunderStormBoltDamage;
 
-    public ThunderstormBoltEffect(Piece target)
+    public ThunderstormBoltEffect(Piece target, Piece caster)
     {
         this.target = target;
+        this.caster = caster;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ThunderStormLightning;
@@ -137,12 +140,13 @@ public class ThunderstormBoltEffect : Interaction
             return;
         }
 
+        int damage = (int)Math.Floor(thunderStormDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.ThunderStormRarityMultiplier, caster.GetRarity()));
         if (!target.invulnerable)
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - thunderStormDefaultDamage);
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
         }
 
-        Debug.Log(target.GetName() + " has been ThunderStorm-ed for " + thunderStormDefaultDamage + " DMG.");
+        Debug.Log(target.GetName() + " has been ThunderStorm-ed for " + damage + " DMG.");
     }
 }
 

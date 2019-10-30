@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CurseOfAgonySkill : Interaction
 {
@@ -52,12 +53,21 @@ public class CurseOfAgonySkill : Interaction
 
         if (caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony")) != null)
         {
-            caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony")).ticksRemaining = CurseOfAgonyLingeringEffect.ticksTilActivation;
+            CurseOfAgonyLingeringEffect skill = (CurseOfAgonyLingeringEffect)caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony"));
+            skill.ticksRemaining = CurseOfAgonyLingeringEffect.ticksTilActivation;
+            int curseChange = curseOfAgonyDefaultCurseAmount;
+            curseChange = (int)Math.Floor(curseChange * Math.Pow(GameLogicManager.Inst.Data.Skills.CurseOfAgonyRarityMultiplier, caster.GetRarity()));
+            if (curseChange > skill.curseChange)
+            {
+                target.SetCurseDamageAmount(target.GetCurseDamageAmount() + (curseChange - skill.curseChange));
+                skill.curseChange = curseChange;
+            }
         }
         else
         {
-            target.SetCurseDamageAmount(target.GetCurseDamageAmount() + curseOfAgonyDefaultCurseAmount);
             int curseChange = curseOfAgonyDefaultCurseAmount;
+            curseChange = (int)Math.Floor(curseChange * Math.Pow(GameLogicManager.Inst.Data.Skills.CurseOfAgonyRarityMultiplier, caster.GetRarity()));
+            target.SetCurseDamageAmount(target.GetCurseDamageAmount() + curseChange);
 
             Interaction skill = new CurseOfAgonyLingeringEffect(target, curseChange);
             board.AddInteractionToProcess(skill);
@@ -71,7 +81,7 @@ public class CurseOfAgonySkill : Interaction
 public class CurseOfAgonyLingeringEffect : Interaction
 {
     private Piece target;
-    private double curseChange;
+    public int curseChange;
     private Vector3 attackDestination;
     public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CurseOfAgonyLingerTicks;
 

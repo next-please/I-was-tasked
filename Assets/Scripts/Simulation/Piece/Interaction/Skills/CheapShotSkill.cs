@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CheapShotSkill : Interaction
 {
@@ -66,15 +67,17 @@ public class CheapShotSkill : Interaction
             return;
         }
 
-        if (target.GetState().ticksRemaining < cheapShotDefaultStunDuration)
+        int stunDuration = (int)Math.Floor(cheapShotDefaultStunDuration * Math.Pow(GameLogicManager.Inst.Data.Skills.CheapShotRarityMultiplier, caster.GetRarity()));
+
+        if (target.GetState().ticksRemaining < stunDuration)
         {
-            target.GetState().ticksRemaining = cheapShotDefaultStunDuration;
+            target.GetState().ticksRemaining = stunDuration;
         }
 
-        Interaction skill = new CheapShotLingeringEffect(target);
+        Interaction skill = new CheapShotLingeringEffect(target, caster);
         board.AddInteractionToProcess(skill);
 
-        Debug.Log(caster.GetName() + " has CheapShot-ed " + target.GetName() + ", stunning them for " + cheapShotDefaultStunDuration + " ticks.");
+        Debug.Log(caster.GetName() + " has CheapShot-ed " + target.GetName() + ", stunning them for " + stunDuration + " ticks.");
     }
 }
 
@@ -84,7 +87,7 @@ public class CheapShotLingeringEffect : Interaction
     private Piece target;
     public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CheapShotLingerTicks;
 
-    public CheapShotLingeringEffect(Piece target)
+    public CheapShotLingeringEffect(Piece target, Piece caster)
     {
         this.target = target;
         if (!target.IsDead())
@@ -92,7 +95,8 @@ public class CheapShotLingeringEffect : Interaction
             effectPosition = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
             effectPosition.y = 2f;
         }
-        this.ticksRemaining = ticksTilActivation;
+        int ticks = (int)Math.Floor(ticksTilActivation * Math.Pow(GameLogicManager.Inst.Data.Skills.CheapShotRarityMultiplier, caster.GetRarity()));
+        this.ticksRemaining = ticks;
     }
 
     public override bool ProcessInteraction()

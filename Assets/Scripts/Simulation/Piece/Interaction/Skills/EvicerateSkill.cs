@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EvicerateSkill : Interaction
 {
@@ -52,17 +53,19 @@ public class EvicerateSkill : Interaction
             return;
         }
 
+        int damage = (int)Math.Floor(evicerateDefaultInitialDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.EviscerateRarityMultiplier, caster.GetRarity()));
         if (!target.invulnerable)
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - evicerateDefaultInitialDamage);
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
         }
 
         int bleedCount = evicerateDefaultBleedCount;
         int bleedDamage = evicerateDefaultBleedDamage;
+        bleedDamage = (int)Math.Floor(bleedDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.EviscerateRarityMultiplier, caster.GetRarity()));
         Interaction skill = new EvicerateLingeringEffect(target, bleedDamage, bleedCount, board);
         board.AddInteractionToProcess(skill);
 
-        Debug.Log(caster.GetName() + " has Evicerate-ed " + target.GetName() + " to damage for " + evicerateDefaultInitialDamage + " damage and add a bleed.");
+        Debug.Log(caster.GetName() + " has Evicerate-ed " + target.GetName() + " to damage for " + damage + " damage and add a bleed.");
     }
 }
 

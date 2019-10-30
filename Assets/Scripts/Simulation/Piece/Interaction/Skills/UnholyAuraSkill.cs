@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class UnholyAuraSkill : Interaction
 {
@@ -96,15 +97,15 @@ public class UnholyAuraSkill : Interaction
         {
             return;
         }
-
+        int damage = (int)Math.Floor(unholyAuraDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.UnholyAuraRarityMultiplier, caster.GetRarity()));
         foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), unholyAuraDefaultRadius))
         {
             if (!target.invulnerable)
             {
-                target.SetCurrentHitPoints(target.GetCurrentHitPoints() - unholyAuraDefaultDamage);
+                target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
             }
         }
 
-        Debug.Log(caster.GetName() + " has UnholyAura-ed targets around it for " + unholyAuraDefaultDamage + " DMG.");
+        Debug.Log(caster.GetName() + " has UnholyAura-ed targets around it for " + damage + " DMG.");
     }
 }

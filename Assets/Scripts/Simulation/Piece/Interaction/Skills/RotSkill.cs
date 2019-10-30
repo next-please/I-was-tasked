@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RotSkill : Interaction
 {
@@ -105,13 +106,14 @@ public class RotSkill : Interaction
             return;
         }
 
+        int damage = (int)Math.Floor(rotDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.RotRarityMultiplier, caster.GetRarity()));
         if (!caster.IsEnemy())
         {
             foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), rotDefaultRadius))
             {
                 if (!target.invulnerable)
                 {
-                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
                 }
             }
         }
@@ -121,11 +123,11 @@ public class RotSkill : Interaction
             {
                 if (!target.invulnerable)
                 {
-                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
                 }
             }
         }
 
-        Debug.Log(caster.GetName() + " has Rot-ed targets around it for " + rotDefaultDamage + " DMG.");
+        Debug.Log(caster.GetName() + " has Rot-ed targets around it for " + damage + " DMG.");
     }
 }

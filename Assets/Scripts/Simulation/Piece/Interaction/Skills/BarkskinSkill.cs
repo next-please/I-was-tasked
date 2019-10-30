@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BarkskinSkill : Interaction
 {
@@ -53,13 +54,23 @@ public class BarkskinSkill : Interaction
 
         if (caster.interactions.Find(x => x.identifier.Equals("Barkskin")) != null)
         {
-            caster.interactions.Find(x => x.identifier.Equals("Barkskin")).ticksRemaining = BarkskinLingeringEffect.ticksTilActivation;
+            BarkskinLingeringEffect skill = (BarkskinLingeringEffect)caster.interactions.Find(x => x.identifier.Equals("Barkskin"));
+            skill.ticksRemaining = BarkskinLingeringEffect.ticksTilActivation;
+            int blockAmount = barkskinDefaultBlockAmount;
+            blockAmount = (int)Math.Floor(blockAmount * Math.Pow(GameLogicManager.Inst.Data.Skills.BarkSkinRarityMultiplier, caster.GetRarity()));
+            if (blockAmount > skill.blockAmount)
+            {
+                caster.SetBlockAmount(caster.GetBlockAmount() + (blockAmount - skill.blockAmount));
+                skill.blockAmount = blockAmount;
+            }
         }
         else
         {
-            caster.SetBlockAmount(caster.GetBlockAmount() + barkskinDefaultBlockAmount);
+            int blockAmount = barkskinDefaultBlockAmount;
+            blockAmount = (int)Math.Floor(blockAmount * Math.Pow(GameLogicManager.Inst.Data.Skills.BarkSkinRarityMultiplier, caster.GetRarity()));
+            caster.SetBlockAmount(caster.GetBlockAmount() + blockAmount);
 
-            Interaction skill = new BarkskinLingeringEffect(caster, barkskinDefaultBlockAmount);
+            Interaction skill = new BarkskinLingeringEffect(caster, blockAmount);
             board.AddInteractionToProcess(skill);
             caster.interactions.Add(skill);
         }

@@ -135,8 +135,9 @@ public class GeneratorData
 public class SkillData
 {
     [Header("Bark Skin")]
-    public int BarkSkinBlockAmount = 6;
+    public int BarkSkinBlockAmount = 5;
     public int BarkSkinLingerTicks = 250;
+    public double BarkSkinRarityMultiplier = 1.2;
 
     [Header("Berserk")]
     public double BerserkMultiplerIncrease = 2;
@@ -147,32 +148,38 @@ public class SkillData
 
     [Header("Charge")]
     public double ChargeStackingPercentIncrease = 1.2;
-    public double ChargeBaseDamage = 40;
+    public double ChargeBaseDamage = 35;
+    public double ChargeRarityMultiplier = 1.2;
 
     [Header("Cheap Shot")]
-    public int CheapShotStunTicks = 250;
-    public int CheapShotLingerTicks = 250;
+    public int CheapShotStunTicks = 150;
+    public int CheapShotLingerTicks = 150;
+    public double CheapShotRarityMultiplier = 1.2;
 
     [Header("Curse of Agony")]
-    public int CurseOfAgonyCurseAmount = 20;
+    public int CurseOfAgonyCurseAmount = 22;
     public int CurseOfAgonyLingerTicks = 250;
+    public double CurseOfAgonyRarityMultiplier = 1.2;
 
     [Header("Eviscerate")]
-    public int EviscerateInitialDamage = 5;
+    public int EviscerateInitialDamage = 7;
     public int EviscerateBleedCount = 10;
-    public int EviscerateBleedDamage = 1;
+    public int EviscerateBleedDamage = 6;
     public int EviscerateLingerTicks = 30;
+    public double EviscerateRarityMultiplier = 1.2;
 
     [Header("Fireblast")]
-    public int FireblastDamage = 120;
+    public int FireblastDamage = 100;
     public int FireblastTicks = 120;
+    public double FireblastRarityMultiplier = 1.2;
 
     [Header("Forest Spirits")]
     public int ForestSpiritsInitialTicks = 120;
     public int ForestSpiritsSubsequentTicks = 40;
     public int ForestSpiritsCount = 5;
     public int ForestSpiritsSecondaryTicks = 70;
-    public int ForestSpiritsHeal = 30;
+    public int ForestSpiritsHeal = 25;
+    public double ForestSpiritsRarityMultiplier = 1.2;
 
     [Header("Frost Armour")]
     public double FrostArmourPercentage = 0.3;
@@ -180,22 +187,26 @@ public class SkillData
 
     [Header("Greater Heal")]
     public int GreaterHealInitialTicks = 100;
-    public int GreaterHealAmount = 120;
+    public int GreaterHealAmount = 100;
     public int GreaterHealLingerTicks = 200; //NOTE: alert this is purely visual @Rinder 5
+    public double GreaterHealRarityMultiplier = 1.2;
 
     [Header("Magic Missile")]
     public int MagicMissileCount = 3;
     public int MagicMissileDamage = 35;
-    public int MagicMissileTicks = 30;
+    public int MagicMissileTicks = 25;
+    public double MagicMissileRarityMultiplier = 1.2;
 
     [Header("Mark For Death")]
-    public int MarkForDeathTicks = 300;
+    public int MarkForDeathTicks = 320;
+    public double MarkForDeathRarityMultiplier = 0.8;
 
     [Header("Moonfire")]
     public int MoonfireInitialTicks = 20;
     public double MoonfireManaRetainPercentage = 0.5;
     public int MoonfireDefaultDamage = 58;
     public int MoonfireLingerTicks = 20;
+    public double MoonfireRarityMultiplier = 1.2;
 
     [Header("Protect Ally")]
     public int ProtectAllyLingerTicks = 100;
@@ -209,11 +220,13 @@ public class SkillData
     public int RotTickPerCount = 20;
     public int RotRadius = 1;
     public int RotCount = 20;
-    public int RotDamage = 6;
+    public int RotDamage = 7;
+    public double RotRarityMultiplier = 1.2;
 
     [Header("Shadow Strike")]
-    public int ShadowStrikeDamage = 90;
+    public int ShadowStrikeDamage = 75;
     public int ShadowStrikeInitialTick = 40;
+    public double ShadowStrikeRarityMultiplier = 1.2;
 
     [Header("Shape Shift")]
     public double ShapeShiftMultiplierIncrease = 1.2;
@@ -226,10 +239,12 @@ public class SkillData
     public int ThunderStormRadius = 1;
     public int ThunderStormCount = 5;
     public int ThunderStormBoltDamage = 28;
+    public double ThunderStormRarityMultiplier = 1.2;
 
     [Header("Unholy Aura")]
     public int UnholyAuraTickPerCount = 25;
     public int UnholyAuraRadius = 4;
     public int UnholyAuraCount = 15;
-    public int UnholyAuraDamage = 6;
+    public int UnholyAuraDamage = 7;
+    public double UnholyAuraRarityMultiplier = 1.2;
 }
