@@ -12,9 +12,10 @@ public class SynergyManager : MonoBehaviour
     private double orcHealthMultiplier = 1.5;
 
     private double mageStartingManaPercentage = GameLogicManager.Inst.Data.Synergy.MageStartingManaPercentage;
-    private int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount;
+    public int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount;
     private double rogueDamageMultiplier = GameLogicManager.Inst.Data.Synergy.RogueDamageMultiplier;
     private double rogueHitPointMultiplier = GameLogicManager.Inst.Data.Synergy.RogueHitPointMultiplier;
+    public int undeadTicksToDie = GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie;
 
     private int[] jobSynergyCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
