@@ -345,13 +345,6 @@ public class Board
 
     public Tile GetTile(int row, int col)
     {
-        // @Rinder5 this is a hot fix for shadow strike, raise dead, charge
-        if (row >= numRows || col >= numCols || row < 0 || col < 0)
-        {
-            Tile tile  = new Tile(-1, -1, null);
-            tile.SetOccupant(null);
-            return tile;
-        }
         return tiles[row][col];
     }
 
