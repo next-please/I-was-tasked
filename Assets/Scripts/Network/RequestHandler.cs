@@ -228,6 +228,7 @@ namespace Com.Nextplease.IWT
             yield return new WaitForSecondsRealtime(15);
             if (_currentPhaseID == phaseID)
             {
+                Debug.LogFormat("{0}: Fail Safe Activated", CLASS_NAME);
                 req.Approve();
                 this.networkManager.ProcessRequest(req);
             }
