@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: GameLogic
   m_EditorClassIdentifier: 
   Version: master
+  Piece:
+    ManaPointsGainedOnAttack: 10
+    ManaPointsGainedOnHit: 4
   Skills:
     BarkSkinBlockAmount: 6
     BarkSkinLingerTicks: 250
@@ -73,12 +76,12 @@ MonoBehaviour:
     UnholyAuraDamage: 6
   Gen:
     DefaultHitPoints: 150
-    DefaultManaPoints: 150
+    DefaultManaPoints: 100
     HitPointMultiplier: 1.5
     DefaultAttackDamage: 10
     AttackDamageMultiplier: 1.5
     DefaultAttackRange: 1
-    DefaultAttackSpeed: 1
+    DefaultAttackSpeed: 5
     MinAttackSpeed: 1
     MaxAttackSpeed: 10
     DefaulMovementSpeed: 5
@@ -115,3 +118,13 @@ MonoBehaviour:
     PriestManaPointAdditor: -5
     PriestHitPointMultiplier: 1.1
     HumanPriestManaMultiplier: 1.3
+  Synergy:
+    DruidRequirement: 3
+    KnightRequirement: 3
+    MageRequirement: 3
+    PriestRequirement: 3
+    RogueRequirement: 3
+    HumanRequirement: 3
+    ElfRequirement: 3
+    OrcRequirement: 3
+    UndeadRequirement: 3

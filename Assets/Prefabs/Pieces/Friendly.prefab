@@ -24,8 +24,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1756079893122853401}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalPosition: {x: 0, y: 1.75, z: 0}
+  m_LocalScale: {x: 0.07, y: 0.05, z: 1}
   m_Children:
   - {fileID: 3733486941166408284}
   - {fileID: 7092872209332039714}
@@ -145,16 +145,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP Bar
       objectReference: {fileID: 0}
-    - target: {fileID: 4855660549573039490, guid: 6955271da4d2a0645bbdcca176b2b47c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7102628750338147106, guid: 6955271da4d2a0645bbdcca176b2b47c,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -163,7 +153,7 @@ PrefabInstance:
     - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.066
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
         type: 3}
@@ -208,26 +198,6 @@ PrefabInstance:
     - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 819353640995821248, guid: 6955271da4d2a0645bbdcca176b2b47c,
-        type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -256,16 +226,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MP Bar
       objectReference: {fileID: 0}
-    - target: {fileID: 1359021304896469787, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3688281044827942331, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -274,7 +234,7 @@ PrefabInstance:
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
@@ -319,26 +279,6 @@ PrefabInstance:
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6548267864327845977, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

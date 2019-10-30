@@ -49,7 +49,7 @@ MonoBehaviour:
   statusBars: {fileID: 1283241703397704063}
   currentHPBar: {fileID: 4978927757197830862}
   currentMPBar: {fileID: 4894328210242986779}
-  nameText: {fileID: 0}
+  pieceSounds: {fileID: 0}
 --- !u!114 &-228607176018012935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,8 +86,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1283241703397704063}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalPosition: {x: 0, y: 1.75, z: 0}
+  m_LocalScale: {x: 0.07, y: 0.05, z: 1}
   m_Children:
   - {fileID: 6978322079132186428}
   - {fileID: 7359843916769623785}
@@ -114,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 5142782745114205904, guid: fc346f163c984414294995744131fa23,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.066
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 5142782745114205904, guid: fc346f163c984414294995744131fa23,
         type: 3}
@@ -187,11 +187,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MP Bar
       objectReference: {fileID: 0}
-    - target: {fileID: 8294861222438596528, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -200,7 +195,7 @@ PrefabInstance:
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
@@ -246,11 +241,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00c39b6a602bbaa418d85a75d8569eb7, type: 3}

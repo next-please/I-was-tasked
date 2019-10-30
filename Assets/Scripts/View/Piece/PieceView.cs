@@ -20,7 +20,6 @@ public class PieceView : MonoBehaviour
     {
         Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
         statusBars.transform.LookAt(lookAtPosition);
-        currentMPBar.transform.localScale = new Vector3(0, 1, 1);
         pieceSounds = GetComponentInChildren<PieceSounds>();
         pieceSounds.InstantiateSounds(this.transform);
     }
@@ -124,13 +123,13 @@ public class PieceView : MonoBehaviour
     public void UpdateCurrentHPBar()
     {
         float currHPScale = Mathf.SmoothDamp(currentHPBar.transform.localScale.x, (float) piece.GetCurrentHitPoints() / piece.GetMaximumHitPoints(), ref velocityHP, smoothTime);
-        currentHPBar.transform.localScale = new Vector3(currHPScale, 1, 1);
+        currentHPBar.transform.localScale = new Vector3(currHPScale, currentHPBar.transform.localScale.y, currentHPBar.transform.localScale.z);
     }
 
     public void UpdateCurrentMPBar()
     {
         float currMPScale = Mathf.SmoothDamp(currentMPBar.transform.localScale.x, (float)piece.GetCurrentManaPoints() / piece.GetMaximumManaPoints(), ref velocityMP, smoothTime);
-        currentMPBar.transform.localScale = new Vector3(currMPScale, 1, 1);
+        currentMPBar.transform.localScale = new Vector3(currMPScale, currentMPBar.transform.localScale.y, currentMPBar.transform.localScale.z);
     }
 
     public void DestroyPieceView()
