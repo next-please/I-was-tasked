@@ -136,7 +136,6 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Job.Knight://knights do recoil damage
-                EventManager.Instance.Raise(new KnightSynergyAppliedEvent());
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetClass() == Enums.Job.Knight)
@@ -186,8 +185,6 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Race.Human://humans activate a random race synergy
-                int randomRace = rngesus.Next(0, Enum.GetNames(typeof(Enums.Race)).Length);
-                ApplyRaceSynergyToHuman(board, randomRace);
                 break;
             case (int)Enums.Race.Orc://orcs gain health
                 for (int target = 0; target < friendlyPieces.Count; target++)
@@ -214,53 +211,6 @@ public class SynergyManager : MonoBehaviour
                 break;
         }
     }
-
-    private void ApplyRaceSynergyToHuman(Board board, int i)
-    {
-        var friendlyPieces = board.GetActiveFriendliesOnBoard();
-        var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
-        var enemyPieces = board.GetActiveEnemiesOnBoard();
-        var randomEnemy = rngesus.Next(0, enemyPieces.Count);
-        switch (i)
-        {
-            case (int)Enums.Race.Elf://elves gain extra range
-                for (int target = 0; target < friendlyPieces.Count; target++)
-                {
-                    if (friendlyPieces[target].GetRace() == Enums.Race.Human)
-                    {
-                        friendlyPieces[target].SetAttackRange(friendlyPieces[target].GetAttackRange() + elfRangeModifier);
-                    }
-                }
-                break;
-            case (int)Enums.Race.Human://humans activate a random race synergy
-                int randomRace = rngesus.Next(0, Enum.GetNames(typeof(Enums.Race)).Length);
-                ApplyRaceSynergyToHuman(board, randomRace);
-                break;
-            case (int)Enums.Race.Orc://orcs gain health
-                for (int target = 0; target < friendlyPieces.Count; target++)
-                {
-                    if (friendlyPieces[target].GetRace() == Enums.Race.Human)
-                    {
-                        friendlyPieces[target].SetMaximumHitPoints((int)Math.Floor(friendlyPieces[target].GetMaximumHitPoints() * orcHealthMultiplier));
-                        friendlyPieces[target].SetCurrentHitPoints(friendlyPieces[target].GetMaximumHitPoints());
-                    }
-                }
-                break;
-            case (int)Enums.Race.Undead://undead gain lifesteal
-                for (int target = 0; target < friendlyPieces.Count; target++)
-                {
-                    if (friendlyPieces[target].GetRace() == Enums.Race.Human)
-                    {
-                        friendlyPieces[target].SetLifestealPercentage(friendlyPieces[target].GetLifestealPercentage() + undeadLifestealPercentage);
-                    }
-                }
-                break;
-            default:
-                Debug.Log("Error, unknown race synergy found: " + ((Enums.Race)i).ToString());
-                break;
-        }
-    }
-}
 
 public class KnightSynergyAppliedEvent : GameEvent
 {
