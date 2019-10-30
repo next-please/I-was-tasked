@@ -14,8 +14,21 @@ public class SynergyManager : MonoBehaviour
 
     private int[] jobSynergyCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
-    public static int[] jobSynergyRequirement = new int[] { 3, 3, 3, 3, 3 };
-    public static int[] raceSynergyRequirement = new int[] { 3, 3, 3, 3 };
+    public static int[] jobSynergyRequirement = new int[]
+    {
+        GameLogicManager.Inst.Data.Synergy.DruidRequirement,
+        GameLogicManager.Inst.Data.Synergy.KnightRequirement,
+        GameLogicManager.Inst.Data.Synergy.MageRequirement,
+        GameLogicManager.Inst.Data.Synergy.PriestRequirement,
+        GameLogicManager.Inst.Data.Synergy.RogueRequirement
+    };
+    public static int[] raceSynergyRequirement = new int[]
+    {
+        GameLogicManager.Inst.Data.Synergy.HumanRequirement,
+        GameLogicManager.Inst.Data.Synergy.ElfRequirement,
+        GameLogicManager.Inst.Data.Synergy.OrcRequirement,
+        GameLogicManager.Inst.Data.Synergy.UndeadRequirement
+    };
 
     public InventoryManager inventoryManager;
     public BoardManager boardManager;

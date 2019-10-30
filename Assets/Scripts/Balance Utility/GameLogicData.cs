@@ -10,6 +10,24 @@ public class GameLogicData : ScriptableObject
     public PieceBalanceData Piece;
     public SkillData Skills;
     public GeneratorData Gen;
+    public SynergyData Synergy;
+}
+
+[Serializable]
+public class SynergyData
+{
+    [Header("Job Synergy Requirement")]
+    public int DruidRequirement = 3;
+    public int KnightRequirement = 3;
+    public int MageRequirement = 3;
+    public int PriestRequirement = 3;
+    public int RogueRequirement = 3;
+
+    [Header("Race Synergy Requirement")]
+    public int HumanRequirement = 3;
+    public int ElfRequirement = 3;
+    public int OrcRequirement = 3;
+    public int UndeadRequirement = 3;
 }
 
 [Serializable]
