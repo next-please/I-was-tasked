@@ -32,6 +32,7 @@ public class PieceView : MonoBehaviour
         {
             rarity.SetActive(false);
         }
+        Debug.Log(piece.GetRarity() - 1);
         rarities[piece.GetRarity() - 1].SetActive(true);
     }
 
@@ -79,11 +80,13 @@ public class PieceView : MonoBehaviour
             {
                 UpdateCurrentHPBar();
             }
+
             if (statusBars.activeSelf && currentHPBar.transform.localScale.x <= 0)
             {
                 statusBars.SetActive(false);
                 animator.Play("Death", 0);
             }
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -5, transform.position.z), Time.deltaTime * 0.025f);
             return;
         }
         else

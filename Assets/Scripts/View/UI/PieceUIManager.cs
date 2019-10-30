@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
+using TMPro;
 
 public class PieceUIManager : MonoBehaviour
 {
     public Canvas pieceCanvas;
 
-    public Text nameText;
+    public TextMeshProUGUI nameText;
 
     public Image classIcon;
     public Image raceIcon;
@@ -15,12 +15,12 @@ public class PieceUIManager : MonoBehaviour
     public Image foregroundClass;
     public Image foregroundRace;
 
-    public Text healthFraction;
-    public Text damage;
-    public Text attackRate;
-    public Text dps;
-    public Text skillName;
-    public Text skillDescription;
+    public TextMeshProUGUI healthFraction;
+    public TextMeshProUGUI damage;
+    public TextMeshProUGUI attackRate;
+    public TextMeshProUGUI dps;
+    public TextMeshProUGUI skillName;
+    public TextMeshProUGUI skillDescription;
 
     public GameObject[] rarityStars;
     private int previousRarityIndex = 0;
