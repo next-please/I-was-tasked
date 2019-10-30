@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using TMPro;
 
@@ -10,10 +9,19 @@ public class MarketSlot : MonoBehaviour
     public bool isOccupied;
 
     public Material[] materials;
+    public GameObject price;
+
+    private void Start()
+    {
+        price.transform.LookAt(price.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        price.SetActive(false);
+    }
 
     public void SetOccupant(Piece piece, GameObject characterModel)
     {
         isOccupied = true;
+        price.SetActive(true);
+        price.GetComponent<TextMesh>().text = string.Format("{0}", (int) Math.Pow(2, piece.GetRarity() - 1));
 
         // create item prefab
         GameObject marketItemObj = Instantiate(MarketItemPrefab) as GameObject;
@@ -30,6 +38,7 @@ public class MarketSlot : MonoBehaviour
     public void ClearSlot()
     {
         isOccupied = false;
+        price.SetActive(false);
         if (marketItem)
             Destroy(marketItem.gameObject);
     }
