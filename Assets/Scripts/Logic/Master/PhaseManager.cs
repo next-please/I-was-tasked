@@ -79,17 +79,18 @@ public class PhaseManager : MonoBehaviour
 
     void OnGameOver()
     {
+
+    IEnumerator PlayGameOverScreen()
+    {
         if (round <= RoundsNeededToSurvive)
         {
             GameOverScreen.GetComponent<Animator>().Play("Lose");
-            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Game is over, you lost!" });
         }
         else
         {
             GameOverScreen.GetComponent<Animator>().Play("Win");
-            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Game is over, you won!" });
         }
-        PopUpScreen.enabled = true;
+        yield return null;
     }
 
     public void SimulationEnded(Player player, List<Piece> piecesOnBoard)
