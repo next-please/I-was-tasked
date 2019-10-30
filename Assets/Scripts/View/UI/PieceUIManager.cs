@@ -15,19 +15,12 @@ public class PieceUIManager : MonoBehaviour
     public Image foregroundClass;
     public Image foregroundRace;
 
+    public Text healthFraction;
+    public Text damage;
+    public Text attackRate;
+    public Text dps;
     public Text skillName;
     public Text skillDescription;
-
-    public Text attackDamage;
-    public Image MeleeRangeIcon;
-    public Sprite[] meleeRangeIcons;
-
-    public Text currentHP;
-    public Text currentMP; // Might not be an imporant value.
-
-    public Image priceIcon;
-    public Image priceBackdrop;
-    public Text price;
 
     public GameObject[] rarityStars;
     private int previousRarityIndex = 0;
@@ -59,7 +52,6 @@ public class PieceUIManager : MonoBehaviour
     void OnPieceSelected(SelectPieceEvent e)
     {
         ShowCanvas(e.piece);
-        ShowCost(false);
         isSelected = true;
     }
 
@@ -91,38 +83,22 @@ public class PieceUIManager : MonoBehaviour
         if (e.piece != null)
         {
             ShowCanvas(e.piece);
-            ShowCost(true); // To be removed.
         }
         else
         {
             HideCanvas();
-            ShowCost(false); // To be removed.
         }
     }
 
     private void SetPieceInfo(Piece piece)
     {
         nameText.text = piece.GetName();
-        currentHP.text = string.Format("{0}", piece.GetMaximumHitPoints());
-        currentMP.text = string.Format("{0}", piece.GetMaximumManaPoints());
+        healthFraction.text = string.Format("{0:0,0} / {1:0,0}", piece.GetCurrentHitPoints(), piece.GetMaximumHitPoints());
         SetPortraitCamera(piece.GetClass(), piece.GetRace());
         SetClassRaceIcons(piece.GetClass(), piece.GetRace());
         SetSkillInfo(piece.GetClass(), piece.GetRace());
-        SetAttackInfo(piece.GetAttackRange(), piece.GetAttackDamage());
+        SetAttackInfo(piece.GetAttackDamage(), piece.GetAttackSpeed());
         SetRarity(piece.GetRarity());
-        SetCost((int) Math.Pow(2, piece.GetRarity() - 1));
-    }
-
-    private void SetCost(int price)
-    {
-        this.price.text = string.Format("{0}", price);
-    }
-
-    private void ShowCost(bool showCost)
-    {
-        priceIcon.enabled = showCost;
-        priceBackdrop.enabled = showCost;
-        price.enabled = showCost;
     }
 
     private void SetClassRaceIcons(Enums.Job job, Enums.Race race)
@@ -141,12 +117,10 @@ public class PieceUIManager : MonoBehaviour
         foregroundRace.color = raceColor;
     }
 
-    private void SetAttackInfo(int range, int attackDamage)
+    private void SetAttackInfo(int attackDamage, int attackSpeed)
     {
-        MeleeRangeIcon.sprite = meleeRangeIcons[(range == 1) ? 0 : 1];
-        this.attackDamage.text = string.Format("{0}", attackDamage);
-        // Unused: rangeText.text = string.Format("Range: {0}", piece.GetAttackRange());
-        // Unused: atkSpeedText.text = string.Format("Atk Speed: {0}", piece.GetAttackSpeed());
+        damage.text = string.Format("{0}", attackDamage);
+        attackRate.text = string.Format("{0:0.00}", (attackDamage / (attackSpeed * 50.0f)));
     }
 
     private void SetRarity(int rarity)
