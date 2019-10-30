@@ -9,9 +9,9 @@ public class SynergyManager : MonoBehaviour
     private double knightRecoilPercentage = 0.35;
     private int rogueHealthDivider = 4;
     private int priestStatMultiplier = 3;
-    private double mageStartingManaPercentage = 2.0 / 3.0;
     private double orcHealthMultiplier = 1.5;
 
+    private double mageStartingManaPercentage = GameLogicManager.Inst.Data.Synergy.MageStartingManaPercentage;
     private int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount;
     private double rogueDamageMultiplier = GameLogicManager.Inst.Data.Synergy.RogueDamageMultiplier;
     private double rogueHitPointMultiplier = GameLogicManager.Inst.Data.Synergy.RogueHitPointMultiplier;
@@ -150,6 +150,7 @@ public class SynergyManager : MonoBehaviour
                     if (friendlyPieces[target].GetClass() == Enums.Job.Mage)
                     {
                         friendlyPieces[target].SetCurrentManaPoints((int)Math.Floor(friendlyPieces[target].GetMaximumManaPoints() * mageStartingManaPercentage));
+                        friendlyPieces[target].multicast = true;
                     }
                 }
                 break;

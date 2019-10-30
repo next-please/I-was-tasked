@@ -73,6 +73,7 @@ public class Piece : ISerializable
     private State state;
     private State entryState;
     public List<Interaction> interactions = new List<Interaction>();
+    public bool multicast = false;
 
     // Constructor for All Pieces; remember to set isEnemy accordingly.
     public Piece(string name, string title, Enums.Race race, Enums.Job job, int rarity, bool isEnemy,
@@ -420,6 +421,7 @@ public class Piece : ISerializable
         state = entryState;
 
         interactions = new List<Interaction>();
+        multicast = false;
     }
 
     public Piece GetTarget()

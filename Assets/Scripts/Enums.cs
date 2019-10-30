@@ -63,7 +63,7 @@ public static class Enums
     {
         "Druids become immobile and gain range",
         "Knights returns damage to opponent",
-        "Mages starts with Mana",
+        "Mages cast each spell twice, and start with extra mana",
         "A random ally is buffed",
         "Rogues gain massive damage but lose massive health"
     };
