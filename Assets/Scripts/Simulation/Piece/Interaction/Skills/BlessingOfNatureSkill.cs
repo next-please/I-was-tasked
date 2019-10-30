@@ -104,7 +104,7 @@ public class BlessingOfNatureLingeringEffect : Interaction
     private int currentHitPointChange;
     private int maximumHitPointChange;
     private Vector3 attackDestination;
-    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.BlessingOfNatureLingerTicks;
+    public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.BlessingOfNatureLingerTicks;
     public int blockAmount;
 
     public BlessingOfNatureLingeringEffect(Piece target, int attackDamageChange, int currentHitPointChange, int maximumHitPointChange)

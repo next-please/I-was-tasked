@@ -64,7 +64,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
     private Piece target;
     private double curseChange;
     private Vector3 attackDestination;
-    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CurseOfAgonyLingerTicks;
+    public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CurseOfAgonyLingerTicks;
 
     public CurseOfAgonyLingeringEffect(Piece target, int curseChange)
     {

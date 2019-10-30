@@ -67,7 +67,7 @@ public class RampageLingeringEffect : Interaction
     private int attackSpeedChange;
     private double armourChange;
     private Vector3 attackDestination;
-    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.RampageLingerTicks;
+    public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.RampageLingerTicks;
     public int blockAmount;
 
     public RampageLingeringEffect(Piece caster, int attackSpeedChange, double armourChange)

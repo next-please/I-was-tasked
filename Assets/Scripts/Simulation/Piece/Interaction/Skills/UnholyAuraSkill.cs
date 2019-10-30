@@ -10,7 +10,7 @@ public class UnholyAuraSkill : Interaction
     private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.UnholyAuraTickPerCount;
     private int countRemaining;
     public int unholyAuraDefaultRadius = GameLogicManager.Inst.Data.Skills.UnholyAuraRadius;
-    public int unholyAuraDefaultCount = GameLogicManager.Inst.Data.Skills.UnholyAuraCount;
+    public static int unholyAuraDefaultCount = GameLogicManager.Inst.Data.Skills.UnholyAuraCount;
     public int unholyAuraDefaultDamage = GameLogicManager.Inst.Data.Skills.UnholyAuraDamage;
 
     public UnholyAuraSkill(Piece caster, Board board)

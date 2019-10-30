@@ -63,7 +63,7 @@ public class BarkskinLingeringEffect : Interaction
 {
     public Piece caster;
     private Vector3 attackDestination;
-    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.BarkSkinLingerTicks;
+    public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.BarkSkinLingerTicks;
     public int blockAmount;
 
     public BarkskinLingeringEffect(Piece caster, int blockAmount)

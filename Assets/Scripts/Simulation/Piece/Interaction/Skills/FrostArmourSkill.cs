@@ -64,7 +64,7 @@ public class FrostArmourLingeringEffect : Interaction
     private Piece target;
     private double armourChange;
     private Vector3 attackDestination;
-    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.FrostArmourLingerTicks;
+    public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.FrostArmourLingerTicks;
     public int blockAmount;
 
     public FrostArmourLingeringEffect(Piece target, double armourChange)
