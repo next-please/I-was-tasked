@@ -64,7 +64,7 @@ public static class Enums
         "Druids become immobile and gain range",
         "Knights returns damage to opponent",
         "Mages cast each spell twice, and start with extra mana",
-        "A random ally is buffed",
+        "Priests cast divine judgement on death",
         "Rogues gain massive damage but lose massive health"
     };
 

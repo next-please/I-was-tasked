@@ -15,7 +15,10 @@ public class SynergyManager : MonoBehaviour
     public int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount;
     private double rogueDamageMultiplier = GameLogicManager.Inst.Data.Synergy.RogueDamageMultiplier;
     private double rogueHitPointMultiplier = GameLogicManager.Inst.Data.Synergy.RogueHitPointMultiplier;
-    public int undeadTicksToDie = GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie;
+    private int undeadTicksToDie = GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie;
+    private int priestRetributionRadius = GameLogicManager.Inst.Data.Synergy.PriestRetributionRadius;
+    private int priestRetributionDamage = GameLogicManager.Inst.Data.Synergy.PriestRetributionDamage;
+    private int priestRetributionHealing = GameLogicManager.Inst.Data.Synergy.PriestRetributionHealing;
 
     private int[] jobSynergyCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
@@ -155,10 +158,14 @@ public class SynergyManager : MonoBehaviour
                     }
                 }
                 break;
-            case (int)Enums.Job.Priest://priests heaviliy buffs a character
-                friendlyPieces[randomFriendly].SetAttackDamage(friendlyPieces[randomFriendly].GetAttackDamage() * priestStatMultiplier);
-                friendlyPieces[randomFriendly].SetMaximumHitPoints(friendlyPieces[randomFriendly].GetMaximumHitPoints() * priestStatMultiplier);
-                friendlyPieces[randomFriendly].SetCurrentHitPoints(friendlyPieces[randomFriendly].GetMaximumHitPoints());
+            case (int)Enums.Job.Priest://priests cast divine judgement on death
+                for (int target = 0; target < friendlyPieces.Count; target++)
+                {
+                    if (friendlyPieces[target].GetClass() == Enums.Job.Priest)
+                    {
+                        board.AddInteractionToProcess(new RetributionSynergyEffect(friendlyPieces[target], board, priestRetributionRadius, priestRetributionDamage, priestRetributionHealing));
+                    }
+                }
                 break;
             case (int)Enums.Job.Rogue://rogues gain massive damage but lose massive health
                 for (int target = 0; target < friendlyPieces.Count; target++)
