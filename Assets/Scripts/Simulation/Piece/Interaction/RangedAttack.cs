@@ -87,13 +87,13 @@ public class RangedAttack : Interaction
 
         attacker.SetCurrentManaPoints(attacker.GetCurrentManaPoints() + attacker.GetManaPointsGainedOnAttack());
 
-        if (attacker.GetLifestealPercentage() > 0) // Undead synergy
+        if (attacker.GetLifestealPercentage() > 0 && !attacker.invulnerable) // Undead synergy
         {
             attacker.SetCurrentHitPoints(Math.Min(attacker.GetMaximumHitPoints(),
                 (int) Math.Floor((attacker.GetCurrentHitPoints() + damageToInflict * attacker.GetLifestealPercentage()))));
         }
 
-        if (attacker.GetCurseDamageAmount() > 0) //undead priest spell
+        if (attacker.GetCurseDamageAmount() > 0 && !attacker.invulnerable) //undead priest spell
         {
             attacker.SetCurrentHitPoints(attacker.GetCurrentHitPoints() - attacker.GetCurseDamageAmount());
         }
@@ -118,11 +118,15 @@ public class RangedAttack : Interaction
             calculatedDamageToInflict = (int)Math.Floor(damageToInflict / (1 + target.GetArmourPercentage()));
         }
 
-        if (target.GetRecoilPercentage() > 0) // Knight synergy
+        if (target.GetRecoilPercentage() > 0 && !attacker.invulnerable) // Knight synergy
         {
             attacker.SetCurrentHitPoints((int)Math.Ceiling(attacker.GetCurrentHitPoints() - calculatedDamageToInflict * target.GetRecoilPercentage()));
         }
 
+        if (target.invulnerable)
+        {
+            calculatedDamageToInflict = 0;
+        }
 
         target.SetCurrentManaPoints(target.GetCurrentManaPoints() + target.GetManaPointsGainedOnDamaged());
         target.SetCurrentHitPoints(target.GetCurrentHitPoints() - calculatedDamageToInflict);

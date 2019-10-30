@@ -76,7 +76,11 @@ public class FireblastSkill : Interaction
         {
             return;
         }
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - fireblastDefaultDamage);
+
+        if (!target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - fireblastDefaultDamage);
+        }
 
         Debug.Log(caster.GetName() + " has fireblasted-ed " + target.GetName() + " for " + fireblastDefaultDamage + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
     }

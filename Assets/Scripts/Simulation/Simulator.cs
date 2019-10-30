@@ -20,7 +20,6 @@ public class Simulator : Tickable
 
     public void StartSim()
     {
-        gameBoard.ClearInteractionsToProcess();
         shouldRun = true;
         incomeManager.SetIncomeGeneratedByPlayer(player, 0); // Reset any bonus gold from winning.
     }
@@ -92,6 +91,7 @@ public class Simulator : Tickable
                 incomeManager.SetIncomeGeneratedByPlayer(player, bonusGold);
             }
 
+            gameBoard.ClearInteractionsToProcess();
             return true;
         }
         return false;

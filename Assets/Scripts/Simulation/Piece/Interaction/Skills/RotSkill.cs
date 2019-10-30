@@ -94,14 +94,20 @@ public class RotSkill : Interaction
         {
             foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), rotDefaultRadius))
             {
-                target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+                if (!target.invulnerable)
+                {
+                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+                }
             }
         }
         else
         {
             foreach (Piece target in board.GetActiveFriendliesWithinRadiusOfTile(caster.GetCurrentTile(), rotDefaultRadius))
             {
-                target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+                if (!target.invulnerable)
+                {
+                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+                }
             }
         }
 

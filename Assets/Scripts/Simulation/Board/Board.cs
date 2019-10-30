@@ -216,6 +216,7 @@ public class Board
     public Piece FindNearestTarget(Piece piece)
     {
         List<Piece> enemyPiecesOnBoard;
+        
         if (!piece.IsEnemy())
         {
             enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
@@ -223,6 +224,11 @@ public class Board
         else
         {
             enemyPiecesOnBoard = GetActiveFriendliesOnBoard();
+        }
+
+        if (enemyPiecesOnBoard.Find(x => x.taunting == true) != null)
+        {
+            enemyPiecesOnBoard = enemyPiecesOnBoard.FindAll(x => x.taunting == true);
         }
 
         // Determine the nearest enemy Piece.

@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using TMPro;
 
+public class PieceHealthChangeEvent : GameEvent
+{
+    public Piece piece;
+}
+
 public class PieceView : MonoBehaviour
 {
     [HideInInspector]
@@ -124,6 +129,7 @@ public class PieceView : MonoBehaviour
     {
         float currHPScale = Mathf.SmoothDamp(currentHPBar.transform.localScale.x, (float) piece.GetCurrentHitPoints() / piece.GetMaximumHitPoints(), ref velocityHP, smoothTime);
         currentHPBar.transform.localScale = new Vector3(currHPScale, currentHPBar.transform.localScale.y, currentHPBar.transform.localScale.z);
+        EventManager.Instance.Raise(new PieceHealthChangeEvent { piece = piece });
     }
 
     public void UpdateCurrentMPBar()

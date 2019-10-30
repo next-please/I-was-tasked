@@ -51,7 +51,12 @@ public class EvicerateSkill : Interaction
         {
             return;
         }
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - evicerateDefaultInitialDamage);
+
+        if (!target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - evicerateDefaultInitialDamage);
+        }
+
         int bleedCount = evicerateDefaultBleedCount;
         int bleedDamage = evicerateDefaultBleedDamage;
         Interaction skill = new EvicerateLingeringEffect(target, bleedDamage, bleedCount, board);
@@ -127,7 +132,11 @@ public class EvicerateLingeringEffect : Interaction
         {
             return;
         }
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - bleedDamage);
+
+        if (!target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - bleedDamage);
+        }
         Debug.Log(target.GetName() + "'s Evicerate has bled for " + bleedDamage + ". " + countRemaining + " bleed ticks left.");
     }
 

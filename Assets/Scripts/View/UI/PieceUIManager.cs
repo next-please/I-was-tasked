@@ -28,6 +28,7 @@ public class PieceUIManager : MonoBehaviour
     public Camera portraitCamera;
     public Transform rootCameraPosition;
 
+    private Piece currentPiece;
     private bool isSelected = false;
 
     void Start()
@@ -40,6 +41,7 @@ public class PieceUIManager : MonoBehaviour
         EventManager.Instance.AddListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.AddListener<DeselectPieceEvent>(OnPieceDeselected);
         EventManager.Instance.AddListener<HoverPieceEvent>(OnHoverPiece);
+        EventManager.Instance.AddListener<PieceHealthChangeEvent>(OnPieceHealthChange);
     }
 
     void OnDisable()
@@ -47,16 +49,19 @@ public class PieceUIManager : MonoBehaviour
         EventManager.Instance.RemoveListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.RemoveListener<DeselectPieceEvent>(OnPieceDeselected);
         EventManager.Instance.RemoveListener<HoverPieceEvent>(OnHoverPiece);
+        EventManager.Instance.RemoveListener<PieceHealthChangeEvent>(OnPieceHealthChange);
     }
 
     void OnPieceSelected(SelectPieceEvent e)
     {
+        currentPiece = e.piece;
         ShowCanvas(e.piece);
         isSelected = true;
     }
 
     void OnPieceDeselected(DeselectPieceEvent e)
     {
+        currentPiece = null;
         HideCanvas();
         isSelected = false;
     }
@@ -72,7 +77,7 @@ public class PieceUIManager : MonoBehaviour
         pieceCanvas.enabled = false;
     }
 
-    void OnHoverPiece(HoverPieceEvent e)
+    private void OnHoverPiece(HoverPieceEvent e)
     {
         // Don't change the card if there's a Piece that is selected.
         if (isSelected)
@@ -82,23 +87,37 @@ public class PieceUIManager : MonoBehaviour
 
         if (e.piece != null)
         {
+            currentPiece = e.piece;
             ShowCanvas(e.piece);
         }
         else
         {
+            currentPiece = null;
             HideCanvas();
+        }
+    }
+
+    private void OnPieceHealthChange(PieceHealthChangeEvent e)
+    {
+        if (currentPiece == e.piece)
+        {
+            SetHealthInfo(e.piece.GetCurrentHitPoints(), e.piece.GetMaximumHitPoints());
         }
     }
 
     private void SetPieceInfo(Piece piece)
     {
         nameText.text = piece.GetName();
-        healthFraction.text = string.Format("{0:0,0} / {1:0,0}", piece.GetCurrentHitPoints(), piece.GetMaximumHitPoints());
+        SetHealthInfo(piece.GetCurrentHitPoints(), piece.GetMaximumHitPoints());
         SetPortraitCamera(piece.GetClass(), piece.GetRace());
         SetClassRaceIcons(piece.GetClass(), piece.GetRace());
         SetSkillInfo(piece.GetClass(), piece.GetRace());
         SetAttackInfo(piece.GetAttackDamage(), piece.GetAttackSpeed());
         SetRarity(piece.GetRarity());
+    }
+
+    private void SetHealthInfo(int currentHitPoints, int maximumHitPoints) {
+        healthFraction.text = string.Format("{0:0,0} / {1:0,0}", currentHitPoints, maximumHitPoints);
     }
 
     private void SetClassRaceIcons(Enums.Job job, Enums.Race race)

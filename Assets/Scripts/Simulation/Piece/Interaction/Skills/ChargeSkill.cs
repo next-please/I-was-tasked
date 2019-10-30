@@ -138,8 +138,10 @@ public class ChargeSkill : Interaction
     {
         if (caster.IsDead() || target.IsDead())
             return;
-
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - totalDamage);
+        if (!target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - totalDamage);
+        }
         Debug.Log(caster.GetName() + " has Charge-ed " + target.GetName() + " for " + totalDamage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
     }
 }

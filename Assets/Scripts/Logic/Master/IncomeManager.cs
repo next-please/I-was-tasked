@@ -14,7 +14,14 @@ public class IncomeManager : MonoBehaviour
         // If I'm master client
         for (int i = 0; i < 3; ++i)
         {
-            inventoryManager.AddGold((Player) i, round + incomesGenerated[i]);
+            if (inventoryManager.synergyManager.HasSynergy(Enums.Race.Human))
+            {
+                inventoryManager.AddGold((Player)i, round + incomesGenerated[i] + inventoryManager.synergyManager.humanGoldAmount);
+            }
+            else
+            {
+                inventoryManager.AddGold((Player)i, round + incomesGenerated[i]);
+            }
         }
         Debug.Log("Players have earned { " + incomesGenerated[0] + ", " + incomesGenerated[1] + ", " + +incomesGenerated[2] + " }");
         round++;

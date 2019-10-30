@@ -17,17 +17,33 @@ public class GameLogicData : ScriptableObject
 public class SynergyData
 {
     [Header("Job Synergy Requirement")]
-    public int DruidRequirement = 3;
-    public int KnightRequirement = 3;
-    public int MageRequirement = 3;
-    public int PriestRequirement = 3;
-    public int RogueRequirement = 3;
+    public int DruidRequirement = 4;
+    public int KnightRequirement = 5;
+    public int MageRequirement = 8;
+    public int PriestRequirement = 6;
+    public int RogueRequirement = 7;
 
     [Header("Race Synergy Requirement")]
-    public int HumanRequirement = 3;
-    public int ElfRequirement = 3;
-    public int OrcRequirement = 3;
-    public int UndeadRequirement = 3;
+    public int HumanRequirement = 10;
+    public int ElfRequirement = 8;
+    public int OrcRequirement = 10;
+    public int UndeadRequirement = 9;
+
+    [Header("Synergy Power Variables")]
+    public int HumanGoldAmount = 10;
+    public double RogueDamageMultiplier = 10;
+    public double RogueHitPointMultiplier = 0.1;
+    public double MageStartingManaPercentage = 0.25;
+    public int UndeadTicksToDie = 500;
+    public int PriestRetributionRadius = 2;
+    public int PriestRetributionHealing = 100;
+    public int PriestRetributionDamage = 75;
+    public double OrcRampageHealthThreshold = 0.5;
+    public int OrcRampageAttackSpeed = 3;
+    public double OrcRampageArmourPercentage = -0.25;
+    public int ElfGuidingSpiritAttackDamage = 10;
+    public int ElfGuidingSpiritAttackSpeed = 1;
+    public int GuidingSpiritLingerTicks = 50;
 }
 
 [Serializable]
@@ -43,7 +59,7 @@ public class GeneratorData
 {
     [Header("HP/MP")]
     public int DefaultHitPoints = 150;
-    public int DefaultManaPoints = 150;
+    public int DefaultManaPoints = 100;
     public double HitPointMultiplier = 1.5;
 
     [Header("Attack Damage")]

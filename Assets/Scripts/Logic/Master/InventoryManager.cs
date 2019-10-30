@@ -101,20 +101,20 @@ public class InventoryManager : MonoBehaviour
     public bool AddToArmy(Player player, Piece piece)
     {
         var playerInv = GetPlayerInventory(player);
-        var hadJobSynergy = playerInv.HasSynergy(piece.GetClass());
-        var hadRaceSynergy = playerInv.HasSynergy(piece.GetRace());
+        var hadJobSynergy = synergyManager.HasSynergy(piece.GetClass());
+        var hadRaceSynergy = synergyManager.HasSynergy(piece.GetRace());
         var success = playerInv.AddToArmy(piece);
         if (success)
         {
-            if (playerInv.HasSynergy(piece.GetClass()) && !hadJobSynergy)
+            synergyManager.IncreaseSynergyCount(piece.GetClass());
+            synergyManager.IncreaseSynergyCount(piece.GetRace());
+            if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
             {
-                synergyManager.IncreaseSynergyCount(piece.GetClass());
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
             }
-            if (playerInv.HasSynergy(piece.GetRace()) && !hadRaceSynergy)
+            if (synergyManager.HasSynergy(piece.GetRace()) && !hadRaceSynergy)
             {
-                synergyManager.IncreaseSynergyCount(piece.GetRace());
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Active" });
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
             }
@@ -136,19 +136,19 @@ public class InventoryManager : MonoBehaviour
     public bool RemoveFromArmy(Player player, Piece piece)
     {
         var playerInv = GetPlayerInventory(player);
-        var hadJobSynergy = playerInv.HasSynergy(piece.GetClass());
-        var hadRaceSynergy = playerInv.HasSynergy(piece.GetRace());
+        var hadJobSynergy = synergyManager.HasSynergy(piece.GetClass());
+        var hadRaceSynergy = synergyManager.HasSynergy(piece.GetRace());
         var success = playerInv.RemoveFromArmy(piece);
         if (success)
         {
-            if (!playerInv.HasSynergy(piece.GetClass()) && hadJobSynergy)
+            synergyManager.DecreaseSynergyCount(piece.GetClass());
+            synergyManager.DecreaseSynergyCount(piece.GetRace());
+            if (!synergyManager.HasSynergy(piece.GetClass()) && hadJobSynergy)
             {
-                synergyManager.DecreaseSynergyCount(piece.GetClass());
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
             }
-            if (!playerInv.HasSynergy(piece.GetRace()) && hadRaceSynergy)
+            if (!synergyManager.HasSynergy(piece.GetRace()) && hadRaceSynergy)
             {
-                synergyManager.DecreaseSynergyCount(piece.GetRace());
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Removed" });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });

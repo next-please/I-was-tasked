@@ -136,7 +136,11 @@ public class ThunderstormBoltEffect : Interaction
         {
             return;
         }
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - thunderStormDefaultDamage);
+
+        if (!target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - thunderStormDefaultDamage);
+        }
 
         Debug.Log(target.GetName() + " has been ThunderStorm-ed for " + thunderStormDefaultDamage + " DMG.");
     }

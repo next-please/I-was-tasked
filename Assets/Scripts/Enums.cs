@@ -61,18 +61,18 @@ public static class Enums
 
     public static string[] JobSynergyDescription = new string[]
     {
-        "Druids becomes copies of the strongest Druid",
-        "Knights returns damage to opponent",
-        "Mages starts with Mana",
-        "A random ally is buffed",
-        "A random enemy is damaged"
+        "Druids become immobile and gain range",
+        "Knights taunt enemies",
+        "Mages cast each spell twice, and start with extra mana",
+        "Priests cast divine judgement on death",
+        "Rogues gain massive damage but lose massive health"
     };
 
     public static string[] RaceSynergyDescription = new string[]
     {
-        "Humans gain a random racial synergy",
-        "Elves gain range",
-        "Orcs gain health",
-        "Undead gain lifesteal"
+        "Humans gain extra gold",
+        "Elves guide a friendly unit in death",
+        "Orcs rule the world! And they're angry!",
+        "Undead gain immortality. Then they die."
     };
 }

@@ -119,12 +119,17 @@ MonoBehaviour:
     PriestHitPointMultiplier: 1.1
     HumanPriestManaMultiplier: 1.3
   Synergy:
-    DruidRequirement: 3
-    KnightRequirement: 2
-    MageRequirement: 3
-    PriestRequirement: 3
-    RogueRequirement: 3
-    HumanRequirement: 3
-    ElfRequirement: 3
-    OrcRequirement: 3
-    UndeadRequirement: 2
+    DruidRequirement: 4
+    KnightRequirement: 5
+    MageRequirement: 8
+    PriestRequirement: 6
+    RogueRequirement: 7
+    HumanRequirement: 10
+    ElfRequirement: 8
+    OrcRequirement: 10
+    UndeadRequirement: 9
+    HumanGoldAmount: 10
+    RogueDamageMultiplier: 10
+    RogueHitPointMultiplier: 0.1
+    MageStartingManaPercentage: 0.25
+    UndeadTicksToDie: 500

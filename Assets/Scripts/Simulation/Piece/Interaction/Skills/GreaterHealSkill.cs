@@ -90,7 +90,10 @@ public class GreaterHealSkill : Interaction
             return;
         }
 
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() + greaterHealDefaultHeal);
+        if (!target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() + greaterHealDefaultHeal);
+        }
 
         Interaction skill = new GreaterHealLingeringEffect(attackSource);
         board.AddInteractionToProcess(skill);
