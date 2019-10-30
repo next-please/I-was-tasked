@@ -7,7 +7,7 @@ public class BerserkSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    public double berserkDefaultMultiplierIncrease = 2;
+    public double berserkDefaultMultiplierIncrease = GameLogicManager.Inst.Data.Skills.BerserkMultiplerIncrease;
     public int ticksTilActivation = 0;
 
     public BerserkSkill(Piece caster, Board board)

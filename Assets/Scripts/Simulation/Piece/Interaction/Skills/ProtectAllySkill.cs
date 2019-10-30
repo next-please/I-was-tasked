@@ -98,7 +98,7 @@ public class ProtectAllyLingeringEffect : Interaction
 {
     private Piece target;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 100;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.ProtectAllyLingerTicks;
 
     public ProtectAllyLingeringEffect(Piece target)
     {

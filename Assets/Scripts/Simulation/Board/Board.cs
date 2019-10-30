@@ -271,7 +271,7 @@ public class Board
 
             Tile farthestTile = farthestEnemyPiece.GetCurrentTile();
             Tile checkTile = enemyPiece.GetCurrentTile();
-            if (piece.GetCurrentTile().DistanceToTile(farthestTile) > piece.GetCurrentTile().DistanceToTile(checkTile))
+            if (piece.GetCurrentTile().DistanceToTile(farthestTile) < piece.GetCurrentTile().DistanceToTile(checkTile))
             {
                 farthestEnemyPiece = enemyPiece;
             }

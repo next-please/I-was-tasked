@@ -16,6 +16,11 @@ public class SelectPieceEvent : GameEvent
     public Piece piece;
 }
 
+public class HoverPieceEvent : GameEvent
+{
+    public Piece piece;
+}
+
 public class DeselectPieceEvent : GameEvent { }
 
 // Handles drag and drop, selection and deselection of piece
@@ -25,6 +30,8 @@ public abstract class InteractablePiece :
     IDragHandler,
     IEndDragHandler,
     IPointerDownHandler,
+    IPointerEnterHandler,
+    IPointerExitHandler,
     ISelectHandler,
     IDeselectHandler
 {
@@ -114,5 +121,15 @@ public abstract class InteractablePiece :
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = zPosOnDrag;
         return Camera.main.ScreenToWorldPoint(mousePosition);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        EventManager.Instance.Raise(new HoverPieceEvent { piece = piece });
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        EventManager.Instance.Raise(new HoverPieceEvent { piece = null });
     }
 }

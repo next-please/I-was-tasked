@@ -5,8 +5,10 @@ using UnityEngine.EventSystems;
 
 public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    private readonly float BLUR_OPACITY_VALUE = 0.5f;
+    private readonly float BLUR_OPACITY_VALUE = 0.75f;
     private readonly float CLEAR_OPACTITY_VALUE = 1f;
+    private readonly float OUTLINE_OPACITY_MIN_VALUE = 0.1f;
+    private readonly float OUTLINE_OPACITY_MAX_VALUE = 0.7f;
 
     [SerializeField]
     private Image _icon;
@@ -28,6 +30,10 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private Image _background2;
     [SerializeField]
     private Image _background3;
+    [SerializeField]
+    private Image foreground;
+    [SerializeField]
+    private Image outline;
 
     public Sprite humanIcon;
     public Sprite orcIcon;
@@ -85,48 +91,61 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private void setIcon()
     {
         Debug.Log("SynergyTab: Setting Icon");
+        Color color = Color.clear;
         switch (_synergyName)
         {
             case "Human":
                 _icon.sprite = humanIcon;
+                color = Color.blue;
                 break;
             case "Elf":
                 _icon.sprite = elfIcon;
+                color = Color.yellow;
                 break;
             case "Orc":
                 _icon.sprite = orcIcon;
+                color = Color.red;
                 break;
             case "Undead":
                 _icon.sprite = undeadIcon;
+                color = Color.black;
                 break;
             case "Knight":
                 _icon.sprite = knightIcon;
+                color = Color.magenta;
                 break;
             case "Mage":
                 _icon.sprite = mageIcon;
+                color = Color.cyan;
                 break;
             case "Druid":
                 _icon.sprite = druidIcon;
+                color = Color.green;
                 break;
             case "Rogue":
                 _icon.sprite = rogueIcon;
+                color = Color.grey;
                 break;
             case "Priest":
                 _icon.sprite = priestIcon;
+                color = Color.white;
                 break;
             default:
                 break;
         }
+        foreground.color = color;
+        setOpacity(foreground, 0.4f);
     }
 
     private void setIndicatorStatus()
     {
-        _hex1.gameObject.SetActive(false);
-        _hex2.gameObject.SetActive(false);
-        _hex3.gameObject.SetActive(false);
-        _hex4.gameObject.SetActive(false);
-        _hex5.gameObject.SetActive(false);
-        _hex6.gameObject.SetActive(false);
+        _hex1.gameObject.SetActive(true);
+        _hex2.gameObject.SetActive(true);
+        _hex3.gameObject.SetActive(true);
+        _hex4.gameObject.SetActive(true);
+        _hex5.gameObject.SetActive(true);
+        _hex6.gameObject.SetActive(true);
+        outline.gameObject.SetActive(false);
         setOpacity(_hex1, BLUR_OPACITY_VALUE);
         setOpacity(_hex2, BLUR_OPACITY_VALUE);
         setOpacity(_hex3, BLUR_OPACITY_VALUE);
@@ -137,20 +156,22 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         setOpacity(_background2, BLUR_OPACITY_VALUE);
         setOpacity(_background3, BLUR_OPACITY_VALUE);
         setOpacity(_icon, BLUR_OPACITY_VALUE);
+        setOpacity(outline, OUTLINE_OPACITY_MIN_VALUE);
 
         switch (_count)
         {
             case 1:
-                _hex1.gameObject.SetActive(true);
+                _hex1.gameObject.SetActive(false);
                 break;
             case 2:
-                _hex1.gameObject.SetActive(true);
-                _hex2.gameObject.SetActive(true);
+                _hex1.gameObject.SetActive(false);
+                _hex2.gameObject.SetActive(false);
                 break;
             default:
-                _hex1.gameObject.SetActive(true);
-                _hex2.gameObject.SetActive(true);
-                _hex3.gameObject.SetActive(true);
+                _hex1.gameObject.SetActive(false);
+                _hex2.gameObject.SetActive(false);
+                _hex3.gameObject.SetActive(false);
+                outline.gameObject.SetActive(true);
                 setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
                 setOpacity(_hex2, CLEAR_OPACTITY_VALUE);
                 setOpacity(_hex3, CLEAR_OPACTITY_VALUE);
@@ -158,6 +179,7 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 setOpacity(_background2, CLEAR_OPACTITY_VALUE);
                 setOpacity(_background3, CLEAR_OPACTITY_VALUE);
                 setOpacity(_icon, CLEAR_OPACTITY_VALUE);
+                setOpacity(outline, OUTLINE_OPACITY_MIN_VALUE);
                 break;
         }
     }
@@ -167,9 +189,17 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         image.color = new Color(image.color.r, image.color.g, image.color.b, opacity);
     }
 
-
     private bool isActive()
     {
         return _count > 1;
+    }
+
+    private void Update()
+    {
+        if (outline.IsActive())
+        {
+            float opacity = Mathf.Lerp(OUTLINE_OPACITY_MIN_VALUE, OUTLINE_OPACITY_MAX_VALUE, Mathf.PingPong(Time.time * 1.0f, 1.0f));
+            setOpacity(outline, opacity);
+        }
     }
 }

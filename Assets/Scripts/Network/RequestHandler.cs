@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using static Com.Nextplease.IWT.ActionTypes;
 
 namespace Com.Nextplease.IWT
@@ -8,6 +9,7 @@ namespace Com.Nextplease.IWT
         #region Private Fields
         private const string CLASS_NAME = "RequestHandler";
         private const bool DEBUG_MODE = true;
+        private int _currentPhaseID = 0;
         #endregion
 
         #region Manager References
@@ -29,7 +31,7 @@ namespace Com.Nextplease.IWT
         /// <param name="req"></param>
         public void SendRequest(Request req)
         {
-            if(roomManager.IsOffline)
+            if (roomManager.IsOffline)
             {
                 ExecuteRequest(ValidateRequest(req));
                 return;
@@ -77,14 +79,18 @@ namespace Com.Nextplease.IWT
                 case ROUND_START:
                 case MARKET_PHASE:
                 case PRECOMBAT_PHASE:
-                case POSTCOMBAT_PHASE: // TODO: wait for all clients to finish before approving
-                    if (roomManager.IsOffline) {
+                case POSTCOMBAT_PHASE:
+                    if (roomManager.IsOffline)
+                    {
                         req.Approve();
                         break;
                     }
 
+                    StartCoroutine(PhaseFailSafe(_currentPhaseID, req)); // Fail Safe Mechanism
+
                     phaseManager.SetPlayerReadyForPostCombat(req.GetRequester());
-                    if(phaseManager.PlayersReadyForPostCombat()) {
+                    if (phaseManager.PlayersReadyForPostCombat())
+                    {
                         req.Approve();
                         phaseManager.ClearPlayerReadySet();
                     }
@@ -162,22 +168,27 @@ namespace Com.Nextplease.IWT
                 case INIT_PHASE:
                     InitPhaseData data_10 = req.GetData() as InitPhaseData;
                     phaseManager.Initialize(data_10.numPlayers, data_10.seeds);
+                    incrementPhaseID();
                     break;
                 case ROUND_START:
                     phaseManager.StartRound();
+                    incrementPhaseID();
                     break;
                 case MARKET_PHASE:
                     MarketManagementData data_11 = req.GetData() as MarketManagementData;
                     marketManager.SetMarketItems(data_11.pieces);
                     phaseManager.StartMarketPhase();
+                    incrementPhaseID();
                     break;
                 case PRECOMBAT_PHASE:
                     PreCombatData data_12 = req.GetData() as PreCombatData;
                     phaseManager.randomRoundIndex = data_12.randomIndex;
                     phaseManager.StartPreCombat(data_12.enemies);
+                    incrementPhaseID();
                     break;
                 case POSTCOMBAT_PHASE:
                     phaseManager.StartPostCombat();
+                    incrementPhaseID();
                     break;
                 case BUY_PIECE:
                     PieceTransactionData data_5 = req.GetData() as PieceTransactionData;
@@ -212,6 +223,22 @@ namespace Com.Nextplease.IWT
         #endregion
 
         #region Private Methods
+        private IEnumerator PhaseFailSafe(int phaseID, Request req)
+        {
+            yield return new WaitForSecondsRealtime(15);
+            if (_currentPhaseID == phaseID)
+            {
+                Debug.LogFormat("{0}: Fail Safe Activated", CLASS_NAME);
+                req.Approve();
+                this.networkManager.ProcessRequest(req);
+            }
+        }
+
+        private void incrementPhaseID()
+        {
+            _currentPhaseID++;
+        }
+
         private void LogValidateRequest(Request req)
         {
             if (DEBUG_MODE)

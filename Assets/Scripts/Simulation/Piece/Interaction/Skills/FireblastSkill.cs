@@ -6,10 +6,10 @@ public class FireblastSkill : Interaction
 {
     private Piece caster;
     private Piece target;
-    public int fireblastDefaultDamage = 150;
+    public int fireblastDefaultDamage = GameLogicManager.Inst.Data.Skills.FireblastDamage;
     private Vector3 attackSource;
     private Vector3 attackDestination;
-    private int ticksTilActivation = 120;
+    private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.FireblastTicks;
 
 
     public FireblastSkill(Piece caster, Piece target)

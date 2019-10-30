@@ -6,7 +6,7 @@ using Com.Nextplease.IWT;
 public class InventoryManager : MonoBehaviour
 {
     public int StartingGold = 0;
-    public int StartingArmySize = 1;
+    public int StartingArmySize = 2;
     [SerializeField]
     PlayerInventory[] playerInventories;
     public SynergyManager synergyManager;

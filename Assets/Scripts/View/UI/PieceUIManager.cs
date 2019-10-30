@@ -12,6 +12,8 @@ public class PieceUIManager : MonoBehaviour
     public Image raceIcon;
     public Sprite[] classIcons;
     public Sprite[] raceIcons;
+    public Image foregroundClass;
+    public Image foregroundRace;
 
     public Text skillName;
     public Text skillDescription;
@@ -33,6 +35,8 @@ public class PieceUIManager : MonoBehaviour
     public Camera portraitCamera;
     public Transform rootCameraPosition;
 
+    private bool isSelected = false;
+
     void Start()
     {
         pieceCanvas.enabled = false;
@@ -42,25 +46,27 @@ public class PieceUIManager : MonoBehaviour
     {
         EventManager.Instance.AddListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.AddListener<DeselectPieceEvent>(OnPieceDeselected);
-        EventManager.Instance.AddListener<HoverMarketItemEvent>(OnHoverMarketItem);
+        EventManager.Instance.AddListener<HoverPieceEvent>(OnHoverPiece);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<SelectPieceEvent>(OnPieceSelected);
         EventManager.Instance.RemoveListener<DeselectPieceEvent>(OnPieceDeselected);
-        EventManager.Instance.RemoveListener<HoverMarketItemEvent>(OnHoverMarketItem);
+        EventManager.Instance.RemoveListener<HoverPieceEvent>(OnHoverPiece);
     }
 
     void OnPieceSelected(SelectPieceEvent e)
     {
         ShowCanvas(e.piece);
         ShowCost(false);
+        isSelected = true;
     }
 
     void OnPieceDeselected(DeselectPieceEvent e)
     {
         HideCanvas();
+        isSelected = false;
     }
 
     private void ShowCanvas(Piece piece)
@@ -74,17 +80,23 @@ public class PieceUIManager : MonoBehaviour
         pieceCanvas.enabled = false;
     }
 
-    void OnHoverMarketItem(HoverMarketItemEvent e)
+    void OnHoverPiece(HoverPieceEvent e)
     {
+        // Don't change the card if there's a Piece that is selected.
+        if (isSelected)
+        {
+            return;
+        }
+
         if (e.piece != null)
         {
             ShowCanvas(e.piece);
-            ShowCost(true);
+            ShowCost(true); // To be removed.
         }
         else
         {
             HideCanvas();
-            ShowCost(false);
+            ShowCost(false); // To be removed.
         }
     }
 
@@ -115,8 +127,18 @@ public class PieceUIManager : MonoBehaviour
 
     private void SetClassRaceIcons(Enums.Job job, Enums.Race race)
     {
+        Color[] classColors = { Color.green, Color.magenta, Color.cyan, Color.white, Color.grey };
+        Color[] raceColors = { Color.blue, Color.yellow, Color.red, Color.black };
+
         classIcon.sprite = classIcons[(int) job];
+        Color classColor = classColors[(int) job];
+        classColor.a = 0.4f;
+        foregroundClass.color = classColor;
+
         raceIcon.sprite = raceIcons[(int) race];
+        Color raceColor = raceColors[(int) race];
+        raceColor.a = 0.4f;
+        foregroundRace.color = raceColor;
     }
 
     private void SetAttackInfo(int range, int attackDamage)

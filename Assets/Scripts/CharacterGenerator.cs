@@ -8,68 +8,114 @@ public class CharacterGenerator
     private string name;
     private System.Random rngesus;
 
-    public readonly int defaultHitPoints = 100;
-    public readonly int defaultManaPoints = 100;
-    public readonly int defaultAttackDamage = 10;
-    public readonly int defaultAttackRange = 1;
-    public readonly int defaultAttackSpeed = 5;
-    public readonly int minimumAttackSpeed = 1;
-    public readonly int maximumAttackSpeed = 10;
-    public readonly int defaultMovementSpeed = 5;
-    public readonly int minimumMovementSpeed = 1;
-    public readonly int maximumMovementSpeed = 10;
-    public readonly double hitPointMultiplier = 1.5;
-    public readonly double attackDamageMultiplier = 1.5;
+    public readonly int defaultHitPoints = GameLogicManager.Inst.Data.Gen.DefaultHitPoints;
+    public readonly int defaultManaPoints = GameLogicManager.Inst.Data.Gen.DefaultManaPoints;
+    public readonly int defaultAttackDamage = GameLogicManager.Inst.Data.Gen.DefaultAttackDamage;
+    public readonly int defaultAttackRange = GameLogicManager.Inst.Data.Gen.DefaultAttackRange;
+    public readonly int defaultAttackSpeed = GameLogicManager.Inst.Data.Gen.DefaultAttackSpeed;
+    public readonly int minimumAttackSpeed = GameLogicManager.Inst.Data.Gen.MinAttackSpeed;
+    public readonly int maximumAttackSpeed = GameLogicManager.Inst.Data.Gen.MaxAttackSpeed;
+    public readonly int defaultMovementSpeed = GameLogicManager.Inst.Data.Gen.DefaulMovementSpeed;
+    public readonly int minimumMovementSpeed = GameLogicManager.Inst.Data.Gen.MinMovementSpeed;
+    public readonly int maximumMovementSpeed = GameLogicManager.Inst.Data.Gen.MaxMovementSpeed;
+    public readonly double hitPointMultiplier = GameLogicManager.Inst.Data.Gen.HitPointMultiplier;
+    public readonly double attackDamageMultiplier = GameLogicManager.Inst.Data.Gen.AttackDamageMultiplier;
+
+    public readonly double humanPriestManaMultiplier = GameLogicManager.Inst.Data.Gen.HumanPriestManaMultiplier;
 
     //human stat changes
-    public readonly double humanHitPointMultiplier = 1.1;
-    public readonly double humanAttackDamageMultiplier = 1.1;
-    public readonly int humanManaPointAdditor = -5;
+    public readonly double humanHitPointMultiplier = GameLogicManager.Inst.Data.Gen.HumanHitPointMultiplier;
+    public readonly double humanAttackDamageMultiplier = GameLogicManager.Inst.Data.Gen.HumanAttackDamageMultiplier;
+    public readonly int humanManaPointAdditor = GameLogicManager.Inst.Data.Gen.HumanManaPointAdditor;
 
     //orc stat changes
-    public readonly int orcFlatMovementSpeedAdditor = -1;
-    public readonly double orcHitPointMultiplier = 1.25;
-    public readonly double orcAttackDamageMultiplier = 1.25;
-    public readonly int orcFlatAttackSpeedAdditor = -1;
+    public readonly int orcFlatMovementSpeedAdditor = GameLogicManager.Inst.Data.Gen.OrcFlatMovementSpeedAdditor;
+    public readonly double orcHitPointMultiplier = GameLogicManager.Inst.Data.Gen.OrcHitPointMultipler;
+    public readonly double orcAttackDamageMultiplier = GameLogicManager.Inst.Data.Gen.OrcAttackDamageMultiplier;
+    public readonly int orcFlatAttackSpeedAdditor = GameLogicManager.Inst.Data.Gen.OrcFlatAttackSpeedAdditor;
 
     //elf stat changes
-    public readonly int elfFlatMovementSpeedAdditor = 1;
-    public readonly int elfFlatAttackSpeedAdditor = 1;
-    public readonly int elfFlatConditionalAttackRangeAdditor = 1;
-    public readonly double elfAttackDamageMultiplier = 1.05;
-    public readonly int elfManaPointAdditor = -8;
+    public readonly int elfFlatMovementSpeedAdditor = GameLogicManager.Inst.Data.Gen.ElfFlatMovementSpeedAdditor;
+    public readonly int elfFlatAttackSpeedAdditor = GameLogicManager.Inst.Data.Gen.ElfFlatAttackSpeedAdditor;
+    public readonly int elfFlatConditionalAttackRangeAdditor = GameLogicManager.Inst.Data.Gen.ElfFlatConditionalAttackRangeAdditor;
+    public readonly double elfAttackDamageMultiplier = GameLogicManager.Inst.Data.Gen.ElfAttackDamageMultiplier;
+    public readonly int elfManaPointAdditor = GameLogicManager.Inst.Data.Gen.ElfManaPointAdditor;
 
     //undead stat changes
-    public readonly int undeadFlatMovementSpeedAdditor = -3;
-    public readonly int undeadFlatAttackSpeedAdditor = -2;
-    public readonly double undeadHitPointMultiplier = 1.35;
+    public readonly int undeadFlatMovementSpeedAdditor = GameLogicManager.Inst.Data.Gen.UndeadFlatMovementSpeedAdditor;
+    public readonly int undeadFlatAttackSpeedAdditor = GameLogicManager.Inst.Data.Gen.UndeadFlatAttackSpeedAdditor;
+    public readonly double undeadHitPointMultiplier = GameLogicManager.Inst.Data.Gen.UndeadHitPointMultiplier;
 
     //mage stat changes
-    public readonly int mageFlatAttackRangeAdditor = 2;
-    public readonly int mageManaPointAdditor = -8;
-    public readonly double mageAttackDamageMultiplier = 1.05;
+    public readonly int mageFlatAttackRangeAdditor = GameLogicManager.Inst.Data.Gen.MageFlatAttackRangeAdditor;
+    public readonly int mageManaPointAdditor = GameLogicManager.Inst.Data.Gen.MageManaPointAdditor;
+    public readonly double mageAttackDamageMultiplier = GameLogicManager.Inst.Data.Gen.MageAttackDamageMultiplier;
 
     //rogue stat changes
-    public readonly int rogueFlatMovementSpeedAdditor = 1;
-    public readonly int rogueFlatAttackSpeedAdditor = 1;
-    public readonly double rogueHitPointMultiplier = 1.05;
-    public readonly double rogueAttackDamageMultiplier = 1.1;
+    public readonly int rogueFlatMovementSpeedAdditor = GameLogicManager.Inst.Data.Gen.RogueFlatMovementSpeedAdditor;
+    public readonly int rogueFlatAttackSpeedAdditor = GameLogicManager.Inst.Data.Gen.RogueFlatAttackSpeedAdditor;
+    public readonly double rogueHitPointMultiplier = GameLogicManager.Inst.Data.Gen.RogueHitPointMultiplier;
+    public readonly double rogueAttackDamageMultiplier = GameLogicManager.Inst.Data.Gen.RogueAttackDamageMultiplier;
 
     //druid stat changes
-    public readonly double druidHitPointMultiplier = 1.15;
-    public readonly double druidAttackDamageMultiplier = 1.15;
-    public readonly int druidManaPointAdditor = -3;
+    public readonly double druidHitPointMultiplier = GameLogicManager.Inst.Data.Gen.DruidHitPointMultiplier;
+    public readonly double druidAttackDamageMultiplier = GameLogicManager.Inst.Data.Gen.DruidAttackDamageMultiplier;
+    public readonly int druidManaPointAdditor = GameLogicManager.Inst.Data.Gen.DruidManaPointAdditor;
 
     //knight stat changes
-    public readonly double knightHitPointMultiplier = 1.2;
-    public readonly double knightAttackDamageMultiplier = 1.15;
+    public readonly double knightHitPointMultiplier = GameLogicManager.Inst.Data.Gen.KnightHitPointMultiplier;
+    public readonly double knightAttackDamageMultiplier = GameLogicManager.Inst.Data.Gen.KnightAttackDamageMultiplier;
 
     //priest stat changes
-    public readonly int priestFlatAttackRangeAdditor = 4;
-    public readonly int priestManaPointAdditor = -5;
-    public readonly double priestHitPointMultiplier = 1.1;
+    public readonly int priestFlatAttackRangeAdditor = GameLogicManager.Inst.Data.Gen.PriestFlatAttackRangeAdditor;
+    public readonly int priestManaPointAdditor = GameLogicManager.Inst.Data.Gen.PriestManaPointAdditor;
+    public readonly double priestHitPointMultiplier = GameLogicManager.Inst.Data.Gen.PriestHitPointMultiplier;
 
-    public readonly int[] tiersPoolMax = new int[] { 4, 3, 2, 1, 0, 0, 0, 0, 0, 0 };
+    public readonly int[,,] tiersRaceJobPoolMax = {
+        {
+            { 2, 0, 2, 0, 2 },
+            { 0, 0, 0, 2, 0 },
+            { 2, 2, 0, 2, 2 },
+            { 2, 0, 0, 0, 0 }
+        },
+        {
+            { 2, 2, 2, 0, 2 },
+            { 2, 0, 2, 2, 0 },
+            { 2, 2, 0, 2, 2 },
+            { 2, 0, 2, 0, 2 }
+        },
+        {
+            { 2, 2, 2, 0, 2 },
+            { 2, 2, 2, 2, 2 },
+            { 2, 2, 2, 2, 2 },
+            { 2, 0, 2, 0, 2 }
+        },
+        {
+            { 2, 2, 2, 2, 2 },
+            { 2, 2, 2, 2, 2 },
+            { 2, 2, 2, 2, 2 },
+            { 2, 2, 2, 2, 2 }
+        },
+        {
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 }
+        },
+        {
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 }
+        },
+        {
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0 }
+        }
+    };
+
     public readonly int characterUpgradeDifferencePercentage = 20;
     public readonly int[,] rarityUpgradeTiers = {
                                             { 100, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -104,14 +150,14 @@ public class CharacterGenerator
         rngesus = new System.Random();
 
         //creating pools for race and job limits
-        TierRaceJobPoolSize = new int[tiersPoolMax.Length, Enum.GetNames(typeof(Enums.Race)).Length, Enum.GetNames(typeof(Enums.Job)).Length];
-        for (int i = 0; i < tiersPoolMax.Length; i++)
+        TierRaceJobPoolSize = new int[tiersRaceJobPoolMax.GetLength(0), Enum.GetNames(typeof(Enums.Race)).Length, Enum.GetNames(typeof(Enums.Job)).Length];
+        for (int i = 0; i < tiersRaceJobPoolMax.GetLength(0); i++)
         {
             for (int j = 0; j < Enum.GetNames(typeof(Enums.Race)).Length; j++)
             {
                 for (int k = 0; k < Enum.GetNames(typeof(Enums.Job)).Length; k++)
                 {
-                    TierRaceJobPoolSize[i, j, k] = tiersPoolMax[i];
+                    TierRaceJobPoolSize[i, j, k] = tiersRaceJobPoolMax[i, j, k];
                 }
             }
         }
@@ -191,6 +237,8 @@ public class CharacterGenerator
         int currentAttackSpeed = defaultAttackSpeed;
         int currentMovementSpeed = defaultMovementSpeed;
 
+        Debug.Log(rogueFlatMovementSpeedAdditor);
+
         //calculate stats
         switch (job)
         {
@@ -249,11 +297,19 @@ public class CharacterGenerator
                 currentHitPoints += undeadFlatMovementSpeedAdditor;
                 break;
         }
-
+        if (race == Enums.Race.Elf && job == Enums.Job.Druid)
+        {
+            currentAttackRange++;
+        }
+        if (race == Enums.Race.Human && job == Enums.Job.Priest)
+        {
+            currentManaPoints = (int)Math.Floor(currentManaPoints * humanPriestManaMultiplier);
+        }
         Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), race, job, characterRarity + 1, false,
                                        currentHitPoints, currentManaPoints,
                                        currentAttackDamage, currentAttackRange,
                                        currentAttackSpeed, currentMovementSpeed);
+
         return currentPiece;
     }
 
@@ -276,7 +332,7 @@ public class CharacterGenerator
     public bool TryUpgradeCharacterMarketTier(ref Piece piece, int currentMarketTier)
     {
         //if new rarity does not exist
-        if (piece.GetRarity() > tiersPoolMax.Length)
+        if (piece.GetRarity() > tiersRaceJobPoolMax.GetLength(0))
             return false;
         //if character rarity can be found in the new market tier
         if (rarityUpgradeTiers[currentMarketTier - 1, piece.GetRarity()] > 0)

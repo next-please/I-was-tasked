@@ -6,7 +6,7 @@ public class BarkskinSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    public int barkskinDefaultBlockAmount = 7;
+    public int barkskinDefaultBlockAmount = GameLogicManager.Inst.Data.Skills.BarkSkinBlockAmount;
     public int ticksTilActivation = 0;
 
     public BarkskinSkill(Piece caster, Board board)
@@ -63,7 +63,7 @@ public class BarkskinLingeringEffect : Interaction
 {
     public Piece caster;
     private Vector3 attackDestination;
-    public int ticksTilActivation = 250;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.BarkSkinLingerTicks;
     public int blockAmount;
 
     public BarkskinLingeringEffect(Piece caster, int blockAmount)
@@ -100,8 +100,11 @@ public class BarkskinLingeringEffect : Interaction
     {
         GameObject projectile = interactionView.gameObject;
 
-        attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackDestination.y += 3.5f;
+        if (!caster.IsDead())
+        {
+            attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackDestination.y += 3.5f;
+        }
 
         projectile.transform.position = attackDestination;
 

@@ -8,9 +8,9 @@ public class MoonfireSkill : Interaction
     private Piece target;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 20;
-    public double moonfireDefaultManaRetainPercentage = 0.5;
-    private int moonfireDefaultDamage = 65;
+    private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.MoonfireInitialTicks;
+    public double moonfireDefaultManaRetainPercentage = GameLogicManager.Inst.Data.Skills.MoonfireManaRetainPercentage;
+    private int moonfireDefaultDamage = GameLogicManager.Inst.Data.Skills.MoonfireDefaultDamage;
 
     public MoonfireSkill(Piece caster, Piece target, Board board)
     {
@@ -70,7 +70,7 @@ public class MoonfireSkill : Interaction
 public class MoonfireLingeringEffect : Interaction
 {
     private Vector3 effectPosition;
-    public int ticksTilActivation = 20;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.MoonfireLingerTicks;
 
     public MoonfireLingeringEffect(Vector3 effectPosition)
     {

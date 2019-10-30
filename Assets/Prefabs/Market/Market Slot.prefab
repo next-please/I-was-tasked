@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: e745492728544aa488aa0429b6068e71, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -107,4 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MarketItemPrefab: {fileID: 7458757433210755594, guid: b96f2016fbd5f4da191d5c2b02504463,
     type: 3}
+  marketItem: {fileID: 0}
   isOccupied: 0
+  materials:
+  - {fileID: 2100000, guid: e745492728544aa488aa0429b6068e71, type: 2}
+  - {fileID: 2100000, guid: 95c481e2d112bf946b16d3f75abb12b7, type: 2}

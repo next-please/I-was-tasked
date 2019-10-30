@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
@@ -231,7 +230,6 @@ public class PhaseManager : MonoBehaviour
     {
         ChangePhase(Phase.PreCombat);
         summonManager.SummonEnemies(enemies);
-        synergyManager.ApplySynergiesToArmies(numPlayers);
         yield return Countdown(preCombatDuration);
         Combat();
     }
@@ -240,6 +238,7 @@ public class PhaseManager : MonoBehaviour
     {
         ChangePhase(Phase.Combat);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
+        synergyManager.ApplySynergiesToArmies(numPlayers);
         CurrentTimeText.text = "";
         SwordImage.enabled = true;
         simulationPlayerCount = 0;

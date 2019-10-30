@@ -70,6 +70,7 @@ public class PieceDragHandler : InteractablePiece
         {
             originalPos = transform.position;
             SetDraggedState();
+            EventManager.Instance.Raise(new ShowTrashCanEvent { showTrashCan = true });
         }
         else
         {

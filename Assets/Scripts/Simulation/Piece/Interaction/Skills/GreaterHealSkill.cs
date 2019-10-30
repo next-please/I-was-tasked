@@ -8,8 +8,8 @@ public class GreaterHealSkill : Interaction
     private Piece target;
     private Board board;
     private Vector3 attackSource;
-    private int ticksTilActivation = 100;
-    public int greaterHealDefaultHeal = 150;
+    private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.GreaterHealInitialTicks;
+    public int greaterHealDefaultHeal = GameLogicManager.Inst.Data.Skills.GreaterHealAmount;
 
     public GreaterHealSkill(Piece caster, Board board)
     {
@@ -17,7 +17,6 @@ public class GreaterHealSkill : Interaction
         this.board = board;
         this.ticksTotal = 100;
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.ProjectileTestYellow;
 
         List<Piece> damagedFriendlies;
         if (!caster.IsEnemy())
@@ -103,7 +102,7 @@ public class GreaterHealSkill : Interaction
 public class GreaterHealLingeringEffect : Interaction
 {
     private Vector3 effectPosition;
-    public int ticksTilActivation = 200;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.GreaterHealLingerTicks;
 
     public GreaterHealLingeringEffect(Vector3 effectPosition)
     {
