@@ -61,7 +61,7 @@ public static class Enums
 
     public static string[] JobSynergyDescription = new string[]
     {
-        "Druids becomes copies of the strongest Druid",
+        "Druids become immobile and gain range",
         "Knights returns damage to opponent",
         "Mages starts with Mana",
         "A random ally is buffed",

@@ -123,16 +123,12 @@ public class SynergyManager : MonoBehaviour
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
         switch (i)
         {
-            case (int)Enums.Job.Druid://druids become equally strong
+            case (int)Enums.Job.Druid://druids become immobile and gain range
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetClass() == Enums.Job.Druid)
                     {
-                        friendlyPieces[target].SetAttackDamage(friendlyPieces.FindAll(p => p.GetClass() == Enums.Job.Druid).Max(p => p.GetAttackDamage()));
-                        friendlyPieces[target].SetMaximumHitPoints(friendlyPieces.FindAll(p => p.GetClass() == Enums.Job.Druid).Max(p => p.GetMaximumHitPoints()));
-                        friendlyPieces[target].SetCurrentHitPoints(friendlyPieces.FindAll(p => p.GetClass() == Enums.Job.Druid).Max(p => p.GetCurrentHitPoints()));
-                        friendlyPieces[target].SetAttackRange(friendlyPieces.FindAll(p => p.GetClass() == Enums.Job.Druid).Max(p => p.GetAttackRange()));
-                        friendlyPieces[target].SetMovementSpeed(friendlyPieces.FindAll(p => p.GetClass() == Enums.Job.Druid).Max(p => p.GetMovementSpeed()));
+                        friendlyPieces[target].SetAttackRange(99);
                     }
                 }
                 break;
