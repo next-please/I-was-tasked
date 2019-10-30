@@ -225,9 +225,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: 863
-    y: -1884
-    width: 2047
-    height: 2460
+    y: -1896
+    width: 2055
+    height: 2471
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -861,11 +861,11 @@ VisualEffectResource:
       Orient_4(inout float3 axisX, inout float3 axisY, inout float3 axisZ, float3
       Front, float3 Up) /*mode:FixedOrientation */\n\t\t\t{\n\t\t\t    \n\t\t\t    axisZ
       = Front;\n\t\t\t    axisX = normalize(cross(Up,axisZ));\n\t\t\t    axisY = cross(axisZ,axisX);\n\t\t\t
-      \   \n\t\t\t}\n\t\t\tvoid ColorOverLife_733E3(float age, float lifetime, inout
+      \   \n\t\t\t}\n\t\t\tvoid ColorOverLife_733E1(float age, float lifetime, inout
       float3 color, inout float alpha, float gradient) /*mode:ColorAndAlpha ColorComposition:Multiply
-      AlphaComposition:Multiply */\n\t\t\t{\n\t\t\t    \n\t\t\t    float4 sampledColor
+      AlphaComposition:Overwrite */\n\t\t\t{\n\t\t\t    \n\t\t\t    float4 sampledColor
       = SampleGradient(gradient, age/lifetime);\n\t\t\t    color *= sampledColor.rgb;\n\t\t\t
-      \   alpha *= sampledColor.a;\n\t\t\t    \n\t\t\t}\n\t\t\tvoid AttributeFromCurve_536B7819(inout
+      \   alpha = sampledColor.a;\n\t\t\t    \n\t\t\t}\n\t\t\tvoid AttributeFromCurve_536B7819(inout
       float scaleX, inout float scaleY, float age, float lifetime, float4 Scale_x,
       float4 Scale_y) /*attribute:scale Composition:Overwrite AlphaComposition:Overwrite
       SampleMode:OverLife Mode:PerComponent ColorMode:ColorAndAlpha channels:XY */\n\t\t\t{\n\t\t\t
@@ -910,7 +910,7 @@ VisualEffectResource:
       pivotZ = (float)0;\n\t\t\t\t\t\tfloat scaleX = (float)1;\n\t\t\t\t\t\tfloat
       scaleY = (float)1;\n\t\t\t\t\t\tfloat scaleZ = (float)1;\n\t\t\t\t\t\tfloat
       age = asfloat(attributeBuffer.Load((index * 0x2 + 0xA01) << 2));\n\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\tOrient_4(
-      /*inout */axisX,  /*inout */axisY,  /*inout */axisZ, Front_a, Up_a);\n\t\t\t\tColorOverLife_733E3(age,
+      /*inout */axisX,  /*inout */axisY,  /*inout */axisZ, Front_a, Up_a);\n\t\t\t\tColorOverLife_733E1(age,
       lifetime,  /*inout */color,  /*inout */alpha, gradient_b);\n\t\t\t\tAttributeFromCurve_536B7819(
       /*inout */scaleX,  /*inout */scaleY, age, lifetime, Scale_x_c, Scale_x_c);\n\t\t\t\tSetAttribute_DC8A9868(
       /*inout */scaleX,  /*inout */scaleY,  /*inout */scaleZ, Scale_d);\n\t\t\t\t\n\n\t\t\t\t\n\t\t\t\tif
@@ -1874,7 +1874,7 @@ MonoBehaviour:
   m_Disabled: 0
   mode: 3
   ColorComposition: 2
-  AlphaComposition: 2
+  AlphaComposition: 0
 --- !u!114 &8926484042661615504
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4090,7 +4090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2534, y: -1884}
+  m_UIPosition: {x: 2542, y: -1896}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -4510,7 +4510,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2014, y: -1766}
+  m_UIPosition: {x: 2004, y: -1766}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
