@@ -79,6 +79,8 @@ public class PhaseManager : MonoBehaviour
 
     void OnGameOver()
     {
+        StartCoroutine(PlayGameOverScreen());
+    }
 
     IEnumerator PlayGameOverScreen()
     {
