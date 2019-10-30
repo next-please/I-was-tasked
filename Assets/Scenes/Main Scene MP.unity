@@ -48225,12 +48225,12 @@ PrefabInstance:
         type: 3}
       propertyPath: arrangementManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4975045671528403763}
     - target: {fileID: 358672373647474002, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: transactionManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4975045671528403762}
     - target: {fileID: 358672373647474002, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: trashCan
@@ -48479,32 +48479,32 @@ PrefabInstance:
         type: 3}
       propertyPath: phaseManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1226517153}
     - target: {fileID: 2531607478194152820, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
       propertyPath: incomeManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4975045671528403761}
     - target: {fileID: 2531607478436070545, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
       propertyPath: phaseManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1226517153}
     - target: {fileID: 2531607478436070545, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
       propertyPath: incomeManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4975045671528403761}
     - target: {fileID: 2531607478162523506, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
       propertyPath: phaseManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1226517153}
     - target: {fileID: 2531607478162523506, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
       propertyPath: incomeManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4975045671528403761}
     - target: {fileID: 2531607479105195238, guid: 85d11239ab947de42aafd19e31e19dee,
         type: 3}
       propertyPath: m_LocalPosition.x
