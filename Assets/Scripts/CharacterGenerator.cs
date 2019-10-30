@@ -199,8 +199,9 @@ public class CharacterGenerator
             {
                 for (int j = 0; j < Enum.GetNames(typeof(Enums.Job)).Length; j++)
                 {
-                    TierRaceJobPoolSize[characterRarity, i, j] = 1;
-                    totalPool++;
+                    TierRaceJobPoolSize[characterRarity, i, j] = tiersRaceJobPoolMax[characterRarity, i, j];
+                    if (tiersRaceJobPoolMax[characterRarity, i, j] > 0)
+                        totalPool += tiersRaceJobPoolMax[characterRarity, i, j];
                 }
             }
         }
