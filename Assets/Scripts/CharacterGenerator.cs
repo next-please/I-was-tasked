@@ -310,10 +310,6 @@ public class CharacterGenerator
                                        currentHitPoints, currentManaPoints,
                                        currentAttackDamage, currentAttackRange,
                                        currentAttackSpeed, currentMovementSpeed);
-        currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), Enums.Race.Orc, Enums.Job.Rogue, characterRarity + 1, false,
-                                       currentHitPoints, currentManaPoints,
-                                       currentAttackDamage, currentAttackRange,
-                                       currentAttackSpeed, currentMovementSpeed);
 
         return currentPiece;
     }
