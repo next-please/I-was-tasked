@@ -130,6 +130,7 @@ public class SynergyManager : MonoBehaviour
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
         var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
+        EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = (Enums.Job)i });
         switch (i)
         {
             case (int)Enums.Job.Druid://druids become immobile and gain range
@@ -142,7 +143,6 @@ public class SynergyManager : MonoBehaviour
                 }
                 break;
             case (int)Enums.Job.Knight://knights taunt enemies
-                EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = Enums.Job.Knight });
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetClass() == Enums.Job.Knight)
@@ -192,6 +192,7 @@ public class SynergyManager : MonoBehaviour
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
         var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
+        EventManager.Instance.Raise(new RaceSynergyAppliedEvent{ Race = (Enums.Race)i });
         switch (i)
         {
             case (int)Enums.Race.Elf://elves guide a friendly unit in death

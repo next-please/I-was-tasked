@@ -31,7 +31,7 @@ public class Board
             {
                 return 0;
             }
-            
+
             // The Rightmost Piece.
             if (tileX.GetCol() > tileY.GetCol())
             {
@@ -216,7 +216,7 @@ public class Board
     public Piece FindNearestTarget(Piece piece)
     {
         List<Piece> enemyPiecesOnBoard;
-        
+
         if (!piece.IsEnemy())
         {
             enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
@@ -345,6 +345,13 @@ public class Board
 
     public Tile GetTile(int row, int col)
     {
+        // @Rinder5 this is a hot fix for shadow strike, raise dead, charge
+        if (row >= numRows || col >= numCols || row < 0 || col < 0)
+        {
+            Tile tile  = new Tile(-1, -1, null);
+            tile.SetOccupant(null);
+            return tile;
+        }
         return tiles[row][col];
     }
 
