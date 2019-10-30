@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
             EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
 
-        if ((Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(playerTransform));
