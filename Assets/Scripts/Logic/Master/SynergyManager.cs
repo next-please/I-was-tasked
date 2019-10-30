@@ -75,6 +75,16 @@ public class SynergyManager : MonoBehaviour
         }
     }
 
+    public bool HasSynergy(Enums.Job job)
+    {
+        return jobSynergyCount[(int)job] >= jobSynergyRequirement[(int)job];
+    }
+    
+    public bool HasSynergy(Enums.Race race)
+    {
+        return raceSynergyCount[(int)race] >= raceSynergyRequirement[(int)race];
+    }
+
     public void ApplySynergiesToArmies(int NumPlayers)
     {
         for (int i = 0; i < NumPlayers; i++)
@@ -90,14 +100,14 @@ public class SynergyManager : MonoBehaviour
         var board = boardManager.GetBoard(player);
         for (int i = 0; i < jobSynergyCount.Length; i++)
         {
-            if (jobSynergyCount[i] >= 1 || playerInv.HasSynergy((Enums.Job)i))
+            if (jobSynergyCount[i] >= jobSynergyRequirement[i])
             {
                 ApplyJobSynergy(board, i);
             }
         }
         for (int i = 0; i < raceSynergyCount.Length; i++)
         {
-            if (raceSynergyCount[i] >= 1 || playerInv.HasSynergy((Enums.Race)i))
+            if (raceSynergyCount[i] >= raceSynergyRequirement[i])
             {
                 ApplyRaceSynergy(board, i);
             }

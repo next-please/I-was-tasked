@@ -194,24 +194,6 @@ public class PlayerInventory : ScriptableObject
         return army.Remove(piece);
     }
 
-    public bool HasSynergy(Enums.Race race)
-    {
-        if (raceCount[(int)race] >= SynergyManager.raceSynergyRequirement[(int)race])
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public bool HasSynergy(Enums.Job job)
-    {
-        if (jobCount[(int)job] >= SynergyManager.jobSynergyRequirement[(int)job])
-        {
-            return true;
-        }
-        return false;
-    }
-
     public bool IsArmyFull()
     {
         return army.Count >= armySize;
