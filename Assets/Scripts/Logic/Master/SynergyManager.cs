@@ -144,7 +144,7 @@ public class SynergyManager : MonoBehaviour
                     }
                 }
                 break;
-            case (int)Enums.Job.Mage://mages start with additional mana
+            case (int)Enums.Job.Mage://mages start with additional mana and doublecast
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetClass() == Enums.Job.Mage)
