@@ -90,7 +90,7 @@ public class RampageLingeringEffect : Interaction
 
     public override bool ProcessInteraction()
     {
-        if (ticksRemaining > 0)
+        if (ticksRemaining > 0 && !caster.IsDead())
         {
             ticksRemaining--;
             return true;
