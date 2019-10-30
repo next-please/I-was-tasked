@@ -29,7 +29,8 @@ public class InventoryUIManager : MonoBehaviour
         if (RoomManager.GetLocalPlayer() == owner)
         {
             GoldText.text = inv.GetGold().ToString();
-            ArmySizeText.text = inv.GetArmyCount() + "/" + inv.GetArmySize();
+            // ArmySizeText.text = "Army Size: " + inv.GetArmyCount() + "/" + inv.GetArmySize();
+            ArmySizeText.text = inv.GetArmySize().ToString();
         }
     }
 }

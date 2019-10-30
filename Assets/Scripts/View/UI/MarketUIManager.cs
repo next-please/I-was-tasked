@@ -70,8 +70,8 @@ public class MarketUIManager : MonoBehaviour
 
     void OnMarketUpdate(MarketUpdateEvent e)
     {
-        MarketRarityText.text = "Market Level: " + e.readOnlyMarket.GetMarketTier().ToString();
-        MarketSizeText.text = "Market Size: " + e.readOnlyMarket.GetMarketSize().ToString();
+        MarketRarityText.text = e.readOnlyMarket.GetMarketTier().ToString();
+        MarketSizeText.text = e.readOnlyMarket.GetMarketSize().ToString();
         UpdateMarketButtons(e);
         UpdateMarket(e);
     }
