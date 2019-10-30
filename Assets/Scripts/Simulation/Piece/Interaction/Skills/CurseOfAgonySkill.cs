@@ -49,11 +49,20 @@ public class CurseOfAgonySkill : Interaction
         {
             return;
         }
-        target.SetCurseDamageAmount(target.GetCurseDamageAmount() + curseOfAgonyDefaultCurseAmount);
-        int curseChange = curseOfAgonyDefaultCurseAmount;
 
-        Interaction skill = new CurseOfAgonyLingeringEffect(target, curseChange);
-        board.AddInteractionToProcess(skill);
+        if (caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony")) != null)
+        {
+            caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony")).ticksRemaining = CurseOfAgonyLingeringEffect.ticksTilActivation;
+        }
+        else
+        {
+            target.SetCurseDamageAmount(target.GetCurseDamageAmount() + curseOfAgonyDefaultCurseAmount);
+            int curseChange = curseOfAgonyDefaultCurseAmount;
+
+            Interaction skill = new CurseOfAgonyLingeringEffect(target, curseChange);
+            board.AddInteractionToProcess(skill);
+            target.interactions.Add(skill);
+        }
 
         Debug.Log(caster.GetName() + " has CurseOfAgony-ed " + target.GetName() + " to selfharm " + target.GetCurseDamageAmount() + " damage on each attack.");
     }
@@ -68,6 +77,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
 
     public CurseOfAgonyLingeringEffect(Piece target, int curseChange)
     {
+        this.identifier = "CurseOfAgony";
         this.target = target;
         this.curseChange = curseChange;
         this.ticksRemaining = ticksTilActivation;
@@ -121,6 +131,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
             return;
         }
         target.SetArmourPercentage(target.GetArmourPercentage() - curseChange);
+        target.interactions.Remove(target.interactions.Find(x => x.identifier.Equals("CurseOfAgony")));
 
         Debug.Log(target.GetName() + "'s Curse of Agony has expired.");
     }

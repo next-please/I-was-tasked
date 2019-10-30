@@ -83,20 +83,29 @@ public class BlessingOfNatureSkill : Interaction
             }
         }
 
-        int attackDamageChange = (int)Math.Floor(target.GetAttackDamage() * blessingOfNatureDefaultMultiplierIncrease);
-        target.SetAttackDamage(target.GetAttackDamage() + attackDamageChange);
-        int currentHitPointChange = 0;
-        int maximumHitPointChange = 0;
-        if (!target.invulnerable)
-        {
-            currentHitPointChange = (int)Math.Floor(target.GetCurrentHitPoints() * blessingOfNatureDefaultMultiplierIncrease);
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() + currentHitPointChange);
-            maximumHitPointChange = (int)Math.Floor(target.GetMaximumHitPoints() * blessingOfNatureDefaultMultiplierIncrease);
-            target.SetMaximumHitPoints(target.GetMaximumHitPoints() + maximumHitPointChange);
-        }
 
-        Interaction skill = new BlessingOfNatureLingeringEffect(target, attackDamageChange, currentHitPointChange, maximumHitPointChange);
-        board.AddInteractionToProcess(skill);
+        if (caster.interactions.Find(x => x.identifier.Equals("BlessingOfNature")) != null)
+        {
+            caster.interactions.Find(x => x.identifier.Equals("BlessingOfNature")).ticksRemaining = BlessingOfNatureLingeringEffect.ticksTilActivation;
+        }
+        else
+        {
+            int attackDamageChange = (int)Math.Floor(target.GetAttackDamage() * blessingOfNatureDefaultMultiplierIncrease);
+            target.SetAttackDamage(target.GetAttackDamage() + attackDamageChange);
+            int currentHitPointChange = 0;
+            int maximumHitPointChange = 0;
+            if (!target.invulnerable)
+            {
+                currentHitPointChange = (int)Math.Floor(target.GetCurrentHitPoints() * blessingOfNatureDefaultMultiplierIncrease);
+                target.SetCurrentHitPoints(target.GetCurrentHitPoints() + currentHitPointChange);
+                maximumHitPointChange = (int)Math.Floor(target.GetMaximumHitPoints() * blessingOfNatureDefaultMultiplierIncrease);
+                target.SetMaximumHitPoints(target.GetMaximumHitPoints() + maximumHitPointChange);
+            }
+
+            Interaction skill = new BlessingOfNatureLingeringEffect(target, attackDamageChange, currentHitPointChange, maximumHitPointChange);
+            board.AddInteractionToProcess(skill);
+            target.interactions.Add(skill);
+        }
 
         Debug.Log(caster.GetName() + " has BlessingOfNatured-ed " + target.GetName() + " to increase attack to " + target.GetAttackDamage() + " and hitpoints to " + target.GetMaximumHitPoints() + ".");
     }
@@ -114,6 +123,7 @@ public class BlessingOfNatureLingeringEffect : Interaction
 
     public BlessingOfNatureLingeringEffect(Piece target, int attackDamageChange, int currentHitPointChange, int maximumHitPointChange)
     {
+        this.identifier = "BlessingOfNature";
         this.target = target;
         this.attackDamageChange = attackDamageChange;
         this.currentHitPointChange = currentHitPointChange;
@@ -169,6 +179,7 @@ public class BlessingOfNatureLingeringEffect : Interaction
             return;
         }
         target.SetCurrentHitPoints(target.GetCurrentHitPoints() - currentHitPointChange);
+        target.interactions.Remove(target.interactions.Find(x => x.identifier.Equals("BlessingOfNature")));
 
         Debug.Log(target.GetName() + "'s Blessing of Nature has expired.");
     }

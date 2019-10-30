@@ -50,10 +50,19 @@ public class BarkskinSkill : Interaction
         {
             return;
         }
-        caster.SetBlockAmount(caster.GetBlockAmount() + barkskinDefaultBlockAmount);
 
-        Interaction skill = new BarkskinLingeringEffect(caster, barkskinDefaultBlockAmount);
-        board.AddInteractionToProcess(skill);
+        if (caster.interactions.Find(x => x.identifier.Equals("Barkskin")) != null)
+        {
+            caster.interactions.Find(x => x.identifier.Equals("Barkskin")).ticksRemaining = BarkskinLingeringEffect.ticksTilActivation;
+        }
+        else
+        {
+            caster.SetBlockAmount(caster.GetBlockAmount() + barkskinDefaultBlockAmount);
+
+            Interaction skill = new BarkskinLingeringEffect(caster, barkskinDefaultBlockAmount);
+            board.AddInteractionToProcess(skill);
+            caster.interactions.Add(skill);
+        }
 
         Debug.Log(caster.GetName() + " has Barkskin-ed " + caster.GetName() + " to increase block to " + caster.GetBlockAmount() + ".");
     }
@@ -68,6 +77,7 @@ public class BarkskinLingeringEffect : Interaction
 
     public BarkskinLingeringEffect(Piece caster, int blockAmount)
     {
+        this.identifier = "Barkskin";
         this.caster = caster;
         this.blockAmount = blockAmount;
         this.ticksRemaining = ticksTilActivation;
@@ -122,6 +132,7 @@ public class BarkskinLingeringEffect : Interaction
             return;
         }
         caster.SetBlockAmount(caster.GetBlockAmount() - blockAmount);
+        caster.interactions.Remove(caster.interactions.Find(x => x.identifier.Equals("Barkskin")));
 
         Debug.Log(caster.GetName() + "'s Barkskin has expired, block decreases to " + caster.GetBlockAmount() + ".");
     }

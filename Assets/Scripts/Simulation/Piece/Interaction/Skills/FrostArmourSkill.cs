@@ -49,11 +49,20 @@ public class FrostArmourSkill : Interaction
         {
             return;
         }
-        target.SetArmourPercentage(target.GetArmourPercentage() + frostArmourDefaultArmourPercentage);
-        double armourChange = frostArmourDefaultArmourPercentage;
 
-        Interaction skill = new FrostArmourLingeringEffect(caster, armourChange);
-        board.AddInteractionToProcess(skill);
+        if (target.interactions.Find(x => x.identifier.Equals("FrostArmour")) != null)
+        {
+            target.interactions.Find(x => x.identifier.Equals("FrostArmou")).ticksRemaining = FrostArmourLingeringEffect.ticksTilActivation;
+        }
+        else
+        {
+            target.SetArmourPercentage(target.GetArmourPercentage() + frostArmourDefaultArmourPercentage);
+            double armourChange = frostArmourDefaultArmourPercentage;
+
+            Interaction skill = new FrostArmourLingeringEffect(caster, armourChange);
+            board.AddInteractionToProcess(skill);
+            target.interactions.Add(skill);
+        }
 
         Debug.Log(caster.GetName() + " has FrostArmour-ed " + target.GetName() + " to increase armour to " + target.GetArmourPercentage() + ".");
     }
@@ -69,6 +78,7 @@ public class FrostArmourLingeringEffect : Interaction
 
     public FrostArmourLingeringEffect(Piece target, double armourChange)
     {
+        this.identifier = "FrostArmour";
         this.target = target;
         this.armourChange = armourChange;
         this.ticksRemaining = ticksTilActivation;
@@ -116,6 +126,7 @@ public class FrostArmourLingeringEffect : Interaction
             return;
         }
         target.SetArmourPercentage(target.GetArmourPercentage() - armourChange);
+        target.interactions.Remove(target.interactions.Find(x => x.identifier.Equals("FrostArmour")));
 
         Debug.Log(target.GetName() + "'s Frost Armour has expired.");
     }
