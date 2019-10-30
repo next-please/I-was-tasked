@@ -7,8 +7,17 @@ using System;
 public class GameLogicData : ScriptableObject
 {
     public string Version = "master";
+    public PieceBalanceData Piece;
     public SkillData Skills;
     public GeneratorData Gen;
+}
+
+[Serializable]
+public class PieceBalanceData
+{
+    [Header("Mana Point Logic")]
+    public int ManaPointsGainedOnAttack = 10;
+    public int ManaPointsGainedOnHit = 4;
 }
 
 [Serializable]
@@ -190,6 +199,3 @@ public class SkillData
     public int UnholyAuraCount = 15;
     public int UnholyAuraDamage = 6;
 }
-
-
-// GameLogicManager.Inst.Data.Skills.
