@@ -128,3 +128,8 @@ MonoBehaviour:
     ElfRequirement: 8
     OrcRequirement: 10
     UndeadRequirement: 9
+    HumanGoldAmount: 10
+    RogueDamageMultiplier: 10
+    RogueHitPointMultiplier: 0.1
+    MageStartingManaPercentage: 0.25
+    UndeadTicksToDie: 500
