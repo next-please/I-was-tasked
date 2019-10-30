@@ -75,6 +75,7 @@ public class Piece : ISerializable
     public List<Interaction> interactions = new List<Interaction>();
     public bool multicast = false;
     public bool invulnerable = false;
+    public bool taunting = false;
 
     // Constructor for All Pieces; remember to set isEnemy accordingly.
     public Piece(string name, string title, Enums.Race race, Enums.Job job, int rarity, bool isEnemy,
@@ -424,6 +425,7 @@ public class Piece : ISerializable
         interactions = new List<Interaction>();
         multicast = false;
         invulnerable = false;
+        taunting = false;
     }
 
     public Piece GetTarget()

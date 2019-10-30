@@ -139,13 +139,13 @@ public class SynergyManager : MonoBehaviour
                     }
                 }
                 break;
-            case (int)Enums.Job.Knight://knights do recoil damage
+            case (int)Enums.Job.Knight://knights taunt enemies
                 EventManager.Instance.Raise(new KnightSynergyAppliedEvent());
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetClass() == Enums.Job.Knight)
                     {
-                        friendlyPieces[target].SetRecoilPercentage(friendlyPieces[target].GetRecoilPercentage() + knightRecoilPercentage);
+                        friendlyPieces[target].taunting = true;
                     }
                 }
                 break;
