@@ -19,7 +19,9 @@ public class SynergyManager : MonoBehaviour
     private int priestRetributionRadius = GameLogicManager.Inst.Data.Synergy.PriestRetributionRadius;
     private int priestRetributionDamage = GameLogicManager.Inst.Data.Synergy.PriestRetributionDamage;
     private int priestRetributionHealing = GameLogicManager.Inst.Data.Synergy.PriestRetributionHealing;
-
+    private int elfGuidingSpiritAttackDamage = GameLogicManager.Inst.Data.Synergy.ElfGuidingSpiritAttackDamage;
+    private int elfGuidingSpiritAttackSpeed = GameLogicManager.Inst.Data.Synergy.ElfGuidingSpiritAttackSpeed;
+    
     private int[] jobSynergyCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
     public static int[] jobSynergyRequirement = new int[]
@@ -192,12 +194,14 @@ public class SynergyManager : MonoBehaviour
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
         switch (i)
         {
-            case (int)Enums.Race.Elf://elves gain extra range
+            case (int)Enums.Race.Elf://elves guide a friendly unit in death
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetRace() == Enums.Race.Elf)
                     {
-                        friendlyPieces[target].SetAttackRange(friendlyPieces[target].GetAttackRange() + elfRangeModifier);
+                        GuidingSpiritSynergyEffect skill = new GuidingSpiritSynergyEffect(friendlyPieces[target], board, elfGuidingSpiritAttackDamage, elfGuidingSpiritAttackSpeed);
+                        board.AddInteractionToProcess(skill);
+                        friendlyPieces[target].interactions.Add(skill);
                     }
                 }
                 break;

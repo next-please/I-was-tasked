@@ -71,7 +71,7 @@ public static class Enums
     public static string[] RaceSynergyDescription = new string[]
     {
         "Humans gain extra gold",
-        "Elves gain range",
+        "Elves guide a friendly unit in death",
         "Orcs rule the world! And they're angry!",
         "Undead gain immortality. Then they die."
     };
