@@ -85,10 +85,15 @@ public class BlessingOfNatureSkill : Interaction
 
         int attackDamageChange = (int)Math.Floor(target.GetAttackDamage() * blessingOfNatureDefaultMultiplierIncrease);
         target.SetAttackDamage(target.GetAttackDamage() + attackDamageChange);
-        int currentHitPointChange = (int)Math.Floor(target.GetCurrentHitPoints() * blessingOfNatureDefaultMultiplierIncrease);
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() + currentHitPointChange);
-        int maximumHitPointChange = (int)Math.Floor(target.GetMaximumHitPoints() * blessingOfNatureDefaultMultiplierIncrease);
-        target.SetMaximumHitPoints(target.GetMaximumHitPoints() + maximumHitPointChange);
+        int currentHitPointChange = 0;
+        int maximumHitPointChange = 0;
+        if (!target.invulnerable)
+        {
+            currentHitPointChange = (int)Math.Floor(target.GetCurrentHitPoints() * blessingOfNatureDefaultMultiplierIncrease);
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() + currentHitPointChange);
+            maximumHitPointChange = (int)Math.Floor(target.GetMaximumHitPoints() * blessingOfNatureDefaultMultiplierIncrease);
+            target.SetMaximumHitPoints(target.GetMaximumHitPoints() + maximumHitPointChange);
+        }
 
         Interaction skill = new BlessingOfNatureLingeringEffect(target, attackDamageChange, currentHitPointChange, maximumHitPointChange);
         board.AddInteractionToProcess(skill);

@@ -92,7 +92,7 @@ public class ShadowStrikeSkill : Interaction
 
     private void ApplyDamageToInflict()
     {
-        if (!target.IsDead())
+        if (!target.IsDead() && !target.invulnerable)
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - shadowStrikeDefaultDamage);
             Debug.Log(caster.GetName() + " has ShadowStrike-ed " + target.GetName() + " for " + shadowStrikeDefaultDamage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");

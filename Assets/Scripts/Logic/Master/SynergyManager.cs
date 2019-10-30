@@ -205,13 +205,16 @@ public class SynergyManager : MonoBehaviour
                     }
                 }
                 break;
-            case (int)Enums.Race.Undead://undead gain lifesteal
+            case (int)Enums.Race.Undead://undead are immortal. then they die
                 EventManager.Instance.Raise(new UndeadSynergyAppliedEvent());
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
                     if (friendlyPieces[target].GetRace() == Enums.Race.Undead)
                     {
-                        friendlyPieces[target].SetLifestealPercentage(friendlyPieces[target].GetLifestealPercentage() + undeadLifestealPercentage);
+                        friendlyPieces[target].invulnerable = true;
+                        friendlyPieces[target].SetMaximumHitPoints(undeadTicksToDie);
+                        friendlyPieces[target].SetCurrentHitPoints(undeadTicksToDie);
+                        board.AddInteractionToProcess(new DecayingSynergyEffect(friendlyPieces[target]));
                     }
                 }
                 break;

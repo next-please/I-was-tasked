@@ -85,7 +85,10 @@ public class UnholyAuraSkill : Interaction
 
         foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), unholyAuraDefaultRadius))
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - unholyAuraDefaultDamage);
+            if (!target.invulnerable)
+            {
+                target.SetCurrentHitPoints(target.GetCurrentHitPoints() - unholyAuraDefaultDamage);
+            }
         }
 
         Debug.Log(caster.GetName() + " has UnholyAura-ed targets around it for " + unholyAuraDefaultDamage + " DMG.");

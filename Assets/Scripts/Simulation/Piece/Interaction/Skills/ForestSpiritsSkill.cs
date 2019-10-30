@@ -214,7 +214,11 @@ public class ForestSpiritSecondaryEffect : Interaction
         {
             return;
         }
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() + forestSpiritsDefaultHealAmount);
+
+        if (!target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() + forestSpiritsDefaultHealAmount);
+        }
 
         Debug.Log(target.GetName() + " has been ForestSpirits-ed for " + forestSpiritsDefaultHealAmount + " healing.");
     }

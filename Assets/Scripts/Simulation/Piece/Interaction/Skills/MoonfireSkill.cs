@@ -59,7 +59,11 @@ public class MoonfireSkill : Interaction
         }
 
         caster.SetCurrentManaPoints((int)Math.Floor(caster.GetCurrentManaPoints() + caster.GetMaximumManaPoints()*moonfireDefaultManaRetainPercentage));
-        target.SetCurrentHitPoints(target.GetCurrentHitPoints() - moonfireDefaultDamage);
+
+        if (!target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - moonfireDefaultDamage);
+        }
 
         Interaction skill = new MoonfireLingeringEffect(attackSource);
         board.AddInteractionToProcess(skill);

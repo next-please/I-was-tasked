@@ -98,7 +98,7 @@ public class MagicMissileSkill : Interaction
 
     private void ApplyDamageToInflict()
     {
-        if (!target.IsDead())
+        if (!target.IsDead() && !target.invulnerable)
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - magicMissileDefaultDamage);
         }

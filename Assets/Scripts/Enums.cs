@@ -73,6 +73,6 @@ public static class Enums
         "Humans gain extra gold",
         "Elves gain range",
         "Orcs gain health",
-        "Undead gain lifesteal"
+        "Undead gain immortality. Then they die."
     };
 }
