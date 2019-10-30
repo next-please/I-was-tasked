@@ -50,12 +50,20 @@ public class RampageSkill : Interaction
             return;
         }
 
-        int attackSpeedChange = caster.SetAttackSpeed(caster.GetAttackSpeed() + rampageDefaultAttackSpeedAmount);
-        caster.SetArmourPercentage(caster.GetArmourPercentage() + rampageDefaultArmourPercentage);
-        double armourChange = rampageDefaultArmourPercentage;
+        if (caster.interactions.Find(x => x.identifier.Equals("Rampage")) != null)
+        {
+            caster.interactions.Find(x => x.identifier.Equals("Rampage")).ticksRemaining = RampageLingeringEffect.ticksTilActivation;
+        }
+        else
+        {
+            int attackSpeedChange = caster.SetAttackSpeed(caster.GetAttackSpeed() + rampageDefaultAttackSpeedAmount);
+            caster.SetArmourPercentage(caster.GetArmourPercentage() + rampageDefaultArmourPercentage);
+            double armourChange = rampageDefaultArmourPercentage;
 
-        Interaction skill = new RampageLingeringEffect(caster, attackSpeedChange, armourChange);
-        board.AddInteractionToProcess(skill);
+            Interaction skill = new RampageLingeringEffect(caster, attackSpeedChange, armourChange);
+            board.AddInteractionToProcess(skill);
+            caster.interactions.Add(skill);
+        }
 
         Debug.Log(caster.GetName() + " has Rampaged-ed " + caster.GetName() + " to increase attack speed to " + caster.GetAttackSpeed() + " and armour to " + caster.GetArmourPercentage() + ".");
     }
@@ -72,6 +80,7 @@ public class RampageLingeringEffect : Interaction
 
     public RampageLingeringEffect(Piece caster, int attackSpeedChange, double armourChange)
     {
+        this.identifier = "Rampage";
         this.caster = caster;
         this.attackSpeedChange = attackSpeedChange;
         this.armourChange = armourChange;
@@ -121,6 +130,7 @@ public class RampageLingeringEffect : Interaction
     {
         caster.SetAttackSpeed(caster.GetAttackSpeed() - attackSpeedChange);
         caster.SetArmourPercentage(caster.GetArmourPercentage() - armourChange);
+        caster.interactions.Remove(caster.interactions.Find(x => x.identifier.Equals("Rampage")));
 
         Debug.Log(caster.GetName() + "'s Rampage has expired.");
     }

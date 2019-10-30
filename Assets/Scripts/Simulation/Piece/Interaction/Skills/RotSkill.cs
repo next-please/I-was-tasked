@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class RotSkill : Interaction
 {
@@ -8,26 +9,37 @@ public class RotSkill : Interaction
     private Board board;
     private Vector3 attackSource;
     private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.RotTickPerCount;
-    private int countRemaining;
+    public int countRemaining;
     public int rotDefaultRadius = GameLogicManager.Inst.Data.Skills.RotRadius;
     public static int rotDefaultCount = GameLogicManager.Inst.Data.Skills.RotCount;
     public int rotDefaultDamage = GameLogicManager.Inst.Data.Skills.RotDamage;
 
     public RotSkill(Piece caster, Board board)
     {
-        this.caster = caster;
-        this.board = board;
-        this.countRemaining = rotDefaultCount;
-        this.ticksTotal = 50;
-        this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.Rot;
+        if (caster.interactions.Find(x => x.identifier.Equals("Rot")) != null)
+        {
+            RotSkill skill = (RotSkill)caster.interactions.Find(x => x.identifier.Equals("Rot"));
+            skill.countRemaining = RotSkill.rotDefaultCount;
+        }
+        else
+        {
+            this.identifier = "Rot";
+            this.caster = caster;
+            this.board = board;
+            this.countRemaining = rotDefaultCount;
+            this.ticksTotal = 50;
+            this.ticksRemaining = ticksTilActivation;
+            interactionPrefab = Enums.InteractionPrefab.Rot;
 
-        attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackSource.y = 0.5f;
+            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackSource.y = 0.5f;
+            caster.interactions.Add(this);
+        }
     }
 
     public RotSkill(Piece caster, Board board, int countRemaining)
     {
+        
         this.caster = caster;
         this.board = board;
         this.countRemaining = countRemaining;
@@ -51,6 +63,10 @@ public class RotSkill : Interaction
             {
                 ticksRemaining = ticksTilActivation;
             }
+        }
+        if (countRemaining < 0)
+        {
+            caster.interactions.Remove(caster.interactions.Find(x => x.identifier.Equals("Rot")));
         }
         return ticksRemaining >= 0 && !caster.IsDead();
     }
@@ -90,13 +106,14 @@ public class RotSkill : Interaction
             return;
         }
 
+        int damage = (int)Math.Floor(rotDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.RotRarityMultiplier, caster.GetRarity()));
         if (!caster.IsEnemy())
         {
             foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), rotDefaultRadius))
             {
                 if (!target.invulnerable)
                 {
-                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
                 }
             }
         }
@@ -106,11 +123,11 @@ public class RotSkill : Interaction
             {
                 if (!target.invulnerable)
                 {
-                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - rotDefaultDamage);
+                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
                 }
             }
         }
 
-        Debug.Log(caster.GetName() + " has Rot-ed targets around it for " + rotDefaultDamage + " DMG.");
+        Debug.Log(caster.GetName() + " has Rot-ed targets around it for " + damage + " DMG.");
     }
 }

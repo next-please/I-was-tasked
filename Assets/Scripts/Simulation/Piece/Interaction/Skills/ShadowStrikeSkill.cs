@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ShadowStrikeSkill : Interaction
 {
@@ -92,14 +93,15 @@ public class ShadowStrikeSkill : Interaction
 
     private void ApplyDamageToInflict()
     {
-        if (!target.IsDead() && !target.invulnerable)
-        {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - shadowStrikeDefaultDamage);
-            Debug.Log(caster.GetName() + " has ShadowStrike-ed " + target.GetName() + " for " + shadowStrikeDefaultDamage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
-        }
-
         if (caster.IsDead())
             return;
+
+        int damage = (int)Math.Floor(shadowStrikeDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.ShadowStrikeRarityMultiplier, caster.GetRarity()));
+        if (!target.IsDead() && !target.invulnerable)
+        {
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
+            Debug.Log(caster.GetName() + " has ShadowStrike-ed " + target.GetName() + " for " + damage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
+        }
 
         board.MovePieceToTile(caster, targetTile);
     }

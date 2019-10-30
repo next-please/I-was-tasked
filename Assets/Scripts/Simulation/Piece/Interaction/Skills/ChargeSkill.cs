@@ -89,7 +89,8 @@ public class ChargeSkill : Interaction
             pieceView.LookAtTile(targetTile);
             forward = Vector3.Normalize(targetTilePos - currentTilePos);
             board.MovePieceToTile(caster, targetTile); // move to tile straight away
-            totalDamage = (int)Math.Floor(chargeBaseDefaultDamage * (Math.Pow(chargeStackingDefaultPercentageIncrease, distance)));
+            int damage = (int)Math.Floor(chargeBaseDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.ChargeRarityMultiplier, caster.GetRarity()));
+            totalDamage = (int)Math.Floor(damage * (Math.Pow(chargeStackingDefaultPercentageIncrease, distance)));
             this.ticksRemaining = this.ticksTotal;
             caster.GetPieceView().animator.Play("Walk");
         }

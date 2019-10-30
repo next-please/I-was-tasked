@@ -140,7 +140,7 @@ public class ForestSpiritInitialEffect : Interaction
             target = board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)];
         }
 
-        Interaction skill = new ForestSpiritSecondaryEffect(effectSpace, target);
+        Interaction skill = new ForestSpiritSecondaryEffect(effectSpace, target, caster);
         board.AddInteractionToProcess(skill);
     }
 }
@@ -148,14 +148,16 @@ public class ForestSpiritInitialEffect : Interaction
 public class ForestSpiritSecondaryEffect : Interaction
 {
     private Piece target;
+    private Piece caster;
     private Vector3 attackSource;
     private Vector3 attackDestination;
     private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.ForestSpiritsSecondaryTicks;
     public int forestSpiritsDefaultHealAmount = GameLogicManager.Inst.Data.Skills.ForestSpiritsHeal;
 
-    public ForestSpiritSecondaryEffect(Vector3 attackSource, Piece target)
+    public ForestSpiritSecondaryEffect(Vector3 attackSource, Piece target, Piece caster)
     {
         this.target = target;
+        this.caster = caster;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ForestSpirits;
@@ -215,11 +217,12 @@ public class ForestSpiritSecondaryEffect : Interaction
             return;
         }
 
+        int healing = (int)Math.Floor(forestSpiritsDefaultHealAmount * Math.Pow(GameLogicManager.Inst.Data.Skills.ForestSpiritsRarityMultiplier, caster.GetRarity()));
         if (!target.invulnerable)
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() + forestSpiritsDefaultHealAmount);
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() + healing);
         }
 
-        Debug.Log(target.GetName() + " has been ForestSpirits-ed for " + forestSpiritsDefaultHealAmount + " healing.");
+        Debug.Log(target.GetName() + " has been ForestSpirits-ed for " + healing + " healing.");
     }
 }

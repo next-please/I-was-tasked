@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MagicMissileSkill : Interaction
 {
@@ -98,9 +99,10 @@ public class MagicMissileSkill : Interaction
 
     private void ApplyDamageToInflict()
     {
+        int damage = (int)Math.Floor(magicMissileDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.MagicMissileRarityMultiplier, caster.GetRarity()));
         if (!target.IsDead() && !target.invulnerable)
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - magicMissileDefaultDamage);
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
         }
 
         if (countRemaining > 0)
@@ -118,6 +120,6 @@ public class MagicMissileSkill : Interaction
 
         }
 
-        Debug.Log(caster.GetName() + " has MagicMissile-ed " + target.GetName() + " for " + magicMissileDefaultDamage + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
+        Debug.Log(caster.GetName() + " has MagicMissile-ed " + target.GetName() + " for " + damage + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
     }
 }

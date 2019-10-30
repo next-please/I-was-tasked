@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CurseOfAgonySkill : Interaction
 {
@@ -49,11 +50,29 @@ public class CurseOfAgonySkill : Interaction
         {
             return;
         }
-        target.SetCurseDamageAmount(target.GetCurseDamageAmount() + curseOfAgonyDefaultCurseAmount);
-        int curseChange = curseOfAgonyDefaultCurseAmount;
 
-        Interaction skill = new CurseOfAgonyLingeringEffect(target, curseChange);
-        board.AddInteractionToProcess(skill);
+        if (caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony")) != null)
+        {
+            CurseOfAgonyLingeringEffect skill = (CurseOfAgonyLingeringEffect)caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony"));
+            skill.ticksRemaining = CurseOfAgonyLingeringEffect.ticksTilActivation;
+            int curseChange = curseOfAgonyDefaultCurseAmount;
+            curseChange = (int)Math.Floor(curseChange * Math.Pow(GameLogicManager.Inst.Data.Skills.CurseOfAgonyRarityMultiplier, caster.GetRarity()));
+            if (curseChange > skill.curseChange)
+            {
+                target.SetCurseDamageAmount(target.GetCurseDamageAmount() + (curseChange - skill.curseChange));
+                skill.curseChange = curseChange;
+            }
+        }
+        else
+        {
+            int curseChange = curseOfAgonyDefaultCurseAmount;
+            curseChange = (int)Math.Floor(curseChange * Math.Pow(GameLogicManager.Inst.Data.Skills.CurseOfAgonyRarityMultiplier, caster.GetRarity()));
+            target.SetCurseDamageAmount(target.GetCurseDamageAmount() + curseChange);
+
+            Interaction skill = new CurseOfAgonyLingeringEffect(target, curseChange);
+            board.AddInteractionToProcess(skill);
+            target.interactions.Add(skill);
+        }
 
         Debug.Log(caster.GetName() + " has CurseOfAgony-ed " + target.GetName() + " to selfharm " + target.GetCurseDamageAmount() + " damage on each attack.");
     }
@@ -62,12 +81,13 @@ public class CurseOfAgonySkill : Interaction
 public class CurseOfAgonyLingeringEffect : Interaction
 {
     private Piece target;
-    private double curseChange;
+    public int curseChange;
     private Vector3 attackDestination;
     public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CurseOfAgonyLingerTicks;
 
     public CurseOfAgonyLingeringEffect(Piece target, int curseChange)
     {
+        this.identifier = "CurseOfAgony";
         this.target = target;
         this.curseChange = curseChange;
         this.ticksRemaining = ticksTilActivation;
@@ -121,6 +141,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
             return;
         }
         target.SetArmourPercentage(target.GetArmourPercentage() - curseChange);
+        target.interactions.Remove(target.interactions.Find(x => x.identifier.Equals("CurseOfAgony")));
 
         Debug.Log(target.GetName() + "'s Curse of Agony has expired.");
     }

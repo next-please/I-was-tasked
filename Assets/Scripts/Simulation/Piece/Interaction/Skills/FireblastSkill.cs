@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class FireblastSkill : Interaction
 {
@@ -77,11 +78,12 @@ public class FireblastSkill : Interaction
             return;
         }
 
+        int damage = (int)Math.Floor(fireblastDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.FireblastRarityMultiplier, caster.GetRarity()));
         if (!target.invulnerable)
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - fireblastDefaultDamage);
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
         }
 
-        Debug.Log(caster.GetName() + " has fireblasted-ed " + target.GetName() + " for " + fireblastDefaultDamage + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
+        Debug.Log(caster.GetName() + " has fireblasted-ed " + target.GetName() + " for " + damage + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
     }
 }

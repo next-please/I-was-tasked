@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MarkForDeathSkill : Interaction
 {
@@ -15,7 +16,8 @@ public class MarkForDeathSkill : Interaction
         this.caster = caster;
         this.target = target;
         this.board = board;
-        this.ticksRemaining = ticksTilActivation;
+        int ticks = (int)Math.Floor(ticksTilActivation * Math.Pow(GameLogicManager.Inst.Data.Skills.MarkForDeathRarityMultiplier, caster.GetRarity()));
+        this.ticksRemaining = ticks;
         this.ticksTotal = 50;
         interactionPrefab = Enums.InteractionPrefab.MarkForDeath;
     }

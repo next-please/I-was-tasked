@@ -60,15 +60,16 @@ public class MoonfireSkill : Interaction
 
         caster.SetCurrentManaPoints((int)Math.Floor(caster.GetCurrentManaPoints() + caster.GetMaximumManaPoints()*moonfireDefaultManaRetainPercentage));
 
+        int damage = (int)Math.Floor(moonfireDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.MoonfireRarityMultiplier, caster.GetRarity()));
         if (!target.invulnerable)
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - moonfireDefaultDamage);
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
         }
 
         Interaction skill = new MoonfireLingeringEffect(attackSource);
         board.AddInteractionToProcess(skill);
 
-        Debug.Log(caster.GetName() + " has Moonfire-ed " + target.GetName() + " for " + moonfireDefaultDamage + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
+        Debug.Log(caster.GetName() + " has Moonfire-ed " + target.GetName() + " for " + damage + " DMG, whose HP has dropped to " + target.GetCurrentHitPoints() + " HP.");
     }
 }
 public class MoonfireLingeringEffect : Interaction

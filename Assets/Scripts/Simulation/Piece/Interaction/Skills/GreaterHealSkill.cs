@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GreaterHealSkill : Interaction
 {
@@ -90,15 +91,16 @@ public class GreaterHealSkill : Interaction
             return;
         }
 
+        int healing = (int)Math.Floor(greaterHealDefaultHeal * Math.Pow(GameLogicManager.Inst.Data.Skills.GreaterHealRarityMultiplier, caster.GetRarity()));
         if (!target.invulnerable)
         {
-            target.SetCurrentHitPoints(target.GetCurrentHitPoints() + greaterHealDefaultHeal);
+            target.SetCurrentHitPoints(target.GetCurrentHitPoints() + healing);
         }
 
         Interaction skill = new GreaterHealLingeringEffect(attackSource);
         board.AddInteractionToProcess(skill);
 
-        Debug.Log(caster.GetName() + " has GreaterHealed-ed " + target.GetName() + " for " + greaterHealDefaultHeal + " DMG, whose HP has risen to " + target.GetCurrentHitPoints() + " HP.");
+        Debug.Log(caster.GetName() + " has GreaterHealed-ed " + target.GetName() + " for " + healing + " DMG, whose HP has risen to " + target.GetCurrentHitPoints() + " HP.");
     }
 }
 
