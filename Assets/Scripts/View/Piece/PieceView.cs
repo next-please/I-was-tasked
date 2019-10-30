@@ -13,6 +13,7 @@ public class PieceView : MonoBehaviour
     public GameObject statusBars;
     public GameObject currentHPBar;
     public GameObject currentMPBar;
+    public GameObject[] rarities;
     public Piece piece; // The piece being displayed.
     public PieceSounds pieceSounds;
     private IViewState prevViewAction;
@@ -21,12 +22,18 @@ public class PieceView : MonoBehaviour
     private float smoothTime = 0.01f;
     private Player boardOwner;
 
+
     private void Start()
     {
         Vector3 lookAtPosition = new Vector3(statusBars.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z);
         statusBars.transform.LookAt(lookAtPosition);
         pieceSounds = GetComponentInChildren<PieceSounds>();
         pieceSounds.InstantiateSounds(this.transform);
+        foreach (GameObject rarity in rarities)
+        {
+            rarity.SetActive(false);
+        }
+        rarities[piece.GetRarity() - 1].SetActive(true);
     }
 
     public void TrackPiece(Piece piece)
