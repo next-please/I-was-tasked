@@ -12,6 +12,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject Charge;
     public GameObject CheapShot;
     public GameObject CurseOfAgony;
+    public GameObject DivineJudgement;
     public GameObject EviscerateBleed;
     public GameObject Fireblast;
     public GameObject ForestSpirits;
@@ -55,6 +56,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.Charge, Charge },
             { PrefabEnum.CheapShot, CheapShot },
             { PrefabEnum.CurseOfAgony, CurseOfAgony },
+            { PrefabEnum.DivineJudgement, DivineJudgement },
             { PrefabEnum.EviscerateBleed, EviscerateBleed },
             { PrefabEnum.Fireblast, Fireblast },
             { PrefabEnum.ForestSpirits, ForestSpirits },

@@ -66,7 +66,7 @@ public class RetributionSynergyEffect : Interaction
                 target.SetCurrentHitPoints(target.GetCurrentHitPoints() + friendlyHealing);
             }
         }
-     
+
         board.AddInteractionToProcess(new RetributionLingeringEffect(lastKnownTile));
     }
 }
@@ -79,7 +79,7 @@ public class RetributionLingeringEffect : Interaction
     {
         this.attackDestination = ViewManager.CalculateTileWorldPosition(target);
         this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.BlessingOfNature;
+        interactionPrefab = Enums.InteractionPrefab.DivineJudgement;
     }
 
     public override bool ProcessInteraction()

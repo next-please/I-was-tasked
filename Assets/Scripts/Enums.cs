@@ -29,6 +29,7 @@ public static class Enums
         CheapShot,
         CurseOfAgony,
         EviscerateBleed,
+        DivineJudgement,
         Fireblast,
         ForestSpirits,
         FrostArmour,
