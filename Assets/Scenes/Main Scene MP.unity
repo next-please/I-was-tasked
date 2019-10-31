@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.2195255, g: 0.43730193, b: 0.7127729, a: 1}
+  m_IndirectSpecularColor: {r: 0.21655925, g: 0.43496558, b: 0.71360886, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2930,16 +2930,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
-    - target: {fileID: 4993952243289548725, guid: efd89231d240135488c8269965cc8745,
-        type: 3}
-      propertyPath: m_Name
-      value: Market Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993952243289548726, guid: efd89231d240135488c8269965cc8745,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 1852614661}
     - target: {fileID: 4993952243289548727, guid: efd89231d240135488c8269965cc8745,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2995,6 +2985,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4993952243289548725, guid: efd89231d240135488c8269965cc8745,
+        type: 3}
+      propertyPath: m_Name
+      value: Market Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4993952243289548726, guid: efd89231d240135488c8269965cc8745,
+        type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1852614661}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efd89231d240135488c8269965cc8745, type: 3}
 --- !u!1001 &113066386
@@ -3169,31 +3169,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
-    - target: {fileID: 8636004868032949928, guid: 12d60c35622ca5447b88770efe2b7dd9,
-        type: 3}
-      propertyPath: m_Name
-      value: Board Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8636004868032949929, guid: 12d60c35622ca5447b88770efe2b7dd9,
-        type: 3}
-      propertyPath: Simulators.Array.data[0]
-      value: 
-      objectReference: {fileID: 456028916}
-    - target: {fileID: 8636004868032949929, guid: 12d60c35622ca5447b88770efe2b7dd9,
-        type: 3}
-      propertyPath: Simulators.Array.data[1]
-      value: 
-      objectReference: {fileID: 726692631}
-    - target: {fileID: 8636004868032949929, guid: 12d60c35622ca5447b88770efe2b7dd9,
-        type: 3}
-      propertyPath: Simulators.Array.data[2]
-      value: 
-      objectReference: {fileID: 364237585}
-    - target: {fileID: 8636004868032949929, guid: 12d60c35622ca5447b88770efe2b7dd9,
-        type: 3}
-      propertyPath: viewManager
-      value: 
-      objectReference: {fileID: 1063249072}
     - target: {fileID: 8636004868032949930, guid: 12d60c35622ca5447b88770efe2b7dd9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3249,6 +3224,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8636004868032949928, guid: 12d60c35622ca5447b88770efe2b7dd9,
+        type: 3}
+      propertyPath: m_Name
+      value: Board Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8636004868032949929, guid: 12d60c35622ca5447b88770efe2b7dd9,
+        type: 3}
+      propertyPath: Simulators.Array.data[0]
+      value: 
+      objectReference: {fileID: 456028916}
+    - target: {fileID: 8636004868032949929, guid: 12d60c35622ca5447b88770efe2b7dd9,
+        type: 3}
+      propertyPath: Simulators.Array.data[1]
+      value: 
+      objectReference: {fileID: 726692631}
+    - target: {fileID: 8636004868032949929, guid: 12d60c35622ca5447b88770efe2b7dd9,
+        type: 3}
+      propertyPath: Simulators.Array.data[2]
+      value: 
+      objectReference: {fileID: 364237585}
+    - target: {fileID: 8636004868032949929, guid: 12d60c35622ca5447b88770efe2b7dd9,
+        type: 3}
+      propertyPath: viewManager
+      value: 
+      objectReference: {fileID: 1063249072}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12d60c35622ca5447b88770efe2b7dd9, type: 3}
 --- !u!1 &128800404
@@ -4015,7 +4015,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!1001 &160473572
 PrefabInstance:
@@ -14071,31 +14071,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
-    - target: {fileID: 8985180891948279371, guid: 3ff8dc3357f985d458df5040daadc2ab,
-        type: 3}
-      propertyPath: m_Name
-      value: Transaction Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8985180891948279370, guid: 3ff8dc3357f985d458df5040daadc2ab,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 1852614661}
-    - target: {fileID: 8985180891948279370, guid: 3ff8dc3357f985d458df5040daadc2ab,
-        type: 3}
-      propertyPath: marketManager
-      value: 
-      objectReference: {fileID: 1304960367}
-    - target: {fileID: 8985180891948279370, guid: 3ff8dc3357f985d458df5040daadc2ab,
-        type: 3}
-      propertyPath: requestHandler
-      value: 
-      objectReference: {fileID: 896799267}
-    - target: {fileID: 8985180891948279370, guid: 3ff8dc3357f985d458df5040daadc2ab,
-        type: 3}
-      propertyPath: boardManager
-      value: 
-      objectReference: {fileID: 386053766}
     - target: {fileID: 8985180891948279373, guid: 3ff8dc3357f985d458df5040daadc2ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14151,6 +14126,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8985180891948279371, guid: 3ff8dc3357f985d458df5040daadc2ab,
+        type: 3}
+      propertyPath: m_Name
+      value: Transaction Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8985180891948279370, guid: 3ff8dc3357f985d458df5040daadc2ab,
+        type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1852614661}
+    - target: {fileID: 8985180891948279370, guid: 3ff8dc3357f985d458df5040daadc2ab,
+        type: 3}
+      propertyPath: marketManager
+      value: 
+      objectReference: {fileID: 1304960367}
+    - target: {fileID: 8985180891948279370, guid: 3ff8dc3357f985d458df5040daadc2ab,
+        type: 3}
+      propertyPath: requestHandler
+      value: 
+      objectReference: {fileID: 896799267}
+    - target: {fileID: 8985180891948279370, guid: 3ff8dc3357f985d458df5040daadc2ab,
+        type: 3}
+      propertyPath: boardManager
+      value: 
+      objectReference: {fileID: 386053766}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ff8dc3357f985d458df5040daadc2ab, type: 3}
 --- !u!1001 &624447304
@@ -17235,11 +17235,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
-    - target: {fileID: 6387150878004490746, guid: 9d1841b742665d54bbd3834cd34fc2a7,
-        type: 3}
-      propertyPath: m_Name
-      value: Summon Manager
-      objectReference: {fileID: 0}
     - target: {fileID: 6387150878004490748, guid: 9d1841b742665d54bbd3834cd34fc2a7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17294,6 +17289,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6387150878004490746, guid: 9d1841b742665d54bbd3834cd34fc2a7,
+        type: 3}
+      propertyPath: m_Name
+      value: Summon Manager
       objectReference: {fileID: 0}
     - target: {fileID: 6387150878004490747, guid: 9d1841b742665d54bbd3834cd34fc2a7,
         type: 3}
@@ -24717,16 +24717,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
-    - target: {fileID: 2408513016350765439, guid: ecd46b738b8fe474995ae76f67e1a733,
-        type: 3}
-      propertyPath: m_Name
-      value: Income Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2408513016350765440, guid: ecd46b738b8fe474995ae76f67e1a733,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 1852614661}
     - target: {fileID: 2408513016350765441, guid: ecd46b738b8fe474995ae76f67e1a733,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24782,6 +24772,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2408513016350765439, guid: ecd46b738b8fe474995ae76f67e1a733,
+        type: 3}
+      propertyPath: m_Name
+      value: Income Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2408513016350765440, guid: ecd46b738b8fe474995ae76f67e1a733,
+        type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1852614661}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecd46b738b8fe474995ae76f67e1a733, type: 3}
 --- !u!1001 &1075248498
@@ -27082,21 +27082,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
-    - target: {fileID: 7409831901443920896, guid: fd7d4fd22c0f40243b6e2c023b2460cc,
-        type: 3}
-      propertyPath: m_Name
-      value: Synergy Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7409831901443920910, guid: fd7d4fd22c0f40243b6e2c023b2460cc,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 1852614661}
-    - target: {fileID: 7409831901443920910, guid: fd7d4fd22c0f40243b6e2c023b2460cc,
-        type: 3}
-      propertyPath: boardManager
-      value: 
-      objectReference: {fileID: 386053766}
     - target: {fileID: 7409831901443920897, guid: fd7d4fd22c0f40243b6e2c023b2460cc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -27152,6 +27137,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7409831901443920896, guid: fd7d4fd22c0f40243b6e2c023b2460cc,
+        type: 3}
+      propertyPath: m_Name
+      value: Synergy Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7409831901443920910, guid: fd7d4fd22c0f40243b6e2c023b2460cc,
+        type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1852614661}
+    - target: {fileID: 7409831901443920910, guid: fd7d4fd22c0f40243b6e2c023b2460cc,
+        type: 3}
+      propertyPath: boardManager
+      value: 
+      objectReference: {fileID: 386053766}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd7d4fd22c0f40243b6e2c023b2460cc, type: 3}
 --- !u!1001 &1159465199
@@ -34460,46 +34460,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
-    - target: {fileID: 8673873393867791100, guid: f12f44e1f36d6254ea38b508910df451,
-        type: 3}
-      propertyPath: m_Name
-      value: Inventory Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
-        type: 3}
-      propertyPath: synergyManager
-      value: 
-      objectReference: {fileID: 1625935033}
-    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
-        type: 3}
-      propertyPath: roomManager
-      value: 
-      objectReference: {fileID: 1904457109}
-    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
-        type: 3}
-      propertyPath: _synergyTabMenu
-      value: 
-      objectReference: {fileID: 1820415200}
-    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
-        type: 3}
-      propertyPath: synergyManager
-      value: 
-      objectReference: {fileID: 1625935033}
-    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
-        type: 3}
-      propertyPath: roomManager
-      value: 
-      objectReference: {fileID: 1904457109}
-    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
-        type: 3}
-      propertyPath: _synergyTabMenu
-      value: 
-      objectReference: {fileID: 1820415200}
-    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
-        type: 3}
-      propertyPath: StartingArmySize
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8673873393867790850, guid: f12f44e1f36d6254ea38b508910df451,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -34554,6 +34514,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673873393867791100, guid: f12f44e1f36d6254ea38b508910df451,
+        type: 3}
+      propertyPath: m_Name
+      value: Inventory Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
+        type: 3}
+      propertyPath: synergyManager
+      value: 
+      objectReference: {fileID: 1625935033}
+    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
+        type: 3}
+      propertyPath: roomManager
+      value: 
+      objectReference: {fileID: 1904457109}
+    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
+        type: 3}
+      propertyPath: _synergyTabMenu
+      value: 
+      objectReference: {fileID: 1820415200}
+    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
+        type: 3}
+      propertyPath: synergyManager
+      value: 
+      objectReference: {fileID: 1625935033}
+    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
+        type: 3}
+      propertyPath: roomManager
+      value: 
+      objectReference: {fileID: 1904457109}
+    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
+        type: 3}
+      propertyPath: _synergyTabMenu
+      value: 
+      objectReference: {fileID: 1820415200}
+    - target: {fileID: 8673873393867791101, guid: f12f44e1f36d6254ea38b508910df451,
+        type: 3}
+      propertyPath: StartingArmySize
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f12f44e1f36d6254ea38b508910df451, type: 3}
@@ -35145,31 +35145,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
-    - target: {fileID: 2860930195245571254, guid: 750c085eba955834290aa65c7c51f3f1,
-        type: 3}
-      propertyPath: m_Name
-      value: Arrangment Manager
-      objectReference: {fileID: 0}
-    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
-        type: 3}
-      propertyPath: boardManager
-      value: 
-      objectReference: {fileID: 386053766}
-    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
-        type: 3}
-      propertyPath: marketManager
-      value: 
-      objectReference: {fileID: 1304960367}
-    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
-        type: 3}
-      propertyPath: inventoryManager
-      value: 
-      objectReference: {fileID: 1852614661}
-    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
-        type: 3}
-      propertyPath: requestHandler
-      value: 
-      objectReference: {fileID: 896799267}
     - target: {fileID: 2860930195245571252, guid: 750c085eba955834290aa65c7c51f3f1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -35225,6 +35200,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2860930195245571254, guid: 750c085eba955834290aa65c7c51f3f1,
+        type: 3}
+      propertyPath: m_Name
+      value: Arrangment Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
+        type: 3}
+      propertyPath: boardManager
+      value: 
+      objectReference: {fileID: 386053766}
+    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
+        type: 3}
+      propertyPath: marketManager
+      value: 
+      objectReference: {fileID: 1304960367}
+    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
+        type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1852614661}
+    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
+        type: 3}
+      propertyPath: requestHandler
+      value: 
+      objectReference: {fileID: 896799267}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 750c085eba955834290aa65c7c51f3f1, type: 3}
 --- !u!1001 &1560409294
@@ -35825,6 +35825,61 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 253378082}
     m_Modifications:
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.69340515
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.0990906
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.1216497
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6326346262150069989, guid: 72254f4c0096ee541806bf7716a87726,
         type: 3}
       propertyPath: m_Name
@@ -35905,61 +35960,6 @@ PrefabInstance:
       propertyPath: synergyManager
       value: 
       objectReference: {fileID: 1625935033}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.69340515
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.0990906
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.1216497
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72254f4c0096ee541806bf7716a87726, type: 3}
 --- !u!1 &1585769080
