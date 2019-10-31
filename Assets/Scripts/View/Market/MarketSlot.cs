@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using TMPro;
 
 public class MarketSlot : MonoBehaviour
 {
@@ -10,11 +9,18 @@ public class MarketSlot : MonoBehaviour
 
     public Material[] materials;
     public GameObject price;
+    public GameObject[] rarities;
+    public GameObject raritiesParent;
 
     private void Start()
     {
         price.transform.LookAt(price.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
         price.SetActive(false);
+        raritiesParent.transform.LookAt(raritiesParent.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        foreach (GameObject rarity in rarities)
+        {
+            rarity.SetActive(false);
+        }
     }
 
     public void SetOccupant(Piece piece, GameObject characterModel)
@@ -22,6 +28,7 @@ public class MarketSlot : MonoBehaviour
         isOccupied = true;
         price.SetActive(true);
         price.GetComponent<TextMesh>().text = string.Format("{0}", (int) Math.Pow(2, piece.GetRarity() - 1));
+        rarities[piece.GetRarity() - 1].SetActive(true);
 
         // create item prefab
         GameObject marketItemObj = Instantiate(MarketItemPrefab) as GameObject;
@@ -39,6 +46,10 @@ public class MarketSlot : MonoBehaviour
     {
         isOccupied = false;
         price.SetActive(false);
+        foreach (GameObject rarity in rarities)
+        {
+            rarity.SetActive(false);
+        }
         if (marketItem)
             Destroy(marketItem.gameObject);
     }
