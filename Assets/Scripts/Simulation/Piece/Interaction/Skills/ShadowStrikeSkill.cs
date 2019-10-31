@@ -12,7 +12,8 @@ public class ShadowStrikeSkill : Interaction
     public Vector3 attackDestination;
     public Tile targetTile;
     private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.ShadowStrikeInitialTick;
-    public int shadowStrikeDefaultDamage = GameLogicManager.Inst.Data.Skills.ShadowStrikeDamage;
+    public static int shadowStrikeDefaultDamage = GameLogicManager.Inst.Data.Skills.ShadowStrikeDamage;
+    public int damage;
 
     public ShadowStrikeSkill(Piece caster, Piece target, Board board)
     {
@@ -20,6 +21,53 @@ public class ShadowStrikeSkill : Interaction
         this.target = target;
         this.board = board;
         this.ticksTotal = 50;
+        this.damage = shadowStrikeDefaultDamage;
+        this.ticksRemaining = ticksTilActivation;
+        interactionPrefab = Enums.InteractionPrefab.ShadowStrike;
+
+        int targetRow = target.GetCurrentTile().GetRow();
+        int targetCol = target.GetCurrentTile().GetCol();
+        int selfRow = caster.GetCurrentTile().GetRow();
+        int selfCol = caster.GetCurrentTile().GetCol();
+
+        if (!board.GetTile(targetRow + 1, targetCol).IsLocked() && !board.GetTile(targetRow + 1, targetCol).IsOccupied() && selfRow < targetRow)
+        {
+            targetTile = board.GetTile(targetRow + 1, targetCol);
+        }
+        else if (!board.GetTile(targetRow - 1, targetCol).IsLocked() && !board.GetTile(targetRow - 1, targetCol).IsOccupied() && selfRow > targetRow)
+        {
+            targetTile = board.GetTile(targetRow - 1, targetCol);
+        }
+        else if (!board.GetTile(targetRow, targetCol - 1).IsLocked() && !board.GetTile(targetRow, targetCol - 1).IsOccupied() && selfCol > targetCol)
+        {
+            targetTile = board.GetTile(targetRow, targetCol - 1);
+        }
+        else if (!board.GetTile(targetRow, targetCol + 1).IsLocked() && !board.GetTile(targetRow, targetCol + 1).IsOccupied() && selfCol < targetCol)
+        {
+            targetTile = board.GetTile(targetRow, targetCol + 1);
+        }
+        else
+        {
+            targetTile = caster.GetCurrentTile();
+        }
+
+        attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+        attackSource.y = 0.5f;
+
+        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+        attackDestination.y = 0.5f;
+
+        Interaction skill = new ShadowStrikeLingeringEffect(attackDestination);
+        board.AddInteractionToProcess(skill);
+    }
+
+    public ShadowStrikeSkill(Piece caster, Piece target, Board board, int damage)
+    {
+        this.caster = caster;
+        this.target = target;
+        this.board = board;
+        this.ticksTotal = 50;
+        this.damage = damage;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ShadowStrike;
 
@@ -96,7 +144,7 @@ public class ShadowStrikeSkill : Interaction
         if (caster.IsDead())
             return;
 
-        int damage = (int)Math.Floor(shadowStrikeDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.ShadowStrikeRarityMultiplier, caster.GetRarity()));
+        int damage = (int)Math.Floor(this.damage * Math.Pow(GameLogicManager.Inst.Data.Skills.ShadowStrikeRarityMultiplier, caster.GetRarity()));
         if (!target.IsDead() && !target.invulnerable)
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);

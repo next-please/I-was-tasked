@@ -6,7 +6,7 @@ using UnityEngine;
 public class IncomeManager : MonoBehaviour
 {
     public InventoryManager inventoryManager;
-    private int[] incomesGenerated = { 0, 0, 0 };
+    private int[] incomesGenerated = { 1, 1, 1 };
     private int round = 0; // Players earn end-round goal equal to the round number.
 
     public void GenerateIncome()

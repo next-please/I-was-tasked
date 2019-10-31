@@ -135,7 +135,7 @@ public class GeneratorData
 public class SkillData
 {
     [Header("Bark Skin")]
-    public int BarkSkinBlockAmount = 5;
+    public int BarkSkinBlockAmount = 2;
     public int BarkSkinLingerTicks = 250;
     public double BarkSkinRarityMultiplier = 1.2;
 
