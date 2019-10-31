@@ -6,7 +6,8 @@ using UnityEngine;
 public class IncomeManager : MonoBehaviour
 {
     public InventoryManager inventoryManager;
-    private int[] incomesGenerated = { 1, 1, 1 };
+    private int[] incomesGenerated = { 0, 0, 0 };
+    private int passiveGold = 1;
     private int round = 0; // Players earn end-round goal equal to the round number.
 
     public void GenerateIncome()
@@ -16,11 +17,11 @@ public class IncomeManager : MonoBehaviour
         {
             if (inventoryManager.synergyManager.HasSynergy(Enums.Race.Human))
             {
-                inventoryManager.AddGold((Player)i, round + incomesGenerated[i] + inventoryManager.synergyManager.humanGoldAmount);
+                inventoryManager.AddGold((Player)i, passiveGold + round + incomesGenerated[i] + inventoryManager.synergyManager.humanGoldAmount);
             }
             else
             {
-                inventoryManager.AddGold((Player)i, round + incomesGenerated[i]);
+                inventoryManager.AddGold((Player)i, passiveGold + round + incomesGenerated[i]);
             }
         }
         Debug.Log("Players have earned { " + incomesGenerated[0] + ", " + incomesGenerated[1] + ", " + +incomesGenerated[2] + " }");
