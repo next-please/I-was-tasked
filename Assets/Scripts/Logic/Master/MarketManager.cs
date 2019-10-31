@@ -103,7 +103,8 @@ public class MarketManager : MonoBehaviour
             if (rngesus.Next(1, 101) <= characterGenerator.characterUpgradeDifferencePercentage)
             {
                 characterGenerator.TryUpgradeCharacterMarketTier(ref marketPiece, marketTier);
-                // EventManager.Instance.Raise(new GlobalMessageEvent { message = market.MarketPieces[i].GetName() + " has grown stronger from the market upgrades!" });
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = market.MarketPieces[i].GetName() + " has grown stronger from the market upgrades!" });
+                marketPieceCopy[i] = marketPiece;
             }
         }
         return marketPieceCopy;
