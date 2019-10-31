@@ -121,6 +121,10 @@ public class BoardManager : MonoBehaviour
     {
         Board board = GetBoard(player);
         board.AddPieceToBoard(piece, i, j);
+        foreach (Interaction interaction in piece.interactions)
+        {
+            board.AddInteractionToProcess(interaction);
+        }
         EventManager.Instance.Raise(new AddPieceToBoardEvent
         {
             piece = piece,
