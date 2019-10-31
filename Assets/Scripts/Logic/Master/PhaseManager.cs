@@ -224,9 +224,16 @@ public class PhaseManager : MonoBehaviour
     public void StartPreCombat(List<List<Piece>> enemies)
     {
         Debug.Log(summonManager.GetWaveName(round, randomRoundIndex));
+        StartCoroutine(ShowRoundPopUpScreen());
+        StartCoroutine(PreCombatToCombat(enemies));
+    }
+
+    IEnumerator ShowRoundPopUpScreen()
+    {
         PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = "Round " + round + ":\n" + summonManager.GetWaveName(round, randomRoundIndex);
         PopUpScreen.enabled = true;
-        StartCoroutine(PreCombatToCombat(enemies));
+        yield return new WaitForSeconds(2f);
+        PopUpScreen.enabled = false;
     }
 
     IEnumerator PreCombatToCombat(List<List<Piece>> enemies)
@@ -246,7 +253,6 @@ public class PhaseManager : MonoBehaviour
         SwordImage.enabled = true;
         simulationPlayerCount = 0;
         boardManager.StartSim(numPlayers);
-        PopUpScreen.enabled = false;
     }
 
     void TryPostCombat()
