@@ -30,42 +30,28 @@ public class ChargeSkill : Interaction
 
         interactionPrefab = Enums.InteractionPrefab.Charge;
 
-        Tile tile = null;
+        List<Tile> tiles = new List<Tile>();
+        if (targetCol + 1 < board.GetNumCols())
+            tiles.Add(board.GetTile(targetRow, targetCol + 1));
+        if (targetCol - 1 >= 0)
+            tiles.Add(board.GetTile(targetRow, targetCol - 1));
+        if (targetRow + 1 < board.GetNumRows())
+            tiles.Add(board.GetTile(targetRow + 1, targetCol));
+        if (targetRow - 1 >= 0)
+            tiles.Add(board.GetTile(targetRow - 1, targetCol));
 
-        if (targetCol > 0 && selfCol < targetCol)
+        foreach (Tile tilePotential in tiles)
         {
-            tile = board.GetTile(targetRow, targetCol - 1);
-            if (!tile.IsLocked() && !tile.IsOccupied())
+            if (!tilePotential.IsLocked() && !tilePotential.IsOccupied())
             {
-                targetTile = tile;
-            }
-        }
-
-        if (targetTile == null && targetCol + 1 < board.GetNumCols() && selfCol > targetCol)
-        {
-            tile = board.GetTile(targetRow, targetCol + 1);
-            if (!tile.IsLocked() && !tile.IsOccupied())
-            {
-                targetTile = tile;
-            }
-        }
-
-        if (targetTile == null && targetRow > 0 && selfRow < targetRow)
-        {
-            tile = board.GetTile(targetRow - 1, targetCol);
-            if (!tile.IsLocked() && !tile.IsOccupied())
-            {
-                targetTile = tile;
-            }
-        }
-
-
-        if (targetTile == null && targetRow + 1 < board.GetNumRows() && selfRow < targetRow)
-        {
-            tile = board.GetTile(targetRow + 1, targetCol);
-            if (!tile.IsLocked() && !tile.IsOccupied())
-            {
-                targetTile = tile;
+                if (targetTile == null)
+                {
+                    targetTile = tilePotential;
+                }
+                else if (caster.GetCurrentTile().DistanceToTile(tilePotential) < caster.GetCurrentTile().DistanceToTile(targetTile))
+                {
+                    targetTile = tilePotential;
+                }
             }
         }
 
@@ -141,6 +127,7 @@ public class ChargeSkill : Interaction
             return;
         if (!target.invulnerable)
         {
+            caster.SetTarget(target);
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - totalDamage);
         }
         Debug.Log(caster.GetName() + " has Charge-ed " + target.GetName() + " for " + totalDamage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
