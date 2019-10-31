@@ -56,6 +56,6 @@ public class MarketSlot : MonoBehaviour
 
     public void SetActiveSlot(bool isActive)
     {
-        GetComponent<Renderer>().material = materials[(isActive) ? 1 : 0];
+        GetComponentInChildren<Renderer>().material = materials[(isActive) ? 1 : 0];
     }
 }
