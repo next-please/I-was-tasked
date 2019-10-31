@@ -66,7 +66,8 @@ public class SkillState : State
             else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Rogue && board.GetActiveFriendliesOnBoard().Count > 0)
                 skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board, (int)(ShadowStrikeSkill.shadowStrikeDefaultDamage * 0.3));
             else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Priest)
-                skill = new RaiseDeadSkill(piece, board);
+                skill = new UnholyAuraSkill(piece, board);
+            //skill = new RaiseDeadSkill(piece, board);
             else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Druid)
                 skill = new ForestSpiritsSkill(piece, board);
             else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Priest)

@@ -209,7 +209,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 4);
                 enemies.Add(enemy);
@@ -217,7 +216,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
@@ -225,7 +223,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
                 enemies.Add(enemy);
@@ -299,7 +296,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 5);
                 enemies.Add(enemy);
@@ -307,7 +303,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 6);
                 enemies.Add(enemy);
@@ -315,7 +310,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 5);
                 enemies.Add(enemy);
@@ -324,7 +318,6 @@ public class EnemyGenerator
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
                 enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 1.5));
-                enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
@@ -353,7 +346,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
@@ -361,7 +353,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
@@ -369,7 +360,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
@@ -377,7 +367,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
@@ -385,7 +374,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 6);
                 enemies.Add(enemy);
@@ -398,7 +386,7 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                return "Necromancers";
+                return "Rotting Shambles";
             default:
                 return "";
         }
@@ -410,63 +398,59 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Priest, Enums.Race.Undead);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
-                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 3));
                 enemy.SetDamageIfSurvive(2);
                 enemy.startingSpot = new Tuple<int, int>(2, 6);
+                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Druid, Enums.Race.Undead);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
-                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 3));
+                enemy.SetAttackRange(3);
                 enemy.SetDamageIfSurvive(2);
                 enemy.startingSpot = new Tuple<int, int>(5, 6);
+                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Human);
-                enemy.SetClass(Enums.Job.Knight);
-                enemy.SetRace(Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Knight, Enums.Race.Undead);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
-                enemy.SetDamageIfSurvive(0);
+                enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
+                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Human);
-                enemy.SetClass(Enums.Job.Knight);
-                enemy.SetRace(Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Druid, Enums.Race.Undead);
                 enemy.SetIsEnemy(true);
+                enemy.SetAttackRange(2);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
-                enemy.SetDamageIfSurvive(0);
+                enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
+                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(5, Enums.Job.Rogue, Enums.Race.Human);
                 enemy.SetClass(Enums.Job.Knight);
                 enemy.SetRace(Enums.Race.Orc);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
-                enemy.SetDamageIfSurvive(0);
+                enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
+                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Rogue, Enums.Race.Human);
                 enemy.SetClass(Enums.Job.Knight);
                 enemy.SetRace(Enums.Race.Orc);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
-                enemy.SetDamageIfSurvive(0);
+                enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
+                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
                 break;
         }
@@ -554,7 +538,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 4);
                 enemies.Add(enemy);
@@ -562,7 +545,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
@@ -570,7 +552,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 4);
                 enemies.Add(enemy);
@@ -578,7 +559,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
@@ -586,7 +566,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
                 enemies.Add(enemy);
@@ -594,7 +573,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 4);
                 enemies.Add(enemy);
@@ -602,7 +580,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #7");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 4);
                 enemies.Add(enemy);
@@ -610,7 +587,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #8");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(7, 4);
                 enemies.Add(enemy);
@@ -641,7 +617,6 @@ public class EnemyGenerator
                 enemy.SetCurrentManaPoints(100);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(3);
                 enemy.SetDamageIfSurvive(3);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
@@ -650,7 +625,6 @@ public class EnemyGenerator
                 enemy.SetAttackRange(10);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
@@ -659,7 +633,6 @@ public class EnemyGenerator
                 enemy.SetAttackRange(10);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
@@ -668,7 +641,6 @@ public class EnemyGenerator
                 enemy.SetAttackRange(10);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
                 enemies.Add(enemy);
@@ -677,7 +649,6 @@ public class EnemyGenerator
                 enemy.SetAttackRange(10);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
@@ -706,7 +677,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 5);
                 enemies.Add(enemy);
@@ -714,7 +684,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.SetAttackRange(3);
                 enemy.startingSpot = new Tuple<int, int>(3, 6);
@@ -723,7 +692,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
                 enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 1.5));
                 enemy.SetDamageIfSurvive(1);
                 enemy.SetAttackRange(3);
@@ -733,7 +701,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 4);
                 enemies.Add(enemy);
@@ -741,7 +708,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 4);
                 enemies.Add(enemy);
@@ -749,7 +715,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 5);
                 enemies.Add(enemy);
@@ -785,7 +750,6 @@ public class EnemyGenerator
                 enemy.SetDefaultAttackSpeed(1);
                 enemy.SetAttackDamage(180);
                 enemy.SetTitle("");
-                enemy.SetRarity(12);
                 enemy.SetDamageIfSurvive(5);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
@@ -814,7 +778,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
@@ -822,7 +785,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
@@ -830,7 +792,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
@@ -838,7 +799,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
@@ -846,7 +806,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
@@ -854,7 +813,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 6);
                 enemies.Add(enemy);
@@ -883,7 +841,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
@@ -891,7 +848,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
@@ -899,7 +855,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
@@ -907,7 +862,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
@@ -915,7 +869,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
@@ -923,7 +876,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 6);
                 enemies.Add(enemy);
@@ -952,7 +904,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
@@ -960,7 +911,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
@@ -968,7 +918,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
@@ -976,7 +925,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
@@ -984,7 +932,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
@@ -992,7 +939,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
-                enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 6);
                 enemies.Add(enemy);

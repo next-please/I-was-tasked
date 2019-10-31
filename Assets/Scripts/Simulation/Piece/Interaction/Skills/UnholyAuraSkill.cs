@@ -58,7 +58,7 @@ public class UnholyAuraSkill : Interaction
             ApplyDamageToInflict();
             if (countRemaining > 0 &&
                 caster.GetState().GetType() != typeof(InfiniteState) &&
-                board.GetActiveEnemiesOnBoard().Count > 0)
+                board.GetActiveEnemiesOnBoard().Count > 0 && board.GetActiveFriendliesOnBoard().Count > 0)
             {
                 countRemaining--;
                 ticksRemaining = ticksTilActivation;
@@ -98,11 +98,25 @@ public class UnholyAuraSkill : Interaction
             return;
         }
         int damage = (int)Math.Floor(unholyAuraDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.UnholyAuraRarityMultiplier, caster.GetRarity()));
-        foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), unholyAuraDefaultRadius))
+
+        if (!caster.IsEnemy())
         {
-            if (!target.invulnerable)
+            foreach (Piece target in board.GetActiveEnemiesWithinRadiusOfTile(caster.GetCurrentTile(), unholyAuraDefaultRadius))
             {
-                target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
+                if (!target.invulnerable)
+                {
+                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
+                }
+            }
+        }
+        else if (caster.IsEnemy())
+        {
+            foreach (Piece target in board.GetActiveFriendliesWithinRadiusOfTile(caster.GetCurrentTile(), unholyAuraDefaultRadius))
+            {
+                if (!target.invulnerable)
+                {
+                    target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
+                }
             }
         }
 
