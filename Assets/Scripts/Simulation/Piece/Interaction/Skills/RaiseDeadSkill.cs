@@ -90,11 +90,13 @@ public class RaiseDeadSkill : Interaction
             return;
         }
 
-        Piece raisedEnemy = new CharacterGenerator().GenerateCharacter(0, Enums.Job.Knight, Enums.Race.Orc);
+        Piece raisedEnemy = new CharacterGenerator().GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Human);
+        raisedEnemy.SetClass(Enums.Job.Knight);
+        raisedEnemy.SetRace(Enums.Race.Orc);
         raisedEnemy.SetIsEnemy(true);
         raisedEnemy.SetName("Undead");
         raisedEnemy.SetTitle("");
-        raisedEnemy.SetRarity(0);
+        raisedEnemy.SetRarity(1);
         raisedEnemy.SetDamageIfSurvive(0);
 
         board.AddPieceToBoard(raisedEnemy, targetTile.GetRow(), targetTile.GetCol());

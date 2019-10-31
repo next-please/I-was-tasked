@@ -160,7 +160,7 @@ public class SkillData
     public double CheapShotRarityMultiplier = 1.2;
 
     [Header("Curse of Agony")]
-    public int CurseOfAgonyCurseAmount = 22;
+    public int CurseOfAgonyCurseAmount = 20;
     public int CurseOfAgonyLingerTicks = 250;
     public double CurseOfAgonyRarityMultiplier = 1.2;
 

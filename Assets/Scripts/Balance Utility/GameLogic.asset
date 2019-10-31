@@ -29,7 +29,7 @@ MonoBehaviour:
     CheapShotStunTicks: 250
     CheapShotLingerTicks: 250
     CheapShotRarityMultiplier: 1.2
-    CurseOfAgonyCurseAmount: 22
+    CurseOfAgonyCurseAmount: 20
     CurseOfAgonyLingerTicks: 250
     CurseOfAgonyRarityMultiplier: 1.2
     EviscerateInitialDamage: 7
