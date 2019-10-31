@@ -38,9 +38,9 @@ public class SynergyData
     public int PriestRetributionRadius = 2;
     public int PriestRetributionHealing = 100;
     public int PriestRetributionDamage = 75;
-    public double OrcRampageHealthThreshold = 0.5;
+    public double OrcRampageHealthThreshold = 0.80;
     public int OrcRampageAttackSpeed = 3;
-    public double OrcRampageArmourPercentage = -0.25;
+    public double OrcRampageArmourPercentage = -0;
     public int ElfGuidingSpiritAttackDamage = 10;
     public int ElfGuidingSpiritAttackSpeed = 1;
     public int GuidingSpiritLingerTicks = 50;
