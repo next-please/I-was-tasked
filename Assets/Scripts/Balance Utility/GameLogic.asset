@@ -17,44 +17,44 @@ MonoBehaviour:
     ManaPointsGainedOnAttack: 10
     ManaPointsGainedOnHit: 4
   Skills:
-    BarkSkinBlockAmount: 6
+    BarkSkinBlockAmount: 2
     BarkSkinLingerTicks: 250
     BarkSkinRarityMultiplier: 1.2
     BerserkMultiplerIncrease: 2
     BlessingOfNatureMultiplierIncrease: 0.6
     BlessingOfNatureLingerTicks: 250
     ChargeStackingPercentIncrease: 1.2
-    ChargeBaseDamage: 40
+    ChargeBaseDamage: 35
     ChargeRarityMultiplier: 1.2
     CheapShotStunTicks: 250
     CheapShotLingerTicks: 250
     CheapShotRarityMultiplier: 1.2
-    CurseOfAgonyCurseAmount: 20
+    CurseOfAgonyCurseAmount: 22
     CurseOfAgonyLingerTicks: 250
     CurseOfAgonyRarityMultiplier: 1.2
-    EviscerateInitialDamage: 5
+    EviscerateInitialDamage: 7
     EviscerateBleedCount: 10
-    EviscerateBleedDamage: 1
+    EviscerateBleedDamage: 6
     EviscerateLingerTicks: 30
     EviscerateRarityMultiplier: 1.2
-    FireblastDamage: 120
+    FireblastDamage: 100
     FireblastTicks: 120
     FireblastRarityMultiplier: 1.2
     ForestSpiritsInitialTicks: 120
     ForestSpiritsSubsequentTicks: 40
     ForestSpiritsCount: 5
     ForestSpiritsSecondaryTicks: 70
-    ForestSpiritsHeal: 30
+    ForestSpiritsHeal: 25
     ForestSpiritsRarityMultiplier: 1.2
     FrostArmourPercentage: 0.3
     FrostArmourLingerTicks: 250
     GreaterHealInitialTicks: 100
-    GreaterHealAmount: 120
+    GreaterHealAmount: 100
     GreaterHealLingerTicks: 200
     GreaterHealRarityMultiplier: 1.2
     MagicMissileCount: 3
     MagicMissileDamage: 35
-    MagicMissileTicks: 30
+    MagicMissileTicks: 25
     MagicMissileRarityMultiplier: 1.2
     MarkForDeathTicks: 300
     MarkForDeathRarityMultiplier: 0.8
@@ -70,9 +70,9 @@ MonoBehaviour:
     RotTickPerCount: 20
     RotRadius: 1
     RotCount: 20
-    RotDamage: 6
+    RotDamage: 7
     RotRarityMultiplier: 1.2
-    ShadowStrikeDamage: 90
+    ShadowStrikeDamage: 75
     ShadowStrikeInitialTick: 40
     ShadowStrikeRarityMultiplier: 1.2
     ShapeShiftMultiplierIncrease: 1.2
@@ -87,7 +87,7 @@ MonoBehaviour:
     UnholyAuraTickPerCount: 25
     UnholyAuraRadius: 4
     UnholyAuraCount: 15
-    UnholyAuraDamage: 6
+    UnholyAuraDamage: 7
     UnholyAuraRarityMultiplier: 1.2
   Gen:
     DefaultHitPoints: 150
@@ -133,6 +133,7 @@ MonoBehaviour:
     PriestManaPointAdditor: -5
     PriestHitPointMultiplier: 1.1
     HumanPriestManaMultiplier: 1.3
+    ElfDruidManaMultiplier: 2
   Synergy:
     DruidRequirement: 4
     KnightRequirement: 5
@@ -151,9 +152,9 @@ MonoBehaviour:
     PriestRetributionRadius: 2
     PriestRetributionHealing: 100
     PriestRetributionDamage: 75
-    OrcRampageHealthThreshold: 0.5
+    OrcRampageHealthThreshold: 0.8
     OrcRampageAttackSpeed: 3
-    OrcRampageArmourPercentage: -0.25
+    OrcRampageArmourPercentage: 0
     ElfGuidingSpiritAttackDamage: 10
     ElfGuidingSpiritAttackSpeed: 1
     GuidingSpiritLingerTicks: 50
