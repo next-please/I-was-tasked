@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21952419, g: 0.43730193, b: 0.7127748, a: 1}
+  m_IndirectSpecularColor: {r: 0.2191462, g: 0.43654716, b: 0.71157724, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3001,6 +3001,11 @@ PrefabInstance:
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 1852614661}
+    - target: {fileID: 4993952243289548726, guid: efd89231d240135488c8269965cc8745,
+        type: 3}
+      propertyPath: StartingCastleHealth
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efd89231d240135488c8269965cc8745, type: 3}
 --- !u!1001 &113066386
