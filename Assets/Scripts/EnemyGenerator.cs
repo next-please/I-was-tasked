@@ -323,7 +323,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetMaximumManaPoints(enemy.GetMaximumManaPoints() * 3);
+                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 1.5));
                 enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
@@ -714,6 +714,7 @@ public class EnemyGenerator
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
                 enemy.SetRarity(2);
+                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 1.5));
                 enemy.SetDamageIfSurvive(1);
                 enemy.SetAttackRange(3);
                 enemy.startingSpot = new Tuple<int, int>(4, 6);

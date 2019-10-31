@@ -22,6 +22,7 @@ public class CharacterGenerator
     public readonly double attackDamageMultiplier = GameLogicManager.Inst.Data.Gen.AttackDamageMultiplier;
 
     public readonly double humanPriestManaMultiplier = GameLogicManager.Inst.Data.Gen.HumanPriestManaMultiplier;
+    public readonly double elfDruidManaMultiplier = GameLogicManager.Inst.Data.Gen.ElfDruidManaMultiplier;
 
     //human stat changes
     public readonly double humanHitPointMultiplier = GameLogicManager.Inst.Data.Gen.HumanHitPointMultiplier;
@@ -301,6 +302,7 @@ public class CharacterGenerator
         if (race == Enums.Race.Elf && job == Enums.Job.Druid)
         {
             currentAttackRange++;
+            currentManaPoints = (int)Math.Floor(currentManaPoints * elfDruidManaMultiplier);
         }
         if (race == Enums.Race.Human && job == Enums.Job.Priest)
         {

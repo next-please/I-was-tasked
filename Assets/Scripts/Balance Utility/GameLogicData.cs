@@ -128,7 +128,10 @@ public class GeneratorData
     public double PriestHitPointMultiplier = 1.1;
 
     [Header("Human Priest")]
-    public double HumanPriestManaMultiplier = 1.3;
+    public double HumanPriestManaMultiplier = 2;
+
+    [Header("Elf Druid")]
+    public double ElfDruidManaMultiplier = 2;
 }
 
 [Serializable]
