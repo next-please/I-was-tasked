@@ -19,39 +19,50 @@ MonoBehaviour:
   Skills:
     BarkSkinBlockAmount: 6
     BarkSkinLingerTicks: 250
+    BarkSkinRarityMultiplier: 1.2
     BerserkMultiplerIncrease: 2
     BlessingOfNatureMultiplierIncrease: 0.6
     BlessingOfNatureLingerTicks: 250
     ChargeStackingPercentIncrease: 1.2
     ChargeBaseDamage: 40
+    ChargeRarityMultiplier: 1.2
     CheapShotStunTicks: 250
     CheapShotLingerTicks: 250
+    CheapShotRarityMultiplier: 1.2
     CurseOfAgonyCurseAmount: 20
     CurseOfAgonyLingerTicks: 250
+    CurseOfAgonyRarityMultiplier: 1.2
     EviscerateInitialDamage: 5
     EviscerateBleedCount: 10
     EviscerateBleedDamage: 1
     EviscerateLingerTicks: 30
+    EviscerateRarityMultiplier: 1.2
     FireblastDamage: 120
     FireblastTicks: 120
+    FireblastRarityMultiplier: 1.2
     ForestSpiritsInitialTicks: 120
     ForestSpiritsSubsequentTicks: 40
     ForestSpiritsCount: 5
     ForestSpiritsSecondaryTicks: 70
     ForestSpiritsHeal: 30
+    ForestSpiritsRarityMultiplier: 1.2
     FrostArmourPercentage: 0.3
     FrostArmourLingerTicks: 250
     GreaterHealInitialTicks: 100
     GreaterHealAmount: 120
     GreaterHealLingerTicks: 200
+    GreaterHealRarityMultiplier: 1.2
     MagicMissileCount: 3
     MagicMissileDamage: 35
     MagicMissileTicks: 30
+    MagicMissileRarityMultiplier: 1.2
     MarkForDeathTicks: 300
+    MarkForDeathRarityMultiplier: 0.8
     MoonfireInitialTicks: 20
     MoonfireManaRetainPercentage: 0.5
     MoonfireDefaultDamage: 58
     MoonfireLingerTicks: 20
+    MoonfireRarityMultiplier: 1.2
     ProtectAllyLingerTicks: 100
     RampageAttackSpeed: 3
     RampageArmourPercentage: -0.25
@@ -60,8 +71,10 @@ MonoBehaviour:
     RotRadius: 1
     RotCount: 20
     RotDamage: 6
+    RotRarityMultiplier: 1.2
     ShadowStrikeDamage: 90
     ShadowStrikeInitialTick: 40
+    ShadowStrikeRarityMultiplier: 1.2
     ShapeShiftMultiplierIncrease: 1.2
     ShapeShiftDefaultAttackSpeedIncrease: 1
     ShapeShiftLingerTicks: 200
@@ -70,10 +83,12 @@ MonoBehaviour:
     ThunderStormRadius: 1
     ThunderStormCount: 5
     ThunderStormBoltDamage: 28
+    ThunderStormRarityMultiplier: 1.2
     UnholyAuraTickPerCount: 25
     UnholyAuraRadius: 4
     UnholyAuraCount: 15
     UnholyAuraDamage: 6
+    UnholyAuraRarityMultiplier: 1.2
   Gen:
     DefaultHitPoints: 150
     DefaultManaPoints: 100
@@ -133,3 +148,12 @@ MonoBehaviour:
     RogueHitPointMultiplier: 0.1
     MageStartingManaPercentage: 0.25
     UndeadTicksToDie: 500
+    PriestRetributionRadius: 2
+    PriestRetributionHealing: 100
+    PriestRetributionDamage: 75
+    OrcRampageHealthThreshold: 0.5
+    OrcRampageAttackSpeed: 3
+    OrcRampageArmourPercentage: -0.25
+    ElfGuidingSpiritAttackDamage: 10
+    ElfGuidingSpiritAttackSpeed: 1
+    GuidingSpiritLingerTicks: 50

@@ -108,6 +108,12 @@ public class InventoryManager : MonoBehaviour
         {
             synergyManager.IncreaseSynergyCount(piece.GetClass());
             synergyManager.IncreaseSynergyCount(piece.GetRace());
+            Enums.Job pieceClass = piece.GetClass();
+            Enums.Race pieceRace = piece.GetRace();
+            string classDescription = Enums.JobSynergyDescription[(int)pieceClass];
+            string raceDescription = Enums.RaceSynergyDescription[(int)pieceRace];
+            _synergyTabMenu.IncrementSynergyTab(pieceClass.ToString(), classDescription, SynergyManager.jobSynergyRequirement[(int)pieceClass]);
+            _synergyTabMenu.IncrementSynergyTab(pieceRace.ToString(), raceDescription, SynergyManager.raceSynergyRequirement[(int)pieceRace]);
             if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
@@ -119,16 +125,6 @@ public class InventoryManager : MonoBehaviour
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
-
-            if((int)player == roomManager.GetLocalPlayerIndex())
-            {
-                Enums.Job pieceClass = piece.GetClass();
-                Enums.Race pieceRace = piece.GetRace();
-                string classDescription = Enums.JobSynergyDescription[(int)pieceClass];
-                string raceDescription = Enums.RaceSynergyDescription[(int)pieceRace];
-                _synergyTabMenu.IncrementSynergyTab(pieceClass.ToString(), classDescription, SynergyManager.jobSynergyRequirement[(int)pieceClass]);
-                _synergyTabMenu.IncrementSynergyTab(pieceRace.ToString(), raceDescription, SynergyManager.jobSynergyRequirement[(int)pieceRace]);
-            }
         }
         return success;
     }
