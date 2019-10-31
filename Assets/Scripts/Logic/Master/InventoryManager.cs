@@ -139,6 +139,10 @@ public class InventoryManager : MonoBehaviour
         {
             synergyManager.DecreaseSynergyCount(piece.GetClass());
             synergyManager.DecreaseSynergyCount(piece.GetRace());
+            Enums.Job pieceClass = piece.GetClass();
+            Enums.Race pieceRace = piece.GetRace();
+            _synergyTabMenu.DecrementSynergyTab(pieceClass.ToString());
+            _synergyTabMenu.DecrementSynergyTab(pieceRace.ToString());
             if (!synergyManager.HasSynergy(piece.GetClass()) && hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
@@ -148,14 +152,6 @@ public class InventoryManager : MonoBehaviour
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Removed" });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
-
-            if((int)player == roomManager.GetLocalPlayerIndex())
-            {
-                Enums.Job pieceClass = piece.GetClass();
-                Enums.Race pieceRace = piece.GetRace();
-                _synergyTabMenu.DecrementSynergyTab(pieceClass.ToString());
-                _synergyTabMenu.DecrementSynergyTab(pieceRace.ToString());
-            }
         }
         return success;
     }
