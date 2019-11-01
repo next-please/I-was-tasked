@@ -20,6 +20,17 @@ public class RampageSynergyEffect : Interaction
         this.ticksTotal = 0;
     }
 
+    public RampageSynergyEffect(Piece caster, Board board, int attackSpeed, double armourPercentage, double healthThreshold)
+    {
+        this.caster = caster;
+        this.board = board;
+        this.ticksRemaining = ticksTilActivation;
+        this.ticksTotal = 0;
+        this.rampageDefaultAttackSpeedAmount = attackSpeed;
+        this.rampageDefaultArmourPercentage = armourPercentage;
+        this.rampageSynergyHealthThreshold = healthThreshold;
+    }
+
     public override bool ProcessInteraction()
     {
         if ((double)caster.GetCurrentHitPoints() / (double)caster.GetMaximumHitPoints() <= rampageSynergyHealthThreshold)
@@ -56,7 +67,7 @@ public class RampageSynergyEffect : Interaction
         Interaction skill = new RampageSynergyLingeringEffect(caster);
         board.AddInteractionToProcess(skill);
 
-        Debug.Log(caster.GetName() + " has Rampaged-ed " + caster.GetName() + " to increase attack speed to " + caster.GetAttackSpeed() + " and armour to " + caster.GetArmourPercentage() + ".");
+        Debug.Log(caster.GetName() + " has Rampaged-ed at " + (double)caster.GetCurrentHitPoints()/ caster.GetMaximumHitPoints() + " percent health to increase attack speed to " + caster.GetAttackSpeed() + " and armour to " + caster.GetArmourPercentage() + ".");
     }
 }
 

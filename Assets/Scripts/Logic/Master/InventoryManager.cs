@@ -117,12 +117,16 @@ public class InventoryManager : MonoBehaviour
             if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
-                EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+            }
+            if (!synergyManager.HasSynergy(piece.GetClass()) && hadJobSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
             }
             if (synergyManager.HasSynergy(piece.GetRace()) && !hadRaceSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Active" });
-                EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
@@ -146,6 +150,11 @@ public class InventoryManager : MonoBehaviour
             if (!synergyManager.HasSynergy(piece.GetClass()) && hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
+            }
+            if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
             }
             if (!synergyManager.HasSynergy(piece.GetRace()) && hadRaceSynergy)
             {

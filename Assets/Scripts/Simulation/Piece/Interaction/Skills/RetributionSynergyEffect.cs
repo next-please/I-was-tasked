@@ -57,6 +57,7 @@ public class RetributionSynergyEffect : Interaction
             if (!target.invulnerable)
             {
                 target.SetCurrentHitPoints(target.GetCurrentHitPoints() - enemyDamage);
+                Debug.Log("Retribution from " + caster.GetName() + " damaged " + target.GetName() + " for " + enemyDamage + ".");
             }
         }
         foreach (Piece target in board.GetActiveFriendliesWithinRadiusOfTile(lastKnownTile, radius))
@@ -64,6 +65,7 @@ public class RetributionSynergyEffect : Interaction
             if (!target.invulnerable)
             {
                 target.SetCurrentHitPoints(target.GetCurrentHitPoints() + friendlyHealing);
+                Debug.Log("Retribution from " + caster.GetName() + " healed " + target.GetName() + " for " + friendlyHealing + ".");
             }
         }
 

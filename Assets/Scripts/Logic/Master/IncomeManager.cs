@@ -18,7 +18,14 @@ public class IncomeManager : MonoBehaviour
             int goldToGive = round;
             if (inventoryManager.synergyManager.HasSynergy(Enums.Race.Human))
             {
-                goldToGive += inventoryManager.synergyManager.humanGoldAmount;
+                if (inventoryManager.synergyManager.HasBetterSynergy(Enums.Race.Human))
+                {
+                    goldToGive += inventoryManager.synergyManager.humanGoldAmount;
+                }
+                else
+                {
+                    goldToGive += inventoryManager.synergyManager.humanWeakerGoldAmount;
+                }
             }
             goldToGive += incomesGenerated[i];
             if (round%2 == 0)

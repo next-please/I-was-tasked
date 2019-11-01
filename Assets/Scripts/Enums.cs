@@ -64,17 +64,17 @@ public static class Enums
     public static string[] JobSynergyDescription = new string[]
     {
         "Druids become immobile and gain range",
-        "Knights taunt enemies",
-        "Mages cast each spell twice, and start with extra mana",
-        "Priests cast divine judgement on death",
-        "Rogues gain massive damage but lose massive health"
+        "(4) Knights taunt enemies away from allies \n(11) Knights are invulnerable to damage for a short while when the match begins",
+        "(3) Mages start with extra mana\n(8) In addition, Mages cast each spell twice",
+        "(4) Priests create a divine explosion on death \n(6) Priests create a bigger divine explosion on death",
+        "(<b>Exactly</b> 2) Rogues gain massive damage but lose massive health\n(7) Rogues gain massive damage but lose massive health"
     };
 
     public static string[] RaceSynergyDescription = new string[]
     {
-        "Humans gain extra gold",
+        "(5) Everyone generates some extra gold per turn \n(10) Everyone generates a lot of extra gold per turn",
         "Elves guide a friendly unit in death",
-        "Orcs rule the world! And they're angry!",
+        "(4) Orcs enrage after taking significant damage \n(9) Orcs enrage after a bit of damage. They also appear more often.",
         "Undead gain immortality. Then they die."
     };
 }

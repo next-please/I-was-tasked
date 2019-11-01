@@ -63,7 +63,7 @@ public class MarketManager : MonoBehaviour
 
     public List<Piece> GenerateMarketItems()
     {
-        bool orcCountry = inventoryManager.synergyManager.HasSynergy(Enums.Race.Orc);
+        bool orcCountry = inventoryManager.synergyManager.HasBetterSynergy(Enums.Race.Orc);
 
         if (market.MarketPieces != null)
         {
@@ -155,7 +155,16 @@ public class MarketManager : MonoBehaviour
 
     public Piece GenerateMarketPiece()
     {
-        return characterGenerator.GenerateCharacter(market.GetMarketTier());
+        bool orcCountry = inventoryManager.synergyManager.HasBetterSynergy(Enums.Race.Orc);
+        Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
+        if (orcCountry)
+        {
+            while (piece.GetRace() != Enums.Race.Orc)
+            {
+                piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
+            }
+        }
+        return piece;
     }
 
     public Piece GetActualMarketPiece(Piece piece)
