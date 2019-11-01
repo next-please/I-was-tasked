@@ -414,6 +414,7 @@ public class Piece : ISerializable
         SetCurrentManaPoints(0);
         SetAttackDamage(GetDefaultAttackDamage());
         SetAttackRange(GetDefaultAttackRange());
+        SetAttackSpeed(GetDefaultAttackSpeed());
         SetMovementSpeed(GetDefaultMovementSpeed());
 
         SetLifestealPercentage(GetDefaultLifestealPercentage());
