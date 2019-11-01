@@ -127,7 +127,7 @@ public class TransactionManager : MonoBehaviour
     {
         // based on GameController.cs,
         // https://github.com/next-please/I-was-tasked/blob/8ab8c6782787c40371ab6c65fe04c8f755552a03/Assets/Scripts/GameController.cs
-        return marketManager.GetMarketTier();
+        return marketManager.GetMarketUpgradeCost(marketManager.GetMarketTier());
     }
 #endregion
 

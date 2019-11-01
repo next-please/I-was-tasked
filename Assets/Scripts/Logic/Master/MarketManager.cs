@@ -20,6 +20,24 @@ public class MarketManager : MonoBehaviour
         market.CastleHealth = StartingCastleHealth;
     }
 
+    public int GetMarketUpgradeCost(int currentMarketTier)
+    {
+        switch (currentMarketTier)
+        {
+            case 1:
+                return 3;
+            case 2:
+                return 6;
+            case 3:
+                return 9;
+            case 4:
+                return 12;
+            default:
+                return 99;
+        }
+
+    }
+
     public bool CalculateAndApplyDamageToCastle(List<Piece> piecesOnBoard)
     {
         int totalDamage = 0;
