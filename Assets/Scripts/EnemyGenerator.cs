@@ -415,7 +415,9 @@ public class EnemyGenerator
                 enemy.startingSpot = new Tuple<int, int>(5, 6);
                 enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(5, Enums.Job.Knight, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Priest, Enums.Race.Undead);
+                enemy.SetClass(Enums.Job.Knight);
+                enemy.SetAttackRange(1);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
@@ -432,9 +434,10 @@ public class EnemyGenerator
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Priest, Enums.Race.Undead);
                 enemy.SetClass(Enums.Job.Knight);
                 enemy.SetRace(Enums.Race.Orc);
+                enemy.SetAttackRange(1);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
@@ -442,9 +445,10 @@ public class EnemyGenerator
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
                 enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Rogue, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Priest, Enums.Race.Undead);
                 enemy.SetClass(Enums.Job.Knight);
                 enemy.SetRace(Enums.Race.Orc);
+                enemy.SetAttackRange(1);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
