@@ -147,7 +147,7 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 160, 100, 10, 1, 5, 5);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 160, 100, 10, 1, 5, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
@@ -172,15 +172,15 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 120, 100, 8, 1, 5, 5);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 120, 100, 8, 1, 5, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 12, 1, 5, 5);
+                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 12, 1, 5, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Priest, 1, true, 60, 100, 5, 2, 5, 5);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Priest, 1, true, 60, 100, 5, 2, 5, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 6);
                 enemies.Add(enemy);
@@ -247,27 +247,27 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 7, 1, 5, 5);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 7, 1, 5, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 5, 1, 4, 5);
+                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 5, 1, 4, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #3)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 5, 6, 5, 5);
+                enemy = new Piece("Enemy #3)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 5, 6, 5, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #4)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 6, 6, 6, 5);
+                enemy = new Piece("Enemy #4)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 6, 6, 6, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 7);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #5)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 6, 5);
+                enemy = new Piece("Enemy #5)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 6, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #6)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 7, 1, 5, 5);
+                enemy = new Piece("Enemy #6)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 7, 1, 5, 5, Enums.Spell.Barkskin);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(6, 4);
                 enemies.Add(enemy);

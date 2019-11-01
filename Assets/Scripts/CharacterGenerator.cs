@@ -144,6 +144,15 @@ public class CharacterGenerator
                                             { 5, 55, 40, 0, 0, 0, 0, 0, 0, 0 },
                                             { 5, 55, 40, 0, 0, 0, 0, 0, 0, 0 }
                                         };
+
+    public Enums.Spell[,] SpellMatching =
+    {
+        { Enums.Spell.Shapeshift, Enums.Spell.Charge, Enums.Spell.Fireblast, Enums.Spell.GreaterHeal, Enums.Spell.CheapShot },
+        { Enums.Spell.ForestSpirits, Enums.Spell.ProtectAlly, Enums.Spell.MagicMissile, Enums.Spell.BlessingOfNature, Enums.Spell.ShadowStrike },
+        { Enums.Spell.Barkskin, Enums.Spell.Rampage, Enums.Spell.Thunderstorm, Enums.Spell.CurseOfAgony, Enums.Spell.Evicerate },
+        { Enums.Spell.Moonfire, Enums.Spell.Rot, Enums.Spell.FrostArmour, Enums.Spell.UnholyAura, Enums.Spell.MarkForDeath }
+    };
+
     private int[,,] TierRaceJobPoolSize;
 
     // Constructor
@@ -312,9 +321,14 @@ public class CharacterGenerator
         Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), race, job, characterRarity + 1, false,
                                        currentHitPoints, currentManaPoints,
                                        currentAttackDamage, currentAttackRange,
-                                       currentAttackSpeed, currentMovementSpeed);
+                                       currentAttackSpeed, currentMovementSpeed, GetSpell(race, job));
 
         return currentPiece;
+    }
+
+    public Enums.Spell GetSpell(Enums.Race race, Enums.Job job)
+    {
+        return SpellMatching[(int)race, (int)job];
     }
 
     public void ReturnPiece(Piece piece)

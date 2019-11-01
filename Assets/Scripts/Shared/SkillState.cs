@@ -10,45 +10,45 @@ public class SkillState : State
         skill = new ShapeshiftLingeringEffect(piece);
         if (!piece.IsEnemy())
         {
-            if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Druid)
+            if (piece.spell == Enums.Spell.Shapeshift)
                 skill = new ShapeshiftSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Knight)
+            else if (piece.spell == Enums.Spell.ProtectAlly)
                 skill = new ProtectAllySkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Druid)
+            else if (piece.spell == Enums.Spell.Barkskin)
                 skill = new BarkskinSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Priest)
+            else if (piece.spell == Enums.Spell.BlessingOfNature)
                 skill = new BlessingOfNatureSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Knight)
+            else if (piece.spell == Enums.Spell.Rampage)
                 skill = new RampageSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Rogue && !piece.GetTarget().IsDead())
+            else if (piece.spell == Enums.Spell.MarkForDeath && !piece.GetTarget().IsDead())
                 skill = new MarkForDeathSkill(piece, piece.GetTarget(), board);
-            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Mage && board.GetActiveFriendliesOnBoard().Count > 0)
+            else if (piece.spell == Enums.Spell.FrostArmour && board.GetActiveFriendliesOnBoard().Count > 0)
                 skill = new FrostArmourSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Priest && board.GetActiveEnemiesOnBoard().Count > 0)
+            else if (piece.spell == Enums.Spell.CurseOfAgony && board.GetActiveEnemiesOnBoard().Count > 0)
                 skill = new CurseOfAgonySkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
-            else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Rogue && !piece.GetTarget().IsDead())
+            else if (piece.spell == Enums.Spell.Evicerate && !piece.GetTarget().IsDead())
                 skill = new EvicerateSkill(piece, piece.GetTarget(), board);
-            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Mage && !piece.GetTarget().IsDead())
+            else if (piece.spell == Enums.Spell.Fireblast && !piece.GetTarget().IsDead())
                 skill = new FireblastSkill(piece, piece.GetTarget());
-            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Mage && board.GetActiveEnemiesOnBoard().Count > 0)
+            else if (piece.spell == Enums.Spell.MagicMissile && board.GetActiveEnemiesOnBoard().Count > 0)
                 skill = new MagicMissileSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
-            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Knight)
+            else if (piece.spell == Enums.Spell.Rot)
                 skill = new RotSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Priest)
+            else if (piece.spell == Enums.Spell.UnholyAura)
                 skill = new UnholyAuraSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Mage && !piece.GetTarget().IsDead())
+            else if (piece.spell == Enums.Spell.Thunderstorm && !piece.GetTarget().IsDead())
                 skill = new ThunderstormSkill(piece, piece.GetTarget(), board);
-            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Druid && !piece.GetTarget().IsDead())
+            else if (piece.spell == Enums.Spell.Moonfire && !piece.GetTarget().IsDead())
                 skill = new MoonfireSkill(piece, piece.GetTarget(), board);
-            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Priest)
+            else if (piece.spell == Enums.Spell.GreaterHeal)
                 skill = new GreaterHealSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Rogue && !piece.GetTarget().IsDead())
+            else if (piece.spell == Enums.Spell.CheapShot && !piece.GetTarget().IsDead())
                 skill = new CheapShotSkill(piece, piece.GetTarget(), board);
-            else if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Rogue && board.GetActiveEnemiesOnBoard().Count > 0)
+            else if (piece.spell == Enums.Spell.ShadowStrike && board.GetActiveEnemiesOnBoard().Count > 0)
                 skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board);
-            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Knight && board.GetActiveEnemiesOnBoard().Count > 0)
+            else if (piece.spell == Enums.Spell.Charge && board.GetActiveEnemiesOnBoard().Count > 0)
                 skill = new ChargeSkill(piece, board.FindFarthestTarget(piece), board);
-            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Druid)
+            else if (piece.spell == Enums.Spell.ForestSpirits)
                 skill = new ForestSpiritsSkill(piece, board);
         }
         if (piece.IsEnemy())

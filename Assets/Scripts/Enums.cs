@@ -77,4 +77,28 @@ public static class Enums
         "(4) Orcs enrage after taking significant damage \n(9) Orcs enrage after a bit of damage. They also appear more often.",
         "Undead gain immortality. Then they die."
     };
+
+    public enum Spell
+    {
+        Shapeshift,
+        ProtectAlly,
+        Barkskin,
+        BlessingOfNature,
+        Rampage,
+        MarkForDeath,
+        FrostArmour,
+        CurseOfAgony,
+        Evicerate,
+        Fireblast,
+        MagicMissile,
+        Rot,
+        UnholyAura,
+        Thunderstorm,
+        Moonfire,
+        GreaterHeal,
+        CheapShot,
+        ShadowStrike,
+        Charge,
+        ForestSpirits
+    }
 }
