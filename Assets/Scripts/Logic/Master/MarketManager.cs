@@ -94,6 +94,8 @@ public class MarketManager : MonoBehaviour
     public List<Piece> UpgradePiecesWithTier(int marketTier)
     {
         var marketPieceCopy = new List<Piece>(market.MarketPieces);
+        return marketPieceCopy;
+        //No more reactive upgrades for market
         Piece marketPiece;
         for (int i = 0; i < marketPieceCopy.Count; i++)
         {
