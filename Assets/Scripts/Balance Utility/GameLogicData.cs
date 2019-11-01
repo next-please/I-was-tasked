@@ -212,7 +212,7 @@ public class SkillData
     public double MoonfireRarityMultiplier = 1.2;
 
     [Header("Protect Ally")]
-    public int ProtectAllyLingerTicks = 100;
+    public int ProtectAllyLingerTicks = 250;
 
     [Header("Rampage")]
     public int RampageAttackSpeed = 3;

@@ -151,7 +151,12 @@ public class Piece : ISerializable
         this.entryState = this.state;
     }
 
-     // The special constructor is used to deserialize values.
+    internal void RemoveLinkedProtectingPiece()
+    {
+        linkedProtectingPiece = null;
+    }
+
+    // The special constructor is used to deserialize values.
     public Piece(SerializationInfo info, StreamingContext context)
     {
         // In Order of Declaration

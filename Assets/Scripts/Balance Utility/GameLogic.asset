@@ -63,7 +63,7 @@ MonoBehaviour:
     MoonfireDefaultDamage: 58
     MoonfireLingerTicks: 20
     MoonfireRarityMultiplier: 1.2
-    ProtectAllyLingerTicks: 100
+    ProtectAllyLingerTicks: 250
     RampageAttackSpeed: 3
     RampageArmourPercentage: -0.25
     RampageLingerTicks: 250
