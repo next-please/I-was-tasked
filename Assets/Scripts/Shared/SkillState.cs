@@ -88,16 +88,16 @@ public class SkillState : State
                 skill = new BerserkSkill(piece, board);
         }
         board.AddInteractionToProcess(skill);
-        if (piece.multicast)
+        if (piece.multicast && !piece.IsEnemy())
         {
-            if (piece.GetRace() == Enums.Race.Undead && piece.GetClass() == Enums.Job.Mage && board.GetActiveFriendliesOnBoard().Count > 0)
+            if (piece.spell == Enums.Spell.FrostArmour && board.GetActiveFriendliesOnBoard().Count > 0)
                 skill = new FrostArmourSkill(piece, board);
-            else if (piece.GetRace() == Enums.Race.Human && piece.GetClass() == Enums.Job.Mage && !piece.GetTarget().IsDead())
-                skill = new FireblastSkill(piece, piece.GetTarget());
-            else if (piece.GetRace() == Enums.Race.Elf && piece.GetClass() == Enums.Job.Mage && board.GetActiveEnemiesOnBoard().Count > 0)
+            else if (piece.spell == Enums.Spell.Fireblast && !piece.GetTarget().IsDead())
+                skill = new FireblastSkill(piece, board.FindFarthestTarget(piece));
+            else if (piece.spell == Enums.Spell.MagicMissile && board.GetActiveEnemiesOnBoard().Count > 0)
                 skill = new MagicMissileSkill(piece, board.GetActiveEnemiesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count)], board);
-            else if (piece.GetRace() == Enums.Race.Orc && piece.GetClass() == Enums.Job.Mage && !piece.GetTarget().IsDead())
-                skill = new ThunderstormSkill(piece, piece.GetTarget(), board);
+            else if (piece.spell == Enums.Spell.Thunderstorm && !piece.GetTarget().IsDead())
+                skill = new ThunderstormSkill(piece, board.FindFarthestTarget(piece), board);
             board.AddInteractionToProcess(skill);
         }
         ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.

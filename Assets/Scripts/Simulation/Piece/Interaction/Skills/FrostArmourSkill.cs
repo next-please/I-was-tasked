@@ -47,11 +47,23 @@ public class FrostArmourSkill : Interaction
         List<Piece> tempList;
         if (!caster.IsEnemy())
         {
-            tempList = board.GetActiveFriendliesOnBoard();
+            tempList = board.GetActiveFriendliesOnBoard().FindAll(x => x.interactions.Find(y => y.identifier.Equals("FrostArmour")) == null);
         }
         else
         {
-            tempList = board.GetActiveEnemiesOnBoard();
+            tempList = board.GetActiveEnemiesOnBoard().FindAll(x => x.interactions.Find(y => y.identifier.Equals("FrostArmour")) == null);
+        }
+
+        if (tempList.Count < 1)
+        {
+            if (!caster.IsEnemy())
+            {
+                tempList = board.GetActiveFriendliesOnBoard();
+            }
+            else
+            {
+                tempList = board.GetActiveEnemiesOnBoard();
+            }
         }
 
         if (caster.IsDead())
