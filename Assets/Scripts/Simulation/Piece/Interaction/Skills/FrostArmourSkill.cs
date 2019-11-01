@@ -5,15 +5,13 @@ using UnityEngine;
 public class FrostArmourSkill : Interaction
 {
     private Piece caster;
-    private Piece target;
     private Board board;
     public double frostArmourDefaultArmourPercentage = GameLogicManager.Inst.Data.Skills.FrostArmourPercentage;
     public int ticksTilActivation = 0;
 
-    public FrostArmourSkill(Piece caster, Piece target, Board board)
+    public FrostArmourSkill(Piece caster, Board board)
     {
         this.caster = caster;
-        this.target = target;
         this.board = board;
         this.ticksRemaining = ticksTilActivation;
         this.ticksTotal = 50;
@@ -45,21 +43,35 @@ public class FrostArmourSkill : Interaction
 
     private void ApplyEffect()
     {
+        Piece target;
+        List<Piece> tempList;
+        if (!caster.IsEnemy())
+        {
+            tempList = board.GetActiveFriendliesOnBoard();
+        }
+        else
+        {
+            tempList = board.GetActiveEnemiesOnBoard();
+        }
+
         if (caster.IsDead())
         {
             return;
         }
 
+        tempList.Sort((x, y) => (int)(100 * ((double)x.GetCurrentHitPoints() / x.GetMaximumHitPoints() - (double)y.GetCurrentHitPoints() / y.GetMaximumHitPoints())));
+        target = tempList[0];
+
         if (target.interactions.Find(x => x.identifier.Equals("FrostArmour")) != null)
         {
-            target.interactions.Find(x => x.identifier.Equals("FrostArmou")).ticksRemaining = FrostArmourLingeringEffect.ticksTilActivation;
+            target.interactions.Find(x => x.identifier.Equals("FrostArmour")).ticksRemaining = FrostArmourLingeringEffect.ticksTilActivation;
         }
         else
         {
             target.SetArmourPercentage(target.GetArmourPercentage() + frostArmourDefaultArmourPercentage);
             double armourChange = frostArmourDefaultArmourPercentage;
 
-            Interaction skill = new FrostArmourLingeringEffect(caster, armourChange);
+            Interaction skill = new FrostArmourLingeringEffect(target, armourChange);
             board.AddInteractionToProcess(skill);
             target.interactions.Add(skill);
         }
