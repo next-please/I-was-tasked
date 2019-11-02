@@ -3,16 +3,17 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
     private readonly string CLASS_NAME = "CreateRoom";
 
     [SerializeField]
-    private Text _roomName;
+    private TextMeshProUGUI _roomName;
 
     [SerializeField]
-    private InputField _numPlayersInput;
+    private TextMeshProUGUI _numPlayersInput;
 
     private CanvasesManager _canvasesManager;
 
@@ -29,11 +30,11 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         byte maxPlayers = 3;
         try
         {
-            maxPlayers = Convert.ToByte(_numPlayersInput.text);
+            maxPlayers = Convert.ToByte(_numPlayersInput.text.Substring(0, _numPlayersInput.text.Length - 1));
         } catch (Exception e)
         {
             Debug.LogFormat("{0}: Failed to create room - number of players not an integer", CLASS_NAME);
-                return;
+            return;
         }
 
         RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
