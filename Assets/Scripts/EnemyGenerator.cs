@@ -412,8 +412,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.invulnerable = true;
                 enemy.SetName("Enemy #1");
-                enemy.SetMaximumHitPoints(300);
-                enemy.SetCurrentHitPoints(300);
+                enemy.SetMaximumHitPoints(240);
+                enemy.SetCurrentHitPoints(240);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(2);
@@ -424,8 +424,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.invulnerable = true;
                 enemy.SetName("Enemy #2");
-                enemy.SetMaximumHitPoints(200);
-                enemy.SetCurrentHitPoints(200);
+                enemy.SetMaximumHitPoints(160);
+                enemy.SetCurrentHitPoints(160);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(2);
@@ -437,8 +437,8 @@ public class EnemyGenerator
                 enemy.invulnerable = true;
                 enemy.spell = Enums.Spell.NoSkill;
                 enemy.SetName("Enemy #3");
-                enemy.SetMaximumHitPoints(500);
-                enemy.SetCurrentHitPoints(500);
+                enemy.SetMaximumHitPoints(400);
+                enemy.SetCurrentHitPoints(400);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
@@ -449,8 +449,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.invulnerable = true;
                 enemy.SetName("Enemy #4");
-                enemy.SetMaximumHitPoints(400);
-                enemy.SetCurrentHitPoints(400);
+                enemy.SetMaximumHitPoints(320);
+                enemy.SetCurrentHitPoints(320);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
@@ -462,8 +462,8 @@ public class EnemyGenerator
                 enemy.invulnerable = true;
                 enemy.SetName("Enemy #5");
                 enemy.spell = Enums.Spell.NoSkill;
-                enemy.SetMaximumHitPoints(100);
-                enemy.SetCurrentHitPoints(100);
+                enemy.SetMaximumHitPoints(90);
+                enemy.SetCurrentHitPoints(90);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
@@ -474,8 +474,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.invulnerable = true;
                 enemy.SetName("Enemy #6");
-                enemy.SetMaximumHitPoints(600);
-                enemy.SetCurrentHitPoints(600);
+                enemy.SetMaximumHitPoints(480);
+                enemy.SetCurrentHitPoints(480);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
