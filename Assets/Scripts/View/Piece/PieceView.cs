@@ -27,19 +27,21 @@ public class PieceView : MonoBehaviour
     {
         statusBars.transform.LookAt(statusBars.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
         pieceSounds = GetComponentInChildren<PieceSounds>();
-        pieceSounds.InstantiateSounds(this.transform);
-        foreach (GameObject rarity in rarities)
-        {
-            rarity.SetActive(false);
-        }
-        Debug.Log(piece.GetRarity() - 1);
-        rarities[piece.GetRarity() - 1].SetActive(true);
+        pieceSounds.InstantiateSounds(transform);
     }
 
     public void TrackPiece(Piece piece)
     {
         this.piece = piece;
         piece.SetPieceView(this);
+        if (!piece.IsEnemy())
+        {
+            foreach (GameObject rarity in rarities)
+            {
+                rarity.SetActive(false);
+            }
+            rarities[piece.GetRarity() - 1].SetActive(true);
+        }
     }
 
     public void InstantiateModelPrefab(GameObject characterModel, Player boardOwner)
