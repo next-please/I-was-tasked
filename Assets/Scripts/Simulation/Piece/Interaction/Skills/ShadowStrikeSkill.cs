@@ -85,25 +85,29 @@ public class ShadowStrikeSkill : Interaction
         int selfRow = caster.GetCurrentTile().GetRow();
         int selfCol = caster.GetCurrentTile().GetCol();
 
-        if (!board.GetTile(targetRow + 1, targetCol).IsLocked() && !board.GetTile(targetRow + 1, targetCol).IsOccupied() && selfRow < targetRow)
+        List<Tile> tiles = new List<Tile>();
+        if (targetCol + 1 < board.GetNumCols())
+            tiles.Add(board.GetTile(targetRow, targetCol + 1));
+        if (targetCol - 1 >= 0)
+            tiles.Add(board.GetTile(targetRow, targetCol - 1));
+        if (targetRow + 1 < board.GetNumRows())
+            tiles.Add(board.GetTile(targetRow + 1, targetCol));
+        if (targetRow - 1 >= 0)
+            tiles.Add(board.GetTile(targetRow - 1, targetCol));
+
+        foreach (Tile tilePotential in tiles)
         {
-            targetTile = board.GetTile(targetRow + 1, targetCol);
-        }
-        else if (!board.GetTile(targetRow - 1, targetCol).IsLocked() && !board.GetTile(targetRow - 1, targetCol).IsOccupied() && selfRow > targetRow)
-        {
-            targetTile = board.GetTile(targetRow - 1, targetCol);
-        }
-        else if (!board.GetTile(targetRow, targetCol - 1).IsLocked() && !board.GetTile(targetRow, targetCol - 1).IsOccupied() && selfCol > targetCol)
-        {
-            targetTile = board.GetTile(targetRow, targetCol - 1);
-        }
-        else if (!board.GetTile(targetRow, targetCol + 1).IsLocked() && !board.GetTile(targetRow, targetCol + 1).IsOccupied() && selfCol < targetCol)
-        {
-            targetTile = board.GetTile(targetRow, targetCol + 1);
-        }
-        else
-        {
-            targetTile = caster.GetCurrentTile();
+            if (!tilePotential.IsLocked() && !tilePotential.IsOccupied())
+            {
+                if (targetTile == null)
+                {
+                    targetTile = tilePotential;
+                }
+                else if (caster.GetCurrentTile().DistanceToTile(tilePotential) > caster.GetCurrentTile().DistanceToTile(targetTile))
+                {
+                    targetTile = tilePotential;
+                }
+            }
         }
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
