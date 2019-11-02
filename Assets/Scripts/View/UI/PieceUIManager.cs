@@ -168,17 +168,21 @@ public class PieceUIManager : MonoBehaviour
             if (job == Enums.Job.Druid)
             {
                 skillName.text = "Forest Spirits";
-                skillDescription.text = "Come get healing!";
+                skillDescription.text = string.Format(
+                    "Release {0} spirits that heal {1} per second", 
+                    GameLogicManager.Inst.Data.Skills.ForestSpiritsCount, 
+                    GameLogicManager.Inst.Data.Skills.ForestSpiritsHeal
+                );
             }
             else if (job == Enums.Job.Knight)
             {
                 skillName.text = "Protect Ally";
-                skillDescription.text = "Squire, attend me! Ready sir! gachiBASS Clap";
+                skillDescription.text = "Places a shield on ally that transfers damage taken to the Elf Knight";
             }
             else if (job == Enums.Job.Mage)
             {
                 skillName.text = "Magic Missile";
-                skillDescription.text = "Pew pew pew! Totally not from Warcraft.";
+                skillDescription.text = string.Format("Launches a barrage of {0} magic missles randomly at opponents", GameLogicManager.Inst.Data.Skills.MagicMissileCount);
             }
             else if (job == Enums.Job.Priest)
             {
@@ -188,7 +192,7 @@ public class PieceUIManager : MonoBehaviour
             else if (job == Enums.Job.Rogue)
             {
                 skillName.text = "Marked for Death";
-                skillDescription.text = "Heh, this guy's toast!";
+                skillDescription.text = string.Format("Casts a death mark that kills an enemy after {0} seconds", (int)GameLogicManager.Inst.Data.Skills.MarkForDeathTicks / 50);
             }
         }
         else if (race == Enums.Race.Human)
@@ -201,7 +205,7 @@ public class PieceUIManager : MonoBehaviour
             else if (job == Enums.Job.Knight)
             {
                 skillName.text = "Charge";
-                skillDescription.text = "勧め!";
+                skillDescription.text = "Charges at the furthest enemy and strikes it";
             }
             else if (job == Enums.Job.Mage)
             {
