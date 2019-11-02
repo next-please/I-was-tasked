@@ -77,19 +77,19 @@
 
     public static string[] JobSynergyDescription = new string[]
     {
-        "Druids become immobile and gain range",
-        "(4) Knights taunt enemies away from allies \n(11) Knights are invulnerable to damage for a short while when the match begins",
-        "(3) Mages start with extra mana\n(8) In addition, Mages cast each spell twice",
-        "(4) Priests create a divine explosion on death \n(6) Priests create a bigger divine explosion on death",
-        "(<b>Exactly</b> 2) Rogues gain massive damage but lose massive health\n(7) Rogues gain massive damage but lose massive health"
+        "Druids gain infinite range",
+        string.Format("({0}) Knights taunt enemies away from allies \n\n({1}) Knights are also invulnerable for a short duration when battle begins", GameLogicManager.Inst.Data.Synergy.KnightRequirement1, GameLogicManager.Inst.Data.Synergy.KnightRequirement2),
+        string.Format("({0}) Mages start with extra mana\n\n({1}) Mages also cast each spell twice", GameLogicManager.Inst.Data.Synergy.MageRequirement1, GameLogicManager.Inst.Data.Synergy.MageRequirement2),
+        string.Format("({0}) Priests purge surrounding area on death \n\n({1}) Priest's area of purge is larger", GameLogicManager.Inst.Data.Synergy.PriestRequirement1, GameLogicManager.Inst.Data.Synergy.PriestRequirement2),
+        string.Format("(<b>Exactly</b> {0} or {1}) Rogues have massively amplified damage but severly reduced health at the start of battle", GameLogicManager.Inst.Data.Synergy.RogueRequirement1, GameLogicManager.Inst.Data.Synergy.RogueRequirement2)
     };
 
     public static string[] RaceSynergyDescription = new string[]
     {
-        "(5) Everyone generates some extra gold per turn \n(10) Everyone generates a lot of extra gold per turn",
-        "Elves guide a friendly unit in death",
-        "(4) Orcs enrage after taking significant damage \n(9) Orcs enrage after a bit of damage. They also appear more often.",
-        "Undead gain immortality. Then they die."
+        string.Format("({0}) All players gain {1} extra gold per turn \n\n({2}) All player gain {3} extra gold per turn", GameLogicManager.Inst.Data.Synergy.HumanRequirement1, GameLogicManager.Inst.Data.Synergy.HumanGoldAmount1, GameLogicManager.Inst.Data.Synergy.HumanRequirement2, GameLogicManager.Inst.Data.Synergy.HumanGoldAmount2),
+        "Elves transfer some of their attributes to another elf upon death",
+        string.Format("({0}) Orcs rampage after taking significant damage, gaining attack speed \n\n({1}) Orcs begin their rampage after taking lesser damage", GameLogicManager.Inst.Data.Synergy.OrcRequirement1, GameLogicManager.Inst.Data.Synergy.OrcRequirement2),
+        string.Format("Undead gain <b>Immortality</b> for {0} seconds after the battle starts\n\n Units with <b>Immortality</b> can lose health but cannot die", GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie / 50)
     };
 
     public enum Spell

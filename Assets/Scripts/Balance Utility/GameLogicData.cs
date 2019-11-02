@@ -59,7 +59,8 @@ public class SynergyData
     public int UndeadRequirement1 = 9;
 
     [Header("Synergy Power Variables")]
-    public int HumanGoldAmount = 10;
+    public int HumanGoldAmount1 = 2;
+    public int HumanGoldAmount2 = 10;
     public double RogueDamageMultiplier = 10;
     public double RogueHitPointMultiplier = 0.1;
     public double MageStartingManaPercentage = 0.25;
@@ -67,7 +68,8 @@ public class SynergyData
     public int PriestRetributionRadius = 2;
     public int PriestRetributionHealing = 100;
     public int PriestRetributionDamage = 75;
-    public double OrcRampageHealthThreshold = 0.80;
+    public double OrcRampageHealthThreshold1 = 0.40;
+    public double OrcRampageHealthThreshold2 = 0.80;
     public int OrcRampageAttackSpeed = 3;
     public double OrcRampageArmourPercentage = -0;
     public int ElfGuidingSpiritAttackDamage = 10;

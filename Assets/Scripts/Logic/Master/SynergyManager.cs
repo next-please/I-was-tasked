@@ -1,20 +1,11 @@
 ﻿using UnityEngine;
 using System;
-using System.Linq;
 
 public class SynergyManager : MonoBehaviour
 {
-    private double undeadLifestealPercentage = 0.35;
-    private int elfRangeModifier = 3;
-    private double knightRecoilPercentage = 0.35;
-    private int rogueHealthDivider = 4;
-    private int priestStatMultiplier = 3;
-    private double orcHealthMultiplier = 1.5;
-    private double orcWeakerSynergyHealthThreshold = 0.4;
-    public int humanWeakerGoldAmount = 2;
-
     private double mageStartingManaPercentage = GameLogicManager.Inst.Data.Synergy.MageStartingManaPercentage;
-    public int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount;
+    public int humanWeakerGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount1;
+    public int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount2;
     private double rogueDamageMultiplier = GameLogicManager.Inst.Data.Synergy.RogueDamageMultiplier;
     private double rogueHitPointMultiplier = GameLogicManager.Inst.Data.Synergy.RogueHitPointMultiplier;
     private int undeadTicksToDie = GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie;
@@ -277,11 +268,27 @@ public class SynergyManager : MonoBehaviour
                     {
                         if (raceSynergyCount[(int)Enums.Race.Orc] >= raceSynergyHigherRequirement[(int)Enums.Race.Orc])
                         {
-                            board.AddInteractionToProcess(new RampageSynergyEffect(friendlyPieces[target], board));
+                            board.AddInteractionToProcess(
+                                new RampageSynergyEffect(
+                                    friendlyPieces[target], 
+                                    board, 
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed, 
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage, 
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold2
+                                )
+                            );
                         }
                         else
                         {
-                            board.AddInteractionToProcess(new RampageSynergyEffect(friendlyPieces[target], board, GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed, GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage, orcWeakerSynergyHealthThreshold));
+                            board.AddInteractionToProcess(
+                                new RampageSynergyEffect(
+                                    friendlyPieces[target], 
+                                    board, 
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed, 
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage, 
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold1
+                                )
+                            );
                         }
                     }
                 }

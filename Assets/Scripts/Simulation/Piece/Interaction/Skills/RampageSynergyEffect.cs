@@ -9,7 +9,7 @@ public class RampageSynergyEffect : Interaction
     private Board board;
     public int rampageDefaultAttackSpeedAmount = GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed;
     public double rampageDefaultArmourPercentage = GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage;
-    public double rampageSynergyHealthThreshold = GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold;
+    public double rampageSynergyHealthThreshold = GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold1;
     public int ticksTilActivation = 999;
 
     public RampageSynergyEffect(Piece caster, Board board)
