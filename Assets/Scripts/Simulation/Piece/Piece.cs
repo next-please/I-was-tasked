@@ -630,7 +630,17 @@ public class Piece : ISerializable
 
     public int GetPrice()
     {
-        return (int)Math.Pow(2, rarity - 1);
+        switch (rarity)
+        {
+            case 1:
+                return 1;
+            case 2:
+                return 3;
+            case 3:
+                return 5;
+            default:
+                return 1;
+        }
     }
 
     public IViewState GetViewState()
