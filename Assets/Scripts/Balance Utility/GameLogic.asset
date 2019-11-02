@@ -145,8 +145,8 @@ MonoBehaviour:
     OrcRequirement: 10
     UndeadRequirement: 9
     HumanGoldAmount: 10
-    RogueDamageMultiplier: 10
-    RogueHitPointMultiplier: 0.1
+    RogueDamageMultiplier: 3
+    RogueHitPointMultiplier: 0.33
     MageStartingManaPercentage: 0.25
     UndeadTicksToDie: 500
     PriestRetributionRadius: 2
