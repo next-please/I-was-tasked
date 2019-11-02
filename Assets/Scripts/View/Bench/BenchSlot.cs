@@ -25,6 +25,7 @@ public class BenchSlot : MonoBehaviour
         benchItemObj.transform.localPosition = new Vector3(0, 0.5f, 0);
         float rotation = (int) player * 45;
         benchItemObj.transform.Rotate(new Vector3(0, 1, 0), rotation);
+        benchItem.AdjustRarityRotationView(player);
     }
 
     public void SetEmpty()

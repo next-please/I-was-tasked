@@ -38,6 +38,8 @@ public abstract class InteractablePiece :
     private readonly float zPosOnDrag = 8f;
 
     public Piece piece;
+    public GameObject[] rarities;
+    public GameObject rarityParent;
     protected GameObject targetObject;
 
     public virtual void OnBeginDrag(PointerEventData eventData) { }
