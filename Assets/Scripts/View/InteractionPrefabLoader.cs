@@ -24,6 +24,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject Moonfire;
     public GameObject ProtectAlly;
     public GameObject Rampage;
+    public GameObject RampageSynergy;
     public GameObject Rot;
     public GameObject ShadowStrike;
     public GameObject ShapeShift;
@@ -69,6 +70,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.Moonfire, Moonfire },
             { PrefabEnum.ProtectAlly, ProtectAlly },
             { PrefabEnum.Rampage, Rampage },
+            { PrefabEnum.RampageSynergy, RampageSynergy },
             { PrefabEnum.Rot, Rot },
             { PrefabEnum.ShadowStrike, ShadowStrike },
             { PrefabEnum.ShapeShift, ShapeShift },

@@ -16,6 +16,11 @@ public class CameraPanEvent : GameEvent
     public CameraView targetView;
 }
 
+public class CameraViewOwnBoardEvent : GameEvent
+{
+    public CameraView targetView;
+}
+
 public class CameraController : MonoBehaviour
 {
     public Transform[] CameraTransforms;

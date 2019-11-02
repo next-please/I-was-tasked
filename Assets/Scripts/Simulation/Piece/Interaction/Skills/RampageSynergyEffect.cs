@@ -80,7 +80,7 @@ public class RampageSynergyLingeringEffect : Interaction
     {
         this.caster = caster;
         this.ticksRemaining = 999;
-        interactionPrefab = Enums.InteractionPrefab.EviscerateBleed;
+        interactionPrefab = Enums.InteractionPrefab.RampageSynergy;
     }
 
     public override bool ProcessInteraction()
@@ -104,14 +104,15 @@ public class RampageSynergyLingeringEffect : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
+        Transform casterT = caster.GetPieceView().transform;
 
         if (!caster.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-            attackDestination.y += 3.5f;
+            projectile.transform.parent =  casterT;
+            Vector3 pos = Vector3.zero;
+            pos.y = 1;
+            projectile.transform.localPosition = pos;
         }
-
-        projectile.transform.position = attackDestination;
 
         if (ticksRemaining <= 0 || caster.IsDead())
         {

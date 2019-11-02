@@ -36,6 +36,7 @@
         Moonfire,
         ProtectAlly,
         Rampage,
+        RampageSynergy,
         Rot,
         ShadowStrike,
         ShapeShift,

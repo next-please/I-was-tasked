@@ -54,11 +54,6 @@ public class ShapeshiftSkill : Interaction
         }
         caster.SetAttackDamage((int)Math.Floor(caster.GetAttackDamage() * shapeshiftDefaultMultiplierIncrease));
         caster.SetAttackSpeed(caster.GetAttackSpeed() + shapeshiftDefaultAttackSpeedIncrease);
-        if (!caster.invulnerable)
-        {
-            caster.SetCurrentHitPoints((int)Math.Floor(caster.GetCurrentHitPoints() * shapeshiftDefaultMultiplierIncrease));
-            caster.SetMaximumHitPoints((int)Math.Floor(caster.GetMaximumHitPoints() * shapeshiftDefaultMultiplierIncrease));
-        }
 
         Interaction skill = new ShapeshiftLingeringEffect(caster);
         board.AddInteractionToProcess(skill);
