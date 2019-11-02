@@ -11,7 +11,9 @@ public class PieceView : MonoBehaviour
     [HideInInspector]
     public Animator animator;
     public GameObject statusBars;
+    public GameObject dividerHP;
     public GameObject currentHPBar;
+    public GameObject midgroundHPBar;
     public GameObject currentMPBar;
     public GameObject[] rarities;
     public Piece piece; // The piece being displayed.
@@ -19,8 +21,10 @@ public class PieceView : MonoBehaviour
     private IViewState prevViewAction;
     private float velocityHP = 0.0f;
     private float velocityMP = 0.0f;
-    private float smoothTime = 0.01f;
+    private float smoothTimeHP = 0.2f;
+    private float smoothTimeMP = 0.01f;
     private Player boardOwner;
+    private GameObject[] dividers;
 
 
     private void Start()
@@ -34,6 +38,7 @@ public class PieceView : MonoBehaviour
     {
         this.piece = piece;
         piece.SetPieceView(this);
+
         if (!piece.IsEnemy())
         {
             foreach (GameObject rarity in rarities)
@@ -42,6 +47,58 @@ public class PieceView : MonoBehaviour
             }
             rarities[piece.GetRarity() - 1].SetActive(true);
         }
+        SetHealthDividers();
+    }
+
+    private void SetHealthDividers()
+    {
+        int numDividers = Mathf.CeilToInt(piece.GetMaximumHitPoints() / 25.0f);
+        float spacingWidth = 11.0f / numDividers;
+        int incrementCount = 1;
+
+        dividers = new GameObject[numDividers];
+        for (int i = 0; i < numDividers; i++)
+        {
+            dividers[i] = Instantiate(dividerHP) as GameObject;
+            dividers[i].transform.SetParent(currentHPBar.transform.parent);
+            dividers[i].transform.localScale = dividerHP.transform.localScale;
+            dividers[i].transform.localPosition = Vector3.zero;
+
+            if (numDividers % 2 == 0)
+            {
+                if (i <= 1)
+                {
+                    float widthX = spacingWidth / 2.0f * ((i % 2 == 0) ? 1 : -1);
+                    dividers[i].transform.localPosition = new Vector3(widthX, 0.0f, 0.0f);
+                }
+                else
+                {
+                    float widthX = (spacingWidth / 2.0f + spacingWidth * incrementCount) * ((i % 2 == 0) ? 1 : -1);
+                    dividers[i].transform.localPosition = new Vector3(widthX, 0.0f, 0.0f);
+                }
+
+                if (i > 1 && i % 2 == 1)
+                {
+                    incrementCount++;
+                }
+            }
+            else
+            {
+                if (i != 0)
+                {
+                    float widthX = (spacingWidth + spacingWidth * (incrementCount - 1)) * ((i % 2 == 0) ? 1 : -1);
+                    dividers[i].transform.localPosition = new Vector3(widthX, 0.0f, 0.0f);
+                }
+
+                if (i > 1 && i % 2 == 0)
+                {
+                    incrementCount++;
+                }
+            }
+
+
+        }
+        dividerHP.SetActive(false);
     }
 
     public void InstantiateModelPrefab(GameObject characterModel, Player boardOwner)
@@ -137,14 +194,15 @@ public class PieceView : MonoBehaviour
 
     public void UpdateCurrentHPBar()
     {
-        float currHPScale = Mathf.SmoothDamp(currentHPBar.transform.localScale.x, (float) piece.GetCurrentHitPoints() / piece.GetMaximumHitPoints(), ref velocityHP, smoothTime);
-        currentHPBar.transform.localScale = new Vector3(currHPScale, currentHPBar.transform.localScale.y, currentHPBar.transform.localScale.z);
+        float currHPScale = Mathf.SmoothDamp(midgroundHPBar.transform.localScale.x, (float) piece.GetCurrentHitPoints() / piece.GetMaximumHitPoints(), ref velocityHP, smoothTimeHP);
+        currentHPBar.transform.localScale = new Vector3((float)piece.GetCurrentHitPoints() / piece.GetMaximumHitPoints(), currentHPBar.transform.localScale.y, currentHPBar.transform.localScale.z);
+        midgroundHPBar.transform.localScale = new Vector3(currHPScale, midgroundHPBar.transform.localScale.y, midgroundHPBar.transform.localScale.z);
         EventManager.Instance.Raise(new PieceHealthChangeEvent { piece = piece });
     }
 
     public void UpdateCurrentMPBar()
     {
-        float currMPScale = Mathf.SmoothDamp(currentMPBar.transform.localScale.x, (float)piece.GetCurrentManaPoints() / piece.GetMaximumManaPoints(), ref velocityMP, smoothTime);
+        float currMPScale = Mathf.SmoothDamp(currentMPBar.transform.localScale.x, (float)piece.GetCurrentManaPoints() / piece.GetMaximumManaPoints(), ref velocityMP, smoothTimeMP);
         currentMPBar.transform.localScale = new Vector3(currMPScale, currentMPBar.transform.localScale.y, currentMPBar.transform.localScale.z);
     }
 
