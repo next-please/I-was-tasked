@@ -120,6 +120,11 @@ public class SynergyManager : MonoBehaviour
     {
         return raceSynergyCount[(int)race] >= raceSynergyHigherRequirement[(int)race];
     }
+    
+    public bool HasBetterSynergy(Enums.Job job)
+    {
+        return jobSynergyCount[(int)job] >= jobSynergyHigherRequirement[(int)job];
+    }
 
     public void ApplySynergiesToArmies(int NumPlayers)
     {

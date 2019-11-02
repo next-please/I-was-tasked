@@ -103,6 +103,8 @@ public class InventoryManager : MonoBehaviour
         var playerInv = GetPlayerInventory(player);
         var hadJobSynergy = synergyManager.HasSynergy(piece.GetClass());
         var hadRaceSynergy = synergyManager.HasSynergy(piece.GetRace());
+        var hadBetterJobSynergy = synergyManager.HasBetterSynergy(piece.GetClass());
+        var hadBetterRaceSynergy = synergyManager.HasBetterSynergy(piece.GetRace());
         var success = playerInv.AddToArmy(piece);
         if (success)
         {
@@ -128,6 +130,16 @@ public class InventoryManager : MonoBehaviour
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Active" });
                 //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
             }
+            if (synergyManager.HasBetterSynergy(piece.GetClass()) && !hadBetterJobSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Enhanced" });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+            }
+            if (synergyManager.HasBetterSynergy(piece.GetRace()) && !hadBetterRaceSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Enhanced" });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
+            }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
         return success;
@@ -138,6 +150,8 @@ public class InventoryManager : MonoBehaviour
         var playerInv = GetPlayerInventory(player);
         var hadJobSynergy = synergyManager.HasSynergy(piece.GetClass());
         var hadRaceSynergy = synergyManager.HasSynergy(piece.GetRace());
+        var hadBetterJobSynergy = synergyManager.HasBetterSynergy(piece.GetClass());
+        var hadBetterRaceSynergy = synergyManager.HasBetterSynergy(piece.GetRace());
         var success = playerInv.RemoveFromArmy(piece);
         if (success)
         {
@@ -159,6 +173,14 @@ public class InventoryManager : MonoBehaviour
             if (!synergyManager.HasSynergy(piece.GetRace()) && hadRaceSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Removed" });
+            }
+            if (!synergyManager.HasBetterSynergy(piece.GetClass()) && hadBetterJobSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Weakened" });
+            }
+            if (!synergyManager.HasBetterSynergy(piece.GetRace()) && hadBetterRaceSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Weakened" });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
