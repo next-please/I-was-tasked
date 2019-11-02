@@ -51,11 +51,8 @@ public class MarketSlot : MonoBehaviour
             rarity.SetActive(false);
         }
         if (marketItem)
+        {
             Destroy(marketItem.gameObject);
-    }
-
-    public void SetActiveSlot(bool isActive)
-    {
-        //GetComponentInChildren<Renderer>().material = materials[(isActive) ? 1 : 0];
+        }
     }
 }

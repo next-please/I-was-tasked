@@ -120,7 +120,6 @@ public class MarketUIManager : MonoBehaviour
             }
             MarketSlot marketSlot = marketSlots[i];
             marketSlot.SetOccupant(piece, characterPrefabLoader.GetPrefab(piece));
-            marketSlot.SetActiveSlot(true);
         }
     }
 
