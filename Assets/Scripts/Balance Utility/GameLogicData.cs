@@ -7,6 +7,9 @@ using System;
 public class GameLogicData : ScriptableObject
 {
     public string Version = "master";
+    public int MarketDuration = 20;
+    public int PreCombatDuration = 10;
+    public int CombatDuration = 60;
     public PieceBalanceData Piece;
     public SkillData Skills;
     public GeneratorData Gen;

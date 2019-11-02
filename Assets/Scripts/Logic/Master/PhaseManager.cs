@@ -40,8 +40,9 @@ public class PhaseManager : MonoBehaviour
     public RoomManager roomManager;
     public SynergyManager synergyManager;
 
-    public const int marketDuration = 20;
-    public const int preCombatDuration = 10;
+    public readonly int marketDuration = GameLogicManager.Inst.Data.MarketDuration;
+    public readonly int preCombatDuration = GameLogicManager.Inst.Data.PreCombatDuration;
+    public readonly int combatDuration = GameLogicManager.Inst.Data.CombatDuration;
 
     static Phase currentPhase = Phase.NIL;
 
@@ -241,10 +242,10 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.PreCombat);
         summonManager.SummonEnemies(enemies);
         yield return Countdown(preCombatDuration);
-        Combat();
+        StartCoroutine(Combat());
     }
 
-    void Combat()
+    IEnumerator Combat()
     {
         ChangePhase(Phase.Combat);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
@@ -253,12 +254,17 @@ public class PhaseManager : MonoBehaviour
         SwordImage.enabled = true;
         simulationPlayerCount = 0;
         boardManager.StartSim(numPlayers);
+        yield return Countdown(combatDuration);
+        if(currentPhase == Phase.Combat)
+            boardManager.ForceAllBoardsToResolve();
     }
 
     void TryPostCombat()
     {
-        Data data = new PhaseManagementData(this.numPlayers, round);
-        Request req = new Request(ActionTypes.POSTCOMBAT_PHASE, data); // TODO: replace with proper codes
+        int[] gold = inventoryManager.GetAllPlayerGold();
+        int health = marketManager.GetCastleHealth();
+        Data data = new PostCombatData(health, gold);
+        Request req = new Request(ActionTypes.POSTCOMBAT_PHASE, data);
         requestHandler.SendRequest(req);
     }
 
@@ -277,8 +283,15 @@ public class PhaseManager : MonoBehaviour
         playerReadySet.Clear();
     }
 
+    public void SetPostCombatData(int health, int[] gold)
+    {
+        inventoryManager.CheckAndSetAllPlayerGold(gold);
+        marketManager.CalculateAndApplyDamageToCastle(health);
+    }
+
     public void StartPostCombat()
     {
+        StopAllCoroutines();
         StartCoroutine(PostCombatToStartRound());
     }
 

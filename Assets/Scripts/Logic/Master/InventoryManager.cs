@@ -239,6 +239,23 @@ public class InventoryManager : MonoBehaviour
         var playerInv = GetPlayerInventory(player);
         return playerInv.GetBenchPiece(piece);
     }
+
+    public int[] GetAllPlayerGold()
+    {
+        int[] gold = new int[playerInventories.Length];
+        for(int i = 0; i < playerInventories.Length; i++)
+        {
+            gold[i] = playerInventories[i].GetGold();
+        }
+        return gold;
+    }
+
+    public void CheckAndSetAllPlayerGold(int[] gold)
+    {
+        for (int i = 0; i < playerInventories.Length; i++)
+            if (playerInventories[i].GetGold() != gold[i])
+                playerInventories[i].AddGold(gold[i] - playerInventories[i].GetGold());
+    }
 }
 
 public class InventoryChangeEvent : GameEvent

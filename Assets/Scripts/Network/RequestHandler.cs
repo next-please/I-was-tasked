@@ -86,8 +86,6 @@ namespace Com.Nextplease.IWT
                         break;
                     }
 
-                    StartCoroutine(PhaseFailSafe(_currentPhaseID, req)); // Fail Safe Mechanism
-
                     phaseManager.SetPlayerReadyForPostCombat(req.GetRequester());
                     if (phaseManager.PlayersReadyForPostCombat())
                     {
@@ -187,8 +185,9 @@ namespace Com.Nextplease.IWT
                     incrementPhaseID();
                     break;
                 case POSTCOMBAT_PHASE:
+                    PostCombatData data_13 = req.GetData() as PostCombatData;
+                    phaseManager.SetPostCombatData(data_13.health, data_13.gold);
                     phaseManager.StartPostCombat();
-                    incrementPhaseID();
                     break;
                 case BUY_PIECE:
                     PieceTransactionData data_5 = req.GetData() as PieceTransactionData;

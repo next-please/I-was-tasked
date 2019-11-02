@@ -61,6 +61,22 @@ public class MarketManager : MonoBehaviour
         return market.GetCastleHealth();
     }
 
+    public bool CalculateAndApplyDamageToCastle(int updatedHealth)
+    {
+        if (updatedHealth == market.GetCastleHealth())
+            return false;
+
+        int totalDamage = market.GetCastleHealth() - updatedHealth;
+        market.CastleHealth -= totalDamage;
+        if(totalDamage > 0)
+        {
+            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Combat is over! " + totalDamage + " damage done to castle!" });
+            EventManager.Instance.Raise(new DamageTakenEvent { currentHealth = market.CastleHealth });
+        }
+        EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
+        return true;
+    }
+
     public List<Piece> GenerateMarketItems()
     {
         bool orcCountry = inventoryManager.synergyManager.HasBetterSynergy(Enums.Race.Orc);
