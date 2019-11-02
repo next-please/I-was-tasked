@@ -40,6 +40,7 @@ public static class Enums
         Moonfire,
         ProtectAlly,
         Rampage,
+        RampageSynergy,
         Rot,
         ShadowStrike,
         ShapeShift,
