@@ -8,6 +8,15 @@ public class CharacterGenerator
     private string name;
     private System.Random rngesus;
 
+    public struct PieceVariables {
+        public int hitPoints;
+        public int manaPoints;
+        public int attackDamage;
+        public int attackSpeed;
+        public int attackRange;
+        public int movementSpeed;
+    }
+
     public readonly int defaultHitPoints = GameLogicManager.Inst.Data.Gen.DefaultHitPoints;
     public readonly int defaultManaPoints = GameLogicManager.Inst.Data.Gen.DefaultManaPoints;
     public readonly int defaultAttackDamage = GameLogicManager.Inst.Data.Gen.DefaultAttackDamage;
@@ -239,7 +248,7 @@ public class CharacterGenerator
         return GenerateCharacter(characterRarity, job, race);
     }
 
-    public Piece GenerateCharacter(int characterRarity, Enums.Job job, Enums.Race race)
+    public Piece GenerateCharacter(int characterRarity, Enums.Job job, Enums.Race race, bool updatedSystem = true)
     {
         TierRaceJobPoolSize[characterRarity, (int)race, (int)job]--;
         int currentHitPoints = defaultHitPoints;
@@ -248,8 +257,7 @@ public class CharacterGenerator
         int currentAttackRange = defaultAttackRange;
         int currentAttackSpeed = defaultAttackSpeed;
         int currentMovementSpeed = defaultMovementSpeed;
-
-        Debug.Log(rogueFlatMovementSpeedAdditor);
+        Enums.Spell currentSpell = GetSpell(race, job);
 
         //calculate stats
         switch (job)
@@ -318,12 +326,132 @@ public class CharacterGenerator
         {
             currentManaPoints = (int)Math.Floor(currentManaPoints * humanPriestManaMultiplier);
         }
-        Piece currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), race, job, characterRarity + 1, false,
+
+        GameLogicData gameData = GameLogicManager.Inst.Data;
+        PieceVariables pv = GetVariablesFromRaceClassCombo(gameData.ElfDruid);
+        if (updatedSystem)
+        {
+            if (race == Enums.Race.Elf)
+            {
+                if (job == Enums.Job.Druid)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.ElfDruid);
+                }
+                else if (job == Enums.Job.Knight)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.ElfKnight);
+                }
+                else if (job == Enums.Job.Mage)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.ElfMage);
+                }
+                else if (job == Enums.Job.Priest)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.ElfPriest);
+                }
+                else if (job == Enums.Job.Rogue)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.ElfRogue);
+                }
+            }
+            else if (race == Enums.Race.Human)
+            {
+                if (job == Enums.Job.Druid)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.HumanDruid);
+                }
+                else if (job == Enums.Job.Knight)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.HumanKnight);
+                }
+                else if (job == Enums.Job.Mage)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.HumanMage);
+                }
+                else if (job == Enums.Job.Priest)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.HumanPriest);
+                }
+                else if (job == Enums.Job.Rogue)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.HumanRogue);
+                }
+            }
+            else if (race == Enums.Race.Orc)
+            {
+                if (job == Enums.Job.Druid)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.OrcDruid);
+                }
+                else if (job == Enums.Job.Knight)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.OrcKnight);
+                }
+                else if (job == Enums.Job.Mage)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.OrcMage);
+                }
+                else if (job == Enums.Job.Priest)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.OrcPriest);
+                }
+                else if (job == Enums.Job.Rogue)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.OrcRogue);
+                }
+            }
+            else if (race == Enums.Race.Undead)
+            {
+                if (job == Enums.Job.Druid)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.UndeadDruid);
+                }
+                else if (job == Enums.Job.Knight)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.UndeadKnight);
+                }
+                else if (job == Enums.Job.Mage)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.UndeadMage);
+                }
+                else if (job == Enums.Job.Priest)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.UndeadPriest);
+                }
+                else if (job == Enums.Job.Rogue)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.UndeadRogue);
+                }
+            }
+        }
+        Piece currentPiece;
+        if (updatedSystem)
+        {
+            currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), race, job, characterRarity + 1, false,
+                                       pv.hitPoints, pv.manaPoints,
+                                       pv.attackDamage, pv.attackRange,
+                                       pv.attackSpeed, pv.movementSpeed, currentSpell);
+        }
+        else
+        {
+            currentPiece = new Piece(NameGenerator.GenerateName(job, race), NameGenerator.GetTitle(race, job), race, job, characterRarity + 1, false,
                                        currentHitPoints, currentManaPoints,
                                        currentAttackDamage, currentAttackRange,
-                                       currentAttackSpeed, currentMovementSpeed, GetSpell(race, job));
-
+                                       currentAttackSpeed, currentMovementSpeed, currentSpell);
+        }
         return currentPiece;
+    }
+
+    public PieceVariables GetVariablesFromRaceClassCombo(UniquePieceData upd)
+    {
+        PieceVariables pv = new PieceVariables();
+        pv.hitPoints = upd.HitPoints;
+        pv.manaPoints = upd.ManaPoints;
+        pv.attackDamage = upd.AttackDamage;
+        pv.attackSpeed = upd.AttackSpeed;
+        pv.attackRange = upd.AttackRange;
+        pv.movementSpeed = upd.MovementSpeed;
+        return pv;
     }
 
     public Enums.Spell GetSpell(Enums.Race race, Enums.Job job)

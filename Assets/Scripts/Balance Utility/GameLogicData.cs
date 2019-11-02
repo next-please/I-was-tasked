@@ -11,6 +11,26 @@ public class GameLogicData : ScriptableObject
     public SkillData Skills;
     public GeneratorData Gen;
     public SynergyData Synergy;
+    public UniquePieceData HumanDruid;
+    public UniquePieceData HumanKnight;
+    public UniquePieceData HumanMage;
+    public UniquePieceData HumanPriest;
+    public UniquePieceData HumanRogue;
+    public UniquePieceData ElfDruid;
+    public UniquePieceData ElfKnight;
+    public UniquePieceData ElfMage;
+    public UniquePieceData ElfPriest;
+    public UniquePieceData ElfRogue;
+    public UniquePieceData OrcDruid;
+    public UniquePieceData OrcKnight;
+    public UniquePieceData OrcMage;
+    public UniquePieceData OrcPriest;
+    public UniquePieceData OrcRogue;
+    public UniquePieceData UndeadDruid;
+    public UniquePieceData UndeadKnight;
+    public UniquePieceData UndeadMage;
+    public UniquePieceData UndeadPriest;
+    public UniquePieceData UndeadRogue;
 }
 
 [Serializable]
@@ -70,7 +90,7 @@ public class GeneratorData
     public int DefaultAttackRange = 1;
 
     [Header("Attack Speed")]
-    public int DefaultAttackSpeed = 5;
+    public int DefaultAttackSpeed = 4;
     public int MinAttackSpeed = 1;
     public int MaxAttackSpeed = 10;
 
@@ -132,6 +152,17 @@ public class GeneratorData
 
     [Header("Elf Druid")]
     public double ElfDruidManaMultiplier = 2;
+}
+
+[Serializable]
+public class UniquePieceData
+{
+    public int HitPoints = 150;
+    public int ManaPoints = 100;
+    public int AttackDamage = 10;
+    public int AttackRange = 1;
+    public int AttackSpeed = 4;
+    public int MovementSpeed = 5;
 }
 
 [Serializable]
