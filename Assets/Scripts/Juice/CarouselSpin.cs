@@ -24,15 +24,16 @@ public class CarouselSpin : MonoBehaviour
 
     void Update()
     {
-        for (int i = 0; i < MarketSlots.Length; i++)
-        {
-            GameObject marketSlot = MarketSlots[i];
-            marketSlot.transform.position = Vector3.MoveTowards(marketSlot.transform.position, marketSlotPositions[toMove[i]], 0.125f * Time.deltaTime);
+        // for (int i = 0; i < MarketSlots.Length; i++)
+        // {
+        //     GameObject marketSlot = MarketSlots[i];
+        //     marketSlot.transform.position = Vector3.MoveTowards(marketSlot.transform.position, marketSlotPositions[toMove[i]], 0.125f * Time.deltaTime);
 
-            if (Vector3.Distance(marketSlot.transform.position, marketSlotPositions[toMove[i]]) < 0.001f)
-            {
-                toMove[i] = (toMove[i] + 1 < MarketSlots.Length) ? toMove[i] + 1 : 0;
-            }
-        }
+        //     if (Vector3.Distance(marketSlot.transform.position, marketSlotPositions[toMove[i]]) < 0.001f)
+        //     {
+        //         toMove[i] = (toMove[i] + 1 < MarketSlots.Length) ? toMove[i] + 1 : 0;
+        //     }
+        // }
+        // transform.RotateAround(transform.position, Vector3.up, Time.deltaTime);
     }
 }

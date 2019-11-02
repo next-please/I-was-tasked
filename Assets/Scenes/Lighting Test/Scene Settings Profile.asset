@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   skyType:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 3
   skyAmbientMode:
     m_OverrideState: 1
     m_Value: 0
@@ -65,6 +65,73 @@ MonoBehaviour:
     m_Value: 1
     min: 0
     max: 20
+--- !u!114 &-4991486509854033018
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a81bcacc415a1f743bfdf703afc52027, type: 3}
+  m_Name: GradientSky
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  rotation:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+    max: 360
+  skyIntensityMode:
+    m_OverrideState: 0
+    m_Value: 0
+  exposure:
+    m_OverrideState: 0
+    m_Value: 0
+  multiplier:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  upperHemisphereLuxValue:
+    m_OverrideState: 0
+    m_Value: 1
+    min: 0
+  desiredLuxValue:
+    m_OverrideState: 0
+    m_Value: 20000
+  updateMode:
+    m_OverrideState: 0
+    m_Value: 0
+  updatePeriod:
+    m_OverrideState: 0
+    m_Value: 0
+    min: 0
+  includeSunInBaking:
+    m_OverrideState: 0
+    m_Value: 0
+  top:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 0.8783532, b: 0.8396226, a: 1}
+    hdr: 1
+    showAlpha: 0
+    showEyeDropper: 1
+  middle:
+    m_OverrideState: 0
+    m_Value: {r: 0.3, g: 0.7, b: 1, a: 1}
+    hdr: 1
+    showAlpha: 0
+    showEyeDropper: 1
+  bottom:
+    m_OverrideState: 1
+    m_Value: {r: 0.16037738, g: 0.071110725, b: 0.10550939, a: 1}
+    hdr: 1
+    showAlpha: 0
+    showEyeDropper: 1
+  gradientDiffusion:
+    m_OverrideState: 0
+    m_Value: 1
 --- !u!114 &-3114843937873234847
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -94,20 +161,20 @@ MonoBehaviour:
     min: 0
     max: 1
   maxFogDistance:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 5000
     min: 0
   mipFogMaxMip:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0.5
     min: 0
     max: 1
   mipFogNear:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 0
     min: 0
   mipFogFar:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1000
     min: 0
   albedo:
@@ -118,14 +185,14 @@ MonoBehaviour:
     showEyeDropper: 1
   meanFreePath:
     m_OverrideState: 1
-    m_Value: 600
+    m_Value: 462.8
     min: 1
   baseHeight:
     m_OverrideState: 1
     m_Value: 135
   meanHeight:
     m_OverrideState: 1
-    m_Value: 200
+    m_Value: 223.1
   anisotropy:
     m_OverrideState: 1
     m_Value: -0.31
@@ -151,7 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df29e7cc05fbec4aa43e06ea875565d, type: 3}
   m_Name: ProceduralSky
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   m_AdvancedMode: 0
   rotation:
     m_OverrideState: 0
@@ -208,7 +275,7 @@ MonoBehaviour:
     showEyeDropper: 1
   groundColor:
     m_OverrideState: 1
-    m_Value: {r: 0.44281775, g: 0.70224506, b: 0.8773585, a: 1}
+    m_Value: {r: 0.6132076, g: 0.39916342, b: 0.44925877, a: 1}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
@@ -277,3 +344,4 @@ MonoBehaviour:
   - {fileID: -3114843937873234847}
   - {fileID: -2473903099151225874}
   - {fileID: -6854509766184134562}
+  - {fileID: -4991486509854033018}
