@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerListing : MonoBehaviour
 {
     [SerializeField]
-    private Text _text;
+    private TextMeshProUGUI _text;
 
     [SerializeField]
     private RawImage _readyIndicator;

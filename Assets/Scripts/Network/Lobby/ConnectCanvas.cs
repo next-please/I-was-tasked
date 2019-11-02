@@ -1,16 +1,16 @@
 ﻿using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using TMPro;
 
 public class ConnectCanvas : MonoBehaviourPunCallbacks
 {
     private string CLASS_NAME = "ConnectCanvas";
 
     [SerializeField]
-    private Text _nickname;
+    private TextMeshProUGUI _nickname;
 
     [SerializeField]
     private GameObject _connectMenu;
