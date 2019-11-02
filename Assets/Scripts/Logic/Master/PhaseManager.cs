@@ -64,6 +64,11 @@ public class PhaseManager : MonoBehaviour
         damageResults = new bool[3];
     }
 
+    public bool IsMovablePhase()
+    {
+        return currentPhase == Phase.Market || currentPhase == Phase.PreCombat;
+    }
+
     public void StartPhases(int numPlayers = 1)
     {
         this.numPlayers = numPlayers;

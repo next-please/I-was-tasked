@@ -35261,6 +35261,11 @@ PrefabInstance:
       propertyPath: requestHandler
       value: 
       objectReference: {fileID: 896799267}
+    - target: {fileID: 2860930195245571253, guid: 750c085eba955834290aa65c7c51f3f1,
+        type: 3}
+      propertyPath: phaseManager
+      value: 
+      objectReference: {fileID: 1471216731}
     - target: {fileID: 2860930195245571252, guid: 750c085eba955834290aa65c7c51f3f1,
         type: 3}
       propertyPath: m_LocalPosition.x
