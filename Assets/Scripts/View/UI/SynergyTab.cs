@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    private readonly float FOREGROUND_BLUR_OPACITY_VALUE = 0.1f;
+    private readonly float FOREGROUND_CLEAR_OPACITY_VALUE = 0.2f;
     private readonly float BLUR_OPACITY_VALUE = 0.75f;
     private readonly float CLEAR_OPACTITY_VALUE = 1f;
     private readonly float OUTLINE_OPACITY_MIN_VALUE = 0.1f;
@@ -31,9 +33,9 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField]
     private Image _background3;
     [SerializeField]
-    private Image foreground;
+    private Image _foreground;
     [SerializeField]
-    private Image outline;
+    private Image _outline;
 
     public Sprite humanIcon;
     public Sprite orcIcon;
@@ -51,14 +53,20 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private string _synergyDescription;
     private int _count;
     public int Count { get { return _count; } }
-    private int _requirementCount;
+    private int _minRequirementCount;
+    private int _maxRequirementCount;
+    private int _requirementPointer;
+    private int[] _requirementCounts;
     private SynergyInfoPanel _synergyInfoPanel;
 
-    public void Initialise(string synergyName, string synergyDescription, int requirementCount, SynergyInfoPanel ip)
+    public void Initialise(string synergyName, string synergyDescription, int[] requirementCounts, SynergyInfoPanel ip)
     {
         _synergyName = synergyName;
         _synergyDescription = synergyDescription;
-        _requirementCount = requirementCount;
+        _requirementCounts = requirementCounts;
+        _requirementPointer = 0;
+        _minRequirementCount = requirementCounts[_requirementPointer];
+        _maxRequirementCount = requirementCounts[requirementCounts.Length - 1];
         _synergyInfoPanel = ip;
         setIcon();
     }
@@ -66,6 +74,8 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void AddCount()
     {
         _count++;
+        if (_count >= _requirementCounts[_requirementPointer] && _requirementPointer < _requirementCounts.Length - 1)
+            _requirementPointer++;
         this.gameObject.SetActive(isActive());
         setIndicatorStatus();
     }
@@ -73,6 +83,8 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void DecreaseCount()
     {
         _count--;
+        if (_requirementPointer > 0 && _count < _requirementCounts[_requirementPointer - 1])
+            _requirementPointer--;
         Debug.Assert(_count >= 0);
         this.gameObject.SetActive(isActive());
         setIndicatorStatus();
@@ -80,7 +92,7 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData data)
     {
-        _synergyInfoPanel.Show(_synergyName, _synergyDescription, _count, _requirementCount);
+        _synergyInfoPanel.Show(_synergyName, _synergyDescription, _count, _requirementCounts[_requirementPointer]);
     }
 
     public void OnPointerExit(PointerEventData data)
@@ -133,19 +145,19 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             default:
                 break;
         }
-        foreground.color = color;
-        setOpacity(foreground, 0.4f);
+        _foreground.color = color;
     }
 
     private void setIndicatorStatus()
     {
+        int status = (int)(Math.Floor((double)_count / (double)_requirementCounts[_requirementPointer] * 6.0));
         _hex1.gameObject.SetActive(true);
         _hex2.gameObject.SetActive(true);
         _hex3.gameObject.SetActive(true);
         _hex4.gameObject.SetActive(true);
         _hex5.gameObject.SetActive(true);
         _hex6.gameObject.SetActive(true);
-        outline.gameObject.SetActive(false);
+        _outline.gameObject.SetActive(false);
         setOpacity(_hex1, BLUR_OPACITY_VALUE);
         setOpacity(_hex2, BLUR_OPACITY_VALUE);
         setOpacity(_hex3, BLUR_OPACITY_VALUE);
@@ -156,30 +168,98 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         setOpacity(_background2, BLUR_OPACITY_VALUE);
         setOpacity(_background3, BLUR_OPACITY_VALUE);
         setOpacity(_icon, BLUR_OPACITY_VALUE);
-        setOpacity(outline, OUTLINE_OPACITY_MIN_VALUE);
-
-        switch (_count)
+        setOpacity(_outline, OUTLINE_OPACITY_MIN_VALUE);
+        setOpacity(_foreground, FOREGROUND_BLUR_OPACITY_VALUE);
+        if (_count >= _minRequirementCount)
         {
+            _outline.gameObject.SetActive(true);
+            setOpacity(_background1, CLEAR_OPACTITY_VALUE);
+            setOpacity(_background2, CLEAR_OPACTITY_VALUE);
+            setOpacity(_background3, CLEAR_OPACTITY_VALUE);
+            setOpacity(_icon, CLEAR_OPACTITY_VALUE);
+            setOpacity(_outline, OUTLINE_OPACITY_MIN_VALUE);
+            setOpacity(_foreground, FOREGROUND_CLEAR_OPACITY_VALUE);
+        }
+        setPercentageStatus(status);
+    }
+
+    private void setPercentageStatus(int status)
+    {
+        switch (status)
+        {
+            case 0:
+                break;
             case 1:
                 _hex1.gameObject.SetActive(false);
+                if (_count >= _minRequirementCount)
+                    setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
                 break;
             case 2:
                 _hex1.gameObject.SetActive(false);
                 _hex2.gameObject.SetActive(false);
+                if (_count >= _minRequirementCount)
+                {
+                    setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex2, CLEAR_OPACTITY_VALUE);
+                }
                 break;
-            default:
+            case 3:
                 _hex1.gameObject.SetActive(false);
                 _hex2.gameObject.SetActive(false);
                 _hex3.gameObject.SetActive(false);
-                outline.gameObject.SetActive(true);
-                setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
-                setOpacity(_hex2, CLEAR_OPACTITY_VALUE);
-                setOpacity(_hex3, CLEAR_OPACTITY_VALUE);
-                setOpacity(_background1, CLEAR_OPACTITY_VALUE);
-                setOpacity(_background2, CLEAR_OPACTITY_VALUE);
-                setOpacity(_background3, CLEAR_OPACTITY_VALUE);
-                setOpacity(_icon, CLEAR_OPACTITY_VALUE);
-                setOpacity(outline, OUTLINE_OPACITY_MIN_VALUE);
+                if (_count >= _minRequirementCount)
+                {
+                    setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex2, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex3, CLEAR_OPACTITY_VALUE);
+                }
+                break;
+            case 4:
+                _hex1.gameObject.SetActive(false);
+                _hex2.gameObject.SetActive(false);
+                _hex3.gameObject.SetActive(false);
+                _hex4.gameObject.SetActive(false);
+                if (_count >= _minRequirementCount)
+                {
+                    setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex2, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex3, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex4, CLEAR_OPACTITY_VALUE);
+                }
+                break;
+            case 5:
+                _hex1.gameObject.SetActive(false);
+                _hex2.gameObject.SetActive(false);
+                _hex3.gameObject.SetActive(false);
+                _hex4.gameObject.SetActive(false);
+                _hex5.gameObject.SetActive(false);
+                if (_count >= _minRequirementCount)
+                {
+                    setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex2, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex3, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex4, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex5, CLEAR_OPACTITY_VALUE);
+                }
+                break;
+            case 6:
+                _hex1.gameObject.SetActive(false);
+                _hex2.gameObject.SetActive(false);
+                _hex3.gameObject.SetActive(false);
+                _hex4.gameObject.SetActive(false);
+                _hex5.gameObject.SetActive(false);
+                _hex6.gameObject.SetActive(false);
+                if (_count >= _minRequirementCount)
+                {
+                    setOpacity(_hex1, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex2, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex3, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex4, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex5, CLEAR_OPACTITY_VALUE);
+                    setOpacity(_hex6, CLEAR_OPACTITY_VALUE);
+                }
+                break;
+            default:
                 break;
         }
     }
@@ -191,15 +271,15 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private bool isActive()
     {
-        return _count > 1;
+        return _count > 0;
     }
 
     private void Update()
     {
-        if (outline.IsActive())
+        if (_outline.IsActive())
         {
             float opacity = Mathf.Lerp(OUTLINE_OPACITY_MIN_VALUE, OUTLINE_OPACITY_MAX_VALUE, Mathf.PingPong(Time.time * 1.0f, 1.0f));
-            setOpacity(outline, opacity);
+            setOpacity(_outline, opacity);
         }
     }
 }
