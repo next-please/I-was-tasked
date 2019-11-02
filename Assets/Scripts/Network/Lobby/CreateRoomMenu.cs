@@ -19,7 +19,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        _numPlayersInput.text = "3";
+        _numPlayersInput.text = "3 ";
     }
 
     public void OnClick_CreateRoom()
