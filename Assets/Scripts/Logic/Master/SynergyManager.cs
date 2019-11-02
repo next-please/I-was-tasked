@@ -28,33 +28,36 @@ public class SynergyManager : MonoBehaviour
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
     public static int[] jobSynergyRequirement = new int[]
     {
-        5,
-        4,
-        3,
-        4,
-        2
+        GameLogicManager.Inst.Data.Synergy.DruidRequirement,
+        GameLogicManager.Inst.Data.Synergy.KnightRequirement1,
+        GameLogicManager.Inst.Data.Synergy.MageRequirement1,
+        GameLogicManager.Inst.Data.Synergy.PriestRequirement1,
+        GameLogicManager.Inst.Data.Synergy.RogueRequirement1,
     };
+
     public static int[] jobSynergyHigherRequirement = new int[]
     {
-        5,
-        11,
-        8,
-        6,
-        7
+        GameLogicManager.Inst.Data.Synergy.DruidRequirement,
+        GameLogicManager.Inst.Data.Synergy.KnightRequirement2,
+        GameLogicManager.Inst.Data.Synergy.MageRequirement2,
+        GameLogicManager.Inst.Data.Synergy.PriestRequirement2,
+        GameLogicManager.Inst.Data.Synergy.RogueRequirement2,    
     };
+
     public static int[] raceSynergyRequirement = new int[]
     {
-        5,
-        GameLogicManager.Inst.Data.Synergy.ElfRequirement,
-        4,
-        GameLogicManager.Inst.Data.Synergy.UndeadRequirement
+        GameLogicManager.Inst.Data.Synergy.HumanRequirement1,
+        GameLogicManager.Inst.Data.Synergy.ElfRequirement1,
+        GameLogicManager.Inst.Data.Synergy.OrcRequirement1,
+        GameLogicManager.Inst.Data.Synergy.UndeadRequirement1
     };
+
     public static int[] raceSynergyHigherRequirement = new int[]
     {
-        10,
-        GameLogicManager.Inst.Data.Synergy.ElfRequirement,
-        9,
-        GameLogicManager.Inst.Data.Synergy.UndeadRequirement
+        GameLogicManager.Inst.Data.Synergy.HumanRequirement2,
+        GameLogicManager.Inst.Data.Synergy.ElfRequirement1,
+        GameLogicManager.Inst.Data.Synergy.OrcRequirement2,
+        GameLogicManager.Inst.Data.Synergy.UndeadRequirement1
     };
 
     public InventoryManager inventoryManager;

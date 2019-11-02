@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class Enums
+﻿public static class Enums
 {
     public enum Job
     {
@@ -60,6 +56,23 @@ public static class Enums
         CylinderTestSicklyGreen,
         CylinderTestLightBlue,
     }
+
+    public static int[][] JobSynergyRequirements = new int[][]
+    {
+        new int[] { GameLogicManager.Inst.Data.Synergy.DruidRequirement },
+        new int[] { GameLogicManager.Inst.Data.Synergy.KnightRequirement1, GameLogicManager.Inst.Data.Synergy.KnightRequirement2 },
+        new int[] { GameLogicManager.Inst.Data.Synergy.MageRequirement1, GameLogicManager.Inst.Data.Synergy.MageRequirement2 },
+        new int[] { GameLogicManager.Inst.Data.Synergy.PriestRequirement1, GameLogicManager.Inst.Data.Synergy.PriestRequirement2 },
+        new int[] { GameLogicManager.Inst.Data.Synergy.RogueRequirement1, GameLogicManager.Inst.Data.Synergy.RogueRequirement2 }
+    };
+
+    public static int[][] RaceSynergyRequirements = new int[][]
+    {
+        new int[] { GameLogicManager.Inst.Data.Synergy.HumanRequirement1, GameLogicManager.Inst.Data.Synergy.HumanRequirement2 },
+        new int[] {GameLogicManager.Inst.Data.Synergy.ElfRequirement1,},
+        new int[] {GameLogicManager.Inst.Data.Synergy.OrcRequirement1, GameLogicManager.Inst.Data.Synergy.OrcRequirement2},
+        new int[] {GameLogicManager.Inst.Data.Synergy.UndeadRequirement1},
+    };
 
     public static string[] JobSynergyDescription = new string[]
     {

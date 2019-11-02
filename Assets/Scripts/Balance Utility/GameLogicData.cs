@@ -18,16 +18,22 @@ public class SynergyData
 {
     [Header("Job Synergy Requirement")]
     public int DruidRequirement = 4;
-    public int KnightRequirement = 5;
-    public int MageRequirement = 8;
-    public int PriestRequirement = 6;
-    public int RogueRequirement = 7;
+    public int KnightRequirement1 = 4;
+    public int KnightRequirement2 = 11;
+    public int MageRequirement1 = 3;
+    public int MageRequirement2 = 8;
+    public int PriestRequirement1 = 4;
+    public int PriestRequirement2 = 6;
+    public int RogueRequirement1 = 2;
+    public int RogueRequirement2 = 7;
 
     [Header("Race Synergy Requirement")]
-    public int HumanRequirement = 10;
-    public int ElfRequirement = 8;
-    public int OrcRequirement = 10;
-    public int UndeadRequirement = 9;
+    public int HumanRequirement1 = 5;
+    public int HumanRequirement2 = 10;
+    public int ElfRequirement1 = 8;
+    public int OrcRequirement1 = 4;
+    public int OrcRequirement2 = 9;
+    public int UndeadRequirement1 = 9;
 
     [Header("Synergy Power Variables")]
     public int HumanGoldAmount = 10;
