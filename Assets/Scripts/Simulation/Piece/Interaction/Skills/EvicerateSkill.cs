@@ -38,7 +38,10 @@ public class EvicerateSkill : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()
@@ -109,7 +112,10 @@ public class EvicerateLingeringEffect : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()

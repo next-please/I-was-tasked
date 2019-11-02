@@ -48,8 +48,11 @@ public class RampageInteractionView : InteractionView
     {
         foreach (var o in spawnedObjects)
         {
-            o.GetComponent<VisualEffect>().SendEvent("OnEnd");
-            Destroy(o);
+            if (o != null)
+            {
+                o.GetComponent<VisualEffect>().SendEvent("OnEnd");
+                Destroy(o);
+            }
         }
     }
 
