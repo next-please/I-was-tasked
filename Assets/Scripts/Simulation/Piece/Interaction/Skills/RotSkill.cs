@@ -7,7 +7,6 @@ public class RotSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    private Vector3 attackSource;
     private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.RotTickPerCount;
     public int countRemaining;
     public int rotDefaultRadius = GameLogicManager.Inst.Data.Skills.RotRadius;
@@ -31,24 +30,18 @@ public class RotSkill : Interaction
             this.ticksRemaining = ticksTilActivation;
             interactionPrefab = Enums.InteractionPrefab.Rot;
 
-            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-            attackSource.y = 0.5f;
             caster.interactions.Add(this);
         }
     }
 
     public RotSkill(Piece caster, Board board, int countRemaining)
     {
-        
         this.caster = caster;
         this.board = board;
         this.countRemaining = countRemaining;
         this.ticksTotal = 50;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.Rot;
-
-        attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackSource.y = 0.5f;
     }
 
     public override bool ProcessInteraction()
@@ -87,10 +80,11 @@ public class RotSkill : Interaction
 
         if (!caster.IsDead())
         {
-            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-            attackSource.y = 0.5f;
+            Transform casterT = caster.GetPieceView().transform;
+            projectile.transform.parent =  casterT;
+            Vector3 pos = Vector3.zero;
+            projectile.transform.localPosition = pos;
         }
-        projectile.transform.position = attackSource;
 
         if (ticksRemaining <= 0 || caster.IsDead())
         {

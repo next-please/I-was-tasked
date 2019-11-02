@@ -82,7 +82,6 @@ public class CurseOfAgonyLingeringEffect : Interaction
 {
     private Piece target;
     public int curseChange;
-    private Vector3 attackDestination;
     public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CurseOfAgonyLingerTicks;
 
     public CurseOfAgonyLingeringEffect(Piece target, int curseChange)
@@ -121,11 +120,12 @@ public class CurseOfAgonyLingeringEffect : Interaction
         GameObject projectile = interactionView.gameObject;
         if (!target.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-            attackDestination.y = 2f;
+            Transform targetT = target.GetPieceView().transform;
+            projectile.transform.parent =  targetT;
+            Vector3 pos = Vector3.zero;
+            pos.y = 2;
+            projectile.transform.localPosition = pos;
         }
-
-        projectile.transform.position = attackDestination;
 
         if (ticksRemaining <= 0 || target.IsDead())
         {

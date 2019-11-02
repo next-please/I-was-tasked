@@ -8,7 +8,6 @@ public class MarkForDeathSkill : Interaction
     private Piece caster;
     private Piece target;
     private Board board;
-    private Vector3 attackDestination;
     public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.MarkForDeathTicks;
 
     public MarkForDeathSkill(Piece caster, Piece target, Board board)
@@ -46,9 +45,11 @@ public class MarkForDeathSkill : Interaction
         GameObject projectile = interactionView.gameObject;
         if (!target.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-            attackDestination.y += 1f;
-            projectile.transform.position = attackDestination;
+            Transform targetT = target.GetPieceView().transform;
+            projectile.transform.parent =  targetT;
+            Vector3 pos = Vector3.zero;
+            pos.y = 1;
+            projectile.transform.localPosition = pos;
         }
 
         if (ticksRemaining <= 0)

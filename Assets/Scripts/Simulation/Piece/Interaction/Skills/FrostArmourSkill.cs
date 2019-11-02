@@ -134,12 +134,12 @@ public class FrostArmourLingeringEffect : Interaction
         {
             return false;
         }
-
         GameObject projectile = interactionView.gameObject;
-        attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y += 1.0f;
-        projectile.transform.position = attackDestination;
-
+        Transform targetT = target.GetPieceView().transform;
+        projectile.transform.parent =  targetT;
+        Vector3 pos = Vector3.zero;
+        pos.y = 1;
+        projectile.transform.localPosition = pos;
         return true;
     }
 
