@@ -7,10 +7,33 @@ using System;
 public class GameLogicData : ScriptableObject
 {
     public string Version = "master";
+    public int MarketDuration = 20;
+    public int PreCombatDuration = 10;
+    public int CombatDuration = 60;
     public PieceBalanceData Piece;
     public SkillData Skills;
     public GeneratorData Gen;
     public SynergyData Synergy;
+    public UniquePieceData HumanDruid;
+    public UniquePieceData HumanKnight;
+    public UniquePieceData HumanMage;
+    public UniquePieceData HumanPriest;
+    public UniquePieceData HumanRogue;
+    public UniquePieceData ElfDruid;
+    public UniquePieceData ElfKnight;
+    public UniquePieceData ElfMage;
+    public UniquePieceData ElfPriest;
+    public UniquePieceData ElfRogue;
+    public UniquePieceData OrcDruid;
+    public UniquePieceData OrcKnight;
+    public UniquePieceData OrcMage;
+    public UniquePieceData OrcPriest;
+    public UniquePieceData OrcRogue;
+    public UniquePieceData UndeadDruid;
+    public UniquePieceData UndeadKnight;
+    public UniquePieceData UndeadMage;
+    public UniquePieceData UndeadPriest;
+    public UniquePieceData UndeadRogue;
 }
 
 [Serializable]
@@ -18,19 +41,26 @@ public class SynergyData
 {
     [Header("Job Synergy Requirement")]
     public int DruidRequirement = 4;
-    public int KnightRequirement = 5;
-    public int MageRequirement = 8;
-    public int PriestRequirement = 6;
-    public int RogueRequirement = 7;
+    public int KnightRequirement1 = 4;
+    public int KnightRequirement2 = 11;
+    public int MageRequirement1 = 3;
+    public int MageRequirement2 = 8;
+    public int PriestRequirement1 = 4;
+    public int PriestRequirement2 = 6;
+    public int RogueRequirement1 = 2;
+    public int RogueRequirement2 = 7;
 
     [Header("Race Synergy Requirement")]
-    public int HumanRequirement = 10;
-    public int ElfRequirement = 8;
-    public int OrcRequirement = 10;
-    public int UndeadRequirement = 9;
+    public int HumanRequirement1 = 5;
+    public int HumanRequirement2 = 10;
+    public int ElfRequirement1 = 8;
+    public int OrcRequirement1 = 4;
+    public int OrcRequirement2 = 9;
+    public int UndeadRequirement1 = 9;
 
     [Header("Synergy Power Variables")]
-    public int HumanGoldAmount = 10;
+    public int HumanGoldAmount1 = 2;
+    public int HumanGoldAmount2 = 10;
     public double RogueDamageMultiplier = 10;
     public double RogueHitPointMultiplier = 0.1;
     public double MageStartingManaPercentage = 0.25;
@@ -38,7 +68,8 @@ public class SynergyData
     public int PriestRetributionRadius = 2;
     public int PriestRetributionHealing = 100;
     public int PriestRetributionDamage = 75;
-    public double OrcRampageHealthThreshold = 0.80;
+    public double OrcRampageHealthThreshold1 = 0.40;
+    public double OrcRampageHealthThreshold2 = 0.80;
     public int OrcRampageAttackSpeed = 3;
     public double OrcRampageArmourPercentage = -0;
     public int ElfGuidingSpiritAttackDamage = 10;
@@ -70,7 +101,7 @@ public class GeneratorData
     public int DefaultAttackRange = 1;
 
     [Header("Attack Speed")]
-    public int DefaultAttackSpeed = 5;
+    public int DefaultAttackSpeed = 4;
     public int MinAttackSpeed = 1;
     public int MaxAttackSpeed = 10;
 
@@ -132,6 +163,17 @@ public class GeneratorData
 
     [Header("Elf Druid")]
     public double ElfDruidManaMultiplier = 2;
+}
+
+[Serializable]
+public class UniquePieceData
+{
+    public int HitPoints = 150;
+    public int ManaPoints = 100;
+    public int AttackDamage = 10;
+    public int AttackRange = 1;
+    public int AttackSpeed = 4;
+    public int MovementSpeed = 5;
 }
 
 [Serializable]
@@ -212,7 +254,7 @@ public class SkillData
     public double MoonfireRarityMultiplier = 1.2;
 
     [Header("Protect Ally")]
-    public int ProtectAllyLingerTicks = 100;
+    public int ProtectAllyLingerTicks = 250;
 
     [Header("Rampage")]
     public int RampageAttackSpeed = 3;

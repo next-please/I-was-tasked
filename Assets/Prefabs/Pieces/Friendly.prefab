@@ -626,13 +626,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   statusBars: {fileID: 1756079893122853401}
+  dividerHP: {fileID: 3899346030389361901}
   currentHPBar: {fileID: 1594076393327759278}
+  midgroundHPBar: {fileID: 7707263442143445457}
   currentMPBar: {fileID: 5161616856503709136}
   rarities:
   - {fileID: 2587111171129256336}
   - {fileID: 9088863309014651979}
   - {fileID: 5194716611569615846}
   - {fileID: 4005766415491208094}
+  piece:
+    spell: 0
+    multicast: 0
+    invulnerable: 0
+    taunting: 0
   pieceSounds: {fileID: 0}
 --- !u!114 &2064829842896871211
 MonoBehaviour:
@@ -646,6 +653,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2df74e147c364fd18b83603b981b59b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  piece:
+    spell: 0
+    multicast: 0
+    invulnerable: 0
+    taunting: 0
+  rarities: []
+  rarityParent: {fileID: 0}
 --- !u!23 &1066681632
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1110,11 +1124,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6689506845954244996}
     m_Modifications:
-    - target: {fileID: 4855660549573039490, guid: 6955271da4d2a0645bbdcca176b2b47c,
-        type: 3}
-      propertyPath: m_Name
-      value: HP Bar
-      objectReference: {fileID: 0}
     - target: {fileID: 5142782745114205904, guid: 6955271da4d2a0645bbdcca176b2b47c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1170,11 +1179,48 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6213345943095943796, guid: 6955271da4d2a0645bbdcca176b2b47c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855660549573039490, guid: 6955271da4d2a0645bbdcca176b2b47c,
+        type: 3}
+      propertyPath: m_Name
+      value: HP Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4986570914556876529, guid: 6955271da4d2a0645bbdcca176b2b47c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847776444568254333, guid: 6955271da4d2a0645bbdcca176b2b47c,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4797342616459751521, guid: 6955271da4d2a0645bbdcca176b2b47c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6955271da4d2a0645bbdcca176b2b47c, type: 3}
+--- !u!1 &7707263442143445457 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2196459723406069085, guid: 6955271da4d2a0645bbdcca176b2b47c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8398887021250268300}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1594076393327759278 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7102628750338147106, guid: 6955271da4d2a0645bbdcca176b2b47c,
+    type: 3}
+  m_PrefabInstance: {fileID: 8398887021250268300}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3899346030389361901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4797342616459751521, guid: 6955271da4d2a0645bbdcca176b2b47c,
     type: 3}
   m_PrefabInstance: {fileID: 8398887021250268300}
   m_PrefabAsset: {fileID: 0}
@@ -1191,11 +1237,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6689506845954244996}
     m_Modifications:
-    - target: {fileID: 1359021304896469787, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_Name
-      value: MP Bar
-      objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1250,6 +1291,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1359021304896469787, guid: 00c39b6a602bbaa418d85a75d8569eb7,
+        type: 3}
+      propertyPath: m_Name
+      value: MP Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00c39b6a602bbaa418d85a75d8569eb7, type: 3}

@@ -9,14 +9,16 @@ public class ArrangementManager : MonoBehaviour
     public MarketManager marketManager;
     public InventoryManager inventoryManager;
     public RequestHandler requestHandler;
+    public PhaseManager phaseManager;
 
     #region Bench To Board
     public bool CanMoveBenchToBoard(Player player, Piece piece, Tile tile)
     {
         Tile actualTile = boardManager.GetActualTile(player, tile);
         Piece actualPiece = inventoryManager.GetActualBenchPiece(player, piece);
-        return inventoryManager.BenchContainsPiece(player, actualPiece) &&
-               !actualTile.IsOccupied();
+        return phaseManager.IsMovablePhase() 
+            && inventoryManager.BenchContainsPiece(player, actualPiece) 
+            && !actualTile.IsOccupied();
     }
 
     public void TryMoveBenchToBoard(Player player, Piece piece, Tile tile)
@@ -42,8 +44,9 @@ public class ArrangementManager : MonoBehaviour
     #region Board To Bench
     public bool CanMoveBoardToBench(Player player, Piece piece, int slotIndex)
     {
-        return !inventoryManager.IsBenchFull(player) &&
-               inventoryManager.IsBenchSlotVacant(player, slotIndex);
+        return phaseManager.IsMovablePhase() 
+            && !inventoryManager.IsBenchFull(player) 
+            && inventoryManager.IsBenchSlotVacant(player, slotIndex);
     }
 
     public void TryMoveBoardToBench(Player player, Piece piece, int slotIndex)
@@ -73,8 +76,9 @@ public class ArrangementManager : MonoBehaviour
     {
         Tile actualNextTile = boardManager.GetActualTile(player, nextTile);
         Piece actualPiece = boardManager.GetActualPiece(player, piece);
-        return inventoryManager.ArmyContainsPiece(player, actualPiece) &&
-               !actualNextTile.IsOccupied();
+        return phaseManager.IsMovablePhase() 
+            && inventoryManager.ArmyContainsPiece(player, actualPiece) 
+            && !actualNextTile.IsOccupied();
     }
 
     public void TryMovePieceOnBoard(Player player, Piece piece, Tile nextTile)

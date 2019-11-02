@@ -9,7 +9,7 @@ public class RampageSynergyEffect : Interaction
     private Board board;
     public int rampageDefaultAttackSpeedAmount = GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed;
     public double rampageDefaultArmourPercentage = GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage;
-    public double rampageSynergyHealthThreshold = GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold;
+    public double rampageSynergyHealthThreshold = GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold1;
     public int ticksTilActivation = 999;
 
     public RampageSynergyEffect(Piece caster, Board board)
@@ -18,6 +18,17 @@ public class RampageSynergyEffect : Interaction
         this.board = board;
         this.ticksRemaining = ticksTilActivation;
         this.ticksTotal = 0;
+    }
+
+    public RampageSynergyEffect(Piece caster, Board board, int attackSpeed, double armourPercentage, double healthThreshold)
+    {
+        this.caster = caster;
+        this.board = board;
+        this.ticksRemaining = ticksTilActivation;
+        this.ticksTotal = 0;
+        this.rampageDefaultAttackSpeedAmount = attackSpeed;
+        this.rampageDefaultArmourPercentage = armourPercentage;
+        this.rampageSynergyHealthThreshold = healthThreshold;
     }
 
     public override bool ProcessInteraction()
@@ -56,7 +67,7 @@ public class RampageSynergyEffect : Interaction
         Interaction skill = new RampageSynergyLingeringEffect(caster);
         board.AddInteractionToProcess(skill);
 
-        Debug.Log(caster.GetName() + " has Rampaged-ed " + caster.GetName() + " to increase attack speed to " + caster.GetAttackSpeed() + " and armour to " + caster.GetArmourPercentage() + ".");
+        Debug.Log(caster.GetName() + " has Rampaged-ed at " + (double)caster.GetCurrentHitPoints()/ caster.GetMaximumHitPoints() + " percent health to increase attack speed to " + caster.GetAttackSpeed() + " and armour to " + caster.GetArmourPercentage() + ".");
     }
 }
 
@@ -69,7 +80,7 @@ public class RampageSynergyLingeringEffect : Interaction
     {
         this.caster = caster;
         this.ticksRemaining = 999;
-        interactionPrefab = Enums.InteractionPrefab.EviscerateBleed;
+        interactionPrefab = Enums.InteractionPrefab.RampageSynergy;
     }
 
     public override bool ProcessInteraction()
@@ -93,14 +104,15 @@ public class RampageSynergyLingeringEffect : Interaction
     public override bool ProcessInteractionView()
     {
         GameObject projectile = interactionView.gameObject;
+        Transform casterT = caster.GetPieceView().transform;
 
         if (!caster.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-            attackDestination.y += 3.5f;
+            projectile.transform.parent =  casterT;
+            Vector3 pos = Vector3.zero;
+            pos.y = 1;
+            projectile.transform.localPosition = pos;
         }
-
-        projectile.transform.position = attackDestination;
 
         if (ticksRemaining <= 0 || caster.IsDead())
         {

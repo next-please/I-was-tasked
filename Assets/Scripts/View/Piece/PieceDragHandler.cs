@@ -26,6 +26,8 @@ public class PieceDragHandler : InteractablePiece
     private Vector3 originalPos;
     private Animator animator;
 
+    bool inCombat = false;
+
     void OnEnable()
     {
         EventManager.Instance.AddListener<PieceMoveEvent>(OnPieceMove);
@@ -50,7 +52,8 @@ public class PieceDragHandler : InteractablePiece
 
     public void OnEnterPhase(EnterPhaseEvent e)
     {
-        if (e.phase == Phase.Combat)
+        inCombat = e.phase == Phase.Combat;
+        if (inCombat)
         {
             OnEmptyDrop();
         }
@@ -80,7 +83,7 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnBenchDrop(BenchSlot slot)
     {
-        if (slot.isOccupied)
+        if (slot.isOccupied || inCombat)
         {
             OnEmptyDrop();
             return;

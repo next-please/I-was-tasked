@@ -16,7 +16,7 @@ public class Market : ScriptableObject, IReadOnlyMarket
     public List<Piece> MarketPieces;
     private int marketSize = 0;
     public int MarketTier = 1; //also used as price for market increase, don't know if here or what
-    public int CastleHealth = 10;
+    public int CastleHealth = 15;
     public readonly int MaxMarketSize = 12;
 
     void OnEnable()

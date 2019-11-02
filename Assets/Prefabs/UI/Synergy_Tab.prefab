@@ -895,8 +895,8 @@ MonoBehaviour:
   _background1: {fileID: 1470015148891844972}
   _background2: {fileID: 5207465518850692344}
   _background3: {fileID: 2038794131627095860}
-  foreground: {fileID: 4509246503899746278}
-  outline: {fileID: 8682062115737623648}
+  _foreground: {fileID: 4509246503899746278}
+  _outline: {fileID: 8682062115737623648}
   humanIcon: {fileID: 21300000, guid: 7fdc8d15d57f57b4cb2477865f4b76d4, type: 3}
   orcIcon: {fileID: 21300000, guid: 2f47270520bb29243a9cfce847dc5a7d, type: 3}
   elfIcon: {fileID: 21300000, guid: 4f6c19c38c140804ebfab6268fccb94b, type: 3}

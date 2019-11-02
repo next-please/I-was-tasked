@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 
 public class MoveFromBenchToBoardEvent : GameEvent
 {
@@ -35,13 +31,23 @@ public class BenchItem : InteractablePiece
     [HideInInspector]
     public int index;
 
+    public void AdjustRarityRotationView(Player player)
+    {
+        foreach (GameObject rarity in rarities)
+        {
+            rarity.SetActive(false);
+        }
+        rarityParent.transform.LookAt(rarityParent.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        rarityParent.transform.eulerAngles = new Vector3(rarityParent.transform.eulerAngles.x, 45.0f * (int) player, 0.0f);
+        rarities[piece.GetRarity() - 1].SetActive(true);
+    }
+
     public void InstantiateModelPrefab(GameObject characterModel)
     {
         GameObject modelPrefab = Instantiate(characterModel) as GameObject;
         modelPrefab.transform.SetParent(this.transform);
         modelPrefab.transform.localPosition = Vector3.zero;
         modelPrefab.transform.localScale = Vector3.one;
-
         animator = modelPrefab.GetComponent<Animator>();
     }
 
@@ -60,6 +66,7 @@ public class BenchItem : InteractablePiece
 
     public override void OnDrag(PointerEventData eventData)
     {
+        rarityParent.transform.LookAt(rarityParent.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
         transform.position = GetMouseWorldPosition();
     }
 
@@ -70,6 +77,7 @@ public class BenchItem : InteractablePiece
             OnEmptyDrop();
             return;
         }
+        rarityParent.transform.LookAt(rarityParent.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
         EventManager.Instance.Raise(new MoveOnBenchEvent { piece = piece, slotIndex = targetSlot.index });
         Destroy(gameObject);
     }

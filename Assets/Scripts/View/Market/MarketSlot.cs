@@ -27,7 +27,7 @@ public class MarketSlot : MonoBehaviour
     {
         isOccupied = true;
         price.SetActive(true);
-        price.GetComponent<TextMesh>().text = string.Format("{0}", (int) Math.Pow(2, piece.GetRarity() - 1));
+        price.GetComponent<TextMesh>().text = string.Format("{0}", piece.GetPrice());
         rarities[piece.GetRarity() - 1].SetActive(true);
 
         // create item prefab

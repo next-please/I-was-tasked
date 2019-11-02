@@ -11,6 +11,7 @@ public class Simulator : Tickable
     private Player player;
     private Board gameBoard;
     private int bonusGold = 1; // Earn 1 Bonus Gold for winning the round.
+    private bool _resolveForced = false;
 
     public void SetGameBoard(Board board, Player player)
     {
@@ -22,6 +23,11 @@ public class Simulator : Tickable
     {
         shouldRun = true;
         incomeManager.SetIncomeGeneratedByPlayer(player, 0); // Reset any bonus gold from winning.
+    }
+
+    public void ForceResolve()
+    {
+        _resolveForced = true;
     }
 
     public override void Tick(long tick)
@@ -75,7 +81,7 @@ public class Simulator : Tickable
         List<Piece> piecesOnBoard = gameBoard.GetActivePiecesOnBoard();
         int numEnemies = piecesOnBoard.Where(piece => piece.IsEnemy()).Count();
         int numFriends = piecesOnBoard.Where(piece => !piece.IsEnemy()).Count();
-        if (numEnemies == 0 || numFriends == 0)
+        if (_resolveForced || numEnemies == 0 || numFriends == 0)
         {
             Debug.Log("Game has been resolved.");
 
@@ -92,6 +98,7 @@ public class Simulator : Tickable
             }
 
             gameBoard.ClearInteractionsToProcess();
+            _resolveForced = false;
             return true;
         }
         return false;

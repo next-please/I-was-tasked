@@ -3,11 +3,12 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class RoomListing : MonoBehaviour
 {
     [SerializeField]
-    private Text _text;
+    private TextMeshProUGUI _text;
 
     public RoomInfo RoomInfo { get; private set; }
 

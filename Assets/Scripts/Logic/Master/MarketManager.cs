@@ -20,6 +20,24 @@ public class MarketManager : MonoBehaviour
         market.CastleHealth = StartingCastleHealth;
     }
 
+    public int GetMarketUpgradeCost(int currentMarketTier)
+    {
+        switch (currentMarketTier)
+        {
+            case 1:
+                return 3;
+            case 2:
+                return 6;
+            case 3:
+                return 9;
+            case 4:
+                return 12;
+            default:
+                return 99;
+        }
+
+    }
+
     public bool CalculateAndApplyDamageToCastle(List<Piece> piecesOnBoard)
     {
         int totalDamage = 0;
@@ -43,9 +61,25 @@ public class MarketManager : MonoBehaviour
         return market.GetCastleHealth();
     }
 
+    public bool CalculateAndApplyDamageToCastle(int updatedHealth)
+    {
+        if (updatedHealth == market.GetCastleHealth())
+            return false;
+
+        int totalDamage = market.GetCastleHealth() - updatedHealth;
+        market.CastleHealth -= totalDamage;
+        if(totalDamage > 0)
+        {
+            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Combat is over! " + totalDamage + " damage done to castle!" });
+            EventManager.Instance.Raise(new DamageTakenEvent { currentHealth = market.CastleHealth });
+        }
+        EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
+        return true;
+    }
+
     public List<Piece> GenerateMarketItems()
     {
-        bool orcCountry = inventoryManager.synergyManager.HasSynergy(Enums.Race.Orc);
+        bool orcCountry = inventoryManager.synergyManager.HasBetterSynergy(Enums.Race.Orc);
 
         if (market.MarketPieces != null)
         {
@@ -94,6 +128,8 @@ public class MarketManager : MonoBehaviour
     public List<Piece> UpgradePiecesWithTier(int marketTier)
     {
         var marketPieceCopy = new List<Piece>(market.MarketPieces);
+        return marketPieceCopy;
+        //No more reactive upgrades for market
         Piece marketPiece;
         for (int i = 0; i < marketPieceCopy.Count; i++)
         {
@@ -135,7 +171,16 @@ public class MarketManager : MonoBehaviour
 
     public Piece GenerateMarketPiece()
     {
-        return characterGenerator.GenerateCharacter(market.GetMarketTier());
+        bool orcCountry = inventoryManager.synergyManager.HasBetterSynergy(Enums.Race.Orc);
+        Piece piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
+        if (orcCountry)
+        {
+            while (piece.GetRace() != Enums.Race.Orc)
+            {
+                piece = characterGenerator.GenerateCharacter(market.GetMarketTier());
+            }
+        }
+        return piece;
     }
 
     public Piece GetActualMarketPiece(Piece piece)

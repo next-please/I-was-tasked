@@ -147,7 +147,7 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 160, 100, 10, 1, 5, 5);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 160, 100, 10, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
@@ -172,15 +172,15 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 120, 100, 8, 1, 5, 5);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 120, 100, 8, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 12, 1, 5, 5);
+                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 12, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Priest, 1, true, 60, 100, 5, 2, 5, 5);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Priest, 1, true, 60, 100, 5, 2, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 6);
                 enemies.Add(enemy);
@@ -205,21 +205,24 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Human, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
+                enemy.SetAttackDamage(16);
+                enemy.SetMaximumHitPoints(200);
+                enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Orc, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Orc, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
@@ -247,27 +250,27 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 7, 1, 5, 5);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 5, 1, 4, 5);
+                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 6, 1, 3, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #3)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 5, 6, 5, 5);
+                enemy = new Piece("Enemy #3)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 7, 6, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #4)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 6, 6, 6, 5);
+                enemy = new Piece("Enemy #4)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 7, 6, 5, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 7);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #5)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 6, 5);
+                enemy = new Piece("Enemy #5)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 9, 1, 5, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #6)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 7, 1, 5, 5);
+                enemy = new Piece("Enemy #6)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(6, 4);
                 enemies.Add(enemy);
@@ -292,32 +295,34 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Human, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
+                enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Human, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 6);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Human, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
+                enemy.SetMaximumHitPoints(270);
+                enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Priest, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Priest, Enums.Race.Human, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 1.5));
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
@@ -342,37 +347,42 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
+                enemy.spell = Enums.Spell.ShadowStrike;
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Human, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
+                enemy.spell = Enums.Spell.ShadowStrike;
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
+                enemy.spell = Enums.Spell.ShadowStrike;
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Orc, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
+                enemy.spell = Enums.Spell.ShadowStrike;
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Orc, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
+                enemy.spell = Enums.Spell.ShadowStrike;
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 6);
@@ -398,58 +408,78 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Priest, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
+                enemy.invulnerable = true;
                 enemy.SetName("Enemy #1");
+                enemy.SetMaximumHitPoints(300);
+                enemy.SetCurrentHitPoints(300);
+                enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(2);
+                enemy.startingSpot = new Tuple<int, int>(2, 7);
+                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
+                enemies.Add(enemy);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Druid, Enums.Race.Undead, false);
+                enemy.SetIsEnemy(true);
+                enemy.invulnerable = true;
+                enemy.SetName("Enemy #2");
+                enemy.SetMaximumHitPoints(200);
+                enemy.SetCurrentHitPoints(200);
+                enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
+                enemy.SetTitle("");
+                enemy.SetDamageIfSurvive(2);
+                enemy.startingSpot = new Tuple<int, int>(5, 7);
+                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
+                enemies.Add(enemy);
+                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Knight, Enums.Race.Undead, false);
+                enemy.SetIsEnemy(true);
+                enemy.invulnerable = true;
+                enemy.spell = Enums.Spell.NoSkill;
+                enemy.SetName("Enemy #3");
+                enemy.SetMaximumHitPoints(500);
+                enemy.SetCurrentHitPoints(500);
+                enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
+                enemy.SetTitle("");
+                enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 6);
                 enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Druid, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Druid, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #2");
-                enemy.SetTitle("");
-                enemy.SetAttackRange(3);
-                enemy.SetDamageIfSurvive(2);
-                enemy.startingSpot = new Tuple<int, int>(5, 6);
-                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
-                enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Knight, Enums.Race.Undead);
-                enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #3");
-                enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(2, 5);
-                enemy.interactions.Add(new DecayingSynergyEffect(enemy));
-                enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Druid, Enums.Race.Undead);
-                enemy.SetIsEnemy(true);
-                enemy.SetAttackRange(2);
+                enemy.invulnerable = true;
                 enemy.SetName("Enemy #4");
+                enemy.SetMaximumHitPoints(400);
+                enemy.SetCurrentHitPoints(400);
+                enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(3, 4);
+                enemy.startingSpot = new Tuple<int, int>(3, 6);
                 enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(5, Enums.Job.Rogue, Enums.Race.Human);
-                enemy.SetClass(Enums.Job.Knight);
-                enemy.SetRace(Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
+                enemy.invulnerable = true;
                 enemy.SetName("Enemy #5");
+                enemy.spell = Enums.Spell.NoSkill;
+                enemy.SetMaximumHitPoints(100);
+                enemy.SetCurrentHitPoints(100);
+                enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(4, 4);
+                enemy.startingSpot = new Tuple<int, int>(4, 6);
                 enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Rogue, Enums.Race.Human);
-                enemy.SetClass(Enums.Job.Knight);
-                enemy.SetRace(Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Priest, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
+                enemy.invulnerable = true;
                 enemy.SetName("Enemy #6");
+                enemy.SetMaximumHitPoints(600);
+                enemy.SetCurrentHitPoints(600);
+                enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(5, 5);
+                enemy.startingSpot = new Tuple<int, int>(5, 7);
                 enemy.interactions.Add(new DecayingSynergyEffect(enemy));
                 enemies.Add(enemy);
                 break;
@@ -473,7 +503,7 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Elf);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Elf, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
@@ -481,7 +511,7 @@ public class EnemyGenerator
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Elf);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Elf, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
@@ -489,7 +519,7 @@ public class EnemyGenerator
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Elf);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Elf, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
@@ -497,7 +527,7 @@ public class EnemyGenerator
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Mage, Enums.Race.Elf);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Mage, Enums.Race.Elf, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
@@ -505,7 +535,7 @@ public class EnemyGenerator
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(7, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Mage, Enums.Race.Elf);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Mage, Enums.Race.Elf, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
@@ -534,61 +564,54 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #7");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 4);
-                enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Undead);
-                enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #8");
-                enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(7, 4);
                 enemies.Add(enemy);
                 break;
         }
@@ -611,42 +634,53 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Rogue, Enums.Race.Elf);
+                enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Mage, Enums.Race.Elf, true);
                 enemy.SetIsEnemy(true);
+                enemy.spell = Enums.Spell.InfiniteMagicMissile;
                 enemy.SetAttackRange(10);
-                enemy.SetCurrentManaPoints(100);
+                enemy.SetMaximumHitPoints(440);
+                enemy.SetCurrentHitPoints(440);
+                enemy.SetCurrentManaPoints(80);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(3);
+                enemy.SetDamageIfSurvive(2);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Orc, false);
                 enemy.SetIsEnemy(true);
+                enemy.spell = Enums.Spell.NoSkill;
                 enemy.SetAttackRange(10);
+                enemy.SetMaximumManaPoints(150);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Orc, false);
                 enemy.SetIsEnemy(true);
+                enemy.spell = Enums.Spell.NoSkill;
                 enemy.SetAttackRange(10);
+                enemy.SetMaximumManaPoints(150);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Orc, false);
                 enemy.SetIsEnemy(true);
+                enemy.spell = Enums.Spell.NoSkill;
                 enemy.SetAttackRange(10);
+                enemy.SetMaximumManaPoints(150);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Orc, false);
                 enemy.SetIsEnemy(true);
+                enemy.spell = Enums.Spell.NoSkill;
                 enemy.SetAttackRange(10);
+                enemy.SetMaximumManaPoints(150);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
@@ -673,14 +707,14 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Druid, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Druid, Enums.Race.Human, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Druid, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Druid, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
@@ -688,7 +722,7 @@ public class EnemyGenerator
                 enemy.SetAttackRange(3);
                 enemy.startingSpot = new Tuple<int, int>(3, 6);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Druid, Enums.Race.Elf);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Druid, Enums.Race.Elf, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
@@ -697,21 +731,21 @@ public class EnemyGenerator
                 enemy.SetAttackRange(3);
                 enemy.startingSpot = new Tuple<int, int>(4, 6);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Orc, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Druid, Enums.Race.Orc);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Druid, Enums.Race.Orc, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Human);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Human, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
@@ -739,9 +773,11 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(7, Enums.Job.Knight, Enums.Race.Undead);
-                enemy.SetClass(Enums.Job.Mage);
+                enemy = characterGenerator.GenerateCharacter(7, Enums.Job.Knight, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
+                enemy.spell = Enums.Spell.Berserk;
+                enemy.SetMaximumHitPoints(4000);
+                enemy.SetCurrentHitPoints(4000);
                 enemy.SetName("Enemy #1");
                 enemy.SetMaximumManaPoints(150);
                 enemy.SetMovementSpeed(2);
@@ -774,42 +810,42 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
@@ -837,42 +873,42 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
@@ -900,42 +936,42 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");

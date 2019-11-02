@@ -19,6 +19,7 @@ public class Piece : ISerializable
     private string title;
     private Enums.Race race;
     private Enums.Job job;
+    public Enums.Spell spell;
     private int rarity;
     private bool isEnemy;
     private int roundsSurvived; // Previously: To check for the level (rarity) increase.
@@ -81,7 +82,7 @@ public class Piece : ISerializable
     public Piece(string name, string title, Enums.Race race, Enums.Job job, int rarity, bool isEnemy,
                  int defaultMaximumHitPoints, int maximumManaPoints,
                  int defaultAttackDamage, int defaultAttackRange,
-                 int defaultAttackSpeed, int defaultMovementSpeed)
+                 int defaultAttackSpeed, int defaultMovementSpeed, Enums.Spell spell)
     {
         this.guid = Guid.NewGuid().ToString();
 
@@ -89,6 +90,7 @@ public class Piece : ISerializable
         SetRace(race);
         SetClass(job);
         SetTitle(title);
+        this.spell = spell;
         SetRarity(rarity);
         SetIsEnemy(isEnemy);
         SetRoundsSurvived(0);
@@ -151,7 +153,12 @@ public class Piece : ISerializable
         this.entryState = this.state;
     }
 
-     // The special constructor is used to deserialize values.
+    internal void RemoveLinkedProtectingPiece()
+    {
+        linkedProtectingPiece = null;
+    }
+
+    // The special constructor is used to deserialize values.
     public Piece(SerializationInfo info, StreamingContext context)
     {
         // In Order of Declaration
@@ -165,6 +172,7 @@ public class Piece : ISerializable
         title = (string) info.GetValue("title", typeof(string));
         race = (Enums.Race) info.GetValue("race", typeof(Enums.Race));
         job = (Enums.Job) info.GetValue("job", typeof(Enums.Job));
+        spell = (Enums.Spell)info.GetValue("spell", typeof(Enums.Spell));
         rarity = (int) info.GetValue("rarity", typeof(int));
         isEnemy = (bool) info.GetValue("isEnemy", typeof(bool));
         roundsSurvived = (int) info.GetValue("roundsSurvived", typeof(int));
@@ -229,6 +237,7 @@ public class Piece : ISerializable
         info.AddValue("title", title, typeof(string));
         info.AddValue("race", race, typeof(Enums.Race));
         info.AddValue("job", job, typeof(Enums.Job));
+        info.AddValue("spell", spell, typeof(Enums.Spell));
         info.AddValue("rarity", rarity, typeof(int));
         info.AddValue("isEnemy", isEnemy, typeof(bool));
         info.AddValue("roundsSurvived", roundsSurvived, typeof(int));
@@ -409,6 +418,7 @@ public class Piece : ISerializable
         SetCurrentManaPoints(0);
         SetAttackDamage(GetDefaultAttackDamage());
         SetAttackRange(GetDefaultAttackRange());
+        SetAttackSpeed(GetDefaultAttackSpeed());
         SetMovementSpeed(GetDefaultMovementSpeed());
 
         SetLifestealPercentage(GetDefaultLifestealPercentage());
@@ -620,7 +630,17 @@ public class Piece : ISerializable
 
     public int GetPrice()
     {
-        return (int)Math.Pow(2, rarity - 1);
+        switch (rarity)
+        {
+            case 1:
+                return 1;
+            case 2:
+                return 3;
+            case 3:
+                return 5;
+            default:
+                return 1;
+        }
     }
 
     public IViewState GetViewState()

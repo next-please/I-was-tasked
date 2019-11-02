@@ -17,7 +17,7 @@ public class SynergyTabMenu : MonoBehaviour
 
     private List<SynergyTab> _synergyTabs = new List<SynergyTab>();
 
-    public void IncrementSynergyTab(string synergyName, string synergyDescription, int requirementCount)
+    public void IncrementSynergyTab(string synergyName, string synergyDescription, int[] requirementCounts)
     {
         foreach (SynergyTab s in _synergyTabs)
         {
@@ -32,7 +32,7 @@ public class SynergyTabMenu : MonoBehaviour
         {
             SynergyTab tab = Instantiate(_synergyTab, _content);
             _synergyTabs.Add(tab);
-            tab.Initialise(synergyName, synergyDescription, requirementCount, _info);
+            tab.Initialise(synergyName, synergyDescription, requirementCounts, _info);
             tab.AddCount();
         }
         sortTabs();

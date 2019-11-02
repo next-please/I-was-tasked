@@ -59,6 +59,15 @@ public class BoardManager : MonoBehaviour
         return boards[index];
     }
 
+    public void ForceAllBoardsToResolve(int numPlayers = 1)
+    {
+        for(int i = 0; i < numPlayers; ++i)
+        {
+            Simulator sim = Simulators[i];
+            sim.ForceResolve();
+        }
+    }
+
     public void ResetBoards(int numPlayers = 1)
     {
         for (int i = 0; i < numPlayers; ++i)

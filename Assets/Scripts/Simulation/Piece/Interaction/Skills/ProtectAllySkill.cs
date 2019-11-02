@@ -46,48 +46,39 @@ public class ProtectAllySkill : Interaction
 
     private void ApplyEffect()
     {
-        if (caster.IsDead())
+
+        
+        Piece target;
+        List<Piece> tempList;
+        if (!caster.IsEnemy())
+        {
+            tempList = board.GetActiveFriendliesOnBoard().FindAll(x => x != caster);
+        }
+        else
+        {
+            tempList = board.GetActiveEnemiesOnBoard().FindAll(x => x != caster);
+        }
+
+        if (caster.IsDead() || tempList.Count == 0)
         {
             return;
         }
 
-        int targetIndex;
-        if (!caster.IsEnemy())
-        {
-            targetIndex = board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count - 1);
-        }
-        else
-        {
-            targetIndex = board.GetRNGesus().Next(0, board.GetActiveEnemiesOnBoard().Count - 1);
-        }
-
-        Piece target;
-        if (!caster.IsEnemy())
-        {
-            if (board.GetActiveFriendliesOnBoard()[targetIndex].Equals(caster))
-            {
-                target = board.GetActiveFriendliesOnBoard()[board.GetActiveFriendliesOnBoard().Count - 1];
-            }
-            else
-            {
-                target = board.GetActiveFriendliesOnBoard()[targetIndex];
-            }
-        }
-        else
-        {
-            if (board.GetActiveEnemiesOnBoard()[targetIndex].Equals(caster))
-            {
-                target = board.GetActiveEnemiesOnBoard()[board.GetActiveEnemiesOnBoard().Count - 1];
-            }
-            else
-            {
-                target = board.GetActiveEnemiesOnBoard()[targetIndex];
-            }
-        }
-
+        tempList.Sort((x, y) => (int)(100 * ((double)x.GetCurrentHitPoints() / x.GetMaximumHitPoints() - (double)y.GetCurrentHitPoints() / y.GetMaximumHitPoints())));
+        target = tempList[0];
+        
         target.SetLinkedProtectingPiece(ref caster);
-        Interaction skill = new ProtectAllyLingeringEffect(target);
-        board.AddInteractionToProcess(skill);
+        if (target.interactions.Find(x => x.identifier.Equals("ProtectAlly")) != null)
+        {
+            Interaction skill = target.interactions.Find(x => x.identifier.Equals("ProtectAlly"));
+            skill.ticksRemaining = ticksTilActivation;
+        }
+        else
+        {
+            Interaction skill = new ProtectAllyLingeringEffect(target);
+            board.AddInteractionToProcess(skill);
+            target.interactions.Add(skill);
+        }
 
         Debug.Log(caster.GetName() + " has ProtectAlly-ed " + target.GetName() + " to take damage from attacks instead of them.");
 
@@ -102,6 +93,7 @@ public class ProtectAllyLingeringEffect : Interaction
 
     public ProtectAllyLingeringEffect(Piece target)
     {
+        this.identifier = "ProtectAlly";
         this.target = target;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ProtectAlly;
@@ -145,6 +137,8 @@ public class ProtectAllyLingeringEffect : Interaction
 
     private void Fizzle()
     {
+        target.RemoveLinkedProtectingPiece();
+        target.interactions.Remove(this);
     }
 
 }

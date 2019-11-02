@@ -63,7 +63,7 @@ MonoBehaviour:
     MoonfireDefaultDamage: 58
     MoonfireLingerTicks: 20
     MoonfireRarityMultiplier: 1.2
-    ProtectAllyLingerTicks: 100
+    ProtectAllyLingerTicks: 250
     RampageAttackSpeed: 3
     RampageArmourPercentage: -0.25
     RampageLingerTicks: 250
@@ -84,10 +84,10 @@ MonoBehaviour:
     ThunderStormCount: 5
     ThunderStormBoltDamage: 28
     ThunderStormRarityMultiplier: 1.2
-    UnholyAuraTickPerCount: 25
+    UnholyAuraTickPerCount: 12
     UnholyAuraRadius: 4
-    UnholyAuraCount: 15
-    UnholyAuraDamage: 7
+    UnholyAuraCount: 25
+    UnholyAuraDamage: 15
     UnholyAuraRarityMultiplier: 1.2
   Gen:
     DefaultHitPoints: 150
@@ -96,7 +96,7 @@ MonoBehaviour:
     DefaultAttackDamage: 10
     AttackDamageMultiplier: 1.5
     DefaultAttackRange: 1
-    DefaultAttackSpeed: 5
+    DefaultAttackSpeed: 4
     MinAttackSpeed: 1
     MaxAttackSpeed: 10
     DefaulMovementSpeed: 5
@@ -145,8 +145,8 @@ MonoBehaviour:
     OrcRequirement: 10
     UndeadRequirement: 9
     HumanGoldAmount: 10
-    RogueDamageMultiplier: 10
-    RogueHitPointMultiplier: 0.1
+    RogueDamageMultiplier: 3
+    RogueHitPointMultiplier: 0.33
     MageStartingManaPercentage: 0.25
     UndeadTicksToDie: 500
     PriestRetributionRadius: 2
@@ -158,3 +158,143 @@ MonoBehaviour:
     ElfGuidingSpiritAttackDamage: 10
     ElfGuidingSpiritAttackSpeed: 1
     GuidingSpiritLingerTicks: 50
+  HumanDruid:
+    HitPoints: 900
+    ManaPoints: 100
+    AttackDamage: 12
+    AttackRange: 1
+    AttackSpeed: 4
+    MovementSpeed: 5
+  HumanKnight:
+    HitPoints: 300
+    ManaPoints: 100
+    AttackDamage: 20
+    AttackRange: 1
+    AttackSpeed: 4
+    MovementSpeed: 5
+  HumanMage:
+    HitPoints: 140
+    ManaPoints: 87
+    AttackDamage: 9
+    AttackRange: 3
+    AttackSpeed: 4
+    MovementSpeed: 5
+  HumanPriest:
+    HitPoints: 110
+    ManaPoints: 50
+    AttackDamage: 11
+    AttackRange: 5
+    AttackSpeed: 4
+    MovementSpeed: 5
+  HumanRogue:
+    HitPoints: 150
+    ManaPoints: 120
+    AttackDamage: 12
+    AttackRange: 1
+    AttackSpeed: 5
+    MovementSpeed: 6
+  ElfDruid:
+    HitPoints: 220
+    ManaPoints: 70
+    AttackDamage: 18
+    AttackRange: 2
+    AttackSpeed: 4
+    MovementSpeed: 5
+  ElfKnight:
+    HitPoints: 300
+    ManaPoints: 100
+    AttackDamage: 10
+    AttackRange: 1
+    AttackSpeed: 4
+    MovementSpeed: 5
+  ElfMage:
+    HitPoints: 220
+    ManaPoints: 80
+    AttackDamage: 14
+    AttackRange: 4
+    AttackSpeed: 4
+    MovementSpeed: 5
+  ElfPriest:
+    HitPoints: 150
+    ManaPoints: 75
+    AttackDamage: 12
+    AttackRange: 2
+    AttackSpeed: 4
+    MovementSpeed: 5
+  ElfRogue:
+    HitPoints: 274
+    ManaPoints: 100
+    AttackDamage: 26
+    AttackRange: 1
+    AttackSpeed: 7
+    MovementSpeed: 6
+  OrcDruid:
+    HitPoints: 300
+    ManaPoints: 100
+    AttackDamage: 10
+    AttackRange: 1
+    AttackSpeed: 4
+    MovementSpeed: 5
+  OrcKnight:
+    HitPoints: 225
+    ManaPoints: 100
+    AttackDamage: 15
+    AttackRange: 1
+    AttackSpeed: 4
+    MovementSpeed: 5
+  OrcMage:
+    HitPoints: 400
+    ManaPoints: 100
+    AttackDamage: 30
+    AttackRange: 4
+    AttackSpeed: 4
+    MovementSpeed: 5
+  OrcPriest:
+    HitPoints: 150
+    ManaPoints: 100
+    AttackDamage: 10
+    AttackRange: 4
+    AttackSpeed: 4
+    MovementSpeed: 5
+  OrcRogue:
+    HitPoints: 160
+    ManaPoints: 100
+    AttackDamage: 14
+    AttackRange: 1
+    AttackSpeed: 5
+    MovementSpeed: 6
+  UndeadDruid:
+    HitPoints: 150
+    ManaPoints: 100
+    AttackDamage: 10
+    AttackRange: 3
+    AttackSpeed: 3
+    MovementSpeed: 4
+  UndeadKnight:
+    HitPoints: 150
+    ManaPoints: 70
+    AttackDamage: 10
+    AttackRange: 1
+    AttackSpeed: 3
+    MovementSpeed: 4
+  UndeadMage:
+    HitPoints: 240
+    ManaPoints: 100
+    AttackDamage: 11
+    AttackRange: 2
+    AttackSpeed: 3
+    MovementSpeed: 4
+  UndeadPriest:
+    HitPoints: 750
+    ManaPoints: 120
+    AttackDamage: 12
+    AttackRange: 3
+    AttackSpeed: 3
+    MovementSpeed: 4
+  UndeadRogue:
+    HitPoints: 235
+    ManaPoints: 100
+    AttackDamage: 16
+    AttackRange: 1
+    AttackSpeed: 4
+    MovementSpeed: 5

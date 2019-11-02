@@ -3,6 +3,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
@@ -15,7 +16,10 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     private PlayerListing _playerListing;
 
     [SerializeField]
-    private Text _readyText;
+    private TextMeshProUGUI _readyText;
+
+    [SerializeField]
+    private TextMeshProUGUI _readyTextPressed;
 
     [SerializeField]
     private GameObject _readyButton;

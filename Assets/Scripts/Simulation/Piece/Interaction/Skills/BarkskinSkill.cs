@@ -7,7 +7,7 @@ public class BarkskinSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    public int barkskinDefaultBlockAmount = GameLogicManager.Inst.Data.Skills.BarkSkinBlockAmount;
+    public double barkskinDefaultReflectAmount = 0.25;
     public int ticksTilActivation = 0;
 
     public BarkskinSkill(Piece caster, Board board)
@@ -56,26 +56,18 @@ public class BarkskinSkill : Interaction
         {
             BarkskinLingeringEffect skill = (BarkskinLingeringEffect)caster.interactions.Find(x => x.identifier.Equals("Barkskin"));
             skill.ticksRemaining = BarkskinLingeringEffect.ticksTilActivation;
-            int blockAmount = barkskinDefaultBlockAmount;
-            blockAmount = (int)Math.Floor(blockAmount * Math.Pow(GameLogicManager.Inst.Data.Skills.BarkSkinRarityMultiplier, caster.GetRarity()));
-            if (blockAmount > skill.blockAmount)
-            {
-                caster.SetBlockAmount(caster.GetBlockAmount() + (blockAmount - skill.blockAmount));
-                skill.blockAmount = blockAmount;
-            }
         }
         else
         {
-            int blockAmount = barkskinDefaultBlockAmount;
-            blockAmount = (int)Math.Floor(blockAmount * Math.Pow(GameLogicManager.Inst.Data.Skills.BarkSkinRarityMultiplier, caster.GetRarity()));
-            caster.SetBlockAmount(caster.GetBlockAmount() + blockAmount);
+            double reflectAmount = barkskinDefaultReflectAmount;
+            caster.SetRecoilPercentage(caster.GetRecoilPercentage() + reflectAmount);
 
-            Interaction skill = new BarkskinLingeringEffect(caster, blockAmount);
+            Interaction skill = new BarkskinLingeringEffect(caster, reflectAmount);
             board.AddInteractionToProcess(skill);
             caster.interactions.Add(skill);
         }
 
-        Debug.Log(caster.GetName() + " has Barkskin-ed " + caster.GetName() + " to increase block to " + caster.GetBlockAmount() + ".");
+        Debug.Log(caster.GetName() + " has Barkskin-ed " + caster.GetName() + " to increase recoil to " + caster.GetRecoilPercentage() + ".");
     }
 }
 
@@ -84,13 +76,13 @@ public class BarkskinLingeringEffect : Interaction
     public Piece caster;
     private Vector3 attackDestination;
     public static int ticksTilActivation = GameLogicManager.Inst.Data.Skills.BarkSkinLingerTicks;
-    public int blockAmount;
+    public double reflectAmount;
 
-    public BarkskinLingeringEffect(Piece caster, int blockAmount)
+    public BarkskinLingeringEffect(Piece caster, double reflectAmount)
     {
         this.identifier = "Barkskin";
         this.caster = caster;
-        this.blockAmount = blockAmount;
+        this.reflectAmount = reflectAmount;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.BarkSkin;
     }
@@ -142,10 +134,10 @@ public class BarkskinLingeringEffect : Interaction
         {
             return;
         }
-        caster.SetBlockAmount(caster.GetBlockAmount() - blockAmount);
+        caster.SetRecoilPercentage(caster.GetRecoilPercentage() - reflectAmount);
         caster.interactions.Remove(caster.interactions.Find(x => x.identifier.Equals("Barkskin")));
 
-        Debug.Log(caster.GetName() + "'s Barkskin has expired, block decreases to " + caster.GetBlockAmount() + ".");
+        Debug.Log(caster.GetName() + "'s Barkskin has expired, recoil decreases to " + caster.GetRecoilPercentage() + ".");
     }
 
 }

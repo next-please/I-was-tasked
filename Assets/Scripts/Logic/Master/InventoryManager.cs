@@ -103,6 +103,8 @@ public class InventoryManager : MonoBehaviour
         var playerInv = GetPlayerInventory(player);
         var hadJobSynergy = synergyManager.HasSynergy(piece.GetClass());
         var hadRaceSynergy = synergyManager.HasSynergy(piece.GetRace());
+        var hadBetterJobSynergy = synergyManager.HasBetterSynergy(piece.GetClass());
+        var hadBetterRaceSynergy = synergyManager.HasBetterSynergy(piece.GetRace());
         var success = playerInv.AddToArmy(piece);
         if (success)
         {
@@ -112,17 +114,31 @@ public class InventoryManager : MonoBehaviour
             Enums.Race pieceRace = piece.GetRace();
             string classDescription = Enums.JobSynergyDescription[(int)pieceClass];
             string raceDescription = Enums.RaceSynergyDescription[(int)pieceRace];
-            _synergyTabMenu.IncrementSynergyTab(pieceClass.ToString(), classDescription, SynergyManager.jobSynergyRequirement[(int)pieceClass]);
-            _synergyTabMenu.IncrementSynergyTab(pieceRace.ToString(), raceDescription, SynergyManager.raceSynergyRequirement[(int)pieceRace]);
+            _synergyTabMenu.IncrementSynergyTab(pieceClass.ToString(), classDescription, Enums.JobSynergyRequirements[(int)pieceClass]);
+            _synergyTabMenu.IncrementSynergyTab(pieceRace.ToString(), raceDescription, Enums.RaceSynergyRequirements[(int)pieceRace]);
             if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
-                EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+            }
+            if (!synergyManager.HasSynergy(piece.GetClass()) && hadJobSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
             }
             if (synergyManager.HasSynergy(piece.GetRace()) && !hadRaceSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Active" });
-                EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
+            }
+            if (synergyManager.HasBetterSynergy(piece.GetClass()) && !hadBetterJobSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Enhanced" });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+            }
+            if (synergyManager.HasBetterSynergy(piece.GetRace()) && !hadBetterRaceSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Enhanced" });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
@@ -134,6 +150,8 @@ public class InventoryManager : MonoBehaviour
         var playerInv = GetPlayerInventory(player);
         var hadJobSynergy = synergyManager.HasSynergy(piece.GetClass());
         var hadRaceSynergy = synergyManager.HasSynergy(piece.GetRace());
+        var hadBetterJobSynergy = synergyManager.HasBetterSynergy(piece.GetClass());
+        var hadBetterRaceSynergy = synergyManager.HasBetterSynergy(piece.GetRace());
         var success = playerInv.RemoveFromArmy(piece);
         if (success)
         {
@@ -147,9 +165,22 @@ public class InventoryManager : MonoBehaviour
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
             }
+            if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
+                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+            }
             if (!synergyManager.HasSynergy(piece.GetRace()) && hadRaceSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Removed" });
+            }
+            if (!synergyManager.HasBetterSynergy(piece.GetClass()) && hadBetterJobSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Weakened" });
+            }
+            if (!synergyManager.HasBetterSynergy(piece.GetRace()) && hadBetterRaceSynergy)
+            {
+                EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Weakened" });
             }
             EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
         }
@@ -207,6 +238,23 @@ public class InventoryManager : MonoBehaviour
     {
         var playerInv = GetPlayerInventory(player);
         return playerInv.GetBenchPiece(piece);
+    }
+
+    public int[] GetAllPlayerGold()
+    {
+        int[] gold = new int[playerInventories.Length];
+        for(int i = 0; i < playerInventories.Length; i++)
+        {
+            gold[i] = playerInventories[i].GetGold();
+        }
+        return gold;
+    }
+
+    public void CheckAndSetAllPlayerGold(int[] gold)
+    {
+        for (int i = 0; i < playerInventories.Length; i++)
+            if (playerInventories[i].GetGold() != gold[i])
+                playerInventories[i].AddGold(gold[i] - playerInventories[i].GetGold());
     }
 }
 
