@@ -16,14 +16,14 @@ public class MagicMissileSkill : Interaction
     private int countRemaining;
 
 
-    public MagicMissileSkill(Piece caster, Piece target, Board board)
+    public MagicMissileSkill(Piece caster, Piece target, Board board, bool infinite = false)
     {
         this.caster = caster;
         this.target = target;
         this.board = board;
         this.countRemaining = magicMissileDefaultCount;
         this.ticksTotal = 50;
-        if (caster.GetClass() == Enums.Job.Rogue)
+        if (infinite)
         {
             this.ticksTotal = 999999999;
             this.countRemaining = 999999999;

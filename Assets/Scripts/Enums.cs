@@ -113,6 +113,9 @@
         CheapShot,
         ShadowStrike,
         Charge,
-        ForestSpirits
+        ForestSpirits,
+        NoSkill,
+        InfiniteMagicMissile,
+        Berserk
     }
 }

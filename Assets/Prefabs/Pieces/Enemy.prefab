@@ -47,7 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   statusBars: {fileID: 1283241703397704063}
+  dividerHP: {fileID: 2960262687066000478}
   currentHPBar: {fileID: 4978927757197830862}
+  midgroundHPBar: {fileID: 7280625526230918268}
   currentMPBar: {fileID: 4894328210242986779}
   rarities:
   - {fileID: 0}
@@ -77,6 +79,8 @@ MonoBehaviour:
     multicast: 0
     invulnerable: 0
     taunting: 0
+  rarities: []
+  rarityParent: {fileID: 0}
 --- !u!1 &1283241703397704063
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +180,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: HP Bar
       objectReference: {fileID: 0}
+    - target: {fileID: 4721234433348153860, guid: fc346f163c984414294995744131fa23,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721234433348153860, guid: fc346f163c984414294995744131fa23,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721234433348153860, guid: fc346f163c984414294995744131fa23,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4721234433348153860, guid: fc346f163c984414294995744131fa23,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.7058824
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc346f163c984414294995744131fa23, type: 3}
 --- !u!4 &6978322079132186428 stripped
@@ -184,9 +208,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2848860319952546284}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2960262687066000478 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1053235825456948658, guid: fc346f163c984414294995744131fa23,
+    type: 3}
+  m_PrefabInstance: {fileID: 2848860319952546284}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4978927757197830862 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7102628750338147106, guid: fc346f163c984414294995744131fa23,
+    type: 3}
+  m_PrefabInstance: {fileID: 2848860319952546284}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7280625526230918268 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4792064244610272656, guid: fc346f163c984414294995744131fa23,
     type: 3}
   m_PrefabInstance: {fileID: 2848860319952546284}
   m_PrefabAsset: {fileID: 0}
