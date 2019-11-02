@@ -116,7 +116,8 @@ public class PieceUIManager : MonoBehaviour
         SetRarity(piece.GetRarity());
     }
 
-    private void SetHealthInfo(int currentHitPoints, int maximumHitPoints) {
+    private void SetHealthInfo(int currentHitPoints, int maximumHitPoints)
+    {
         healthFraction.text = string.Format("{0:0,0} / {1:0,0}", currentHitPoints, maximumHitPoints);
     }
 
@@ -125,13 +126,13 @@ public class PieceUIManager : MonoBehaviour
         Color[] classColors = { Color.green, Color.magenta, Color.cyan, Color.white, Color.grey };
         Color[] raceColors = { Color.blue, Color.yellow, Color.red, Color.black };
 
-        classIcon.sprite = classIcons[(int) job];
-        Color classColor = classColors[(int) job];
+        classIcon.sprite = classIcons[(int)job];
+        Color classColor = classColors[(int)job];
         classColor.a = 0.4f;
         foregroundClass.color = classColor;
 
-        raceIcon.sprite = raceIcons[(int) race];
-        Color raceColor = raceColors[(int) race];
+        raceIcon.sprite = raceIcons[(int)race];
+        Color raceColor = raceColors[(int)race];
         raceColor.a = 0.4f;
         foregroundRace.color = raceColor;
     }
@@ -155,7 +156,7 @@ public class PieceUIManager : MonoBehaviour
 
     private void SetPortraitCamera(Enums.Job job, Enums.Race race)
     {
-        portraitCamera.transform.position = rootCameraPosition.transform.position + new Vector3(3 * (int) job, 0, 5 * (int) race);
+        portraitCamera.transform.position = rootCameraPosition.transform.position + new Vector3(3 * (int)job, 0, 5 * (int)race);
     }
 
     private void SetSkillInfo(Enums.Job job, Enums.Race race)
@@ -169,30 +170,30 @@ public class PieceUIManager : MonoBehaviour
             {
                 skillName.text = "Forest Spirits";
                 skillDescription.text = string.Format(
-                    "Release {0} spirits that heal {1} per second", 
-                    GameLogicManager.Inst.Data.Skills.ForestSpiritsCount, 
+                    "Release {0} spirits that heal {1} per second",
+                    GameLogicManager.Inst.Data.Skills.ForestSpiritsCount,
                     GameLogicManager.Inst.Data.Skills.ForestSpiritsHeal
                 );
             }
             else if (job == Enums.Job.Knight)
             {
                 skillName.text = "Protect Ally";
-                skillDescription.text = "Places a shield on ally that transfers damage taken to the Elf Knight";
+                skillDescription.text = string.Format("Places a shield on ally that transfers damage taken to the Elf Knight for {0} seconds", (int)(GameLogicManager.Inst.Data.Skills.ProtectAllyLingerTicks / 50));
             }
             else if (job == Enums.Job.Mage)
             {
                 skillName.text = "Magic Missile";
-                skillDescription.text = string.Format("Launches a barrage of {0} magic missles randomly at opponents", GameLogicManager.Inst.Data.Skills.MagicMissileCount);
+                skillDescription.text = string.Format("Launches a barrage of {0} magic missles randomly at opponents dealing {1} damage each", GameLogicManager.Inst.Data.Skills.MagicMissileCount, GameLogicManager.Inst.Data.Skills.MagicMissileDamage);
             }
             else if (job == Enums.Job.Priest)
             {
                 skillName.text = "Blessing of Nature";
-                skillDescription.text = "Two's a Pair, Tree's a Crowd.";
+                skillDescription.text = string.Format("Buffs an allied unit to have increased damage and maximum hit points.");
             }
             else if (job == Enums.Job.Rogue)
             {
-                skillName.text = "Marked for Death";
-                skillDescription.text = string.Format("Casts a death mark that kills an enemy after {0} seconds", (int)GameLogicManager.Inst.Data.Skills.MarkForDeathTicks / 50);
+                skillName.text = "Shadow Strike";
+                skillDescription.text = string.Format("Instantly backstabs the furthest unit away, dealing {0} damage", GameLogicManager.Inst.Data.Skills.ShadowStrikeDamage);
             }
         }
         else if (race == Enums.Race.Human)
@@ -200,7 +201,7 @@ public class PieceUIManager : MonoBehaviour
             if (job == Enums.Job.Druid)
             {
                 skillName.text = "Shapeshift";
-                skillDescription.text = "FURRIES AYAYA Clap";
+                skillDescription.text = string.Format("Partially transforms to gain {0}x attack damage and {1} attack speed", GameLogicManager.Inst.Data.Skills.ShapeShiftMultiplierIncrease, GameLogicManager.Inst.Data.Skills.ShapeShiftDefaultAttackSpeedIncrease);
             }
             else if (job == Enums.Job.Knight)
             {
@@ -210,17 +211,17 @@ public class PieceUIManager : MonoBehaviour
             else if (job == Enums.Job.Mage)
             {
                 skillName.text = "Fireblast";
-                skillDescription.text = "Hello.";
+                skillDescription.text = string.Format( "Launches a slow fiery projectile dealing {0} damage", GameLogicManager.Inst.Data.Skills.FireblastDamage);
             }
             else if (job == Enums.Job.Priest)
             {
                 skillName.text = "Greater Heal";
-                skillDescription.text = "You are purified!";
+                skillDescription.text = string.Format("Restores {0} hit points to an ally", GameLogicManager.Inst.Data.Skills.GreaterHealAmount);
             }
             else if (job == Enums.Job.Rogue)
             {
                 skillName.text = "Cheap Shot";
-                skillDescription.text = "Only costs Tree Fiddy.";
+                skillDescription.text = string.Format("Stuns for {0} and deals {1} damage to an enemy", (int)(GameLogicManager.Inst.Data.Skills.CheapShotStunTicks / 50));
             }
         }
         else if (race == Enums.Race.Orc)
@@ -228,27 +229,27 @@ public class PieceUIManager : MonoBehaviour
             if (job == Enums.Job.Druid)
             {
                 skillName.text = "Barkskin";
-                skillDescription.text = "Woof Woof";
+                skillDescription.text = string.Format("Blocks {0} damage from auto attacks", GameLogicManager.Inst.Data.Skills.BarkSkinBlockAmount);
             }
             else if (job == Enums.Job.Knight)
             {
                 skillName.text = "Rampage";
-                skillDescription.text = "ARHHHHHHHHHHHHH";
+                skillDescription.text = string.Format("Gains {0}% attack speed and {1}% armour", GameLogicManager.Inst.Data.Skills.RampageAttackSpeed, GameLogicManager.Inst.Data.Skills.RampageArmourPercentage);
             }
             else if (job == Enums.Job.Mage)
             {
                 skillName.text = "Thunder Storm";
-                skillDescription.text = "The Sounds of Thunder will Electrify You, I guess.";
+                skillDescription.text = string.Format("Summons a cloud that fires {0} lightning bolts in an area, dealing {1} damage each", GameLogicManager.Inst.Data.Skills.ThunderStormCount, GameLogicManager.Inst.Data.Skills.ThunderStormBoltDamage);
             }
             else if (job == Enums.Job.Priest)
             {
                 skillName.text = "Curse of Agony";
-                skillDescription.text = "yOu ArE cUrSeD";
+                skillDescription.text = string.Format("Curses an enemy to lose {0} health per second over a duration", GameLogicManager.Inst.Data.Skills.CurseOfAgonyCurseAmount);
             }
             else if (job == Enums.Job.Rogue)
             {
                 skillName.text = "Evicerate";
-                skillDescription.text = "sn1p sn4p";
+                skillDescription.text = string.Format("Strikes an enemy for {0} damage and causing it to lose {1} damage over time", GameLogicManager.Inst.Data.Skills.EviscerateInitialDamage, GameLogicManager.Inst.Data.Skills.EviscerateBleedDamage);
             }
         }
         else if (race == Enums.Race.Undead)
@@ -256,27 +257,27 @@ public class PieceUIManager : MonoBehaviour
             if (job == Enums.Job.Druid)
             {
                 skillName.text = "Moonfire";
-                skillDescription.text = "Best results on a Full Moon.";
+                skillDescription.text = string.Format("Calls a beam of moon light to strike an enemy for {0} damage", GameLogicManager.Inst.Data.Skills.MoonfireDefaultDamage);
             }
             else if (job == Enums.Job.Knight)
             {
                 skillName.text = "Rot";
-                skillDescription.text = "Frostmourne? Who needs that?";
+                skillDescription.text = string.Format("Self-decomposes to deal {0} damage per second to nearby enemies", GameLogicManager.Inst.Data.Skills.RotDamage);
             }
             else if (job == Enums.Job.Mage)
             {
                 skillName.text = "Frost Armour";
-                skillDescription.text = "So cold.";
+                skillDescription.text = string.Format("Casts an icy protection on an ally providing {0}% more armour", GameLogicManager.Inst.Data.Skills.FrostArmourPercentage);
             }
             else if (job == Enums.Job.Priest)
             {
                 skillName.text = "Unholy Aura";
-                skillDescription.text = "For immoral people only.";
+                skillDescription.text = string.Format("Unleashes a menacing aura, dealing {0} damage per second to nearby enemies", GameLogicManager.Inst.Data.Skills.UnholyAuraDamage);
             }
             else if (job == Enums.Job.Rogue)
-            {
+            
                 skillName.text = "Mark For Death";
-                skillDescription.text = "That living creature will join us!";
+                skillDescription.text = string.Format("Marks an enemy for death, instantly killing it in {0} seconds", (int)(GameLogicManager.Inst.Data.Skills.MarkForDeathTicks / 50));
             }
         }
     }
