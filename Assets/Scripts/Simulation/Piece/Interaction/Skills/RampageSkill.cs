@@ -104,7 +104,8 @@ public class RampageLingeringEffect : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+            interactionView.CleanUpInteraction();
     }
 
     public override bool ProcessInteractionView()
@@ -113,11 +114,13 @@ public class RampageLingeringEffect : Interaction
 
         if (!caster.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-            attackDestination.y += 3.5f;
+            Transform casterT = caster.GetPieceView().transform;
+            projectile.transform.parent =  casterT;
+            Vector3 pos = Vector3.zero;
+            pos.y = 3.5f;
+            projectile.transform.localPosition = pos;
+            projectile.transform.position = attackDestination;
         }
-
-        projectile.transform.position = attackDestination;
 
         if (ticksRemaining <= 0 || caster.IsDead())
         {
