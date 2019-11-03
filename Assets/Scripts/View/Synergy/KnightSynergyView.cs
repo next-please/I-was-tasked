@@ -16,6 +16,7 @@ public class KnightSynergyView : MonoBehaviour
     {
         EventManager.Instance.AddListener<JobSynergyAppliedEvent>(OnSynergyApplied);
         originalMaterial = ShieldRenderer.material;
+        pieceView = GetComponentInParent<PieceView>();
 
         if (pieceView == null)
         {
