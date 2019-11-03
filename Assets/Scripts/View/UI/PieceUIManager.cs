@@ -211,7 +211,7 @@ public class PieceUIManager : MonoBehaviour
             else if (job == Enums.Job.Mage)
             {
                 skillName.text = "Fireblast";
-                skillDescription.text = string.Format( "Launches a slow fiery projectile dealing {0} damage", GameLogicManager.Inst.Data.Skills.FireblastDamage);
+                skillDescription.text = string.Format("Launches a slow fiery projectile dealing {0} damage", GameLogicManager.Inst.Data.Skills.FireblastDamage);
             }
             else if (job == Enums.Job.Priest)
             {
@@ -275,10 +275,10 @@ public class PieceUIManager : MonoBehaviour
                 skillDescription.text = string.Format("Unleashes a menacing aura, dealing {0} damage per second to nearby enemies", GameLogicManager.Inst.Data.Skills.UnholyAuraDamage);
             }
             else if (job == Enums.Job.Rogue)
-            
+
                 skillName.text = "Mark For Death";
-                skillDescription.text = string.Format("Marks an enemy for death, instantly killing it in {0} seconds", (int)(GameLogicManager.Inst.Data.Skills.MarkForDeathTicks / 50));
-            }
+            skillDescription.text = string.Format("Marks an enemy for death, instantly killing it in {0} seconds", (int)(GameLogicManager.Inst.Data.Skills.MarkForDeathTicks / 50));
         }
     }
 }
+
