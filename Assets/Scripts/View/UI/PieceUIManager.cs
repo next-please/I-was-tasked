@@ -221,7 +221,7 @@ public class PieceUIManager : MonoBehaviour
             else if (job == Enums.Job.Rogue)
             {
                 skillName.text = "Cheap Shot";
-                skillDescription.text = string.Format("Stuns for {0} and deals {1} damage to an enemy.", (int)(GameLogicManager.Inst.Data.Skills.CheapShotStunTicks / 50));
+                skillDescription.text = string.Format("Stuns an enemy for {0} seconds.", (int) (GameLogicManager.Inst.Data.Skills.CheapShotStunTicks / 50));
             }
         }
         else if (race == Enums.Race.Orc)
