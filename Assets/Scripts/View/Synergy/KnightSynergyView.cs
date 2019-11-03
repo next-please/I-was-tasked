@@ -15,17 +15,28 @@ public class KnightSynergyView : MonoBehaviour
     void Start()
     {
         EventManager.Instance.AddListener<JobSynergyAppliedEvent>(OnSynergyApplied);
-        EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
         originalMaterial = ShieldRenderer.material;
-        pieceView = GetComponentInParent<PieceView>();
+
         if (pieceView == null)
+        {
             Destroy(this);
+            return;
+        }
+
+        Piece piece = pieceView.piece;
+        if (piece.IsEnemy())
+        {
+            Destroy(this);
+            return;
+        }
+
+        bool hasSynergy = SynergyManager.GetInstance().HasSynergy(Enums.Job.Knight);
+        ToggleVfx(hasSynergy);
     }
 
     void OnDestroy()
     {
         EventManager.Instance.RemoveListener<JobSynergyAppliedEvent>(OnSynergyApplied);
-        EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
     }
 
     void OnSynergyApplied(JobSynergyAppliedEvent e)
@@ -35,17 +46,14 @@ public class KnightSynergyView : MonoBehaviour
         Piece piece = pieceView.piece;
         if (piece.IsOnBoard() && !piece.IsEnemy())
         {
-            ShieldRenderer.material = ShieldEffectMaterial;
-            vfx.SendEvent("Start");
+            ToggleVfx(e.Applied);
         }
     }
 
-    void OnExitPhase(ExitPhaseEvent e)
+    void ToggleVfx(bool apply)
     {
-        if (e.phase == Phase.Combat)
-        {
-            ShieldRenderer.material = originalMaterial;
-            vfx.SendEvent("Stop");
-        }
+        string message = apply ? "Start" : "Stop";
+        vfx.SendEvent(message);
+        ShieldRenderer.material = apply ? ShieldEffectMaterial : originalMaterial;
     }
 }

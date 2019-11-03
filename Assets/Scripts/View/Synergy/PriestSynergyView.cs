@@ -12,16 +12,28 @@ public class PriestSynergyView : MonoBehaviour
     void Start()
     {
         EventManager.Instance.AddListener<JobSynergyAppliedEvent>(OnSynergyApplied);
-        EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
         pieceView = GetComponentInParent<PieceView>();
+
         if (pieceView == null)
+        {
             Destroy(this);
+            return;
+        }
+
+        Piece piece = pieceView.piece;
+        if (piece.IsEnemy())
+        {
+            Destroy(this);
+            return;
+        }
+
+        bool hasSynergy = SynergyManager.GetInstance().HasSynergy(Enums.Job.Priest);
+        ToggleVfx(hasSynergy);
     }
 
     void OnDestroy()
     {
         EventManager.Instance.RemoveListener<JobSynergyAppliedEvent>(OnSynergyApplied);
-        EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
     }
 
     void OnSynergyApplied(JobSynergyAppliedEvent e)
@@ -31,15 +43,13 @@ public class PriestSynergyView : MonoBehaviour
         Piece piece = pieceView.piece;
         if (piece.IsOnBoard() && !piece.IsEnemy())
         {
-            vfx.SendEvent("Start");
+            ToggleVfx(e.Applied);
         }
     }
 
-    void OnExitPhase(ExitPhaseEvent e)
+    void ToggleVfx(bool apply)
     {
-        if (e.phase == Phase.Combat)
-        {
-            vfx.SendEvent("Stop");
-        }
+        string message = apply ? "Start" : "Stop";
+        vfx.SendEvent(message);
     }
 }

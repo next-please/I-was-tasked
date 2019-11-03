@@ -32,7 +32,7 @@ public class SynergyManager : MonoBehaviour
         GameLogicManager.Inst.Data.Synergy.KnightRequirement2,
         GameLogicManager.Inst.Data.Synergy.MageRequirement2,
         GameLogicManager.Inst.Data.Synergy.PriestRequirement2,
-        GameLogicManager.Inst.Data.Synergy.RogueRequirement2,    
+        GameLogicManager.Inst.Data.Synergy.RogueRequirement2,
     };
 
     public static int[] raceSynergyRequirement = new int[]
@@ -55,8 +55,16 @@ public class SynergyManager : MonoBehaviour
     public BoardManager boardManager;
     public System.Random rngesus;
 
-    public SynergyManager()
+    private static SynergyManager instance;
+
+    void Awake()
     {
+        instance = this;
+    }
+
+    public static SynergyManager GetInstance()
+    {
+        return instance;
     }
 
     public void SetSeed(int seed)
@@ -114,7 +122,7 @@ public class SynergyManager : MonoBehaviour
     {
         return raceSynergyCount[(int)race] >= raceSynergyHigherRequirement[(int)race];
     }
-    
+
     public bool HasBetterSynergy(Enums.Job job)
     {
         return jobSynergyCount[(int)job] >= jobSynergyHigherRequirement[(int)job];
@@ -166,7 +174,6 @@ public class SynergyManager : MonoBehaviour
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
         var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
-        EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = (Enums.Job)i });
         switch (i)
         {
             case (int)Enums.Job.Druid://druids become immobile and gain range
@@ -245,7 +252,6 @@ public class SynergyManager : MonoBehaviour
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
         var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
-        EventManager.Instance.Raise(new RaceSynergyAppliedEvent{ Race = (Enums.Race)i });
         switch (i)
         {
             case (int)Enums.Race.Elf://elves guide a friendly unit in death
@@ -270,10 +276,10 @@ public class SynergyManager : MonoBehaviour
                         {
                             board.AddInteractionToProcess(
                                 new RampageSynergyEffect(
-                                    friendlyPieces[target], 
-                                    board, 
-                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed, 
-                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage, 
+                                    friendlyPieces[target],
+                                    board,
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed,
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage,
                                     GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold2
                                 )
                             );
@@ -282,10 +288,10 @@ public class SynergyManager : MonoBehaviour
                         {
                             board.AddInteractionToProcess(
                                 new RampageSynergyEffect(
-                                    friendlyPieces[target], 
-                                    board, 
-                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed, 
-                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage, 
+                                    friendlyPieces[target],
+                                    board,
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed,
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage,
                                     GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold1
                                 )
                             );
@@ -310,15 +316,16 @@ public class SynergyManager : MonoBehaviour
                 break;
         }
     }
-
 }
 
 public class RaceSynergyAppliedEvent : GameEvent
 {
     public Enums.Race Race;
+    public bool Applied;
 }
 
 public class JobSynergyAppliedEvent : GameEvent
 {
     public Enums.Job Job;
+    public bool Applied;
 }
