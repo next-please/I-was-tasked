@@ -11,7 +11,7 @@ public class TransactionManager : MonoBehaviour
     public RequestHandler requestHandler;
     public BoardManager boardManager;
 
-    public readonly int UpgradeMarketSizeCost = 5;
+    public readonly int UpgradeMarketSizeCost = 4;
     public readonly int UpgradeArmySizeArmyMultiplier = 2;
     public readonly int UpgradeArmySizeLinearAdditor = -2;
 
