@@ -140,7 +140,7 @@ MonoBehaviour:
   Synergy:
     DruidRequirement: 5
     KnightRequirement1: 4
-    KnightRequirement2: 11
+    KnightRequirement2: 10
     MageRequirement1: 3
     MageRequirement2: 8
     PriestRequirement1: 4
