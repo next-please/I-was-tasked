@@ -20,7 +20,7 @@ public class SynergyManager : MonoBehaviour
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
     public static int[] jobSynergyRequirement = new int[]
     {
-        GameLogicManager.Inst.Data.Synergy.DruidRequirement,
+        GameLogicManager.Inst.Data.Synergy.DruidRequirement1,
         GameLogicManager.Inst.Data.Synergy.KnightRequirement1,
         GameLogicManager.Inst.Data.Synergy.MageRequirement1,
         GameLogicManager.Inst.Data.Synergy.PriestRequirement1,
@@ -29,7 +29,7 @@ public class SynergyManager : MonoBehaviour
 
     public static int[] jobSynergyHigherRequirement = new int[]
     {
-        GameLogicManager.Inst.Data.Synergy.DruidRequirement,
+        GameLogicManager.Inst.Data.Synergy.DruidRequirement2,
         GameLogicManager.Inst.Data.Synergy.KnightRequirement2,
         GameLogicManager.Inst.Data.Synergy.MageRequirement2,
         GameLogicManager.Inst.Data.Synergy.PriestRequirement2,
@@ -184,7 +184,16 @@ public class SynergyManager : MonoBehaviour
                     {
                         friendlyPieces[target].SetAttackRange(99);
                     }
+                }   
+                if (jobSynergyCount[(int)Enums.Job.Druid] >= jobSynergyHigherRequirement[(int)Enums.Job.Druid])
+                {
+                    for (int target = 0; target < enemyPieces.Count; target++)
+                    {
+                        enemyPieces[target].SetAttackSpeed(enemyPieces[target].GetAttackSpeed() - 1);
+                        enemyPieces[target].SetMovementSpeed(enemyPieces[target].GetMovementSpeed() - 1);
+                    }
                 }
+
                 break;
             case (int)Enums.Job.Knight://knights taunt enemies
                 for (int target = 0; target < friendlyPieces.Count; target++)

@@ -40,7 +40,8 @@ public class GameLogicData : ScriptableObject
 public class SynergyData
 {
     [Header("Job Synergy Requirement")]
-    public int DruidRequirement = 4;
+    public int DruidRequirement1 = 5;
+    public int DruidRequirement2 = 9;
     public int KnightRequirement1 = 4;
     public int KnightRequirement2 = 11;
     public int MageRequirement1 = 3;
