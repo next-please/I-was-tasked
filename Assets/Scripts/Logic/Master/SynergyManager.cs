@@ -46,7 +46,7 @@ public class SynergyManager : MonoBehaviour
     public static int[] raceSynergyHigherRequirement = new int[]
     {
         GameLogicManager.Inst.Data.Synergy.HumanRequirement2,
-        GameLogicManager.Inst.Data.Synergy.ElfRequirement1,
+        GameLogicManager.Inst.Data.Synergy.ElfRequirement2,
         GameLogicManager.Inst.Data.Synergy.OrcRequirement2,
         GameLogicManager.Inst.Data.Synergy.UndeadRequirement1
     };
@@ -257,7 +257,7 @@ public class SynergyManager : MonoBehaviour
             case (int)Enums.Race.Elf://elves guide a friendly unit in death
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
-                    if (friendlyPieces[target].GetRace() == Enums.Race.Elf)
+                    if (friendlyPieces[target].GetRace() == Enums.Race.Elf || raceSynergyCount[(int)Enums.Race.Elf] >= raceSynergyHigherRequirement[(int)Enums.Race.Elf])
                     {
                         GuidingSpiritSynergyEffect skill = new GuidingSpiritSynergyEffect(friendlyPieces[target], board, elfGuidingSpiritAttackDamage, elfGuidingSpiritAttackSpeed);
                         board.AddInteractionToProcess(skill);

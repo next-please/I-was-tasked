@@ -87,7 +87,7 @@
     public static string[] RaceSynergyDescription = new string[]
     {
         string.Format("({0}) All players gain {1} extra gold per turn \n\n({2}) All player gain {3} extra gold per turn", GameLogicManager.Inst.Data.Synergy.HumanRequirement1, GameLogicManager.Inst.Data.Synergy.HumanGoldAmount1, GameLogicManager.Inst.Data.Synergy.HumanRequirement2, GameLogicManager.Inst.Data.Synergy.HumanGoldAmount2),
-        "Elves transfer some of their attributes to another elf upon death",
+        string.Format("({0}) Elves transfer some of their attributes to another unit upon death \n\n({1}) <b>All</b> friendly units transfer some of their attributes to another unit upon death", GameLogicManager.Inst.Data.Synergy.ElfRequirement1, GameLogicManager.Inst.Data.Synergy.ElfRequirement2),
         string.Format("({0}) Orcs rampage after taking significant damage, gaining attack speed \n\n({1}) Orcs begin their rampage after taking lesser damage", GameLogicManager.Inst.Data.Synergy.OrcRequirement1, GameLogicManager.Inst.Data.Synergy.OrcRequirement2),
         string.Format("Undead gain <b>Immortality</b> for {0} seconds after the battle starts\n\n Units with <b>Immortality</b> can lose health but cannot die", GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie / 50)
     };

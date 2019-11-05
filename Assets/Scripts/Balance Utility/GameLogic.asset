@@ -149,7 +149,8 @@ MonoBehaviour:
     RogueRequirement2: 7
     HumanRequirement1: 5
     HumanRequirement2: 10
-    ElfRequirement1: 8
+    ElfRequirement1: 4
+    ElfRequirement2: 8
     OrcRequirement1: 4
     OrcRequirement2: 9
     UndeadRequirement1: 9

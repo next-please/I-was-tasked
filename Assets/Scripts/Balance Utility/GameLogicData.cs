@@ -53,7 +53,8 @@ public class SynergyData
     [Header("Race Synergy Requirement")]
     public int HumanRequirement1 = 5;
     public int HumanRequirement2 = 10;
-    public int ElfRequirement1 = 8;
+    public int ElfRequirement1 = 4;
+    public int ElfRequirement2 = 8;
     public int OrcRequirement1 = 4;
     public int OrcRequirement2 = 9;
     public int UndeadRequirement1 = 9;
