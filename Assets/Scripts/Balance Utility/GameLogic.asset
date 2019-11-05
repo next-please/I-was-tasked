@@ -153,13 +153,15 @@ MonoBehaviour:
     ElfRequirement2: 8
     OrcRequirement1: 4
     OrcRequirement2: 9
-    UndeadRequirement1: 9
+    UndeadRequirement1: 1
+    UndeadRequirement2: 6
     HumanGoldAmount1: 2
     HumanGoldAmount2: 10
     RogueDamageMultiplier: 3
     RogueHitPointMultiplier: 0.33
     MageStartingManaPercentage: 0.25
     UndeadTicksToDie: 500
+    UndeadBonusHealth: 400
     PriestRetributionRadius: 2
     PriestRetributionHealing: 100
     PriestRetributionDamage: 75
@@ -283,28 +285,28 @@ MonoBehaviour:
     AttackSpeed: 3
     MovementSpeed: 4
   UndeadKnight:
-    HitPoints: 150
+    HitPoints: 50
     ManaPoints: 70
     AttackDamage: 10
     AttackRange: 1
     AttackSpeed: 3
     MovementSpeed: 4
   UndeadMage:
-    HitPoints: 240
+    HitPoints: 140
     ManaPoints: 100
     AttackDamage: 11
     AttackRange: 2
     AttackSpeed: 3
     MovementSpeed: 4
   UndeadPriest:
-    HitPoints: 750
+    HitPoints: 650
     ManaPoints: 120
     AttackDamage: 12
     AttackRange: 3
     AttackSpeed: 3
     MovementSpeed: 4
   UndeadRogue:
-    HitPoints: 235
+    HitPoints: 135
     ManaPoints: 100
     AttackDamage: 16
     AttackRange: 1

@@ -8,6 +8,7 @@ public class SynergyManager : MonoBehaviour
     public int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount2;
     private double rogueDamageMultiplier = GameLogicManager.Inst.Data.Synergy.RogueDamageMultiplier;
     private double rogueHitPointMultiplier = GameLogicManager.Inst.Data.Synergy.RogueHitPointMultiplier;
+    private int undeadBonusHealth = GameLogicManager.Inst.Data.Synergy.UndeadBonusHealth;
     private int undeadTicksToDie = GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie;
     private int priestRetributionRadius = GameLogicManager.Inst.Data.Synergy.PriestRetributionRadius;
     private int priestRetributionDamage = GameLogicManager.Inst.Data.Synergy.PriestRetributionDamage;
@@ -48,7 +49,7 @@ public class SynergyManager : MonoBehaviour
         GameLogicManager.Inst.Data.Synergy.HumanRequirement2,
         GameLogicManager.Inst.Data.Synergy.ElfRequirement2,
         GameLogicManager.Inst.Data.Synergy.OrcRequirement2,
-        GameLogicManager.Inst.Data.Synergy.UndeadRequirement1
+        GameLogicManager.Inst.Data.Synergy.UndeadRequirement2
     };
 
     public InventoryManager inventoryManager;
@@ -304,10 +305,16 @@ public class SynergyManager : MonoBehaviour
                 {
                     if (friendlyPieces[target].GetRace() == Enums.Race.Undead)
                     {
-                        friendlyPieces[target].invulnerable = true;
-                        friendlyPieces[target].SetMaximumHitPoints(undeadTicksToDie);
-                        friendlyPieces[target].SetCurrentHitPoints(undeadTicksToDie);
-                        board.AddInteractionToProcess(new DecayingSynergyEffect(friendlyPieces[target]));
+                        friendlyPieces[target].SetMaximumHitPoints(friendlyPieces[target].GetMaximumHitPoints() + (int)((double)undeadBonusHealth / raceSynergyCount[(int)Enums.Race.Undead]));
+                        friendlyPieces[target].SetCurrentHitPoints(friendlyPieces[target].GetCurrentHitPoints() + (int)((double)undeadBonusHealth / raceSynergyCount[(int)Enums.Race.Undead]));
+
+                        if (raceSynergyCount[(int)Enums.Race.Undead] >= raceSynergyHigherRequirement[(int)Enums.Race.Undead])
+                        {
+                            friendlyPieces[target].invulnerable = true;
+                            friendlyPieces[target].SetMaximumHitPoints(undeadTicksToDie);
+                            friendlyPieces[target].SetCurrentHitPoints(undeadTicksToDie);
+                            board.AddInteractionToProcess(new DecayingSynergyEffect(friendlyPieces[target]));
+                        }
                     }
                 }
                 break;
