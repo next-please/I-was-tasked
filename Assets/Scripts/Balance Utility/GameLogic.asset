@@ -51,7 +51,7 @@ MonoBehaviour:
     ForestSpiritsRarityMultiplier: 1.2
     FrostArmourPercentage: 0.3
     FrostArmourLingerTicks: 250
-    GreaterHealInitialTicks: 100
+    GreaterHealInitialTicks: 70
     GreaterHealAmount: 100
     GreaterHealLingerTicks: 200
     GreaterHealRarityMultiplier: 1.2

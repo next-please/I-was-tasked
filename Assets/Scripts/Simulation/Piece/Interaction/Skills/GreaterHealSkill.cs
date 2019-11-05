@@ -16,7 +16,7 @@ public class GreaterHealSkill : Interaction
     {
         this.caster = caster;
         this.board = board;
-        this.ticksTotal = 100;
+        this.ticksTotal = 70;
         this.ticksRemaining = ticksTilActivation;
 
         List<Piece> damagedFriendlies;
