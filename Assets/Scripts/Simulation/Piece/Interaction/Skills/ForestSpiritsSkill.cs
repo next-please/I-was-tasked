@@ -195,7 +195,7 @@ public class ForestSpiritSecondaryEffect : Interaction
 
         if (!target.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination = target.GetPieceView().transform.position;
             attackDestination.y = 0.5f;
         }
 

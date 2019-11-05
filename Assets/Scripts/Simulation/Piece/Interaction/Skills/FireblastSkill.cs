@@ -56,7 +56,7 @@ public class FireblastSkill : Interaction
         // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
         if (!target.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+             attackDestination = target.GetPieceView().transform.position;
             attackDestination.y = 1.0f;
         }
 

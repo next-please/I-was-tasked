@@ -135,7 +135,7 @@ public class GuidingSpiritLingeringEffect : Interaction
         // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on and be destroyed
         if (!target.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination = target.GetPieceView().transform.position;
             attackDestination.y = 3.0f;
         }
 
