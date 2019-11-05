@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
@@ -16,9 +17,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     private PlayerListing _playerListing;
 
     [SerializeField]
-    private TextMeshProUGUI _readyText;
-
-    [SerializeField]
     private TextMeshProUGUI _readyTextPressed;
 
     [SerializeField]
@@ -27,7 +25,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject _startGameButton;
 
-    private Image _readyImage;
+    private Button _toggleButton;
 
     private bool _ready;
 
@@ -37,7 +35,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         base.OnEnable();
-        _readyImage = _readyButton.gameObject.GetComponent<Image>();
+        _toggleButton = _readyButton.gameObject.GetComponent<Button>();
         SetNotReady();
         GetCurrentRoomPlayers();
     }
@@ -144,20 +142,34 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         base.photonView.RPC("RPC_ChangeReadyState", RpcTarget.All, PhotonNetwork.LocalPlayer, _ready);
     }
 
-
-
     public void SetReady()
     {
-        _readyText.text = "Ready";
-        _readyImage.color = Color.green;
+        ColorBlock cb = _toggleButton.colors;
+        cb.normalColor = new Color(0.7f, 0.0f, 0.0f);
+        cb.selectedColor = cb.normalColor;
+        cb.highlightedColor = Color.red;
+        _toggleButton.colors = cb;
+
+        // To re-enable the hover-over highlight.
+        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        eventSystem.SetSelectedGameObject(null);
+
         _ready = true;
         Debug.LogFormat("{0}: Set Ready!", CLASS_NAME);
     }
 
     public void SetNotReady()
     {
-        _readyText.text = "Not Ready";
-        _readyImage.color = Color.red;
+        ColorBlock cb = _toggleButton.colors;
+        cb.normalColor = new Color(0.0f, 0.7f, 0.0f);
+        cb.selectedColor = cb.normalColor;
+        cb.highlightedColor = Color.green;
+        _toggleButton.colors = cb;
+
+        // To re-enable the hover-over highlight.
+        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        eventSystem.SetSelectedGameObject(null);
+
         _ready = false;
         Debug.LogFormat("{0}: Set Not Ready.", CLASS_NAME);
 
