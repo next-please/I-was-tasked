@@ -216,6 +216,8 @@ public class Piece : ISerializable
         defaultLinkedProtectingPiece = null;
         linkedProtectingPiece = null;
 
+        invulnerable = (bool)info.GetValue("invulnuerable", typeof(bool));
+
         damageIfSurvive = (int) info.GetValue("damageIfSurvive", typeof(int));
 
         startingSpot = (Tuple<int, int>)info.GetValue("startingSpot", typeof(Tuple<int, int>));
@@ -277,6 +279,8 @@ public class Piece : ISerializable
 
         info.AddValue("defaultCurseDamageAmount", defaultCurseDamageAmount, typeof(int));
         info.AddValue("curseDamageAmount", curseDamageAmount, typeof(int));
+
+        info.AddValue("invulnerable", invulnerable, typeof(bool));
 
         info.AddValue("damageIfSurvive", damageIfSurvive, typeof(int));
 
