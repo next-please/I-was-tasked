@@ -192,12 +192,12 @@ public class SynergyManager : MonoBehaviour
                     if (friendlyPieces[target].GetClass() == Enums.Job.Knight)
                     {
                         friendlyPieces[target].taunting = true;
-                    }
 
-                    if (jobSynergyCount[(int)Enums.Job.Knight] >= jobSynergyHigherRequirement[(int)Enums.Job.Knight])
-                    {
-                        friendlyPieces[target].invulnerable = true;
-                        board.AddInteractionToProcess(new UnstoppableSynergyEffect(friendlyPieces[target], board));
+                        if (jobSynergyCount[(int)Enums.Job.Knight] >= jobSynergyHigherRequirement[(int)Enums.Job.Knight])
+                        {
+                            friendlyPieces[target].invulnerable = true;
+                            board.AddInteractionToProcess(new UnstoppableSynergyEffect(friendlyPieces[target], board));
+                        }
                     }
                 }
                 break;
