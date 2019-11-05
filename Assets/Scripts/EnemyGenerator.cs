@@ -769,6 +769,7 @@ public class EnemyGenerator
             case 0:
                 enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Knight, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
+                enemy.SetRace(Enums.Race.Orc);
                 enemy.spell = Enums.Spell.Berserk;
                 enemy.SetMaximumHitPoints(4000);
                 enemy.SetCurrentHitPoints(4000);
