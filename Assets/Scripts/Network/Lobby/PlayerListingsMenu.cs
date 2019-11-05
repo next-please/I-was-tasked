@@ -117,8 +117,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if (PhotonNetwork.IsMasterClient)
-            _startGameButton.gameObject.SetActive(true);
+        _startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnLeftRoom()
