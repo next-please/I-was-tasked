@@ -63,6 +63,7 @@ namespace Com.Nextplease.IWT
                 _offlineMode = true;
                 return;
             }
+            Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"]);
             NumPlayersToStart = PhotonNetwork.CurrentRoom.MaxPlayers;
             _playerMap = new Dictionary<string, int>();
             UpdatePlayerMap();

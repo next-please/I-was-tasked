@@ -40,6 +40,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
         // Empty Room Name
         RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
+        options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() {{ "isTutorial", false }};
         string roomName = (_roomName.text.Length <= 1) ? PhotonNetwork.LocalPlayer.NickName + "'s Room" : _roomName.text;
         PhotonNetwork.CreateRoom(roomName, options, TypedLobby.Default);
     }
