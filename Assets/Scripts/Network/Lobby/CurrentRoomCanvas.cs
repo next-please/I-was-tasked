@@ -38,6 +38,6 @@ public class CurrentRoomCanvas : MonoBehaviour
 
     public void SetRoomInfo(RoomInfo roomInfo)
     {
-        roomNameAndDetails.text = String.Format("{0}", roomInfo.Name);
+        roomNameAndDetails.text = String.Format("{0} ({1})", roomInfo.Name, roomInfo.MaxPlayers);
     }
 }
