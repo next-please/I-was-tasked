@@ -44,7 +44,7 @@ public class ConnectCanvas : MonoBehaviourPunCallbacks
         _connectingText.SetActive(true);
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.GameVersion = "0.0.1";
-        PhotonNetwork.NickName = _nickname.text;
+        PhotonNetwork.NickName = (_nickname.text.Length > 1 && !string.IsNullOrWhiteSpace(_nickname.text)) ? _nickname.text : "Player #" + (PhotonNetwork.CountOfPlayersInRooms + 1);
         PhotonNetwork.ConnectUsingSettings();
     }
 
