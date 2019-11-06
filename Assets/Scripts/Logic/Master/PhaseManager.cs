@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
@@ -15,6 +16,7 @@ public enum Phase
     PreCombat,
     Combat,
     PostCombat,
+    Tutorial
 };
 
 public class PhaseManager : MonoBehaviour
@@ -50,12 +52,13 @@ public class PhaseManager : MonoBehaviour
     private int round = 0;
     public int randomRoundIndex = 0;
     private int RoundsNeededToSurvive = 15;
-    private float countdown = 0;
     private int simulationPlayerCount = 0;
 
     private int numPlayers = 1;
     private bool phasesRunning = false;
 
+    // TUTORIAL
+    private int _tutorialRounds = 2;
 
     private HashSet<string> playerReadySet = new HashSet<string>();
 
@@ -63,6 +66,16 @@ public class PhaseManager : MonoBehaviour
     {
         SwordImage.enabled = false;
         damageResults = new bool[3];
+    }
+
+    private void Start()
+    {
+        EventManager.Instance.AddListener<AddPieceToBoardEvent>(OnPieceAdded);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
     }
 
     public bool IsMovablePhase()
@@ -82,6 +95,24 @@ public class PhaseManager : MonoBehaviour
     public static Phase GetCurrentPhase()
     {
         return currentPhase;
+    }
+
+    private void OnTutorialOver()
+    {
+        phasesRunning = false;
+        boardManager.RemoveAllPieces();
+        inventoryManager.ResetInventories();
+        EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
+        StopAllCoroutines();
+        StartCoroutine(TransitionToFullGame());
+    }
+
+    IEnumerator TransitionToFullGame()
+    {
+        CurrentRoundText.text = "Transition";
+        yield return Countdown(10);
+        roomManager.SetFullGameMode();
+        StartPhases();
     }
 
     void OnGameOver()
@@ -141,7 +172,8 @@ public class PhaseManager : MonoBehaviour
     }
 
     // PHASES
-    public void TryIntialize() {
+    public void TryIntialize()
+    {
         System.Random random = new System.Random();
         int[] seeds = new int[1 + numPlayers]; // For Synergy Manager and the numPlayers (3) Simulators.
         for (int i = 0; i < seeds.Length; i++)
@@ -167,7 +199,7 @@ public class PhaseManager : MonoBehaviour
     void TryStartRound()
     {
         Data data = new PhaseManagementData(this.numPlayers, round);
-        Request req = new Request(ActionTypes.ROUND_START, data); // TODO: replace with proper codes
+        Request req = new Request(ActionTypes.ROUND_START, data);
         requestHandler.SendRequest(req);
     }
 
@@ -180,13 +212,26 @@ public class PhaseManager : MonoBehaviour
     {
         round++;
         Debug.Log("Rounds remaining: " + (round - RoundsNeededToSurvive));
-        EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
-        if (round > RoundsNeededToSurvive)
+        if (roomManager.IsTutorial)
         {
-            OnGameOver();
-            yield break;
+            if (round > _tutorialRounds)
+            {
+                OnTutorialOver();
+                yield break;
+            }
+            CurrentRoundText.text = "Tutorial";
+            CurrentTimeText.text = "-";
         }
-        CurrentRoundText.text = "Round " + round;
+        else
+        {
+            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
+            if (round > RoundsNeededToSurvive)
+            {
+                OnGameOver();
+                yield break;
+            }
+            CurrentRoundText.text = "Round " + round;
+        }
         summonManager.RemoveAllEnemyPieces(numPlayers);
         TryMarketPhase();
     }
@@ -194,6 +239,34 @@ public class PhaseManager : MonoBehaviour
     void TryMarketPhase()
     {
         List<Piece> newMarketPieces = marketManager.GenerateMarketItems();
+        if (roomManager.IsTutorial)
+        {
+            switch (round)
+            {
+                case 1:
+                    newMarketPieces = newMarketPieces.Skip(0).Take(3).ToList();
+                    break;
+                case 2:
+                    newMarketPieces = new List<int>() { 0, 0, 0}.Select(
+                        placeholder =>  new Piece(
+                            NameGenerator.GenerateName(Enums.Job.Mage, Enums.Race.Human),
+                            NameGenerator.GetTitle(Enums.Race.Human, Enums.Job.Mage),
+                            Enums.Race.Human,
+                            Enums.Job.Mage,
+                            1,
+                            false,
+                            140,
+                            100,
+                            9,
+                            5,
+                            4,
+                            2,
+                            Enums.Spell.Fireblast)).ToList();
+                    break;
+                default:
+                    break;
+            }
+        }
         Data data = new MarketManagementData(this.numPlayers, round, newMarketPieces);
         Request req = new Request(ActionTypes.MARKET_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
@@ -208,22 +281,24 @@ public class PhaseManager : MonoBehaviour
     {
         ChangePhase(Phase.Market);
         boardManager.ResetBoards(numPlayers);
-        incomeManager.GenerateIncome();
-        if (round == 1)
-        {
-            yield return Countdown(marketDuration + 10);
-        }
+
+        if (roomManager.IsTutorial)
+            yield return null;
         else
         {
+            incomeManager.GenerateIncome(false);
             yield return Countdown(marketDuration);
+            TryPreCombat();
         }
-        TryPreCombat();
     }
 
     void TryPreCombat()
     {
+        int tutorialRound = 0, unusedIndex = 0;
         randomRoundIndex = summonManager.GenerateRandomIndex(round);
-        var enemies = summonManager.GenerateEnemies(round, randomRoundIndex, numPlayers);
+        var enemies = roomManager.IsTutorial
+            ? summonManager.GenerateEnemies(tutorialRound, unusedIndex, numPlayers)
+            : summonManager.GenerateEnemies(round, randomRoundIndex, numPlayers);
         Data data = new PreCombatData(enemies, randomRoundIndex);
         Request req = new Request(ActionTypes.PRECOMBAT_PHASE, data); // TODO: replace with proper codes
         requestHandler.SendRequest(req);
@@ -262,7 +337,7 @@ public class PhaseManager : MonoBehaviour
         simulationPlayerCount = 0;
         boardManager.StartSim(numPlayers);
         yield return Countdown(combatDuration);
-        if(currentPhase == Phase.Combat)
+        if (currentPhase == Phase.Combat)
             boardManager.ForceAllBoardsToResolve();
     }
 
@@ -317,6 +392,38 @@ public class PhaseManager : MonoBehaviour
         Debug.Log("Entering Phase " + currentPhase);
         EventManager.Instance.Raise(new EnterPhaseEvent { phase = currentPhase, round = this.round });
         CurrentPhaseText.text = currentPhase.ToString();
+    }
+
+    public void OnPieceAdded(AddPieceToBoardEvent e)
+    {
+        if(!roomManager.IsTutorial)
+            return;
+
+        if (currentPhase != Phase.Market)
+            return;
+
+        if (e.piece.IsEnemy())
+            return;
+
+        int totalPiecesOnBoard = 0;
+        for (int i = 0; i < numPlayers; ++i)
+            totalPiecesOnBoard += inventoryManager.GetPlayerInventory((Player)i).GetArmyCount();
+
+        int piecesNecessary = 0;
+        switch(round)
+        {
+            case 1:
+                piecesNecessary = numPlayers;
+                break;
+            case 2:
+                piecesNecessary = 2 * numPlayers;
+                break;
+            default:
+                break;
+        }
+
+        if (totalPiecesOnBoard >= piecesNecessary)
+            TryPreCombat();
     }
 }
 

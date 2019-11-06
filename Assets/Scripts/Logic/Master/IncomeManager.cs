@@ -10,8 +10,15 @@ public class IncomeManager : MonoBehaviour
     private int passiveGoldOnEvenRounds = 1;
     private int round = 0; // Players earn end-round goal equal to the round number.
 
-    public void GenerateIncome()
+    public void GenerateIncome(bool isTutorial)
     {
+        if(isTutorial)
+        {
+            for(int i = 0; i < 3; ++i)
+                inventoryManager.AddGold((Player)i, 1);
+            return;
+        }
+
         // If I'm master client
         for (int i = 0; i < 3; ++i)
         {
