@@ -25,6 +25,8 @@ public class MarketUIManager : MonoBehaviour
     public GameObject marketObject;
     MarketSlot[] marketSlots;
 
+    public SoundManager soundManager;
+
     private void Update()
     {
         if (Input.GetButtonDown("Toggle Market"))
@@ -81,6 +83,7 @@ public class MarketUIManager : MonoBehaviour
         Piece pieceToPurchase = e.piece;
         Player player = RoomManager.GetLocalPlayer();
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
+        soundManager.PlayPieceSound("Purchase");
     }
 
     void UpdateMarketButtons(MarketUpdateEvent e)

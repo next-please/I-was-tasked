@@ -514,12 +514,15 @@ MonoBehaviour:
     multicast: 0
     invulnerable: 0
     taunting: 0
+    rotting: 0
   rarities:
   - {fileID: 3628182212924594059}
   - {fileID: 7388298339193326716}
   - {fileID: 5162245000142609187}
   - {fileID: 498304852796272398}
   rarityParent: {fileID: 8589550014442373582}
+  soundManager: {fileID: 6385051547882718675, guid: 3364a829065fb6f4393613b20fce2d15,
+    type: 3}
   index: 0
 --- !u!1 &5162245000142609187
 GameObject:
