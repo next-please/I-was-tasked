@@ -6,6 +6,7 @@ using Com.Nextplease.IWT;
 public class RoundSummaryUIManager : MonoBehaviour
 {
     public Canvas roundSummaryCanvas;
+    public SoundManager soundManager;
     public Animator roundSummaryAnimator;
     public Animator[] playerBadgeAnimators;
 
@@ -43,11 +44,13 @@ public class RoundSummaryUIManager : MonoBehaviour
         roundSummaryAnimator.Play("Enter");
 
         // play win/lose
+        bool win = true;
         for (int i = 0; i < 3; i++)
         {
             if (PhaseManager.damageResults[i])
             {
                 playerBadgeAnimators[i].Play("Lose");
+                win = false;
             }
             else
             {
@@ -55,6 +58,7 @@ public class RoundSummaryUIManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(0.3f);
         }
+        soundManager.PlayEndWaveSound(win);
 
         yield return new WaitForSeconds(5f);
         roundSummaryAnimator.Play("Exit");

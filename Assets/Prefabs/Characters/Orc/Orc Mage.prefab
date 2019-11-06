@@ -4218,7 +4218,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAudioSource: {fileID: 8571228628355606716, guid: 6a5d770d7f6dd1842b5e5e397754a955,
     type: 3}
-  skillAudioSource: {fileID: 0}
+  skillCastAudioSource: {fileID: 5020819795019666523, guid: d272e98200631d5449c705e36e94fe4d,
+    type: 3}
+  skillSubCastAudioSource: {fileID: 6922060661136591609, guid: 2f43912fa93dc3c4aa71e932480fc733,
+    type: 3}
+  deathAudioSource: {fileID: 355952450548321638, guid: 38ba4d45b6bd0704eb02165dce3fa34f,
+    type: 3}
 --- !u!114 &6501275383766542884
 MonoBehaviour:
   m_ObjectHideFlags: 0

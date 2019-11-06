@@ -137,6 +137,7 @@ public class SkillState : State
         tilePos.y = 0.5f;
         pieceView.transform.LookAt(tilePos);
         pieceView.animator.Play("Cast", 0);
+        pieceView.pieceSounds.PlaySkillCastSound();
     }
 
     public override void OnViewFinish(PieceView pieceView)

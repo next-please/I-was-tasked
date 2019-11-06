@@ -43,25 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ddaa17752a18545ac30cf002d4ea25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pieceSwordHitAudioSources:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  pieceArrowHitAudioSources:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  MainSoundtrack: {fileID: 2533884028672573518, guid: 32324978e319492488c3c6c7bc067024,
+    type: 3}
+  Win_Wave: {fileID: 1040172373752037295, guid: 2b9b0f0a5b40e9045b870e1bd700a815,
+    type: 3}
+  Lose_Wave: {fileID: 2300287274480984536, guid: 71df6542c93e34547a4faf4a0cd4e212,
+    type: 3}
+  Win_Game: {fileID: 6845598380173867551, guid: 31a4a2bb81c5a9f45bbab34f18e4c56c,
+    type: 3}
+  Lose_Game: {fileID: 7696962670101366373, guid: cbbea11b585d3a54cbac18e341cbd461,
+    type: 3}

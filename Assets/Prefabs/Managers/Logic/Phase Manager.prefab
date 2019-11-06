@@ -46,7 +46,10 @@ MonoBehaviour:
   CurrentPhaseText: {fileID: 0}
   CurrentTimeText: {fileID: 0}
   CurrentRoundText: {fileID: 0}
-  WinScreen: {fileID: 0}
+  SwordImage: {fileID: 0}
+  PopUpScreen: {fileID: 0}
+  GameOverScreen: {fileID: 0}
+  tutorialPopUp: {fileID: 0}
   incomeManager: {fileID: 0}
   boardManager: {fileID: 0}
   marketManager: {fileID: 0}
@@ -55,3 +58,6 @@ MonoBehaviour:
   requestHandler: {fileID: 0}
   roomManager: {fileID: 0}
   synergyManager: {fileID: 0}
+  soundManager: {fileID: 6385051547882718675, guid: 3364a829065fb6f4393613b20fce2d15,
+    type: 3}
+  randomRoundIndex: 0

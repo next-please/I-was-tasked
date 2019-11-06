@@ -16,7 +16,7 @@ public class RangedAttack : Interaction
         this.damageToInflict = damageToInflict;
         this.ticksRemaining = ticksTotal;
         this.ticksTotal = ticksTotal;
-        
+
         // Testing
         if (attacker.GetRace() == Enums.Race.Human && attacker.GetClass() == Enums.Job.Mage)
         {
@@ -42,7 +42,7 @@ public class RangedAttack : Interaction
         }
         else
         {
-            
+
             ApplyDamageToInflict();
             return false;
         }
@@ -63,7 +63,7 @@ public class RangedAttack : Interaction
         // Projectile chases the Target. If the Target is dead, the Projectile will go to the Tile the Target was previously on.
         if (!target.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
+            attackDestination = target.GetPieceView().transform.position;
             attackDestination.y = 1.5f;
         }
 
