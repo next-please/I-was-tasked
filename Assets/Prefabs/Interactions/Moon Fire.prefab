@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99a54c788fbc2b643a913f7b1fdfd6c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DelayUntilEndAnimation: 0.5
+  DelayUntilEndAnimation: 0.1
 --- !u!1 &1026796414099049428
 GameObject:
   m_ObjectHideFlags: 0

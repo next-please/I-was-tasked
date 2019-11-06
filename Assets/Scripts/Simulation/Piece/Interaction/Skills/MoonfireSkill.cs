@@ -22,7 +22,7 @@ public class MoonfireSkill : Interaction
         interactionPrefab = Enums.InteractionPrefab.ProjectileTestLightBlue;
 
         attackSource = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackSource.y += 0.55f;
+        attackSource.y += 0.65f;
     }
 
     public override bool ProcessInteraction()

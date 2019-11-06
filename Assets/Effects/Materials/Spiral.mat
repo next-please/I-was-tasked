@@ -66,7 +66,7 @@ Material:
     - _ZTestDepthEqualForOpaque: 4
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - Color_8FDCEA67: {r: 0, g: 77.30196, b: 95.87451, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
