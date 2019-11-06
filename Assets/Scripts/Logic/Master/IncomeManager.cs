@@ -8,17 +8,10 @@ public class IncomeManager : MonoBehaviour
     public InventoryManager inventoryManager;
     private int[] incomesGenerated = { 0, 0, 0 };
     private int passiveGoldOnEvenRounds = 1;
-    private int round = 0; // Players earn end-round goal equal to the round number.
 
-    public void GenerateIncome(bool isTutorial)
+    public void GenerateIncome(int round)
     {
-        if(isTutorial)
-        {
-            for(int i = 0; i < 3; ++i)
-                inventoryManager.AddGold((Player)i, 1);
-            return;
-        }
-
+        round -= 1;
         // If I'm master client
         for (int i = 0; i < 3; ++i)
         {
@@ -42,7 +35,6 @@ public class IncomeManager : MonoBehaviour
             inventoryManager.AddGold((Player)i, goldToGive);
         }
         Debug.Log("Players have earned { " + incomesGenerated[0] + ", " + incomesGenerated[1] + ", " + +incomesGenerated[2] + " }");
-        round++;
     }
 
     public void SetIncomeGeneratedByPlayer(Player player, int incomeGenerated)

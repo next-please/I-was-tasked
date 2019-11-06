@@ -4,9 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
+    public Button tutorialButton;
+    public TextMeshProUGUI tutorialText;
+
     private readonly string CLASS_NAME = "CreateRoom";
 
     [SerializeField]
@@ -16,6 +20,8 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     private TextMeshProUGUI _numPlayersInput;
 
     private CanvasesManager _canvasesManager;
+
+    private bool _isTutorial = true;
 
     private void Awake()
     {
@@ -40,7 +46,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
 
         // Empty Room Name
         RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
-        options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() {{ "isTutorial", false }};
+        options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() {{ "isTutorial", _isTutorial }};
         string roomName = (_roomName.text.Length <= 1) ? PhotonNetwork.LocalPlayer.NickName + "'s Room" : _roomName.text;
         PhotonNetwork.CreateRoom(roomName, options, TypedLobby.Default);
     }
@@ -63,4 +69,46 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         _canvasesManager = mg;
     }
 
+    public void OnClick_Tutorial()
+    {
+        if (_isTutorial)
+        {
+            DisableTutorial();
+        }
+        else
+        {
+            EnableTutorial();
+        }
+    }
+
+    void EnableTutorial()
+    {
+        ColorBlock cb = tutorialButton.colors;
+        cb.normalColor = new Color(0.0f, 0.7f, 0.0f);
+        cb.selectedColor = cb.normalColor;
+        cb.highlightedColor = Color.green;
+        tutorialButton.colors = cb;
+
+        // To re-enable the hover-over highlight.
+        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        eventSystem.SetSelectedGameObject(null);
+        tutorialText.text = "Tutorial Enabled";
+        _isTutorial = true;
+    }
+
+    void DisableTutorial()
+    {
+        ColorBlock cb = tutorialButton.colors;
+        cb.normalColor = new Color(0.7f, 0.0f, 0.0f);
+        cb.selectedColor = cb.normalColor;
+        cb.highlightedColor = Color.red;
+        tutorialButton.colors = cb;
+
+        // To re-enable the hover-over highlight.
+        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        eventSystem.SetSelectedGameObject(null);
+        tutorialText.text = "Tutorial Disabled";
+        _isTutorial = false;
+
+    }
 }

@@ -30,6 +30,7 @@ public class TutorialUIManager : MonoBehaviour
     private bool waitingForPost = false;
     private bool waitingForPanMarket = false;
     private bool waitingForSynergy = false;
+    private bool waitingForEnd = false;
 
     void OnEnable()
     {
@@ -72,6 +73,11 @@ public class TutorialUIManager : MonoBehaviour
         {
             ShowHealth();
         }
+
+        if (e.phase == Phase.PostCombat && waitingForEnd)
+        {
+            ShowEnd();
+        }
     }
 
     void OnInventoryChange(InventoryChangeEvent e)
@@ -92,7 +98,6 @@ public class TutorialUIManager : MonoBehaviour
             CloseDragToBoard();
             waitingForPre = true;
         }
-
     }
 
     void Update()
@@ -210,6 +215,7 @@ public class TutorialUIManager : MonoBehaviour
         PanToMarketCanvas.SetActive(false);
         waitingForPanMarket = false;
         waitingForSynergy = true;
+        waitingForEnd = true;
     }
 
     void ShowSynergy()
@@ -226,7 +232,7 @@ public class TutorialUIManager : MonoBehaviour
 
     void ShowEnd()
     {
-
+        EndCanvas.SetActive(true);
     }
 
     public void CloseTutorial()

@@ -25,7 +25,7 @@ namespace Com.Nextplease.IWT
         private bool _offlineMode = false;
         public bool IsOffline { get { return _offlineMode; } }
 
-        private bool _tutorialMode = true;
+        private bool _tutorialMode = false;
         public bool IsTutorial { get { return _tutorialMode; } }
 
         private Dictionary<string, int> _playerMap;
@@ -63,7 +63,7 @@ namespace Com.Nextplease.IWT
                 _offlineMode = true;
                 return;
             }
-            Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"]);
+            _tutorialMode = (bool)PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"];
             NumPlayersToStart = PhotonNetwork.CurrentRoom.MaxPlayers;
             _playerMap = new Dictionary<string, int>();
             UpdatePlayerMap();

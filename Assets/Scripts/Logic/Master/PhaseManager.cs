@@ -109,7 +109,10 @@ public class PhaseManager : MonoBehaviour
 
     IEnumerator TransitionToFullGame()
     {
+        round = 0;
         CurrentRoundText.text = "Transition";
+        for (int i = 0; i < numPlayers; ++i)
+            incomeManager.SetIncomeGeneratedByPlayer((Player)i, 0);
         yield return Countdown(10);
         roomManager.SetFullGameMode();
         StartPhases(numPlayers);
@@ -283,10 +286,14 @@ public class PhaseManager : MonoBehaviour
         boardManager.ResetBoards(numPlayers);
 
         if (roomManager.IsTutorial)
-            yield return null;
+        {
+            for (int i = 0; i < numPlayers; ++i)
+                inventoryManager.SetGold((Player)i, 1);
+        }
         else
         {
-            incomeManager.GenerateIncome(false);
+            Debug.Log(round + " market");
+            incomeManager.GenerateIncome(round);
             yield return Countdown(marketDuration);
             TryPreCombat();
         }

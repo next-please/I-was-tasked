@@ -53,6 +53,11 @@ public class PlayerInventory : ScriptableObject
         return gold;
     }
 
+    public void SetGold(int val)
+    {
+        gold = val;
+    }
+
     public bool CanPurchase(float price)
     {
         return gold - price >= 0;

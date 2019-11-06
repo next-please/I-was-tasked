@@ -200,6 +200,14 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    // use for tutorial, please use carefully
+    public void SetGold(Player player, int amount)
+    {
+        var playerInv = GetPlayerInventory(player);
+        playerInv.SetGold(amount);
+        EventManager.Instance.Raise(new InventoryChangeEvent{ inventory = playerInv });
+    }
+
     public void MoveBenchPieceToIndex(Player player, Piece piece, int index)
     {
         var playerInv = GetPlayerInventory(player);
