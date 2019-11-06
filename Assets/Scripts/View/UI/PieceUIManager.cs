@@ -243,9 +243,9 @@ public class PieceUIManager : MonoBehaviour
             skillName.text = "Evicerate";
             skillDescription.text = string.Format("Strikes an enemy for {0} damage and causing it to lose {1} damage over time.", GameLogicManager.Inst.Data.Skills.EviscerateInitialDamage, GameLogicManager.Inst.Data.Skills.EviscerateBleedDamage);
         }
-        else if (spell == Enums.Spell.Moonfire)
+        else if (spell == Enums.Spell.Moonbeam)
         {
-            skillName.text = "Moonfire";
+            skillName.text = "Moonbeam";
             skillDescription.text = string.Format("Calls a beam of moon light to strike an enemy for {0} damage. Recovers quickly.", GameLogicManager.Inst.Data.Skills.MoonfireDefaultDamage);
         }
         else if (spell == Enums.Spell.Rot)

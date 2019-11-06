@@ -108,7 +108,7 @@
         Rot,
         UnholyAura,
         Thunderstorm,
-        Moonfire,
+        Moonbeam,
         GreaterHeal,
         CheapShot,
         ShadowStrike,

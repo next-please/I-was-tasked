@@ -38,7 +38,7 @@ public class SkillState : State
                 skill = new UnholyAuraSkill(piece, board);
             else if (piece.spell == Enums.Spell.Thunderstorm)
                 skill = new ThunderstormSkill(piece, board.FindNearestTarget(piece), board);
-            else if (piece.spell == Enums.Spell.Moonfire)
+            else if (piece.spell == Enums.Spell.Moonbeam)
                 skill = new MoonfireSkill(piece, board.FindNearestTarget(piece), board);
             else if (piece.spell == Enums.Spell.GreaterHeal)
                 skill = new GreaterHealSkill(piece, board);
@@ -82,7 +82,7 @@ public class SkillState : State
                 skill = new MagicMissileSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
             else if (piece.spell == Enums.Spell.Barkskin)
                 skill = new BarkskinSkill(piece, board);
-            else if (piece.spell == Enums.Spell.Moonfire)
+            else if (piece.spell == Enums.Spell.Moonbeam)
                 skill = new MoonfireSkill(piece, board.FindNearestTarget(piece), board);
             else if (piece.spell == Enums.Spell.Berserk)
                 skill = new BerserkSkill(piece, board);
@@ -108,7 +108,7 @@ public class SkillState : State
     {
         // Implementation would change depending on the type of skill.
         piece.SetCurrentManaPoints(0);
-        if (piece.spell == Enums.Spell.Moonfire)
+        if (piece.spell == Enums.Spell.Moonbeam)
         {
             piece.SetCurrentManaPoints((int)Math.Floor(piece.GetMaximumManaPoints() * MoonfireSkill.moonfireDefaultManaRetainPercentage));
         }
