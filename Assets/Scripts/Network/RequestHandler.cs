@@ -70,7 +70,6 @@ namespace Com.Nextplease.IWT
                         req.Approve();
                     }
                     break;
-                case TUTORIAL_PHASE:
                 case INIT_PHASE:
                     if (roomManager.IsRoomFull())
                     {

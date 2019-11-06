@@ -57,6 +57,8 @@ public class EnemyGenerator
     {
         switch (roundNumber)
         {
+            case 0:
+                return tutorialEnemies();
             case 1:
                 return wave1Enemies(index);
             case 2:
@@ -130,6 +132,15 @@ public class EnemyGenerator
                 return rngesus.Next(0, 1);
         }
     }
+
+    public List<Piece> tutorialEnemies()
+    {
+        Piece enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 300, 100, 30, 1, 4, 5, Enums.Spell.NoSkill);
+        enemy.SetDamageIfSurvive(1);
+        enemy.startingSpot = new Tuple<int, int>(3, 4);
+        return new List<Piece>() { enemy };
+    }
+
     public String wave1Names(int index)
     {
         switch (index)
