@@ -17,8 +17,7 @@ public class InventoryManager : MonoBehaviour
 
     public void ResetInventories()
     {
-        foreach (var p in playerInventories)
-        {
+        foreach (var p in playerInventories) {
             p.Reset(StartingGold, StartingArmySize);
         }
         synergyManager.Reset();

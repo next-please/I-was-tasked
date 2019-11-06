@@ -25,6 +25,9 @@ namespace Com.Nextplease.IWT
         private bool _offlineMode = false;
         public bool IsOffline { get { return _offlineMode; } }
 
+        private bool _tutorialMode = true;
+        public bool IsTutorial { get { return _tutorialMode; } }
+
         private Dictionary<string, int> _playerMap;
         #endregion
 
@@ -155,6 +158,11 @@ namespace Com.Nextplease.IWT
                 return true;
             }
             return PhotonNetwork.PlayerList.Length == NumPlayersToStart;
+        }
+
+        public void SetFullGameMode()
+        {
+            _tutorialMode = false;
         }
         #endregion
 

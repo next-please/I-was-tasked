@@ -99,6 +99,14 @@ public class BoardManager : MonoBehaviour
         EventManager.Instance.Raise(new PieceMoveEvent { piece = piece, tile = nextTile });
     }
 
+    public void RemoveAllPieces()
+    {
+        for(int i = 0; i < boards.Length; i++)
+        {
+            RemoveAllPiecesFromBoard((Player)i); 
+        }
+    }
+
     public void RemoveAllEnemies(Player player)
     {
         Board board = GetBoard(player);

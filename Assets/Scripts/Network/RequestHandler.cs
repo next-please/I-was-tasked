@@ -86,8 +86,8 @@ namespace Com.Nextplease.IWT
                         break;
                     }
 
-                    phaseManager.SetPlayerReadyForPostCombat(req.GetRequester());
-                    if (phaseManager.PlayersReadyForPostCombat())
+                    phaseManager.SetPlayerReadyForNextPhase(req.GetRequester());
+                    if (phaseManager.PlayersReadyForNextPhase())
                     {
                         req.Approve();
                         phaseManager.ClearPlayerReadySet();
