@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class SkillState : State
 {
@@ -37,7 +38,7 @@ public class SkillState : State
                 skill = new UnholyAuraSkill(piece, board);
             else if (piece.spell == Enums.Spell.Thunderstorm)
                 skill = new ThunderstormSkill(piece, board.FindNearestTarget(piece), board);
-            else if (piece.spell == Enums.Spell.Moonfire)
+            else if (piece.spell == Enums.Spell.Moonbeam)
                 skill = new MoonfireSkill(piece, board.FindNearestTarget(piece), board);
             else if (piece.spell == Enums.Spell.GreaterHeal)
                 skill = new GreaterHealSkill(piece, board);
@@ -63,7 +64,7 @@ public class SkillState : State
             else if (piece.spell == Enums.Spell.GreaterHeal)
                 skill = new GreaterHealSkill(piece, board);
             else if (piece.spell == Enums.Spell.ShadowStrike)
-                skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board, (int)(ShadowStrikeSkill.shadowStrikeDefaultDamage * 0.5));
+                skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board, (int)(ShadowStrikeSkill.shadowStrikeDefaultDamage * 0.9));
             else if (piece.spell == Enums.Spell.UnholyAura)
                 skill = new UnholyAuraSkill(piece, board);
             //skill = new RaiseDeadSkill(piece, board);
@@ -81,7 +82,7 @@ public class SkillState : State
                 skill = new MagicMissileSkill(piece, board.GetActiveFriendliesOnBoard()[board.GetRNGesus().Next(0, board.GetActiveFriendliesOnBoard().Count)], board);
             else if (piece.spell == Enums.Spell.Barkskin)
                 skill = new BarkskinSkill(piece, board);
-            else if (piece.spell == Enums.Spell.Moonfire)
+            else if (piece.spell == Enums.Spell.Moonbeam)
                 skill = new MoonfireSkill(piece, board.FindNearestTarget(piece), board);
             else if (piece.spell == Enums.Spell.Berserk)
                 skill = new BerserkSkill(piece, board);
@@ -107,6 +108,10 @@ public class SkillState : State
     {
         // Implementation would change depending on the type of skill.
         piece.SetCurrentManaPoints(0);
+        if (piece.spell == Enums.Spell.Moonbeam)
+        {
+            piece.SetCurrentManaPoints((int)Math.Floor(piece.GetMaximumManaPoints() * MoonfireSkill.moonfireDefaultManaRetainPercentage));
+        }
         Piece target = piece.GetTarget();
         if (target.IsDead())
         {

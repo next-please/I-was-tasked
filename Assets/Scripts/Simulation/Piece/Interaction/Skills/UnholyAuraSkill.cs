@@ -83,8 +83,11 @@ public class UnholyAuraSkill : Interaction
 
         if (!caster.IsDead())
         {
-            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-            attackSource.y += 1f;
+            Transform casterT = caster.GetPieceView().transform;
+            projectile.transform.parent =  casterT;
+            Vector3 pos = Vector3.zero;
+            pos.y = 1;
+            projectile.transform.localPosition = pos;
         }
 
         projectile.transform.position = attackSource;

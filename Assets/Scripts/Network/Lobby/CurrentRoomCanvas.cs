@@ -1,7 +1,14 @@
-﻿using UnityEngine;
+﻿using Photon.Realtime;
+using Photon.Pun;
+using System;
+using UnityEngine;
+using TMPro;
 
 public class CurrentRoomCanvas : MonoBehaviour
 {
+    [SerializeField]
+    private TextMeshProUGUI roomNameAndDetails;
+
     [SerializeField]
     private PlayerListingsMenu _playerListingsMenu;
 
@@ -21,10 +28,16 @@ public class CurrentRoomCanvas : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        SetRoomInfo(PhotonNetwork.CurrentRoom);
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    public void SetRoomInfo(RoomInfo roomInfo)
+    {
+        roomNameAndDetails.text = String.Format("{0} ({1})", roomInfo.Name, roomInfo.MaxPlayers);
     }
 }

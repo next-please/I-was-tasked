@@ -77,6 +77,7 @@ public class Piece : ISerializable
     public bool multicast = false;
     public bool invulnerable = false;
     public bool taunting = false;
+    public bool rotting = false;
 
     // Constructor for All Pieces; remember to set isEnemy accordingly.
     public Piece(string name, string title, Enums.Race race, Enums.Job job, int rarity, bool isEnemy,
@@ -216,9 +217,17 @@ public class Piece : ISerializable
         defaultLinkedProtectingPiece = null;
         linkedProtectingPiece = null;
 
+        invulnerable = (bool)info.GetValue("invulnerable", typeof(bool));
+
         damageIfSurvive = (int) info.GetValue("damageIfSurvive", typeof(int));
 
         startingSpot = (Tuple<int, int>)info.GetValue("startingSpot", typeof(Tuple<int, int>));
+
+        rotting = (bool)info.GetValue("rotting", typeof(bool));
+        if (rotting)
+        {
+            interactions.Add(new DecayingSynergyEffect(this));
+        }
 
         this.state = CreateState();
         this.entryState = this.state;
@@ -278,9 +287,13 @@ public class Piece : ISerializable
         info.AddValue("defaultCurseDamageAmount", defaultCurseDamageAmount, typeof(int));
         info.AddValue("curseDamageAmount", curseDamageAmount, typeof(int));
 
+        info.AddValue("invulnerable", invulnerable, typeof(bool));
+
         info.AddValue("damageIfSurvive", damageIfSurvive, typeof(int));
 
         info.AddValue("startingSpot", startingSpot, typeof(Tuple<int, int>));
+
+        info.AddValue("rotting", rotting, typeof(bool));
     }
 
     public override bool Equals(object obj)
@@ -436,6 +449,7 @@ public class Piece : ISerializable
         multicast = false;
         invulnerable = false;
         taunting = false;
+        rotting = false;
     }
 
     public Piece GetTarget()

@@ -13,8 +13,8 @@ public class PlayersUIManager : MonoBehaviour
     public Animator coreAnimator;
 
     private readonly float lerpSpeed = 1f;
-    private readonly int fullHealth = 10;
-    private int currentHealth = 10;
+    private readonly int fullHealth = MarketManager.StartingCastleHealth;
+    private int currentHealth = MarketManager.StartingCastleHealth;
     private int prevSelectedAvatar;
     private int currSelectedAvatar;
     private List<Animator> playerAvatarAnimators;

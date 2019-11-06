@@ -20,6 +20,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
     private void Awake()
     {
         _numPlayersInput.text = "3 ";
+        _roomName.text = "";
     }
 
     public void OnClick_CreateRoom()
@@ -37,8 +38,10 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
             return;
         }
 
+        // Empty Room Name
         RoomOptions options = new RoomOptions { MaxPlayers = maxPlayers };
-        PhotonNetwork.CreateRoom(_roomName.text, options, TypedLobby.Default);
+        string roomName = (_roomName.text.Length <= 1) ? PhotonNetwork.LocalPlayer.NickName + "'s Room" : _roomName.text;
+        PhotonNetwork.CreateRoom(roomName, options, TypedLobby.Default);
     }
 
     public override void OnCreatedRoom()

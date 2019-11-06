@@ -119,16 +119,18 @@ public class InventoryManager : MonoBehaviour
             if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
-                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+                EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = piece.GetClass(), Applied = true });
             }
             if (!synergyManager.HasSynergy(piece.GetClass()) && hadJobSynergy)
             {
+                // NOTE: This is currently only for rogue
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
+                EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = piece.GetClass(), Applied = false });
             }
             if (synergyManager.HasSynergy(piece.GetRace()) && !hadRaceSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Active" });
-                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.RaceSynergyDescription[(int)piece.GetRace()] });
+                EventManager.Instance.Raise(new RaceSynergyAppliedEvent{ Race = piece.GetRace(), Applied = true });
             }
             if (synergyManager.HasBetterSynergy(piece.GetClass()) && !hadBetterJobSynergy)
             {
@@ -164,15 +166,17 @@ public class InventoryManager : MonoBehaviour
             if (!synergyManager.HasSynergy(piece.GetClass()) && hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
+                EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = piece.GetClass(), Applied = false });
             }
             if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
-                //EventManager.Instance.Raise(new GlobalMessageEvent { message = Enums.JobSynergyDescription[(int)piece.GetClass()] });
+                EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = piece.GetClass(), Applied = true });
             }
             if (!synergyManager.HasSynergy(piece.GetRace()) && hadRaceSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetRace() + " Synergy Removed" });
+                EventManager.Instance.Raise(new RaceSynergyAppliedEvent{ Race = piece.GetRace(), Applied = false });
             }
             if (!synergyManager.HasBetterSynergy(piece.GetClass()) && hadBetterJobSynergy)
             {

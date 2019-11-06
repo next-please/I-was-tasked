@@ -11,16 +11,28 @@ public class HumanSynergyView : MonoBehaviour
     void Start()
     {
         EventManager.Instance.AddListener<RaceSynergyAppliedEvent>(OnSynergyApplied);
-        EventManager.Instance.AddListener<ExitPhaseEvent>(OnExitPhase);
         pieceView = GetComponentInParent<PieceView>();
+
         if (pieceView == null)
+        {
             Destroy(this);
+            return;
+        }
+
+        Piece piece = pieceView.piece;
+        if (piece.IsEnemy())
+        {
+            Destroy(this);
+            return;
+        }
+
+        bool hasSynergy = SynergyManager.GetInstance().HasSynergy(Enums.Race.Human);
+        ToggleVfx(hasSynergy);
     }
 
     void OnDestroy()
     {
         EventManager.Instance.RemoveListener<RaceSynergyAppliedEvent>(OnSynergyApplied);
-        EventManager.Instance.RemoveListener<ExitPhaseEvent>(OnExitPhase);
     }
 
     void OnSynergyApplied(RaceSynergyAppliedEvent e)
@@ -30,15 +42,13 @@ public class HumanSynergyView : MonoBehaviour
         Piece piece = pieceView.piece;
         if (piece.IsOnBoard() && !piece.IsEnemy())
         {
-            vfx.SendEvent("Start");
+            ToggleVfx(e.Applied);
         }
     }
 
-    void OnExitPhase(ExitPhaseEvent e)
+    void ToggleVfx(bool apply)
     {
-        if (e.phase == Phase.Combat)
-        {
-            vfx.SendEvent("Stop");
-        }
+        string message = apply ? "Start" : "Stop";
+        vfx.SendEvent(message);
     }
 }

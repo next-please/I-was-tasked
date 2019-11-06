@@ -11,13 +11,13 @@ public class TransactionManager : MonoBehaviour
     public RequestHandler requestHandler;
     public BoardManager boardManager;
 
-    public readonly int UpgradeMarketSizeCost = 5;
+    public readonly int UpgradeMarketSizeCost = 4;
     public readonly int UpgradeArmySizeArmyMultiplier = 2;
     public readonly int UpgradeArmySizeLinearAdditor = -2;
 
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
     {
-        int price = (int)Math.Pow(2, piece.GetRarity() - 1);
+        int price = piece.GetPrice();
         // check locally if we can do this transaction for immediate feedback
         if (!IsValidPurchase(player, price))
         {

@@ -8,6 +8,7 @@ public class SynergyManager : MonoBehaviour
     public int humanGoldAmount = GameLogicManager.Inst.Data.Synergy.HumanGoldAmount2;
     private double rogueDamageMultiplier = GameLogicManager.Inst.Data.Synergy.RogueDamageMultiplier;
     private double rogueHitPointMultiplier = GameLogicManager.Inst.Data.Synergy.RogueHitPointMultiplier;
+    private int undeadBonusHealth = GameLogicManager.Inst.Data.Synergy.UndeadBonusHealth;
     private int undeadTicksToDie = GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie;
     private int priestRetributionRadius = GameLogicManager.Inst.Data.Synergy.PriestRetributionRadius;
     private int priestRetributionDamage = GameLogicManager.Inst.Data.Synergy.PriestRetributionDamage;
@@ -19,7 +20,7 @@ public class SynergyManager : MonoBehaviour
     private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
     public static int[] jobSynergyRequirement = new int[]
     {
-        GameLogicManager.Inst.Data.Synergy.DruidRequirement,
+        GameLogicManager.Inst.Data.Synergy.DruidRequirement1,
         GameLogicManager.Inst.Data.Synergy.KnightRequirement1,
         GameLogicManager.Inst.Data.Synergy.MageRequirement1,
         GameLogicManager.Inst.Data.Synergy.PriestRequirement1,
@@ -28,11 +29,11 @@ public class SynergyManager : MonoBehaviour
 
     public static int[] jobSynergyHigherRequirement = new int[]
     {
-        GameLogicManager.Inst.Data.Synergy.DruidRequirement,
+        GameLogicManager.Inst.Data.Synergy.DruidRequirement2,
         GameLogicManager.Inst.Data.Synergy.KnightRequirement2,
         GameLogicManager.Inst.Data.Synergy.MageRequirement2,
         GameLogicManager.Inst.Data.Synergy.PriestRequirement2,
-        GameLogicManager.Inst.Data.Synergy.RogueRequirement2,    
+        GameLogicManager.Inst.Data.Synergy.RogueRequirement2,
     };
 
     public static int[] raceSynergyRequirement = new int[]
@@ -46,17 +47,25 @@ public class SynergyManager : MonoBehaviour
     public static int[] raceSynergyHigherRequirement = new int[]
     {
         GameLogicManager.Inst.Data.Synergy.HumanRequirement2,
-        GameLogicManager.Inst.Data.Synergy.ElfRequirement1,
+        GameLogicManager.Inst.Data.Synergy.ElfRequirement2,
         GameLogicManager.Inst.Data.Synergy.OrcRequirement2,
-        GameLogicManager.Inst.Data.Synergy.UndeadRequirement1
+        GameLogicManager.Inst.Data.Synergy.UndeadRequirement2
     };
 
     public InventoryManager inventoryManager;
     public BoardManager boardManager;
     public System.Random rngesus;
 
-    public SynergyManager()
+    private static SynergyManager instance;
+
+    void Awake()
     {
+        instance = this;
+    }
+
+    public static SynergyManager GetInstance()
+    {
+        return instance;
     }
 
     public void SetSeed(int seed)
@@ -114,7 +123,7 @@ public class SynergyManager : MonoBehaviour
     {
         return raceSynergyCount[(int)race] >= raceSynergyHigherRequirement[(int)race];
     }
-    
+
     public bool HasBetterSynergy(Enums.Job job)
     {
         return jobSynergyCount[(int)job] >= jobSynergyHigherRequirement[(int)job];
@@ -166,7 +175,6 @@ public class SynergyManager : MonoBehaviour
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
         var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
-        EventManager.Instance.Raise(new JobSynergyAppliedEvent{ Job = (Enums.Job)i });
         switch (i)
         {
             case (int)Enums.Job.Druid://druids become immobile and gain range
@@ -176,7 +184,16 @@ public class SynergyManager : MonoBehaviour
                     {
                         friendlyPieces[target].SetAttackRange(99);
                     }
+                }   
+                if (jobSynergyCount[(int)Enums.Job.Druid] >= jobSynergyHigherRequirement[(int)Enums.Job.Druid])
+                {
+                    for (int target = 0; target < enemyPieces.Count; target++)
+                    {
+                        enemyPieces[target].SetAttackSpeed(enemyPieces[target].GetAttackSpeed() - 1);
+                        enemyPieces[target].SetMovementSpeed(enemyPieces[target].GetMovementSpeed() - 1);
+                    }
                 }
+
                 break;
             case (int)Enums.Job.Knight://knights taunt enemies
                 for (int target = 0; target < friendlyPieces.Count; target++)
@@ -184,12 +201,12 @@ public class SynergyManager : MonoBehaviour
                     if (friendlyPieces[target].GetClass() == Enums.Job.Knight)
                     {
                         friendlyPieces[target].taunting = true;
-                    }
 
-                    if (jobSynergyCount[(int)Enums.Job.Knight] >= jobSynergyHigherRequirement[(int)Enums.Job.Knight])
-                    {
-                        friendlyPieces[target].invulnerable = true;
-                        board.AddInteractionToProcess(new UnstoppableSynergyEffect(friendlyPieces[target], board));
+                        if (jobSynergyCount[(int)Enums.Job.Knight] >= jobSynergyHigherRequirement[(int)Enums.Job.Knight])
+                        {
+                            friendlyPieces[target].invulnerable = true;
+                            board.AddInteractionToProcess(new UnstoppableSynergyEffect(friendlyPieces[target], board));
+                        }
                     }
                 }
                 break;
@@ -245,13 +262,12 @@ public class SynergyManager : MonoBehaviour
         var randomFriendly = rngesus.Next(0, friendlyPieces.Count);
         var enemyPieces = board.GetActiveEnemiesOnBoard();
         var randomEnemy = rngesus.Next(0, enemyPieces.Count);
-        EventManager.Instance.Raise(new RaceSynergyAppliedEvent{ Race = (Enums.Race)i });
         switch (i)
         {
             case (int)Enums.Race.Elf://elves guide a friendly unit in death
                 for (int target = 0; target < friendlyPieces.Count; target++)
                 {
-                    if (friendlyPieces[target].GetRace() == Enums.Race.Elf)
+                    if (friendlyPieces[target].GetRace() == Enums.Race.Elf || raceSynergyCount[(int)Enums.Race.Elf] >= raceSynergyHigherRequirement[(int)Enums.Race.Elf])
                     {
                         GuidingSpiritSynergyEffect skill = new GuidingSpiritSynergyEffect(friendlyPieces[target], board, elfGuidingSpiritAttackDamage, elfGuidingSpiritAttackSpeed);
                         board.AddInteractionToProcess(skill);
@@ -270,10 +286,10 @@ public class SynergyManager : MonoBehaviour
                         {
                             board.AddInteractionToProcess(
                                 new RampageSynergyEffect(
-                                    friendlyPieces[target], 
-                                    board, 
-                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed, 
-                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage, 
+                                    friendlyPieces[target],
+                                    board,
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed,
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage,
                                     GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold2
                                 )
                             );
@@ -282,10 +298,10 @@ public class SynergyManager : MonoBehaviour
                         {
                             board.AddInteractionToProcess(
                                 new RampageSynergyEffect(
-                                    friendlyPieces[target], 
-                                    board, 
-                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed, 
-                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage, 
+                                    friendlyPieces[target],
+                                    board,
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageAttackSpeed,
+                                    GameLogicManager.Inst.Data.Synergy.OrcRampageArmourPercentage,
                                     GameLogicManager.Inst.Data.Synergy.OrcRampageHealthThreshold1
                                 )
                             );
@@ -298,10 +314,16 @@ public class SynergyManager : MonoBehaviour
                 {
                     if (friendlyPieces[target].GetRace() == Enums.Race.Undead)
                     {
-                        friendlyPieces[target].invulnerable = true;
-                        friendlyPieces[target].SetMaximumHitPoints(undeadTicksToDie);
-                        friendlyPieces[target].SetCurrentHitPoints(undeadTicksToDie);
-                        board.AddInteractionToProcess(new DecayingSynergyEffect(friendlyPieces[target]));
+                        friendlyPieces[target].SetMaximumHitPoints(friendlyPieces[target].GetMaximumHitPoints() + (int)((double)undeadBonusHealth / raceSynergyCount[(int)Enums.Race.Undead]));
+                        friendlyPieces[target].SetCurrentHitPoints(friendlyPieces[target].GetCurrentHitPoints() + (int)((double)undeadBonusHealth / raceSynergyCount[(int)Enums.Race.Undead]));
+
+                        if (raceSynergyCount[(int)Enums.Race.Undead] >= raceSynergyHigherRequirement[(int)Enums.Race.Undead])
+                        {
+                            friendlyPieces[target].invulnerable = true;
+                            friendlyPieces[target].SetMaximumHitPoints(undeadTicksToDie);
+                            friendlyPieces[target].SetCurrentHitPoints(undeadTicksToDie);
+                            board.AddInteractionToProcess(new DecayingSynergyEffect(friendlyPieces[target]));
+                        }
                     }
                 }
                 break;
@@ -310,15 +332,16 @@ public class SynergyManager : MonoBehaviour
                 break;
         }
     }
-
 }
 
 public class RaceSynergyAppliedEvent : GameEvent
 {
     public Enums.Race Race;
+    public bool Applied;
 }
 
 public class JobSynergyAppliedEvent : GameEvent
 {
     public Enums.Job Job;
+    public bool Applied;
 }

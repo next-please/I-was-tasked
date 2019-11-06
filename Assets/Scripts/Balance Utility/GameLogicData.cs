@@ -40,7 +40,8 @@ public class GameLogicData : ScriptableObject
 public class SynergyData
 {
     [Header("Job Synergy Requirement")]
-    public int DruidRequirement = 4;
+    public int DruidRequirement1 = 5;
+    public int DruidRequirement2 = 9;
     public int KnightRequirement1 = 4;
     public int KnightRequirement2 = 11;
     public int MageRequirement1 = 3;
@@ -53,10 +54,12 @@ public class SynergyData
     [Header("Race Synergy Requirement")]
     public int HumanRequirement1 = 5;
     public int HumanRequirement2 = 10;
-    public int ElfRequirement1 = 8;
+    public int ElfRequirement1 = 4;
+    public int ElfRequirement2 = 8;
     public int OrcRequirement1 = 4;
     public int OrcRequirement2 = 9;
-    public int UndeadRequirement1 = 9;
+    public int UndeadRequirement1 = 1;
+    public int UndeadRequirement2 = 6;
 
     [Header("Synergy Power Variables")]
     public int HumanGoldAmount1 = 2;
@@ -65,6 +68,7 @@ public class SynergyData
     public double RogueHitPointMultiplier = 0.1;
     public double MageStartingManaPercentage = 0.25;
     public int UndeadTicksToDie = 500;
+    public int UndeadBonusHealth = 300;
     public int PriestRetributionRadius = 2;
     public int PriestRetributionHealing = 100;
     public int PriestRetributionDamage = 75;

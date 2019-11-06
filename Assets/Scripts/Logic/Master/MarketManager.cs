@@ -6,7 +6,7 @@ public class MarketManager : MonoBehaviour
 {
     public int StartingMarketSize = 5;
     public int StartingMarketTier = 1;
-    public int StartingCastleHealth = 15;
+    public static int StartingCastleHealth = 15;
     public InventoryManager inventoryManager;
     public Market market;
     public CharacterGenerator characterGenerator;

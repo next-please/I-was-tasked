@@ -7,7 +7,7 @@ public class BarkskinSkill : Interaction
 {
     private Piece caster;
     private Board board;
-    public double barkskinDefaultReflectAmount = 0.25;
+    public static double barkskinDefaultReflectAmount = 0.25;
     public int ticksTilActivation = 0;
 
     public BarkskinSkill(Piece caster, Board board)

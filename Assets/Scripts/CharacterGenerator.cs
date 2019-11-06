@@ -159,7 +159,7 @@ public class CharacterGenerator
         { Enums.Spell.Shapeshift, Enums.Spell.Charge, Enums.Spell.Fireblast, Enums.Spell.GreaterHeal, Enums.Spell.CheapShot },
         { Enums.Spell.ForestSpirits, Enums.Spell.ProtectAlly, Enums.Spell.MagicMissile, Enums.Spell.BlessingOfNature, Enums.Spell.ShadowStrike },
         { Enums.Spell.Barkskin, Enums.Spell.Rampage, Enums.Spell.Thunderstorm, Enums.Spell.CurseOfAgony, Enums.Spell.Evicerate },
-        { Enums.Spell.Moonfire, Enums.Spell.Rot, Enums.Spell.FrostArmour, Enums.Spell.UnholyAura, Enums.Spell.MarkForDeath }
+        { Enums.Spell.Moonbeam, Enums.Spell.Rot, Enums.Spell.FrostArmour, Enums.Spell.UnholyAura, Enums.Spell.MarkForDeath }
     };
 
     private int[,,] TierRaceJobPoolSize;

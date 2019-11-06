@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: GameLogic
   m_EditorClassIdentifier: 
   Version: master
+  MarketDuration: 20
+  PreCombatDuration: 10
+  CombatDuration: 60
   Piece:
     ManaPointsGainedOnAttack: 10
     ManaPointsGainedOnHit: 4
@@ -48,7 +51,7 @@ MonoBehaviour:
     ForestSpiritsRarityMultiplier: 1.2
     FrostArmourPercentage: 0.3
     FrostArmourLingerTicks: 250
-    GreaterHealInitialTicks: 100
+    GreaterHealInitialTicks: 70
     GreaterHealAmount: 100
     GreaterHealLingerTicks: 200
     GreaterHealRarityMultiplier: 1.2
@@ -135,24 +138,36 @@ MonoBehaviour:
     HumanPriestManaMultiplier: 1.3
     ElfDruidManaMultiplier: 2
   Synergy:
-    DruidRequirement: 4
-    KnightRequirement: 5
-    MageRequirement: 8
-    PriestRequirement: 6
-    RogueRequirement: 7
-    HumanRequirement: 10
-    ElfRequirement: 8
-    OrcRequirement: 10
-    UndeadRequirement: 9
-    HumanGoldAmount: 10
+    DruidRequirement1: 5
+    DruidRequirement2: 9
+    KnightRequirement1: 4
+    KnightRequirement2: 10
+    MageRequirement1: 3
+    MageRequirement2: 8
+    PriestRequirement1: 4
+    PriestRequirement2: 6
+    RogueRequirement1: 2
+    RogueRequirement2: 7
+    HumanRequirement1: 5
+    HumanRequirement2: 10
+    ElfRequirement1: 4
+    ElfRequirement2: 8
+    OrcRequirement1: 4
+    OrcRequirement2: 9
+    UndeadRequirement1: 1
+    UndeadRequirement2: 6
+    HumanGoldAmount1: 2
+    HumanGoldAmount2: 10
     RogueDamageMultiplier: 3
     RogueHitPointMultiplier: 0.33
     MageStartingManaPercentage: 0.25
     UndeadTicksToDie: 500
+    UndeadBonusHealth: 400
     PriestRetributionRadius: 2
     PriestRetributionHealing: 100
     PriestRetributionDamage: 75
-    OrcRampageHealthThreshold: 0.8
+    OrcRampageHealthThreshold1: 0.4
+    OrcRampageHealthThreshold2: 0.8
     OrcRampageAttackSpeed: 3
     OrcRampageArmourPercentage: 0
     ElfGuidingSpiritAttackDamage: 10
@@ -271,28 +286,28 @@ MonoBehaviour:
     AttackSpeed: 3
     MovementSpeed: 4
   UndeadKnight:
-    HitPoints: 150
+    HitPoints: 50
     ManaPoints: 70
     AttackDamage: 10
     AttackRange: 1
     AttackSpeed: 3
     MovementSpeed: 4
   UndeadMage:
-    HitPoints: 240
+    HitPoints: 140
     ManaPoints: 100
     AttackDamage: 11
     AttackRange: 2
     AttackSpeed: 3
     MovementSpeed: 4
   UndeadPriest:
-    HitPoints: 750
+    HitPoints: 650
     ManaPoints: 120
     AttackDamage: 12
     AttackRange: 3
     AttackSpeed: 3
     MovementSpeed: 4
   UndeadRogue:
-    HitPoints: 235
+    HitPoints: 135
     ManaPoints: 100
     AttackDamage: 16
     AttackRange: 1
