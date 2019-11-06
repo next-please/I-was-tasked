@@ -147,7 +147,7 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 160, 100, 10, 1, 4, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 200, 100, 10, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
@@ -172,15 +172,15 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 120, 100, 8, 1, 4, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 120, 100, 10, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 12, 1, 4, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 100, 100, 12, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Priest, 1, true, 60, 100, 5, 2, 4, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Priest, 1, true, 90, 100, 5, 2, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 6);
                 enemies.Add(enemy);
@@ -208,7 +208,7 @@ public class EnemyGenerator
                 enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Human, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
-                enemy.SetAttackDamage(16);
+                enemy.SetAttackDamage(20);
                 enemy.SetMaximumHitPoints(200);
                 enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
                 enemy.SetTitle("");
@@ -219,6 +219,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(200);
+                enemy.SetCurrentHitPoints(200);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
@@ -226,6 +228,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(200);
+                enemy.SetCurrentHitPoints(200);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
                 enemies.Add(enemy);
@@ -250,27 +254,27 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 4, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #1)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 10, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 6, 1, 3, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #2)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 3, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 5);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #3)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 7, 6, 4, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #3)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 9, 6, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #4)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 7, 6, 5, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #4)", "", Enums.Race.Orc, Enums.Job.Mage, 1, true, 60, 100, 9, 6, 5, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 7);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #5)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 9, 1, 5, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #5)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 11, 1, 5, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
                 enemies.Add(enemy);
-                enemy = new Piece("Enemy #6)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 8, 1, 4, 5, Enums.Spell.NoSkill);
+                enemy = new Piece("Enemy #6)", "", Enums.Race.Orc, Enums.Job.Knight, 1, true, 90, 100, 10, 1, 4, 5, Enums.Spell.NoSkill);
                 enemy.SetDamageIfSurvive(0);
                 enemy.startingSpot = new Tuple<int, int>(6, 4);
                 enemies.Add(enemy);
@@ -352,6 +356,8 @@ public class EnemyGenerator
                 enemy.SetName("Enemy #1");
                 enemy.spell = Enums.Spell.ShadowStrike;
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(235);
+                enemy.SetCurrentHitPoints(235);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 7);
                 enemies.Add(enemy);
@@ -368,6 +374,8 @@ public class EnemyGenerator
                 enemy.SetName("Enemy #3");
                 enemy.spell = Enums.Spell.ShadowStrike;
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(235);
+                enemy.SetCurrentHitPoints(235);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 7);
                 enemies.Add(enemy);
@@ -411,8 +419,8 @@ public class EnemyGenerator
                 enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
-                enemy.SetMaximumHitPoints(350);
-                enemy.SetCurrentHitPoints(350);
+                enemy.SetMaximumHitPoints(550);
+                enemy.SetCurrentHitPoints(550);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(2);
@@ -423,8 +431,8 @@ public class EnemyGenerator
                 enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Druid, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
-                enemy.SetMaximumHitPoints(250);
-                enemy.SetCurrentHitPoints(250);
+                enemy.SetMaximumHitPoints(450);
+                enemy.SetCurrentHitPoints(450);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(2);
@@ -436,8 +444,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.spell = Enums.Spell.NoSkill;
                 enemy.SetName("Enemy #3");
-                enemy.SetMaximumHitPoints(550);
-                enemy.SetCurrentHitPoints(550);
+                enemy.SetMaximumHitPoints(750);
+                enemy.SetCurrentHitPoints(750);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
@@ -448,8 +456,8 @@ public class EnemyGenerator
                 enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Druid, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
-                enemy.SetMaximumHitPoints(450);
-                enemy.SetCurrentHitPoints(450);
+                enemy.SetMaximumHitPoints(650);
+                enemy.SetCurrentHitPoints(650);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
@@ -461,8 +469,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.spell = Enums.Spell.NoSkill;
-                enemy.SetMaximumHitPoints(150);
-                enemy.SetCurrentHitPoints(150);
+                enemy.SetMaximumHitPoints(350);
+                enemy.SetCurrentHitPoints(350);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
@@ -473,8 +481,8 @@ public class EnemyGenerator
                 enemy = characterGenerator.GenerateCharacter(3, Enums.Job.Priest, Enums.Race.Undead, false);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
-                enemy.SetMaximumHitPoints(650);
-                enemy.SetCurrentHitPoints(650);
+                enemy.SetMaximumHitPoints(850);
+                enemy.SetCurrentHitPoints(850);
                 enemy.SetAttackDamage(enemy.GetAttackDamage() * 2);
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
@@ -507,6 +515,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(350);
+                enemy.SetCurrentHitPoints(350);
                 enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 4);
@@ -515,14 +525,18 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(350);
+                enemy.SetCurrentHitPoints(350);
                 enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Priest, Enums.Race.Elf, true);
+                enemy = characterGenerator.GenerateCharacter(2, Enums.Job.Rogue, Enums.Race.Elf, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(350);
+                enemy.SetCurrentHitPoints(350);
                 enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 5);
@@ -531,6 +545,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(350);
+                enemy.SetCurrentHitPoints(350);
                 enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(7, 4);
@@ -539,6 +555,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(350);
+                enemy.SetCurrentHitPoints(350);
                 enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 6);
@@ -718,6 +736,8 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
+                enemy.SetMaximumHitPoints(250);
+                enemy.SetCurrentHitPoints(250);
                 enemy.SetDamageIfSurvive(1);
                 enemy.SetAttackRange(3);
                 enemy.startingSpot = new Tuple<int, int>(3, 6);
