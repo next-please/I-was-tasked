@@ -96,7 +96,10 @@ public class PieceView : MonoBehaviour
                 }
             }
 
-
+            if (spacingWidth < 1)
+            {
+                dividers[i].transform.localScale = new Vector3(dividers[i].transform.localScale.x * spacingWidth, dividers[i].transform.localScale.y, dividers[i].transform.localScale.z);
+            }
         }
         dividerHP.SetActive(false);
     }
@@ -145,7 +148,11 @@ public class PieceView : MonoBehaviour
                 statusBars.SetActive(false);
                 animator.Play("Death", 0);
             }
-            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -5, transform.position.z), Time.deltaTime * 0.025f);
+
+            if (transform.position.y + 3 > 0.01)
+            {
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -3, transform.position.z), Time.deltaTime * 0.025f);
+            }
             return;
         }
         else
