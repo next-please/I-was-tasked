@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class SkillState : State
 {
@@ -107,6 +108,10 @@ public class SkillState : State
     {
         // Implementation would change depending on the type of skill.
         piece.SetCurrentManaPoints(0);
+        if (piece.spell == Enums.Spell.Moonfire)
+        {
+            piece.SetCurrentManaPoints((int)Math.Floor(piece.GetMaximumManaPoints() * MoonfireSkill.moonfireDefaultManaRetainPercentage));
+        }
         Piece target = piece.GetTarget();
         if (target.IsDead())
         {

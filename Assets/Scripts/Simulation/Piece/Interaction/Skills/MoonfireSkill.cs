@@ -9,7 +9,7 @@ public class MoonfireSkill : Interaction
     private Board board;
     private Vector3 attackSource;
     private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.MoonfireInitialTicks;
-    public double moonfireDefaultManaRetainPercentage = GameLogicManager.Inst.Data.Skills.MoonfireManaRetainPercentage;
+    public static double moonfireDefaultManaRetainPercentage = GameLogicManager.Inst.Data.Skills.MoonfireManaRetainPercentage;
     private int moonfireDefaultDamage = GameLogicManager.Inst.Data.Skills.MoonfireDefaultDamage;
 
     public MoonfireSkill(Piece caster, Piece target, Board board)
@@ -57,8 +57,6 @@ public class MoonfireSkill : Interaction
         {
             return;
         }
-
-        caster.SetCurrentManaPoints((int)Math.Floor(caster.GetCurrentManaPoints() + caster.GetMaximumManaPoints()*moonfireDefaultManaRetainPercentage));
 
         int damage = (int)Math.Floor(moonfireDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.MoonfireRarityMultiplier, caster.GetRarity()));
         if (!target.invulnerable)
