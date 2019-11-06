@@ -25,6 +25,7 @@ public class PieceView : MonoBehaviour
     private float smoothTimeMP = 0.01f;
     private Player boardOwner;
     private GameObject[] dividers;
+    private int maximumHP = -1;
 
 
     private void Start()
@@ -48,12 +49,27 @@ public class PieceView : MonoBehaviour
             rarities[piece.GetRarity() - 1].SetActive(true);
         }
         SetHealthDividers();
+        maximumHP = piece.GetMaximumHitPoints();
     }
 
     private void SetHealthDividers()
     {
+        if (maximumHP == piece.GetMaximumHitPoints())
+        {
+            return;
+        }
+
+        // Remove any existing dividers.
+        if (dividers != null)
+        {
+            for (int i = 0; i < dividers.Length; i++)
+            {
+                Destroy(dividers[i]);
+            }
+        }
+
         int numDividers = Mathf.CeilToInt(piece.GetMaximumHitPoints() / 25.0f);
-        float spacingWidth = 11.0f / numDividers;
+        float spacingWidth = 11.5f / numDividers;
         int incrementCount = 1;
 
         dividers = new GameObject[numDividers];
@@ -151,7 +167,7 @@ public class PieceView : MonoBehaviour
 
             if (transform.position.y + 3 > 0.01)
             {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -3, transform.position.z), Time.deltaTime * 0.025f);
+                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x, -3, transform.position.z), Time.deltaTime * 0.0325f);
             }
             return;
         }
@@ -161,6 +177,7 @@ public class PieceView : MonoBehaviour
             {
                 statusBars.SetActive(true);
             }
+            SetHealthDividers();
             UpdateCurrentHPBar();
             UpdateCurrentMPBar();
         }
