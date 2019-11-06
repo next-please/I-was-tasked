@@ -101,12 +101,13 @@ public class PhaseManager : MonoBehaviour
         phasesRunning = false;
         boardManager.RemoveAllPieces();
         inventoryManager.ResetInventories();
+        EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
+        StopAllCoroutines();
         StartCoroutine(TransitionToFullGame());
     }
 
     IEnumerator TransitionToFullGame()
     {
-        EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
         CurrentRoundText.text = "Transition";
         yield return Countdown(10);
         roomManager.SetFullGameMode();
