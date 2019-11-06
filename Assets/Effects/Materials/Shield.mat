@@ -234,7 +234,7 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestModeDistortion: 8
     - _ZTestTransparent: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     m_Colors:
     - Color_EA766D97: {r: 13.050981, g: 191.74902, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
