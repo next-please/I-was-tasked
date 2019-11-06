@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource Win_Wave = null;
-    public AudioSource Lose_Wave = null;
-    public AudioSource Win_Game = null;
-    public AudioSource Lose_Game = null;
+    public AudioSource WinWave = null;
+    public AudioSource LoseWave = null;
+    public AudioSource WinGame = null;
+    public AudioSource LoseGame = null;
+
+    public Image VolumeHandle;
+    public Sprite[] VolumeSprites;
 
     private void Start()
     {
@@ -16,53 +20,61 @@ public class SoundManager : MonoBehaviour
 
     public void InstantiateSounds()
     {
-        if (Win_Wave != null)
+        if (WinWave != null)
         {
-            Win_Wave = Instantiate(Win_Wave, transform);
+            WinWave = Instantiate(WinWave, transform);
         }
 
-        if (Lose_Wave != null)
+        if (LoseWave != null)
         {
-            Lose_Wave = Instantiate(Lose_Wave, transform);
+            LoseWave = Instantiate(LoseWave, transform);
         }
 
-        if (Win_Game != null)
+        if (WinGame != null)
         {
-            Win_Game = Instantiate(Win_Game, transform);
+            WinGame = Instantiate(WinGame, transform);
         }
 
-        if (Win_Game != null)
+        if (WinGame != null)
         {
-            Lose_Game = Instantiate(Lose_Game, transform);
+            LoseGame = Instantiate(LoseGame, transform);
         }
     }
 
     public void PlayEndWaveSound(bool win)
     {
-        if (win && Win_Wave != null)
+        if (win && WinWave != null)
         {
-            Win_Wave.Play();
+            WinWave.Play();
         }
-        else if (!win && Lose_Wave != null)
+        else if (!win && LoseWave != null)
         {
-            Lose_Wave.Play();
+            LoseWave.Play();
         }
     }
 
     public void PlayEndGameSound(bool win)
     {
-        if (win && Win_Game != null)
+        if (win && WinGame != null)
         {
-            Win_Game.Play();
+            WinGame.Play();
         }
-        else if (!win && Lose_Game != null)
+        else if (!win && LoseGame != null)
         {
-            Lose_Game.Play();
+            LoseGame.Play();
         }
     }
 
     public void SetAudioListenerVolume(float volume)
     {
         AudioListener.volume = volume;
+        if (volume <= 0)
+        {
+            VolumeHandle.sprite = VolumeSprites[0];
+        }
+        else
+        {
+            VolumeHandle.sprite = VolumeSprites[1];
+        }
     }
 }
