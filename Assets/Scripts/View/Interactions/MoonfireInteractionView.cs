@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoonfireInteractionView : InteractionView
 {
-    public int DelayUntilEndAnimation = 3;
+    public float DelayUntilEndAnimation = 3;
 
     public override void CleanUpInteraction()
     {
