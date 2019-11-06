@@ -138,8 +138,7 @@ public class PhaseManager : MonoBehaviour
     }
 
     // PHASES
-    public void TryIntialize()
-    {
+    public void TryIntialize() {
         System.Random random = new System.Random();
         int[] seeds = new int[1 + numPlayers]; // For Synergy Manager and the numPlayers (3) Simulators.
         for (int i = 0; i < seeds.Length; i++)
@@ -273,12 +272,12 @@ public class PhaseManager : MonoBehaviour
         requestHandler.SendRequest(req);
     }
 
-    public void SetPlayerReadyForPostCombat(string playerID)
+    public void SetPlayerReadyForNextPhase(string playerID)
     {
         playerReadySet.Add(playerID);
     }
 
-    public bool PlayersReadyForPostCombat()
+    public bool PlayersReadyForNextPhase()
     {
         return playerReadySet.Count == roomManager.NumPlayersToStart;
     }

@@ -70,6 +70,7 @@ namespace Com.Nextplease.IWT
                         req.Approve();
                     }
                     break;
+                case TUTORIAL_PHASE:
                 case INIT_PHASE:
                     if (roomManager.IsRoomFull())
                     {
@@ -86,8 +87,8 @@ namespace Com.Nextplease.IWT
                         break;
                     }
 
-                    phaseManager.SetPlayerReadyForPostCombat(req.GetRequester());
-                    if (phaseManager.PlayersReadyForPostCombat())
+                    phaseManager.SetPlayerReadyForNextPhase(req.GetRequester());
+                    if (phaseManager.PlayersReadyForNextPhase())
                     {
                         req.Approve();
                         phaseManager.ClearPlayerReadySet();
