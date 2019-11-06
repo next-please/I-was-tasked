@@ -17,7 +17,7 @@ public class TransactionManager : MonoBehaviour
 
     public void TryToPurchaseMarketPieceToBench(Player player, Piece piece)
     {
-        int price = (int)Math.Pow(2, piece.GetRarity() - 1);
+        int price = piece.GetPrice();
         // check locally if we can do this transaction for immediate feedback
         if (!IsValidPurchase(player, price))
         {
