@@ -37,6 +37,10 @@ public class FireblastSkill : Interaction
         else
         {
             ApplyDamageToInflict();
+            if (!caster.IsDead())
+            {
+                caster.GetPieceView().pieceSounds.PlaySkillSubCastSound();
+            }
             return false;
         }
     }

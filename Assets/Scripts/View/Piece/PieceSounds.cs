@@ -4,22 +4,49 @@ using UnityEngine;
 
 public class PieceSounds : MonoBehaviour
 {
-    public AudioSource attackAudioSource;
-    public AudioSource skillAudioSource;
+    public AudioSource attackAudioSource = null;
+    public AudioSource skillCastAudioSource = null;
+    public AudioSource skillSubCastAudioSource = null;
 
     public void InstantiateSounds(Transform pieceViewParent)
     {
-        attackAudioSource = Instantiate(attackAudioSource, pieceViewParent);
-        // skillAudioSource = Instantiate(skillAudioSource);
+        if (attackAudioSource != null)
+        {
+            attackAudioSource = Instantiate(attackAudioSource, pieceViewParent);
+        }
+
+        if (skillCastAudioSource != null)
+        {
+            skillCastAudioSource = Instantiate(skillCastAudioSource, pieceViewParent);
+        }
+
+        if (skillSubCastAudioSource != null)
+        {
+            skillSubCastAudioSource = Instantiate(skillSubCastAudioSource, pieceViewParent);
+        }
     }
 
     public void PlayAttackSound()
     {
-        attackAudioSource.Play();
+        if (attackAudioSource != null)
+        {
+            attackAudioSource.Play();
+        }
     }
 
-    public void PlaySkillSound()
+    public void PlaySkillCastSound()
     {
-        // skillAudioSource.Play();
+        if (skillCastAudioSource != null)
+        {
+            skillCastAudioSource.Play();
+        }
+    }
+
+    public void PlaySkillSubCastSound()
+    {
+        if (skillSubCastAudioSource != null)
+        {
+            skillSubCastAudioSource.Play();
+        }
     }
 }

@@ -5187,7 +5187,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackAudioSource: {fileID: 8566423635611048440, guid: 42528a65625e7fe4385f88b93ac7c5a5,
     type: 3}
-  skillAudioSource: {fileID: 0}
+  skillCastAudioSource: {fileID: 4528885824328658854, guid: 8b18650f4e629c047902cdbdeea48c50,
+    type: 3}
+  skillSubCastAudioSource: {fileID: 0}
 --- !u!114 &2261479515446403462
 MonoBehaviour:
   m_ObjectHideFlags: 0
