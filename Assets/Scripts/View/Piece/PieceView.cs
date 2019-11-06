@@ -163,6 +163,7 @@ public class PieceView : MonoBehaviour
             {
                 statusBars.SetActive(false);
                 animator.Play("Death", 0);
+                pieceSounds.PlayDeathSound();
             }
 
             if (transform.position.y + 3 > 0.01)

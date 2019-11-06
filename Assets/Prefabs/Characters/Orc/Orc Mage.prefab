@@ -4222,6 +4222,8 @@ MonoBehaviour:
     type: 3}
   skillSubCastAudioSource: {fileID: 6922060661136591609, guid: 2f43912fa93dc3c4aa71e932480fc733,
     type: 3}
+  deathAudioSource: {fileID: 355952450548321638, guid: 38ba4d45b6bd0704eb02165dce3fa34f,
+    type: 3}
 --- !u!114 &6501275383766542884
 MonoBehaviour:
   m_ObjectHideFlags: 0

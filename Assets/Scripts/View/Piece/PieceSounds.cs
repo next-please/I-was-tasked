@@ -7,6 +7,7 @@ public class PieceSounds : MonoBehaviour
     public AudioSource attackAudioSource = null;
     public AudioSource skillCastAudioSource = null;
     public AudioSource skillSubCastAudioSource = null;
+    public AudioSource deathAudioSource = null;
 
     public void InstantiateSounds(Transform pieceViewParent)
     {
@@ -23,6 +24,11 @@ public class PieceSounds : MonoBehaviour
         if (skillSubCastAudioSource != null)
         {
             skillSubCastAudioSource = Instantiate(skillSubCastAudioSource, pieceViewParent);
+        }
+
+        if (deathAudioSource != null)
+        {
+            deathAudioSource = Instantiate(deathAudioSource, pieceViewParent);
         }
     }
 
@@ -47,6 +53,14 @@ public class PieceSounds : MonoBehaviour
         if (skillSubCastAudioSource != null)
         {
             skillSubCastAudioSource.Play();
+        }
+    }
+
+    public void PlayDeathSound()
+    {
+        if (deathAudioSource != null)
+        {
+            deathAudioSource.Play();
         }
     }
 }
