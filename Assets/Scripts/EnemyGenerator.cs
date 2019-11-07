@@ -528,9 +528,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(350);
-                enemy.SetCurrentHitPoints(350);
-                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.6));
                 enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 4);
@@ -539,9 +536,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(350);
-                enemy.SetCurrentHitPoints(350);
-                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.4));
                 enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
@@ -550,9 +544,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(350);
-                enemy.SetCurrentHitPoints(350);
-                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.8));
                 enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 5);
@@ -561,9 +552,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(350);
-                enemy.SetCurrentHitPoints(350);
-                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.6));
                 enemy.SetRarity(2);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(7, 4);
@@ -572,9 +560,6 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(350);
-                enemy.SetCurrentHitPoints(350);
-                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.8));
                 enemy.SetRarity(1);
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 6);
@@ -604,8 +589,9 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 2);
+                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 6);
                 enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.6));
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(0, 4);
                 enemies.Add(enemy);
@@ -613,8 +599,9 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 2);
+                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 6);
                 enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.4));
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
                 enemies.Add(enemy);
@@ -622,8 +609,9 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 2);
+                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 6);
                 enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.8));
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(2, 4);
                 enemies.Add(enemy);
@@ -631,7 +619,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 2);
+                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 6);
                 enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(3, 4);
@@ -640,8 +628,9 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 2);
+                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 6);
                 enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.8));
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(4, 4);
                 enemies.Add(enemy);
@@ -649,8 +638,9 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #6");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 2);
+                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 6);
                 enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetMaximumManaPoints((int)(enemy.GetAttackDamage() * 0.6));
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 4);
                 enemies.Add(enemy);
@@ -658,7 +648,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #7");
                 enemy.SetTitle("");
-                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 2);
+                enemy.SetMaximumHitPoints(enemy.GetMaximumHitPoints() * 6);
                 enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 4);
