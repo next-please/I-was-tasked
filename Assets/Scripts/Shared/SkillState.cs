@@ -7,7 +7,9 @@ public class SkillState : State
     private Interaction skill;
     public override void OnStart(Piece piece, Board board)
     {
-        skill = new ShapeshiftLingeringEffect(piece);
+        skill = null;
+        ticksRemaining = 1; // Channelling/Casting Duration of the Spell.
+
         if (!piece.IsEnemy())
         {
             if (piece.spell == Enums.Spell.Shapeshift)
@@ -87,7 +89,11 @@ public class SkillState : State
             else if (piece.spell == Enums.Spell.Berserk)
                 skill = new BerserkSkill(piece, board);
         }
-        board.AddInteractionToProcess(skill);
+        if (skill != null)
+        {
+            board.AddInteractionToProcess(skill);
+            ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
+        }
         if (piece.multicast && !piece.IsEnemy())
         {
             if (piece.spell == Enums.Spell.FrostArmour)
@@ -100,7 +106,6 @@ public class SkillState : State
                 skill = new ThunderstormSkill(piece, board.FindFarthestTarget(piece), board);
             board.AddInteractionToProcess(skill);
         }
-        ticksRemaining = skill.ticksTotal; // Channelling/Casting Duration of the Spell.
         Debug.Log(piece.GetName() + " has casted a skill!");
     }
 
