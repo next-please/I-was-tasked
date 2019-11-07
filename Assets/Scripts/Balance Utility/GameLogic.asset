@@ -47,7 +47,7 @@ MonoBehaviour:
     ForestSpiritsSubsequentTicks: 40
     ForestSpiritsCount: 5
     ForestSpiritsSecondaryTicks: 70
-    ForestSpiritsHeal: 25
+    ForestSpiritsHeal: 50
     ForestSpiritsRarityMultiplier: 1.2
     FrostArmourPercentage: 0.3
     FrostArmourLingerTicks: 250
