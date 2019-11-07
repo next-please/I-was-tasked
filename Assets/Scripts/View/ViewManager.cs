@@ -65,6 +65,14 @@ public class ViewManager : MonoBehaviour
 
         Vector3 tileWorldPos = CalculateTileWorldPosition(e.tile);
         tileWorldPos.y = 0.5f;
+        if (piece.GetTitle().Equals("Swarm"))
+        {
+            tileWorldPos.y = -0.4f;
+        }
+        if (piece.spell == Enums.Spell.Berserk)
+        {
+            tileWorldPos.y = 0.8f;
+        }
         GameObject pieceObj = Instantiate(pieceViewPrefab, tileWorldPos, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();
         pieceView.TrackPiece(piece);
