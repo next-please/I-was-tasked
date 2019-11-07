@@ -117,7 +117,7 @@ public class PhaseManager : MonoBehaviour
             incomeManager.SetIncomeGeneratedByPlayer((Player)i, 0);
         yield return Countdown(10);
         roomManager.SetFullGameMode();
-        StartPhases(numPlayers);
+        TryStartRound();
     }
 
     void OnGameOver()
