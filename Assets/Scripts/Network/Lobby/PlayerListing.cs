@@ -36,7 +36,7 @@ public class PlayerListing : MonoBehaviour
     {
         Player = player;
         _text.text = player.NickName;
-        int index = (player.ActorNumber >= 1) ? ((player.ActorNumber % 3) - 1) : 0;
+        int index = (player.ActorNumber >= 1) ? (player.ActorNumber - 1) : 0;
         _avatar.sprite = avatarSprites[index];
     }
 
