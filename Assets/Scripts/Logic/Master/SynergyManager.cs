@@ -142,6 +142,13 @@ public class SynergyManager : MonoBehaviour
         Player player = (Player)index;
         var playerInv = inventoryManager.GetPlayerInventory(player);
         var board = boardManager.GetBoard(player);
+        for (int i = 0; i < raceSynergyCount.Length; i++)
+        {
+            if (raceSynergyCount[i] >= raceSynergyRequirement[i])
+            {
+                ApplyRaceSynergy(board, i, player);
+            }
+        }
         for (int i = 0; i < jobSynergyCount.Length; i++)
         {
             if ((Enums.Job.Rogue == (Enums.Job)i))
@@ -158,13 +165,6 @@ public class SynergyManager : MonoBehaviour
                     ApplyJobSynergy(board, i, player);
                 }
 
-            }
-        }
-        for (int i = 0; i < raceSynergyCount.Length; i++)
-        {
-            if (raceSynergyCount[i] >= raceSynergyRequirement[i])
-            {
-                ApplyRaceSynergy(board, i, player);
             }
         }
     }
@@ -246,7 +246,10 @@ public class SynergyManager : MonoBehaviour
                     if (friendlyPieces[target].GetClass() == Enums.Job.Rogue)
                     {
                         friendlyPieces[target].SetAttackDamage((int)Math.Floor(friendlyPieces[target].GetAttackDamage() * rogueDamageMultiplier));
-                        friendlyPieces[target].SetCurrentHitPoints((int)Math.Floor(friendlyPieces[target].GetCurrentHitPoints() * rogueHitPointMultiplier));
+                        if (!friendlyPieces[target].invulnerable)
+                        {
+                            friendlyPieces[target].SetCurrentHitPoints((int)Math.Floor(friendlyPieces[target].GetCurrentHitPoints() * rogueHitPointMultiplier));
+                        }
                     }
                 }
                 break;
