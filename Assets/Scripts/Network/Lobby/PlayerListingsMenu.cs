@@ -35,6 +35,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         base.OnEnable();
+        _startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
         _toggleButton = _readyButton.gameObject.GetComponent<Button>();
         SetNotReady();
         GetCurrentRoomPlayers();
@@ -117,7 +118,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        _startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
     }
 
     public override void OnLeftRoom()
