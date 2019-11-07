@@ -94,6 +94,7 @@
 
     public enum Spell
     {
+        NoSkill,
         Shapeshift,
         ProtectAlly,
         Barkskin,
@@ -114,8 +115,22 @@
         ShadowStrike,
         Charge,
         ForestSpirits,
-        NoSkill,
         InfiniteMagicMissile,
         Berserk
+    }
+
+    public enum Interaction
+    {
+        NoInteraction,
+        BarkskinLingering,
+        BlessingOfNatureLingering,
+        CurseOfAgonyLingering,
+        FrostArmourLingering,
+        GuidingSpiritSynergy,
+        ProtectAllyLingering,
+        RampageLingering,
+        RetributionSynergy,
+        RotLingering,
+        UnholyAuraLingering
     }
 }

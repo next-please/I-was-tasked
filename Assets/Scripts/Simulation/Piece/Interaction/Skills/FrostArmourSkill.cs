@@ -50,11 +50,11 @@ public class FrostArmourSkill : Interaction
         List<Piece> tempList;
         if (!caster.IsEnemy())
         {
-            tempList = board.GetActiveFriendliesOnBoard().FindAll(x => x.interactions.Find(y => y.identifier.Equals("FrostArmour")) == null);
+            tempList = board.GetActiveFriendliesOnBoard().FindAll(x => x.interactions.Find(y => y.identifier == Enums.Interaction.FrostArmourLingering) == null);
         }
         else
         {
-            tempList = board.GetActiveEnemiesOnBoard().FindAll(x => x.interactions.Find(y => y.identifier.Equals("FrostArmour")) == null);
+            tempList = board.GetActiveEnemiesOnBoard().FindAll(x => x.interactions.Find(y => y.identifier == Enums.Interaction.FrostArmourLingering) == null);
         }
 
         if (tempList.Count < 1)
@@ -77,9 +77,9 @@ public class FrostArmourSkill : Interaction
         tempList.Sort((x, y) => (int)(100 * ((double)x.GetCurrentHitPoints() / x.GetMaximumHitPoints() - (double)y.GetCurrentHitPoints() / y.GetMaximumHitPoints())));
         target = tempList[0];
 
-        if (target.interactions.Find(x => x.identifier.Equals("FrostArmour")) != null)
+        if (target.interactions.Find(x => x.identifier == Enums.Interaction.FrostArmourLingering) != null)
         {
-            target.interactions.Find(x => x.identifier.Equals("FrostArmour")).ticksRemaining = FrostArmourLingeringEffect.ticksTilActivation;
+            target.interactions.Find(x => x.identifier == Enums.Interaction.FrostArmourLingering).ticksRemaining = FrostArmourLingeringEffect.ticksTilActivation;
         }
         else
         {
@@ -105,7 +105,7 @@ public class FrostArmourLingeringEffect : Interaction
 
     public FrostArmourLingeringEffect(Piece target, double armourChange)
     {
-        this.identifier = "FrostArmour";
+        this.identifier = Enums.Interaction.FrostArmourLingering;
         this.target = target;
         this.armourChange = armourChange;
         this.ticksRemaining = ticksTilActivation;
@@ -153,7 +153,7 @@ public class FrostArmourLingeringEffect : Interaction
             return;
         }
         target.SetArmourPercentage(target.GetArmourPercentage() - armourChange);
-        target.interactions.Remove(target.interactions.Find(x => x.identifier.Equals("FrostArmour")));
+        target.interactions.Remove(target.interactions.Find(x => x.identifier == Enums.Interaction.FrostArmourLingering));
 
         Debug.Log(target.GetName() + "'s Frost Armour has expired.");
     }

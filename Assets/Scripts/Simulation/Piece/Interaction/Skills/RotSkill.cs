@@ -15,14 +15,14 @@ public class RotSkill : Interaction
 
     public RotSkill(Piece caster, Board board)
     {
-        if (caster.interactions.Find(x => x.identifier.Equals("Rot")) != null)
+        if (caster.interactions.Find(x => x.identifier == Enums.Interaction.RotLingering) != null)
         {
-            RotSkill skill = (RotSkill)caster.interactions.Find(x => x.identifier.Equals("Rot"));
+            RotSkill skill = (RotSkill)caster.interactions.Find(x => x.identifier == Enums.Interaction.RotLingering);
             skill.countRemaining = RotSkill.rotDefaultCount;
         }
         else
         {
-            this.identifier = "Rot";
+            this.identifier = Enums.Interaction.RotLingering;
             this.caster = caster;
             this.board = board;
             this.countRemaining = rotDefaultCount;
@@ -59,7 +59,7 @@ public class RotSkill : Interaction
         }
         if (countRemaining < 0)
         {
-            caster.interactions.Remove(caster.interactions.Find(x => x.identifier.Equals("Rot")));
+            caster.interactions.Remove(caster.interactions.Find(x => x.identifier == Enums.Interaction.RotLingering));
         }
         return ticksRemaining >= 0 && !caster.IsDead();
     }

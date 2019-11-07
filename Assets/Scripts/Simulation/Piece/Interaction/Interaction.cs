@@ -8,7 +8,7 @@ public abstract class Interaction
     public InteractionView interactionView;
     public int ticksTotal;
     public int ticksRemaining;
-    public string identifier;
+    public Enums.Interaction identifier;
 
     public abstract bool ProcessInteraction();
     public abstract void CleanUpInteraction();

@@ -50,9 +50,9 @@ public class RampageSkill : Interaction
             return;
         }
 
-        if (caster.interactions.Find(x => x.identifier.Equals("Rampage")) != null)
+        if (caster.interactions.Find(x => x.identifier == Enums.Interaction.RampageLingering) != null)
         {
-            caster.interactions.Find(x => x.identifier.Equals("Rampage")).ticksRemaining = RampageLingeringEffect.ticksTilActivation;
+            caster.interactions.Find(x => x.identifier == Enums.Interaction.RampageLingering).ticksRemaining = RampageLingeringEffect.ticksTilActivation;
         }
         else
         {
@@ -80,7 +80,7 @@ public class RampageLingeringEffect : Interaction
 
     public RampageLingeringEffect(Piece caster, int attackSpeedChange, double armourChange)
     {
-        this.identifier = "Rampage";
+        this.identifier = Enums.Interaction.RampageLingering;
         this.caster = caster;
         this.attackSpeedChange = attackSpeedChange;
         this.armourChange = armourChange;
@@ -133,7 +133,7 @@ public class RampageLingeringEffect : Interaction
     {
         caster.SetAttackSpeed(caster.GetAttackSpeed() - attackSpeedChange);
         caster.SetArmourPercentage(caster.GetArmourPercentage() - armourChange);
-        caster.interactions.Remove(caster.interactions.Find(x => x.identifier.Equals("Rampage")));
+        caster.interactions.Remove(caster.interactions.Find(x => x.identifier == Enums.Interaction.RampageLingering));
 
         Debug.Log(caster.GetName() + "'s Rampage has expired.");
     }

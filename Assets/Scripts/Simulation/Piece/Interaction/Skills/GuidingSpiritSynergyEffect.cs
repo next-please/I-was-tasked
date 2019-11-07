@@ -16,7 +16,7 @@ public class GuidingSpiritSynergyEffect : Interaction
 
     public GuidingSpiritSynergyEffect(Piece caster, Board board, int attackDamage, int attackSpeed)
     {
-        this.identifier = "GuidingSpirit";
+        this.identifier = Enums.Interaction.GuidingSpiritSynergy;
         this.caster = caster;
         this.lastKnownTile = caster.GetCurrentTile();
         this.board = board;
@@ -63,14 +63,14 @@ public class GuidingSpiritSynergyEffect : Interaction
         target.SetAttackSpeed(target.GetAttackSpeed() + attackSpeed);
         target.SetAttackDamage(target.GetAttackDamage() + attackDamage);
 
-        if (target.interactions.Find(x => x.identifier.Equals("GuidingSpirit")) != null)
+        if (target.interactions.Find(x => x.identifier == Enums.Interaction.GuidingSpiritSynergy) != null)
         {
-            GuidingSpiritSynergyEffect skill = (GuidingSpiritSynergyEffect)target.interactions.Find(x => x.identifier.Equals("GuidingSpirit"));
+            GuidingSpiritSynergyEffect skill = (GuidingSpiritSynergyEffect)target.interactions.Find(x => x.identifier == Enums.Interaction.GuidingSpiritSynergy);
             skill.attackDamage += attackDamage;
             skill.attackSpeed += attackSpeed;
         }
 
-        List<Interaction> lingers = (List<Interaction>)caster.interactions.FindAll(x => x.identifier.Equals("GuidingSpiritLinger"));
+        List<Interaction> lingers = (List<Interaction>)caster.interactions.FindAll(x => x.identifier == Enums.Interaction.GuidingSpiritSynergy);
 
         if (lingers.Count > 0)
         {
@@ -97,7 +97,7 @@ public class GuidingSpiritLingeringEffect : Interaction
     public GuidingSpiritLingeringEffect(Tile startingTile, Piece targetPiece)
     {
         SetPath(startingTile, targetPiece);
-        this.identifier = "GuidingSpiritLinger";
+        this.identifier = Enums.Interaction.GuidingSpiritSynergy;
         interactionPrefab = Enums.InteractionPrefab.GuidingSpirits;
         this.ticksRemaining = ticksTilActivation;
     }

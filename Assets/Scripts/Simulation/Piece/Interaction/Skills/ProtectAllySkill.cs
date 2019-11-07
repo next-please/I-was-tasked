@@ -68,9 +68,9 @@ public class ProtectAllySkill : Interaction
         target = tempList[0];
         
         target.SetLinkedProtectingPiece(ref caster);
-        if (target.interactions.Find(x => x.identifier.Equals("ProtectAlly")) != null)
+        if (target.interactions.Find(x => x.identifier == Enums.Interaction.ProtectAllyLingering) != null)
         {
-            Interaction skill = target.interactions.Find(x => x.identifier.Equals("ProtectAlly"));
+            Interaction skill = target.interactions.Find(x => x.identifier == Enums.Interaction.ProtectAllyLingering);
             skill.ticksRemaining = ticksTilActivation;
         }
         else
@@ -93,7 +93,7 @@ public class ProtectAllyLingeringEffect : Interaction
 
     public ProtectAllyLingeringEffect(Piece target)
     {
-        this.identifier = "ProtectAlly";
+        this.identifier = Enums.Interaction.ProtectAllyLingering;
         this.target = target;
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.ProtectAlly;

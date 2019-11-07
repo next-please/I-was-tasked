@@ -16,26 +16,26 @@ public class UnholyAuraSkill : Interaction
 
     public UnholyAuraSkill(Piece caster, Board board)
     {
-        if (caster.interactions.Find(x => x.identifier.Equals("UnholyAura")) != null)
+        if (caster.interactions.Find(x => x.identifier == Enums.Interaction.UnholyAuraLingering) != null)
         {
-            UnholyAuraSkill skill = (UnholyAuraSkill)caster.interactions.Find(x => x.identifier.Equals("UnholyAura"));
+            UnholyAuraSkill skill = (UnholyAuraSkill)caster.interactions.Find(x => x.identifier == Enums.Interaction.UnholyAuraLingering);
             skill.countRemaining = UnholyAuraSkill.unholyAuraDefaultCount;
         }
         else
         {
-            this.identifier = "UnholyAura";
-        this.caster = caster;
-        this.board = board;
-        this.countRemaining = unholyAuraDefaultCount;
-        this.ticksTotal = 50;
-        this.ticksRemaining = ticksTilActivation;
-        interactionPrefab = Enums.InteractionPrefab.UnholyAura;
+            this.identifier = Enums.Interaction.UnholyAuraLingering;
+            this.caster = caster;
+            this.board = board;
+            this.countRemaining = unholyAuraDefaultCount;
+            this.ticksTotal = 50;
+            this.ticksRemaining = ticksTilActivation;
+            interactionPrefab = Enums.InteractionPrefab.UnholyAura;
 
-        attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackSource.y += 1f;
-        caster.interactions.Add(this);
+            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackSource.y += 1f;
+            caster.interactions.Add(this);
+        }
     }
-}
 
     public UnholyAuraSkill(Piece caster, Board board, int countRemaining)
     {
@@ -67,7 +67,7 @@ public class UnholyAuraSkill : Interaction
         }
         if (countRemaining < 0)
         {
-            caster.interactions.Remove(caster.interactions.Find(x => x.identifier.Equals("UnholyAura")));
+            caster.interactions.Remove(caster.interactions.Find(x => x.identifier == Enums.Interaction.UnholyAuraLingering));
         }
         return ticksRemaining > 0 && !caster.IsDead();
     }

@@ -51,9 +51,9 @@ public class CurseOfAgonySkill : Interaction
             return;
         }
 
-        if (caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony")) != null)
+        if (caster.interactions.Find(x => x.identifier == Enums.Interaction.CurseOfAgonyLingering) != null)
         {
-            CurseOfAgonyLingeringEffect skill = (CurseOfAgonyLingeringEffect)caster.interactions.Find(x => x.identifier.Equals("CurseOfAgony"));
+            CurseOfAgonyLingeringEffect skill = (CurseOfAgonyLingeringEffect)caster.interactions.Find(x => x.identifier == Enums.Interaction.CurseOfAgonyLingering);
             skill.ticksRemaining = CurseOfAgonyLingeringEffect.ticksTilActivation;
             int curseChange = curseOfAgonyDefaultCurseAmount;
             curseChange = (int)Math.Floor(curseChange * Math.Pow(GameLogicManager.Inst.Data.Skills.CurseOfAgonyRarityMultiplier, caster.GetRarity()));
@@ -86,7 +86,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
 
     public CurseOfAgonyLingeringEffect(Piece target, int curseChange)
     {
-        this.identifier = "CurseOfAgony";
+        this.identifier = Enums.Interaction.CurseOfAgonyLingering;
         this.target = target;
         this.curseChange = curseChange;
         this.ticksRemaining = ticksTilActivation;
@@ -141,7 +141,7 @@ public class CurseOfAgonyLingeringEffect : Interaction
             return;
         }
         target.SetArmourPercentage(target.GetArmourPercentage() - curseChange);
-        target.interactions.Remove(target.interactions.Find(x => x.identifier.Equals("CurseOfAgony")));
+        target.interactions.Remove(target.interactions.Find(x => x.identifier == Enums.Interaction.CurseOfAgonyLingering));
 
         Debug.Log(target.GetName() + "'s Curse of Agony has expired.");
     }

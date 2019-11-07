@@ -84,9 +84,9 @@ public class BlessingOfNatureSkill : Interaction
         }
 
 
-        if (caster.interactions.Find(x => x.identifier.Equals("BlessingOfNature")) != null)
+        if (caster.interactions.Find(x => x.identifier == Enums.Interaction.BlessingOfNatureLingering) != null)
         {
-            caster.interactions.Find(x => x.identifier.Equals("BlessingOfNature")).ticksRemaining = BlessingOfNatureLingeringEffect.ticksTilActivation;
+            caster.interactions.Find(x => x.identifier == Enums.Interaction.BlessingOfNatureLingering).ticksRemaining = BlessingOfNatureLingeringEffect.ticksTilActivation;
         }
         else
         {
@@ -123,7 +123,7 @@ public class BlessingOfNatureLingeringEffect : Interaction
 
     public BlessingOfNatureLingeringEffect(Piece target, int attackDamageChange, int currentHitPointChange, int maximumHitPointChange)
     {
-        this.identifier = "BlessingOfNature";
+        this.identifier = Enums.Interaction.BlessingOfNatureLingering;
         this.target = target;
         this.attackDamageChange = attackDamageChange;
         this.currentHitPointChange = currentHitPointChange;
@@ -179,7 +179,7 @@ public class BlessingOfNatureLingeringEffect : Interaction
             return;
         }
         target.SetCurrentHitPoints(target.GetCurrentHitPoints() - currentHitPointChange);
-        target.interactions.Remove(target.interactions.Find(x => x.identifier.Equals("BlessingOfNature")));
+        target.interactions.Remove(target.interactions.Find(x => x.identifier == Enums.Interaction.BlessingOfNatureLingering));
 
         Debug.Log(target.GetName() + "'s Blessing of Nature has expired.");
     }

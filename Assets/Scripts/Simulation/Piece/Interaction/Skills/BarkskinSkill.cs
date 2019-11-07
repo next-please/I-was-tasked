@@ -52,9 +52,9 @@ public class BarkskinSkill : Interaction
             return;
         }
 
-        if (caster.interactions.Find(x => x.identifier.Equals("Barkskin")) != null)
+        if (caster.interactions.Find(x => x.identifier == Enums.Interaction.BarkskinLingering) != null)
         {
-            BarkskinLingeringEffect skill = (BarkskinLingeringEffect)caster.interactions.Find(x => x.identifier.Equals("Barkskin"));
+            BarkskinLingeringEffect skill = (BarkskinLingeringEffect)caster.interactions.Find(x => x.identifier == Enums.Interaction.BarkskinLingering);
             skill.ticksRemaining = BarkskinLingeringEffect.ticksTilActivation;
         }
         else
@@ -80,7 +80,7 @@ public class BarkskinLingeringEffect : Interaction
 
     public BarkskinLingeringEffect(Piece caster, double reflectAmount)
     {
-        this.identifier = "Barkskin";
+        this.identifier = Enums.Interaction.BarkskinLingering;
         this.caster = caster;
         this.reflectAmount = reflectAmount;
         this.ticksRemaining = ticksTilActivation;
@@ -135,7 +135,7 @@ public class BarkskinLingeringEffect : Interaction
             return;
         }
         caster.SetRecoilPercentage(caster.GetRecoilPercentage() - reflectAmount);
-        caster.interactions.Remove(caster.interactions.Find(x => x.identifier.Equals("Barkskin")));
+        caster.interactions.Remove(caster.interactions.Find(x => x.identifier == Enums.Interaction.BarkskinLingering));
 
         Debug.Log(caster.GetName() + "'s Barkskin has expired, recoil decreases to " + caster.GetRecoilPercentage() + ".");
     }

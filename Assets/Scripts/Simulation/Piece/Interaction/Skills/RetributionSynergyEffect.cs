@@ -15,7 +15,7 @@ public class RetributionSynergyEffect : Interaction
 
     public RetributionSynergyEffect(Piece caster, Board board, int r, int e, int f)
     {
-        this.identifier = "Retribution";
+        this.identifier = Enums.Interaction.RetributionSynergy;
         this.caster = caster;
         this.lastKnownTile = caster.GetCurrentTile();
         this.board = board;
