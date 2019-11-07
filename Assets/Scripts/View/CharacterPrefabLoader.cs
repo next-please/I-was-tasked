@@ -30,6 +30,10 @@ public class CharacterPrefabLoader : MonoBehaviour
     public GameObject UndeadPriestPrefab;
     public GameObject UndeadRoguePrefab;
 
+    public GameObject BigOrcKnightPrefab;
+    public GameObject SmallOrcKnightPrefab;
+    public GameObject SmallOrcMagePrefab;
+
     private Dictionary<(Enums.Race, Enums.Job), GameObject> characterPrefabMap;
 
     void Awake()
@@ -68,6 +72,19 @@ public class CharacterPrefabLoader : MonoBehaviour
         //{
         //    return EnemyPrefab;
         //}
+        if (piece.spell == Enums.Spell.Berserk)
+        {
+            return BigOrcKnightPrefab;
+        }
+        if (piece.GetTitle().Equals("Swarm") && piece.GetClass() == Enums.Job.Knight)
+        {
+            return SmallOrcKnightPrefab;
+        }
+        if (piece.GetTitle().Equals("Swarm") && piece.GetClass() == Enums.Job.Mage)
+        {
+            return SmallOrcMagePrefab;
+        }
+
         return characterPrefabMap[(piece.GetRace(), piece.GetClass())];
     }
 }

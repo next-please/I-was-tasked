@@ -85,3 +85,9 @@ MonoBehaviour:
     type: 3}
   UndeadRoguePrefab: {fileID: 7655288745425940841, guid: 1638a551cd36c4d928922c65c55797dd,
     type: 3}
+  BigOrcKnightPrefab: {fileID: 7655288745425940841, guid: 49e0d707f6923d741bc26a3ae065a8b9,
+    type: 3}
+  SmallOrcKnightPrefab: {fileID: 7655288745425940841, guid: d5ba701576f13a94bb0656777f0bccf9,
+    type: 3}
+  SmallOrcMagePrefab: {fileID: 7655288745425940841, guid: 360501636754db3488660d205742a8ac,
+    type: 3}
