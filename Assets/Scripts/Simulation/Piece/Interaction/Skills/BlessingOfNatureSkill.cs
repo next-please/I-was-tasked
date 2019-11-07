@@ -157,11 +157,13 @@ public class BlessingOfNatureLingeringEffect : Interaction
 
         if (!target.IsDead())
         {
-            attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-            attackDestination.y += 1.0f;
+            Transform targetT = target.GetPieceView().transform;
+            projectile.transform.parent = targetT;
+            Vector3 pos = Vector3.zero;
+            pos.y = 1f;
+            projectile.transform.localPosition = pos;
+            projectile.transform.position = attackDestination;
         }
-
-        projectile.transform.position = attackDestination;
 
         if (ticksRemaining <= 0 || target.IsDead())
         {
