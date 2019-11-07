@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.15739834, g: 0.12776825, b: 0.24630171, a: 1}
+  m_IndirectSpecularColor: {r: 0.15717652, g: 0.12754513, b: 0.24587813, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -26873,7 +26873,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975848228}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 999692538}
@@ -43876,6 +43876,11 @@ PrefabInstance:
       propertyPath: soundManager
       value: 
       objectReference: {fileID: 358672375097412832}
+    - target: {fileID: 6326346262150069990, guid: 72254f4c0096ee541806bf7716a87726,
+        type: 3}
+      propertyPath: sellCanvas
+      value: 
+      objectReference: {fileID: 975848231}
     - target: {fileID: 6326346262150069991, guid: 72254f4c0096ee541806bf7716a87726,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -60690,6 +60695,11 @@ PrefabInstance:
       propertyPath: trashCan
       value: 
       objectReference: {fileID: 975848231}
+    - target: {fileID: 358672373647474002, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: roomManager
+      value: 
+      objectReference: {fileID: 1904457109}
     - target: {fileID: 358672373821753639, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: PlayerName

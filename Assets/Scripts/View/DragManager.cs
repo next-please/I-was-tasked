@@ -8,6 +8,7 @@ public class DragManager : MonoBehaviour
 {
     public ArrangementManager arrangementManager;
     public TransactionManager transactionManager;
+    public RoomManager roomManager;
     public Canvas trashCan;
 
     void OnEnable()
@@ -19,6 +20,8 @@ public class DragManager : MonoBehaviour
         EventManager.Instance.AddListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.AddListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
         EventManager.Instance.AddListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
+
+        trashCan.enabled = false;
     }
 
     void OnDisable()
@@ -34,7 +37,10 @@ public class DragManager : MonoBehaviour
 
     void OnShowTrashCanEvent(ShowTrashCanEvent e)
     {
-        trashCan.enabled = e.showTrashCan;
+        if (!roomManager.IsTutorial)
+        {
+            trashCan.enabled = e.showTrashCan;
+        }
     }
 
     void OnMovePieceOnBoard(MoveOnBoardEvent e)
