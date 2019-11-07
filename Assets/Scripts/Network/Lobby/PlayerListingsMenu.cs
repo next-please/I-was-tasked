@@ -80,6 +80,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
             {
                 listing.SetPlayerInfo(player);
                 _listings.Add(listing);
+                listing.ToggleReady(listing.Ready);
             }
         }
     }
