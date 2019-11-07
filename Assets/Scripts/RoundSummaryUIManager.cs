@@ -60,7 +60,7 @@ public class RoundSummaryUIManager : MonoBehaviour
         }
         soundManager.PlayEndWaveSound(win);
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3.3f);
         roundSummaryAnimator.Play("Exit");
         yield return new WaitForSeconds(1f);
 

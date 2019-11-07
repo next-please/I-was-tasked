@@ -229,7 +229,7 @@ public class PhaseManager : MonoBehaviour
         }
         else
         {
-            EventManager.Instance.Raise(new GlobalMessageEvent { message = "Round " + round + " begins!" });
+            StartCoroutine(ShowNewRoundPopUpScreen());
             if (round > RoundsNeededToSurvive)
             {
                 OnGameOver();
@@ -239,6 +239,14 @@ public class PhaseManager : MonoBehaviour
         }
         summonManager.RemoveAllEnemyPieces(numPlayers);
         TryMarketPhase();
+    }
+
+    IEnumerator ShowNewRoundPopUpScreen()
+    {
+        PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = "Round " + round + " begins!";
+        PopUpScreen.enabled = true;
+        yield return new WaitForSeconds(2f);
+        PopUpScreen.enabled = false;
     }
 
     void TryMarketPhase()
@@ -316,11 +324,11 @@ public class PhaseManager : MonoBehaviour
     public void StartPreCombat(List<List<Piece>> enemies)
     {
         Debug.Log(summonManager.GetWaveName(round, randomRoundIndex));
-        StartCoroutine(ShowRoundPopUpScreen());
+        StartCoroutine(ShowRoundWavePopUpScreen());
         StartCoroutine(PreCombatToCombat(enemies));
     }
 
-    IEnumerator ShowRoundPopUpScreen()
+    IEnumerator ShowRoundWavePopUpScreen()
     {
         PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = "Round " + round + ":\n" + summonManager.GetWaveName(round, randomRoundIndex);
         PopUpScreen.enabled = true;
