@@ -18,9 +18,7 @@ public class TutorialUIManager : MonoBehaviour
     public GameObject EndCanvas;
 
     [Header("Game Board Items")]
-    public GameObject PurchaseUnitArrows;
     public List<GameObject> PanToBoardArrows;
-    public List<GameObject> DragToBoardArrows;
 
     private bool waitingForPurchase = false;
     private bool waitingForPan = false;
@@ -136,14 +134,12 @@ public class TutorialUIManager : MonoBehaviour
     void ShowPurchaseUnit()
     {
         PurchaseUnitCanvas.SetActive(true);
-        PurchaseUnitArrows.SetActive(true);
         waitingForPurchase = true;
     }
 
     void ClosePurchaseUnit()
     {
         PurchaseUnitCanvas.SetActive(false);
-        PurchaseUnitArrows.SetActive(false);
         waitingForPurchase = false;
     }
 
@@ -165,17 +161,13 @@ public class TutorialUIManager : MonoBehaviour
 
     void ShowDragToBoard()
     {
-        GameObject arrows = DragToBoardArrows[(int)RoomManager.GetLocalPlayer()];
         DragToBoardCanvas.SetActive(true);
-        arrows.SetActive(true);
         waitingForDrag = true;
     }
 
     void CloseDragToBoard()
     {
-        GameObject arrows = DragToBoardArrows[(int)RoomManager.GetLocalPlayer()];
         DragToBoardCanvas.SetActive(false);
-        arrows.SetActive(false);
         waitingForDrag = false;
     }
 
