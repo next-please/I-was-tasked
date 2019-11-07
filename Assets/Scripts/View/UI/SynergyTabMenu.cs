@@ -38,6 +38,14 @@ public class SynergyTabMenu : MonoBehaviour
         sortTabs();
     }
 
+    public void Reset()
+    {
+        for (int i=0; i<_synergyTabs.Count; i++)
+        {
+            _synergyTabs[i].Reset();
+        }
+    }
+
     public void DecrementSynergyTab(string synergyName)
     {
         int index = _synergyTabs.FindIndex(iterTab => iterTab.SynergyName == synergyName);

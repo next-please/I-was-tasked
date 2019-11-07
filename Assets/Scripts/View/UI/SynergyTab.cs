@@ -90,6 +90,13 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         setIndicatorStatus();
     }
 
+    public void Reset()
+    {
+        _count = 0;
+        this.gameObject.SetActive(isActive());
+        setIndicatorStatus();
+    }
+
     public void OnPointerEnter(PointerEventData data)
     {
         _synergyInfoPanel.Show(_synergyName, _synergyDescription, _count, _requirementCounts[_requirementPointer]);

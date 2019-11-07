@@ -13,7 +13,7 @@ public class InventoryManager : MonoBehaviour
     public RoomManager roomManager;
 
     [SerializeField]
-    private SynergyTabMenu _synergyTabMenu;
+    public SynergyTabMenu _synergyTabMenu;
 
     public void ResetInventories()
     {
@@ -21,6 +21,7 @@ public class InventoryManager : MonoBehaviour
             p.Reset(StartingGold, StartingArmySize);
         }
         synergyManager.Reset();
+        _synergyTabMenu.Reset();
     }
 
     public PlayerInventory GetPlayerInventory(Player player)
