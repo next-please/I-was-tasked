@@ -42,9 +42,6 @@ public class PlayersUIManager : MonoBehaviour
 
     void Update()
     {
-        if (currentHealth == fullHealth)
-            return;
-
         float newFillAmount = (float)currentHealth / fullHealth;
         HealthBar.fillAmount = Mathf.Lerp(HealthBar.fillAmount, newFillAmount, Time.deltaTime * lerpSpeed);
 

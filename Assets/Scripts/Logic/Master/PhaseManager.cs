@@ -110,6 +110,8 @@ public class PhaseManager : MonoBehaviour
     IEnumerator TransitionToFullGame()
     {
         round = 0;
+        marketManager.CalculateAndApplyDamageToCastle(MarketManager.StartingCastleHealth);
+        EventManager.Instance.Raise(new DamageTakenEvent { currentHealth = marketManager.market.CastleHealth });
         CurrentRoundText.text = "Transition";
         for (int i = 0; i < numPlayers; ++i)
             incomeManager.SetIncomeGeneratedByPlayer((Player)i, 0);
