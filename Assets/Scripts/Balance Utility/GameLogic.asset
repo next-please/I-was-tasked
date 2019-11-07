@@ -17,8 +17,8 @@ MonoBehaviour:
   PreCombatDuration: 10
   CombatDuration: 60
   Piece:
-    ManaPointsGainedOnAttack: 10
-    ManaPointsGainedOnHit: 4
+    ManaPointsGainedOnAttack: 15
+    ManaPointsGainedOnHit: 6
   Skills:
     BarkSkinBlockAmount: 2
     BarkSkinLingerTicks: 250
