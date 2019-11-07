@@ -69,18 +69,18 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     private void AddPlayerListing(Photon.Realtime.Player player)
     {
         int index = _listings.FindIndex(l => l.Player == player);
+        base.photonView.RPC("RPC_ChangeReadyState", RpcTarget.All, PhotonNetwork.LocalPlayer, _ready);
         if (index != -1)
         {
-            _listings[index].SetPlayerInfo(player);
+            _listings[index].SetPlayerInfo(player, _listings);
         }
         else
         {
             PlayerListing listing = Instantiate(_playerListing, _content);
             if (listing != null)
             {
-                listing.SetPlayerInfo(player);
                 _listings.Add(listing);
-                listing.ToggleReady(listing.Ready);
+                listing.SetPlayerInfo(player, _listings);
             }
         }
     }
@@ -180,6 +180,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         int index = _listings.FindIndex(l => l.Player == player);
         if (index != -1)
+        {
             _listings[index].ToggleReady(ready);
+        }
     }
 }

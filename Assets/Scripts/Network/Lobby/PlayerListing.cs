@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using Photon.Pun;
+using System.Linq;
 
 public class PlayerListing : MonoBehaviour
 {
@@ -32,11 +35,12 @@ public class PlayerListing : MonoBehaviour
         _status.SetActive(false);
     }
 
-    public void SetPlayerInfo(Photon.Realtime.Player player)
+    public void SetPlayerInfo(Photon.Realtime.Player player, List<PlayerListing> _listing)
     {
         Player = player;
         _text.text = player.NickName;
-        int index = (player.ActorNumber >= 1) ? (player.ActorNumber - 1) : 0;
+        //int index = _listing.FindIndex(l => l.Player == player);
+        int index = PhotonNetwork.PlayerList.ToList<Photon.Realtime.Player>().FindIndex(l => l == player);
         _avatar.sprite = avatarSprites[index];
     }
 
