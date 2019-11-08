@@ -71,7 +71,7 @@ public class DragManager : MonoBehaviour
 
     void OnMoveFromBenchToBoard(MoveFromBenchToBoardEvent e)
     {
-        if (e.tile.IsOccupied() || !e.tile.IsEnemyTile())
+        if (e.tile.IsOccupied() || e.tile.IsEnemyTile())
         {
             return;
         }
@@ -99,10 +99,16 @@ public class DragManager : MonoBehaviour
         if (target == HitTarget.Tile)
         {
             Tile tile = tileEvent.targetObject.GetComponent<TileView>().GetTile();
+            if (tile == null)
+            {
+                Highlight.SetActive(false);
+                return;
+            }
             Vector3 tilePosition = ViewManager.CalculateTileWorldPosition(tile);
             tilePosition.y = 0.75f;
             Highlight.transform.position = tilePosition;
-            bool isValidTile = tile.GetCol() < 4;
+            bool isValidTile = !tile.IsEnemyTile() &&
+                tile.GetBoard().GetOwner() == RoomManager.GetLocalPlayer();
             Highlight.SetActive(isValidTile);
         }
         else if (target == HitTarget.BenchSlot)

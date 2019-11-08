@@ -108,7 +108,10 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnTileDrop(Tile tile)
     {
-        if (tile.IsOccupied() || !tile.IsEnemyTile())
+        if (tile == null ||
+            tile.IsOccupied() ||
+            tile.IsEnemyTile() ||
+            tile.GetBoard().GetOwner() != RoomManager.GetLocalPlayer())
         {
             OnEmptyDrop();
             return;

@@ -80,7 +80,7 @@ public class Tile : ISerializable
 
     public bool IsEnemyTile()
     {
-        return col < 4;
+        return col >= 4;
     }
 
     public bool IsLocked()

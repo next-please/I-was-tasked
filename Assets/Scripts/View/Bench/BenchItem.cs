@@ -93,7 +93,11 @@ public class BenchItem : InteractablePiece
 
     public override void OnTileDrop(Tile tile)
     {
-        if (tile.IsOccupied() | !tile.IsEnemyTile() || !IsTileDropAllowed())
+        if (tile == null ||
+            tile.IsOccupied() ||
+            tile.IsEnemyTile() ||
+            !IsTileDropAllowed() ||
+            tile.GetBoard().GetOwner() != RoomManager.GetLocalPlayer())
         {
             OnEmptyDrop();
             return;
