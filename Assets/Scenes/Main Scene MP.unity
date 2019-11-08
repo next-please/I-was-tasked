@@ -15325,6 +15325,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Highlight
       objectReference: {fileID: 0}
+    - target: {fileID: 8547032237866190553, guid: 55442f823cf35934aa1c8da9c101bb77,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8547032237866190549, guid: 55442f823cf35934aa1c8da9c101bb77,
         type: 3}
       propertyPath: m_LocalPosition.x
