@@ -20,6 +20,8 @@ public class PieceUIManager : MonoBehaviour
     public TextMeshProUGUI attackRate;
     public TextMeshProUGUI skillName;
     public TextMeshProUGUI skillDescription;
+    public TextMeshProUGUI classNameTooltip;
+    public TextMeshProUGUI raceNameTooltip;
 
     public GameObject[] rarityStars;
     private int previousRarityIndex = 0;
@@ -109,7 +111,7 @@ public class PieceUIManager : MonoBehaviour
         nameText.text = piece.GetName();
         SetHealthInfo(piece.GetCurrentHitPoints(), piece.GetMaximumHitPoints());
         SetPortraitCamera(piece.GetClass(), piece.GetRace());
-        SetClassRaceIcons(piece.GetClass(), piece.GetRace());
+        SetClassRace(piece.GetClass(), piece.GetRace());
         SetSkillInfo(piece.spell);
         SetAttackInfo(piece.GetAttackDamage(), piece.GetAttackSpeed());
         SetRarity(piece.GetRarity());
@@ -120,7 +122,7 @@ public class PieceUIManager : MonoBehaviour
         healthFraction.text = string.Format("{0:0,0} / {1:0,0}", currentHitPoints, maximumHitPoints);
     }
 
-    private void SetClassRaceIcons(Enums.Job job, Enums.Race race)
+    private void SetClassRace(Enums.Job job, Enums.Race race)
     {
         Color[] classColors = { Color.green, Color.magenta, Color.cyan, Color.white, Color.grey };
         Color[] raceColors = { Color.blue, Color.yellow, Color.red, Color.black };
@@ -129,11 +131,44 @@ public class PieceUIManager : MonoBehaviour
         Color classColor = classColors[(int)job];
         classColor.a = 0.4f;
         foregroundClass.color = classColor;
+        switch (job)
+        {
+            case Enums.Job.Druid:
+                classNameTooltip.text = "Druid";
+                break;
+            case Enums.Job.Knight:
+                classNameTooltip.text = "Knight";
+                break;
+            case Enums.Job.Mage:
+                classNameTooltip.text = "Mage";
+                break;
+            case Enums.Job.Priest:
+                classNameTooltip.text = "Priest";
+                break;
+            case Enums.Job.Rogue:
+                classNameTooltip.text = "Rogue";
+                break;
+        }
 
         raceIcon.sprite = raceIcons[(int)race];
         Color raceColor = raceColors[(int)race];
         raceColor.a = 0.4f;
         foregroundRace.color = raceColor;
+        switch (race)
+        {
+            case Enums.Race.Elf:
+                raceNameTooltip.text = "Elf";
+                break;
+            case Enums.Race.Human:
+                raceNameTooltip.text = "Human";
+                break;
+            case Enums.Race.Orc:
+                raceNameTooltip.text = "Orc";
+                break;
+            case Enums.Race.Undead:
+                raceNameTooltip.text = "Undead";
+                break;
+        }
     }
 
     private void SetAttackInfo(int attackDamage, int attackSpeed)
