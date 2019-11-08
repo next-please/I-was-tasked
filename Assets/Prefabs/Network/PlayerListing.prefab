@@ -323,8 +323,8 @@ MonoBehaviour:
   _text: {fileID: 3042936990042926503}
   avatarSprites:
   - {fileID: 21300000, guid: 655d86ae25c1a4a7b903d7e5e5f2a136, type: 3}
-  - {fileID: 21300000, guid: 3f9da4bd753fb49d0bb04c0aeec79087, type: 3}
   - {fileID: 21300000, guid: 40ae9555582d64f5ea93a73ad4e05f24, type: 3}
+  - {fileID: 21300000, guid: 3f9da4bd753fb49d0bb04c0aeec79087, type: 3}
   _avatar: {fileID: 1057334287929269430}
   _status: {fileID: 4466267554577851371}
 --- !u!1 &4466267554577851371

@@ -113,7 +113,11 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         {
             Destroy(_listings[index].gameObject);
             _listings.RemoveAt(index);
+        }
 
+        foreach (PlayerListing p in _listings)
+        {
+            p.SetPlayerInfo(p.Player, _listings);
         }
     }
 
