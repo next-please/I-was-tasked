@@ -173,6 +173,7 @@ MonoBehaviour:
     ElfGuidingSpiritAttackDamage: 10
     ElfGuidingSpiritAttackSpeed: 1
     GuidingSpiritLingerTicks: 50
+    KnightTicksOfUnstoppable: 350
   HumanDruid:
     HitPoints: 900
     ManaPoints: 100
