@@ -68,6 +68,14 @@ public class BenchItem : InteractablePiece
     {
         rarityParent.transform.LookAt(rarityParent.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
         transform.position = GetMouseWorldPosition();
+        HitTarget target = GetHitTarget();
+        if (target == HitTarget.Tile || target == HitTarget.BenchSlot)
+        {
+            EventManager.Instance.Raise(new DragOverTileEvent {
+                hitTarget = target,
+                targetObject = this.targetObject
+            });
+        }
     }
 
     public override void OnBenchDrop(BenchSlot targetSlot)

@@ -21,6 +21,17 @@ public class HoverPieceEvent : GameEvent
     public Piece piece;
 }
 
+// can be tile / bench
+public class DragOverTileEvent : GameEvent
+{
+    public HitTarget hitTarget;
+    public GameObject targetObject;
+}
+
+public class DragEndEvent : GameEvent
+{
+}
+
 public class DeselectPieceEvent : GameEvent { }
 
 // Handles drag and drop, selection and deselection of piece
@@ -72,6 +83,7 @@ public abstract class InteractablePiece :
                 break;
         }
         EventManager.Instance.Raise(new ShowTrashCanEvent { showTrashCan = false });
+        EventManager.Instance.Raise(new DragEndEvent{});
     }
 
     public void OnPointerDown(PointerEventData eventData)

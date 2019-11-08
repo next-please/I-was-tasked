@@ -10,6 +10,7 @@ public class DragManager : MonoBehaviour
     public TransactionManager transactionManager;
     public RoomManager roomManager;
     public Canvas trashCan;
+    public GameObject Highlight;
 
     void OnEnable()
     {
@@ -20,6 +21,8 @@ public class DragManager : MonoBehaviour
         EventManager.Instance.AddListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.AddListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
         EventManager.Instance.AddListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
+        EventManager.Instance.AddListener<DragOverTileEvent>(OnDragOverTile);
+        EventManager.Instance.AddListener<DragEndEvent>(OnDragEnd);
 
         trashCan.enabled = false;
     }
@@ -33,7 +36,16 @@ public class DragManager : MonoBehaviour
         EventManager.Instance.RemoveListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.RemoveListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
         EventManager.Instance.RemoveListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
+        EventManager.Instance.RemoveListener<DragOverTileEvent>(OnDragOverTile);
+        EventManager.Instance.RemoveListener<DragEndEvent>(OnDragEnd);
     }
+
+    void Start()
+    {
+        Player player = RoomManager.GetLocalPlayer();
+        Highlight.transform.Rotate(Vector3.up, 45 * (int)player, Space.World);
+    }
+
 
     void OnShowTrashCanEvent(ShowTrashCanEvent e)
     {
@@ -79,5 +91,30 @@ public class DragManager : MonoBehaviour
     void OnTrashPieceOnBenchEvent(TrashPieceOnBenchEvent e)
     {
         transactionManager.TrySellBenchPiece(RoomManager.GetLocalPlayer(), e.piece);
+    }
+
+    void OnDragOverTile(DragOverTileEvent tileEvent)
+    {
+        HitTarget target = tileEvent.hitTarget;
+        if (target == HitTarget.Tile)
+        {
+            Tile tile = tileEvent.targetObject.GetComponent<TileView>().GetTile();
+            Vector3 tilePosition = ViewManager.CalculateTileWorldPosition(tile);
+            Highlight.SetActive((tile.GetCol() < 4));
+            tilePosition.y = 0.75f;
+            Highlight.transform.position = tilePosition;
+        }
+        else if (target == HitTarget.BenchSlot)
+        {
+            Vector3 position = tileEvent.targetObject.transform.position;
+            position.y = 0.75f;
+            Highlight.transform.position = position;
+            Highlight.SetActive(true);
+        }
+    }
+
+    void OnDragEnd(DragEndEvent e)
+    {
+        Highlight.SetActive(false);
     }
 }

@@ -64,6 +64,14 @@ public class PieceDragHandler : InteractablePiece
         if (IsDragAllowed())
         {
             transform.position = GetMouseWorldPosition();
+            HitTarget target = GetHitTarget();
+            if (target == HitTarget.Tile || target == HitTarget.BenchSlot)
+            {
+                EventManager.Instance.Raise(new DragOverTileEvent {
+                    hitTarget = target,
+                    targetObject = this.targetObject
+                });
+            }
         }
     }
 
