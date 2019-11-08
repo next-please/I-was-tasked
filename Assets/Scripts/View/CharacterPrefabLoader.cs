@@ -35,6 +35,8 @@ public class CharacterPrefabLoader : MonoBehaviour
     public GameObject SmallOrcMagePrefab;
 
     private Dictionary<(Enums.Race, Enums.Job), GameObject> characterPrefabMap;
+    private Dictionary<(Enums.Race, Enums.Job), GameObject> smallCharacterPrefabMap;
+    private Dictionary<(Enums.Race, Enums.Job), GameObject> bigCharacterPrefabMap;
 
     void Awake()
     {
@@ -64,6 +66,16 @@ public class CharacterPrefabLoader : MonoBehaviour
             {(Enums.Race.Undead, Enums.Job.Priest), UndeadPriestPrefab},
             {(Enums.Race.Undead, Enums.Job.Rogue), UndeadRoguePrefab},
         };
+        smallCharacterPrefabMap = new Dictionary<(Enums.Race, Enums.Job), GameObject>()
+        {
+            {(Enums.Race.Orc, Enums.Job.Knight), SmallOrcKnightPrefab},
+            {(Enums.Race.Orc, Enums.Job.Mage), SmallOrcMagePrefab},
+        };
+        bigCharacterPrefabMap = new Dictionary<(Enums.Race, Enums.Job), GameObject>()
+        {
+            {(Enums.Race.Orc, Enums.Job.Knight), BigOrcKnightPrefab},
+        };
+
     }
 
     public GameObject GetPrefab(Piece piece)
@@ -72,17 +84,13 @@ public class CharacterPrefabLoader : MonoBehaviour
         //{
         //    return EnemyPrefab;
         //}
-        if (piece.spell == Enums.Spell.Berserk)
+        if (piece.size == Enums.Size.Big)
         {
-            return BigOrcKnightPrefab;
+            return bigCharacterPrefabMap[(piece.GetRace(), piece.GetClass())];
         }
-        if (piece.GetTitle().Equals("Swarm") && piece.GetClass() == Enums.Job.Knight)
+        if (piece.size == Enums.Size.Small)
         {
-            return SmallOrcKnightPrefab;
-        }
-        if (piece.GetTitle().Equals("Swarm") && piece.GetClass() == Enums.Job.Mage)
-        {
-            return SmallOrcMagePrefab;
+            return smallCharacterPrefabMap[(piece.GetRace(), piece.GetClass())];
         }
 
         return characterPrefabMap[(piece.GetRace(), piece.GetClass())];

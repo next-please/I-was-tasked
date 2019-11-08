@@ -65,11 +65,11 @@ public class ViewManager : MonoBehaviour
 
         Vector3 tileWorldPos = CalculateTileWorldPosition(e.tile);
         tileWorldPos.y = 0.5f;
-        if (piece.GetTitle().Equals("Swarm"))
+        if (piece.size == Enums.Size.Small)
         {
             tileWorldPos.y = -0.4f;
         }
-        if (piece.spell == Enums.Spell.Berserk)
+        if (piece.size == Enums.Size.Big)
         {
             tileWorldPos.y = 0.8f;
         }

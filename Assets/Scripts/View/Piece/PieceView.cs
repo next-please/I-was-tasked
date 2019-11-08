@@ -125,11 +125,11 @@ public class PieceView : MonoBehaviour
         GameObject modelPrefab = Instantiate(characterModel) as GameObject;
         modelPrefab.transform.SetParent(this.transform);
         modelPrefab.transform.localPosition = Vector3.zero;
-        if (piece.GetTitle().Equals("Swarm"))
+        if (piece.size == Enums.Size.Small)
         {
             modelPrefab.transform.localPosition = Vector3.zero + Vector3.up*0.9f;
         }
-        if (piece.spell == Enums.Spell.Berserk)
+        if (piece.size == Enums.Size.Big)
         {
             modelPrefab.transform.localPosition = Vector3.zero + Vector3.down*0.8f;
         }

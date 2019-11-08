@@ -15,6 +15,12 @@
         Orc,
         Undead
     }
+    public enum Size
+    {
+        Normal,
+        Small,
+        Big
+    }
 
     public enum InteractionPrefab
     {

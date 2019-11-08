@@ -20,6 +20,7 @@ public class Piece : ISerializable
     private Enums.Race race;
     private Enums.Job job;
     public Enums.Spell spell;
+    public Enums.Size size;
     private int rarity;
     private bool isEnemy;
     private int roundsSurvived; // Previously: To check for the level (rarity) increase.
@@ -174,6 +175,7 @@ public class Piece : ISerializable
         race = (Enums.Race) info.GetValue("race", typeof(Enums.Race));
         job = (Enums.Job) info.GetValue("job", typeof(Enums.Job));
         spell = (Enums.Spell)info.GetValue("spell", typeof(Enums.Spell));
+        size = (Enums.Size)info.GetValue("size", typeof(Enums.Size));
         rarity = (int) info.GetValue("rarity", typeof(int));
         isEnemy = (bool) info.GetValue("isEnemy", typeof(bool));
         roundsSurvived = (int) info.GetValue("roundsSurvived", typeof(int));
@@ -247,6 +249,7 @@ public class Piece : ISerializable
         info.AddValue("race", race, typeof(Enums.Race));
         info.AddValue("job", job, typeof(Enums.Job));
         info.AddValue("spell", spell, typeof(Enums.Spell));
+        info.AddValue("size", size, typeof(Enums.Size));
         info.AddValue("rarity", rarity, typeof(int));
         info.AddValue("isEnemy", isEnemy, typeof(bool));
         info.AddValue("roundsSurvived", roundsSurvived, typeof(int));
