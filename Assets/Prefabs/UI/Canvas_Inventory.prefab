@@ -240,11 +240,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 0/1
+  m_text: 10/10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ee5d7adc215e4f8c91a35252b337a43, type: 2}
-  m_sharedMaterial: {fileID: -6530983597692525156, guid: 9ee5d7adc215e4f8c91a35252b337a43,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c5b69af742d8b42d2a91dee40138b14a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -307,10 +306,10 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -17.116632, y: 14.891838, z: 38.888206, w: -42.311226}
+  m_margin: {x: -17.116632, y: 14.891838, z: 25.836803, w: -42.311226}
   m_textInfo:
     textComponent: {fileID: 5736052353953950251}
-    characterCount: 3
+    characterCount: 5
     spriteCount: 0
     spaceCount: 0
     wordCount: 2
@@ -360,7 +359,7 @@ RectTransform:
   m_GameObject: {fileID: 5736052354509631234}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.375, y: 0.3, z: 1}
   m_Children:
   - {fileID: 5736052355439837404}
   - {fileID: 5736052355634064652}
@@ -370,7 +369,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -17.199951, y: 90}
-  m_SizeDelta: {x: 220, y: 90}
+  m_SizeDelta: {x: 200, y: 90}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &5736052354509631239
 CanvasRenderer:
@@ -437,7 +436,7 @@ RectTransform:
   m_GameObject: {fileID: 5736052354541233379}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.4, z: 1}
+  m_LocalScale: {x: 0.375, y: 0.3, z: 1}
   m_Children:
   - {fileID: 5736052353791165889}
   - {fileID: 5736052353953950244}
@@ -446,8 +445,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -155.6, y: 90}
-  m_SizeDelta: {x: 220, y: 90}
+  m_AnchoredPosition: {x: -110, y: 90}
+  m_SizeDelta: {x: 225, y: 90}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &5736052354541233376
 CanvasRenderer:
@@ -627,11 +626,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 1
+  m_text: 123
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ee5d7adc215e4f8c91a35252b337a43, type: 2}
-  m_sharedMaterial: {fileID: -6530983597692525156, guid: 9ee5d7adc215e4f8c91a35252b337a43,
-    type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c5b69af742d8b42d2a91dee40138b14a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -697,7 +695,7 @@ MonoBehaviour:
   m_margin: {x: -4.3572984, y: 14.369047, z: 67.57593, w: -40.421104}
   m_textInfo:
     textComponent: {fileID: 5736052355634064691}
-    characterCount: 1
+    characterCount: 3
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
