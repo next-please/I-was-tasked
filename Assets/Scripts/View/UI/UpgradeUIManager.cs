@@ -19,51 +19,88 @@ public class UpgradeUIManager : MonoBehaviour
     void OnEnable()
     {
         EventManager.Instance.AddListener<MarketUpdateEvent>(UpdateMarketRarityButtonsText);
-        EventManager.Instance.AddListener<MarketUpdateEvent>(UpdateMarketSizeButtonsText);
         EventManager.Instance.AddListener<InventoryChangeEvent>(UpdateArmySizeButtonsText);
-        EventManager.Instance.AddListener<MarketUpdateEvent>(SetButtons);
-        EventManager.Instance.AddListener<InventoryChangeEvent>(SetButtons);
+        EventManager.Instance.AddListener<MarketUpdateEvent>(UpdateButtonInteractability);
+        EventManager.Instance.AddListener<InventoryChangeEvent>(UpdateButtonInteractability);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<MarketUpdateEvent>(UpdateMarketRarityButtonsText);
-        EventManager.Instance.RemoveListener<MarketUpdateEvent>(UpdateMarketSizeButtonsText);
         EventManager.Instance.RemoveListener<InventoryChangeEvent>(UpdateArmySizeButtonsText);
-        EventManager.Instance.RemoveListener<MarketUpdateEvent>(SetButtons);
-        EventManager.Instance.RemoveListener<InventoryChangeEvent>(SetButtons);
+        EventManager.Instance.RemoveListener<MarketUpdateEvent>(UpdateButtonInteractability);
+        EventManager.Instance.RemoveListener<InventoryChangeEvent>(UpdateButtonInteractability);
     }
 
     void Awake()
     {
-        SetButtons(new InventoryChangeEvent());
+        SetMarketRarityButtons();
+        SetArmySizeButtons();
+        SetMarketSizeButtons();
+        UpdateButtonInteractability(new MarketUpdateEvent());
         UpdateMarketRarityButtonsText(new MarketUpdateEvent());
         UpdateArmySizeButtonsText(new InventoryChangeEvent());
     }
 
-    void SetButtons(InventoryChangeEvent e /*unused and is a hack*/)
+    void UpdateButtonInteractability(InventoryChangeEvent e /*unused and is a hack*/)
     {
-        SetMarketRarityButtons();
-        SetArmySizeButtons();
-        SetMarketSizeButtons();
+        Player localPlayer = RoomManager.GetLocalPlayer();
+        if (transactionManager.CanPurchaseIncreaseArmySize(localPlayer))
+        {
+            armyButton.interactable = true;
+        }
+        else
+        {
+            armyButton.interactable = false;
+        }
+        if (transactionManager.CanPurchaseIncreaseMarketSize(localPlayer))
+        {
+            sizeButton.interactable = true;
+        }
+        else
+        {
+            sizeButton.interactable = false;
+        }
+        if (transactionManager.CanPurchaseIncreaseMarketRarity(localPlayer))
+        {
+            rarityButton.interactable = true;
+        }
+        else
+        {
+            rarityButton.interactable = false;
+        }
     }
 
-    void SetButtons(MarketUpdateEvent e /*unused and is a hack*/)
+    void UpdateButtonInteractability(MarketUpdateEvent e /*unused and is a hack*/)
     {
-        SetMarketRarityButtons();
-        SetArmySizeButtons();
-        SetMarketSizeButtons();
+        Player localPlayer = RoomManager.GetLocalPlayer();
+        if (transactionManager.CanPurchaseIncreaseArmySize(localPlayer))
+        {
+            armyButton.interactable = true;
+        }
+        else
+        {
+            armyButton.interactable = false;
+        }
+        if (transactionManager.CanPurchaseIncreaseMarketSize(localPlayer))
+        {
+            sizeButton.interactable = true;
+        }
+        else
+        {
+            sizeButton.interactable = false;
+        }
+        if (transactionManager.CanPurchaseIncreaseMarketRarity(localPlayer))
+        {
+            rarityButton.interactable = true;
+        }
+        else
+        {
+            rarityButton.interactable = false;
+        }
     }
 
     void UpdateMarketRarityButtonsText(MarketUpdateEvent e /*unused and is a hack*/)
-    {
-        if (rarityButton == null)
-            return;
-        TextMeshProUGUI text = rarityButton.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = transactionManager.GetMarketRarityCost().ToString();
-    }
-
-    void UpdateMarketSizeButtonsText(MarketUpdateEvent e /*unused and is a hack*/)
     {
         if (rarityButton == null)
             return;
@@ -84,16 +121,6 @@ public class UpgradeUIManager : MonoBehaviour
     {
         rarityButton = UpgradeMarketRarity.GetComponentInChildren<Button>(true);
         rarityButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketRarity(RoomManager.GetLocalPlayer()));
-
-        Player localPlayer = RoomManager.GetLocalPlayer();
-        if (transactionManager.CanPurchaseIncreaseMarketRarity(localPlayer))
-        {
-            rarityButton.interactable = true;
-        }
-        else
-        {
-            rarityButton.interactable = false;
-        }
     }
 
     void SetMarketSizeButtons()
@@ -102,31 +129,12 @@ public class UpgradeUIManager : MonoBehaviour
         sizeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketSize(RoomManager.GetLocalPlayer()));
         TextMeshProUGUI text = sizeButton.GetComponentInChildren<TextMeshProUGUI>();
         text.text = transactionManager.UpgradeMarketSizeCost.ToString();
-
-        Player localPlayer = RoomManager.GetLocalPlayer();
-        if (transactionManager.CanPurchaseIncreaseMarketSize(localPlayer))
-        {
-            sizeButton.interactable = true;
-        }
-        else
-        {
-            sizeButton.interactable = false;
-        }
     }
 
     void SetArmySizeButtons()
     {
         armyButton = UpgradeArmy.GetComponentInChildren<Button>(true);
         armyButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseArmySize(RoomManager.GetLocalPlayer()));
-
-        Player localPlayer = RoomManager.GetLocalPlayer();
-        if (transactionManager.CanPurchaseIncreaseArmySize(localPlayer))
-        {
-            armyButton.interactable = true;
-        }
-        else
-        {
-            armyButton.interactable = false;
-        }
     }
+
 }
