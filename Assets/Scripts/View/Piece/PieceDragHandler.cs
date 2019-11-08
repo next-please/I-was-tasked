@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using Com.Nextplease.IWT;
 
 public class MoveFromBoardToBenchEvent : GameEvent
 {
@@ -91,7 +92,7 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnBenchDrop(BenchSlot slot)
     {
-        if (slot.isOccupied || inCombat)
+        if (slot.isOccupied || inCombat || slot.Owner != RoomManager.GetLocalPlayer())
         {
             OnEmptyDrop();
             return;

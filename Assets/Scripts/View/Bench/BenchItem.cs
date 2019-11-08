@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using Com.Nextplease.IWT;
 
 public class MoveFromBenchToBoardEvent : GameEvent
 {
@@ -80,7 +81,7 @@ public class BenchItem : InteractablePiece
 
     public override void OnBenchDrop(BenchSlot targetSlot)
     {
-        if (targetSlot.isOccupied)
+        if (targetSlot.isOccupied || targetSlot.Owner != RoomManager.GetLocalPlayer())
         {
             OnEmptyDrop();
             return;
