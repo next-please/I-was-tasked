@@ -374,6 +374,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #1");
                 enemy.spell = Enums.Spell.ShadowStrike;
+                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 0.7));
                 enemy.SetTitle("");
                 enemy.SetMaximumHitPoints(235);
                 enemy.SetCurrentHitPoints(235);
@@ -384,6 +385,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #2");
                 enemy.spell = Enums.Spell.ShadowStrike;
+                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 0.7));
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(1, 4);
@@ -392,6 +394,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #3");
                 enemy.spell = Enums.Spell.ShadowStrike;
+                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 0.7));
                 enemy.SetTitle("");
                 enemy.SetMaximumHitPoints(235);
                 enemy.SetCurrentHitPoints(235);
@@ -402,6 +405,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #4");
                 enemy.spell = Enums.Spell.ShadowStrike;
+                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 0.7));
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(5, 5);
@@ -410,6 +414,7 @@ public class EnemyGenerator
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #5");
                 enemy.spell = Enums.Spell.ShadowStrike;
+                enemy.SetMaximumManaPoints((int)(enemy.GetMaximumManaPoints() * 0.7));
                 enemy.SetTitle("");
                 enemy.SetDamageIfSurvive(1);
                 enemy.startingSpot = new Tuple<int, int>(6, 6);

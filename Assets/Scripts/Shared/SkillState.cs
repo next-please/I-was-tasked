@@ -66,7 +66,7 @@ public class SkillState : State
             else if (piece.spell == Enums.Spell.GreaterHeal)
                 skill = new GreaterHealSkill(piece, board);
             else if (piece.spell == Enums.Spell.ShadowStrike)
-                skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board, (int)(ShadowStrikeSkill.shadowStrikeDefaultDamage * 0.9));
+                skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board, (int)(ShadowStrikeSkill.shadowStrikeDefaultDamage * 0.6));
             else if (piece.spell == Enums.Spell.UnholyAura)
                 skill = new UnholyAuraSkill(piece, board);
             //skill = new RaiseDeadSkill(piece, board);
