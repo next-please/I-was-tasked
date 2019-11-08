@@ -110,6 +110,11 @@ public class ShadowStrikeSkill : Interaction
             }
         }
 
+        if (targetTile != null)
+        {
+            targetTile.SetLocker(caster);
+        }
+
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
         attackSource.y = 0.5f;
 
@@ -165,7 +170,10 @@ public class ShadowStrikeSkill : Interaction
             Debug.Log(caster.GetName() + " has ShadowStrike-ed " + target.GetName() + " for " + damage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
         }
 
-        board.MovePieceToTile(caster, targetTile);
+        if (!targetTile.IsOccupied() && caster.GetCurrentTile() != targetTile)
+        {
+            board.MovePieceToTile(caster, targetTile);
+        }
     }
 }
 
