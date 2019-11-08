@@ -100,16 +100,19 @@ public class DragManager : MonoBehaviour
         {
             Tile tile = tileEvent.targetObject.GetComponent<TileView>().GetTile();
             Vector3 tilePosition = ViewManager.CalculateTileWorldPosition(tile);
-            Highlight.SetActive((tile.GetCol() < 4));
             tilePosition.y = 0.75f;
             Highlight.transform.position = tilePosition;
+            bool isValidTile = tile.GetCol() < 4;
+            Highlight.SetActive(isValidTile);
         }
         else if (target == HitTarget.BenchSlot)
         {
             Vector3 position = tileEvent.targetObject.transform.position;
+            BenchSlot benchSlot = tileEvent.targetObject.GetComponent<BenchSlot>();
             position.y = 0.75f;
             Highlight.transform.position = position;
-            Highlight.SetActive(true);
+            bool isValidBenchSlot = benchSlot.Owner == RoomManager.GetLocalPlayer();
+            Highlight.SetActive(isValidBenchSlot);
         }
     }
 

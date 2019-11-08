@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BenchSlot : MonoBehaviour
 {
+    public Player Owner;
     public GameObject BenchItemPrefab;
     public bool isOccupied;
     public int index;
