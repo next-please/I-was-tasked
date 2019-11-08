@@ -57,8 +57,12 @@ public class ChargeSkill : Interaction
 
         if (targetTile == null)
         {
+            Debug.Log(caster.GetName() + " could not choose a tile.");
             this.ticksTotal = 0;
             this.ticksRemaining = 0;
+            targetTile = caster.GetCurrentTile();
+            Vector3 currentTilePos = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            targetTilePos = ViewManager.CalculateTileWorldPosition(targetTile);
         }
         else
         {
