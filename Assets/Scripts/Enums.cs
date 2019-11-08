@@ -85,17 +85,17 @@
     {
         string.Format("({0}+) Druids gain infinite range.\n\n({1}+) All enemies are crippled.", GameLogicManager.Inst.Data.Synergy.DruidRequirement1, GameLogicManager.Inst.Data.Synergy.DruidRequirement2),
         string.Format("({0}+) Knights taunt enemies away from allies.\n\n({1}+) Knights start battles <b>Invulnerable</b> for {2} seconds.", GameLogicManager.Inst.Data.Synergy.KnightRequirement1, GameLogicManager.Inst.Data.Synergy.KnightRequirement2, GameLogicManager.Inst.Data.Synergy.KnightTicksOfUnstoppable),
-        string.Format("({0}+) Mages start with extra mana.\n\n({1}+) Mages also cast each spell twice.", GameLogicManager.Inst.Data.Synergy.MageRequirement1, GameLogicManager.Inst.Data.Synergy.MageRequirement2),
-        string.Format("({0}+) Priests purge surrounding area on death.\n\n({1}+) Priest's area of purge is larger and stronger.", GameLogicManager.Inst.Data.Synergy.PriestRequirement1, GameLogicManager.Inst.Data.Synergy.PriestRequirement2),
-        string.Format("(<b>Exactly</b> {0}) or ({1}+) Rogues start battles with massively amplified damage but severly reduced health.", GameLogicManager.Inst.Data.Synergy.RogueRequirement1, GameLogicManager.Inst.Data.Synergy.RogueRequirement2)
+        string.Format("({0}+) Mages start with extra mana.\n\n({1}+) Mages also cast spells twice.", GameLogicManager.Inst.Data.Synergy.MageRequirement1, GameLogicManager.Inst.Data.Synergy.MageRequirement2),
+        string.Format("({0}+) Priests purge the surrounding area on death.\n\n({1}+) Area of purge is larger and stronger.", GameLogicManager.Inst.Data.Synergy.PriestRequirement1, GameLogicManager.Inst.Data.Synergy.PriestRequirement2),
+        string.Format("(Exactly {0}): or ({1}+) Rogues start battles with massively amplified damage but severly reduced health.", GameLogicManager.Inst.Data.Synergy.RogueRequirement1, GameLogicManager.Inst.Data.Synergy.RogueRequirement2)
     };
 
     public static string[] RaceSynergyDescription = new string[]
     {
-        string.Format("({0}+) All players gain {1} extra gold per turn.\n\n({2}+) All player gain {3} extra gold per turn instead.", GameLogicManager.Inst.Data.Synergy.HumanRequirement1, GameLogicManager.Inst.Data.Synergy.HumanGoldAmount1, GameLogicManager.Inst.Data.Synergy.HumanRequirement2, GameLogicManager.Inst.Data.Synergy.HumanGoldAmount2),
-        string.Format("({0}+) Elves transfer some of their attributes to another unit upon death.\n\n({1}+) <b>All</b> friendly units transfer some of their attributes to another unit upon death.", GameLogicManager.Inst.Data.Synergy.ElfRequirement1, GameLogicManager.Inst.Data.Synergy.ElfRequirement2),
-        string.Format("({0}+) Orcs rampage after taking significant damage, gaining attack speed.\n\n({1}+) Orcs begin their rampage after taking less damage. \nMore Orcs appear in the market.", GameLogicManager.Inst.Data.Synergy.OrcRequirement1, GameLogicManager.Inst.Data.Synergy.OrcRequirement2),
-        string.Format("({0}+) Undead gain a massive health boost. This value is split among each friendly Undead.\n\n({1}+)Instead, Undead start battles <b>Invulnerable</b> for {2} seconds.\nThen they die.", GameLogicManager.Inst.Data.Synergy.UndeadRequirement1, GameLogicManager.Inst.Data.Synergy.UndeadRequirement2, GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie / 50)
+        string.Format("({0}+) All players gain {1} extra gold per round.\n\n({2}+) All players gain {3} extra gold per round instead.", GameLogicManager.Inst.Data.Synergy.HumanRequirement1, GameLogicManager.Inst.Data.Synergy.HumanGoldAmount1, GameLogicManager.Inst.Data.Synergy.HumanRequirement2, GameLogicManager.Inst.Data.Synergy.HumanGoldAmount2),
+        string.Format("({0}+) Elves transfer some of their attributes to another ally upon death.\n\n({1}+) <b>All</b> friendly units transfer some of their attributes to another ally upon death.", GameLogicManager.Inst.Data.Synergy.ElfRequirement1, GameLogicManager.Inst.Data.Synergy.ElfRequirement2),
+        string.Format("({0}+) Orcs rampage after taking significant damage, gaining attack speed.\n\n({1}+) Orcs begin their rampage after taking less damage and more Orcs will appear in the market.", GameLogicManager.Inst.Data.Synergy.OrcRequirement1, GameLogicManager.Inst.Data.Synergy.OrcRequirement2),
+        string.Format("({0}+) Undead gain a massive health boost. This value is split among each friendly Undead.\n\n({1}+) Instead, Undead start battles <b>Invulnerable</b> for {2} seconds and die afterwards.", GameLogicManager.Inst.Data.Synergy.UndeadRequirement1, GameLogicManager.Inst.Data.Synergy.UndeadRequirement2, GameLogicManager.Inst.Data.Synergy.UndeadTicksToDie / 50)
     };
 
     public enum Spell
