@@ -245,7 +245,7 @@ public class PhaseManager : MonoBehaviour
     {
         PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = "Round " + round + " begins!";
         PopUpScreen.enabled = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         PopUpScreen.enabled = false;
     }
 
