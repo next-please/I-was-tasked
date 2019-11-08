@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Com.Nextplease.IWT;
+using System.Linq;
 
 public class SynergyTabMenu : MonoBehaviour
 {
@@ -35,7 +36,6 @@ public class SynergyTabMenu : MonoBehaviour
             tab.Initialise(synergyName, synergyDescription, requirementCounts, _info);
             tab.AddCount();
         }
-        sortTabs();
     }
 
     public void Reset()
@@ -57,10 +57,9 @@ public class SynergyTabMenu : MonoBehaviour
         {
             Debug.LogErrorFormat("{0}: Tried to decrement synergy tab count but did not exist", CLASS_NAME);
         }
-        sortTabs();
     }
 
-    private void sortTabs()
+    public void sortTabs()
     {
         List<Transform> children = new List<Transform>();
         for (int i = _content.transform.childCount - 1; i >= 0; i--)
@@ -69,9 +68,7 @@ public class SynergyTabMenu : MonoBehaviour
             children.Add(child);
             child.SetParent(null);
         }
-        children.Sort((Transform t1, Transform t2) => { 
-            return t2.gameObject.GetComponent<SynergyTab>().Count - t1.gameObject.GetComponent<SynergyTab>().Count; 
-        });
+        children = children.OrderBy(t1 => t1.gameObject.GetComponent<SynergyTab>().Count).Reverse().ToList();
         foreach (Transform child in children)
         {
             child.SetParent(_content.transform);

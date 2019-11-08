@@ -116,6 +116,7 @@ public class InventoryManager : MonoBehaviour
             string raceDescription = Enums.RaceSynergyDescription[(int)pieceRace];
             _synergyTabMenu.IncrementSynergyTab(pieceClass.ToString(), classDescription, Enums.JobSynergyRequirements[(int)pieceClass]);
             _synergyTabMenu.IncrementSynergyTab(pieceRace.ToString(), raceDescription, Enums.RaceSynergyRequirements[(int)pieceRace]);
+            _synergyTabMenu.sortTabs();
             if (synergyManager.HasSynergy(piece.GetClass()) && !hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Active" });
@@ -163,6 +164,7 @@ public class InventoryManager : MonoBehaviour
             Enums.Race pieceRace = piece.GetRace();
             _synergyTabMenu.DecrementSynergyTab(pieceClass.ToString());
             _synergyTabMenu.DecrementSynergyTab(pieceRace.ToString());
+            _synergyTabMenu.sortTabs();
             if (!synergyManager.HasSynergy(piece.GetClass()) && hadJobSynergy)
             {
                 EventManager.Instance.Raise(new GlobalMessageEvent { message = piece.GetClass() + " Synergy Removed" });
