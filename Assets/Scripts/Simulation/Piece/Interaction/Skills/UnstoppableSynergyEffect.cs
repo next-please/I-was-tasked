@@ -7,7 +7,7 @@ public class UnstoppableSynergyEffect : Interaction
 {
     private Piece caster;
     private Board board;
-    public int ticksTilActivation = 350;
+    public int ticksTilActivation = GameLogicManager.Inst.Data.Synergy.KnightTicksOfUnstoppable;
 
     public UnstoppableSynergyEffect(Piece caster, Board board)
     {

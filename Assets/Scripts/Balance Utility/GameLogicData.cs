@@ -79,6 +79,7 @@ public class SynergyData
     public int ElfGuidingSpiritAttackDamage = 10;
     public int ElfGuidingSpiritAttackSpeed = 1;
     public int GuidingSpiritLingerTicks = 50;
+    public int KnightTicksOfUnstoppable = 350;
 }
 
 [Serializable]
