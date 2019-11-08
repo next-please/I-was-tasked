@@ -18,7 +18,7 @@ public class CastleTabInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnPointerEnter(PointerEventData data)
     {
-        _description.SetText(marketManager.GetCastleHealth() + " / " + MarketManager.StartingCastleHealth);
+        _description.SetText("HP: " + marketManager.GetCastleHealth() + "/" + MarketManager.StartingCastleHealth);
         castleHealth.SetActive(true);
     }
 
