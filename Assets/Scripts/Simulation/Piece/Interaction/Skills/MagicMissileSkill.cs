@@ -90,6 +90,13 @@ public class MagicMissileSkill : Interaction
             attackDestination.y = 1.0f;
         }
 
+        if (!caster.IsDead())
+        {
+            attackSource = caster.GetPieceView().transform.position;
+            attackSource.y = 1.0f;
+
+        }
+
         float fracJourney = (float)(ticksTilActivation - ticksRemaining) / ticksTilActivation;
         projectile.transform.position = Vector3.Lerp(attackSource, attackDestination, fracJourney);
         projectile.transform.LookAt(attackDestination);
