@@ -40,7 +40,7 @@ public class ArrangementManager : MonoBehaviour
         boardManager.AddPieceToBoard(player, actualPiece, tile.GetRow(), tile.GetCol());
     }
 
-    public void ReverseBenchToBoard(Player player, Piece piece, Tile tile)
+    public void ReverseBenchToBoard(Player player, Piece piece)
     {
         if (RoomManager.GetLocalPlayer() == player)
         {
@@ -80,6 +80,20 @@ public class ArrangementManager : MonoBehaviour
         inventoryManager.RemoveFromArmy(player, actualPiece);
         inventoryManager.AddToBench(player, actualPiece);
         inventoryManager.MoveBenchPieceToIndex(player, actualPiece, slotIndex);
+    }
+
+    public void ReverseBoardToBench(Player player, Piece piece)
+    {
+        if (RoomManager.GetLocalPlayer() == player)
+        {
+            // Similar to BenchToBoard, the prefab is destroyed but the piece is still in the army
+            // we just have to re-trigger the creation of the prefab
+            PlayerInventory pInventory = inventoryManager.GetPlayerInventory(player);
+            Piece actualArmyPiece = pInventory.GetActualArmyPiece(piece);
+            Tile tile = actualArmyPiece.GetCurrentTile();
+            boardManager.RemovePieceFromBoard(player, actualArmyPiece);
+            boardManager.AddPieceToBoard(player, actualArmyPiece, tile.GetRow(), tile.GetCol());
+        }
     }
     #endregion
 
