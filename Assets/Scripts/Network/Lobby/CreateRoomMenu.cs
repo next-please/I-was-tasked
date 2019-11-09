@@ -97,6 +97,7 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         tutorialTextNormal.text = "Tutorial Enabled";
         tutorialTextPressed.text = "Tutorial Enabled";
         _isTutorial = true;
+        Debug.Log("Tutorial has been enabled!");
     }
 
     void DisableTutorial()
@@ -114,6 +115,6 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         tutorialTextNormal.text = "Tutorial Disabled";
         tutorialTextPressed.text = "Tutorial Disabled";
         _isTutorial = false;
-
+        Debug.Log("Tutorial has been disabled!");
     }
 }

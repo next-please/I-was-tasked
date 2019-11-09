@@ -17,15 +17,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     private PlayerListing _playerListing;
 
     [SerializeField]
-    private TextMeshProUGUI _readyTextPressed;
-
-    [SerializeField]
-    private GameObject _readyButton;
-
-    [SerializeField]
     private GameObject _startGameButton;
 
-    private Button _toggleButton;
 
     private bool _ready;
 
@@ -36,7 +29,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         _startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
-        _toggleButton = _readyButton.gameObject.GetComponent<Button>();
         SetNotReady();
         GetCurrentRoomPlayers();
     }
@@ -79,6 +71,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
             PlayerListing listing = Instantiate(_playerListing, _content);
             if (listing != null)
             {
+                listing.playerListingsMenu = this;
                 _listings.Add(listing);
                 listing.SetPlayerInfo(player, _listings);
             }
@@ -148,35 +141,14 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 
     public void SetReady()
     {
-        ColorBlock cb = _toggleButton.colors;
-        cb.normalColor = new Color(0.7f, 0.0f, 0.0f);
-        cb.selectedColor = cb.normalColor;
-        cb.highlightedColor = Color.red;
-        _toggleButton.colors = cb;
-
-        // To re-enable the hover-over highlight.
-        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        eventSystem.SetSelectedGameObject(null);
-
         _ready = true;
         Debug.LogFormat("{0}: Set Ready!", CLASS_NAME);
     }
 
     public void SetNotReady()
     {
-        ColorBlock cb = _toggleButton.colors;
-        cb.normalColor = new Color(0.0f, 0.7f, 0.0f);
-        cb.selectedColor = cb.normalColor;
-        cb.highlightedColor = Color.green;
-        _toggleButton.colors = cb;
-
-        // To re-enable the hover-over highlight.
-        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        eventSystem.SetSelectedGameObject(null);
-
         _ready = false;
         Debug.LogFormat("{0}: Set Not Ready.", CLASS_NAME);
-
     }
 
     [PunRPC]
