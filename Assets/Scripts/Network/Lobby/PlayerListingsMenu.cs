@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
@@ -225,9 +224,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         cb.disabledColor = new Color(0.0f, 0.7f, 0.0f);
         tutorialButton.colors = cb;
 
-        // To re-enable the hover-over highlight.
-        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        eventSystem.SetSelectedGameObject(null);
         tutorialTextNormal.text = "Tutorial Enabled";
         tutorialTextPressed.text = "Tutorial Enabled";
         _isTutorial = true;
@@ -244,9 +240,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         cb.disabledColor = new Color(0.7f, 0.0f, 0.0f);
         tutorialButton.colors = cb;
 
-        // To re-enable the hover-over highlight.
-        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        eventSystem.SetSelectedGameObject(null);
         tutorialTextNormal.text = "Tutorial Disabled";
         tutorialTextPressed.text = "Tutorial Disabled";
         _isTutorial = false;
