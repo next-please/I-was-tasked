@@ -82,7 +82,7 @@ public abstract class InteractablePiece :
             default:
                 break;
         }
-        EventManager.Instance.Raise(new ShowTrashCanEvent { showTrashCan = false });
+        EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = false });
         EventManager.Instance.Raise(new DragEndEvent{});
     }
 

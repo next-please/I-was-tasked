@@ -26,5 +26,4 @@ public class CastleTabInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         castleHealth.SetActive(false);
     }
-
 }

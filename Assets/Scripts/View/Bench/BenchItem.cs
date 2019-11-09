@@ -22,6 +22,7 @@ public class TrashPieceOnBenchEvent : GameEvent
 
 public class ShowTrashCanEvent : GameEvent
 {
+    public Piece piece;
     public bool showTrashCan;
 }
 
@@ -57,7 +58,7 @@ public class BenchItem : InteractablePiece
         if (IsDragAllowed())
         {
             SetDraggedState();
-            EventManager.Instance.Raise(new ShowTrashCanEvent { showTrashCan = true });
+            EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = true });
         }
         else
         {
