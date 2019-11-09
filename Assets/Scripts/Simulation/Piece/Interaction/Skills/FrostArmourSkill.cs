@@ -128,7 +128,10 @@ public class FrostArmourLingeringEffect : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()

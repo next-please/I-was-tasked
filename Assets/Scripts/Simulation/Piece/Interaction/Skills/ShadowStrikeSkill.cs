@@ -114,6 +114,10 @@ public class ShadowStrikeSkill : Interaction
         {
             targetTile.SetLocker(caster);
         }
+        else
+        {
+            targetTile = caster.GetCurrentTile();
+        }
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
         attackSource.y = 0.5f;
@@ -141,7 +145,10 @@ public class ShadowStrikeSkill : Interaction
 
     public override void CleanUpInteraction()
     {
-        interactionView.CleanUpInteraction();
+        if (interactionView != null)
+        {
+            interactionView.CleanUpInteraction();
+        }
     }
 
     public override bool ProcessInteractionView()
@@ -165,8 +172,15 @@ public class ShadowStrikeSkill : Interaction
         int damage = (int)Math.Floor(this.damage * Math.Pow(GameLogicManager.Inst.Data.Skills.ShadowStrikeRarityMultiplier, caster.GetRarity()));
         if (!target.IsDead() && !target.invulnerable)
         {
-            caster.SetTarget(target);
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
+            if (target.GetCurrentHitPoints() > 0)
+            {
+                caster.SetTarget(target);
+            }
+            else
+            {
+                caster.SetTarget(board.FindNearestTarget(caster));
+            }
             Debug.Log(caster.GetName() + " has ShadowStrike-ed " + target.GetName() + " for " + damage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
         }
 
