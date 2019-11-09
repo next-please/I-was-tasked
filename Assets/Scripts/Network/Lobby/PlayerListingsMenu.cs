@@ -33,7 +33,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         base.OnEnable();
         _startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
         tutorialButton.interactable = PhotonNetwork.IsMasterClient;
-        _isTutorial = (bool)PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"];
+        _isTutorial = (bool) PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"];
         RPC_ChangeTutorialState(_isTutorial);
         SetNotReady();
         GetCurrentRoomPlayers();
@@ -90,9 +90,9 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
             for (int i = 0; i < _listings.Count; i++)
             {
                 if (!_listings[i].Ready)
+                    Debug.Log("Player #" + i + " is not ready!");
                     return;
             }
-
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel("Main Scene MP");
@@ -177,7 +177,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         {
             DisableTutorial();
         }
-        PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"] = _isTutorial;
     }
 
     public void OnClick_Tutorial()
@@ -187,7 +186,9 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
             return;
         }
         _isTutorial = !_isTutorial;
-        PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"] = _isTutorial;
+        Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties);
+        PhotonNetwork.CurrentRoom.SetCustomProperties(new ExitGames.Client.Photon.Hashtable() { { "isTutorial", _isTutorial } });
+        Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties);
         base.photonView.RPC("RPC_ChangeTutorialState", RpcTarget.All, _isTutorial);
     }
 
