@@ -90,8 +90,10 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
             for (int i = 0; i < _listings.Count; i++)
             {
                 if (!_listings[i].Ready)
+                {
                     Debug.Log("Player #" + i + " is not ready!");
                     return;
+                }
             }
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
