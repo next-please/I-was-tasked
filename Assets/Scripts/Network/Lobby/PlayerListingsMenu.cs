@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class PlayerListingsMenu : MonoBehaviourPunCallbacks
 {
@@ -22,6 +21,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     public Button tutorialButton;
     public TextMeshProUGUI tutorialTextNormal;
     public TextMeshProUGUI tutorialTextPressed;
+    public TextMeshProUGUI startGameTextNormal;
     private bool _isTutorial;
     private bool _ready;
 
@@ -32,11 +32,14 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         _startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+        CanStartGameButton();
         tutorialButton.interactable = PhotonNetwork.IsMasterClient;
         _isTutorial = (bool) PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"];
         RPC_ChangeTutorialState(_isTutorial);
         SetNotReady();
         GetCurrentRoomPlayers();
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+        GetComponentInParent<CurrentRoomCanvas>().UpdateRoomInfo();
     }
 
     public override void OnDisable()
@@ -83,6 +86,19 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         }
     }
 
+    public void CanStartGameButton()
+    {
+        _startGameButton.GetComponent<Button>().interactable = PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.MaxPlayers == PhotonNetwork.CurrentRoom.PlayerCount;
+        if (_startGameButton.GetComponent<Button>().interactable)
+        {
+            startGameTextNormal.color = Color.white;
+        }
+        else
+        {
+            startGameTextNormal.color = new Color(0.784f, 0.784f, 0.784f, 0.5f);
+        }
+    }
+
     public void OnClick_StartGame()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -104,6 +120,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         AddPlayerListing(newPlayer);
+        CanStartGameButton();
+        GetComponentInParent<CurrentRoomCanvas>().UpdateRoomInfo();
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
@@ -119,6 +137,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         {
             p.SetPlayerInfo(p.Player, _listings);
         }
+        CanStartGameButton();
+        GetComponentInParent<CurrentRoomCanvas>().UpdateRoomInfo();
     }
 
     public override void OnJoinedRoom()
@@ -204,9 +224,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         cb.disabledColor = new Color(0.0f, 0.7f, 0.0f);
         tutorialButton.colors = cb;
 
-        // To re-enable the hover-over highlight.
-        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        eventSystem.SetSelectedGameObject(null);
         tutorialTextNormal.text = "Tutorial Enabled";
         tutorialTextPressed.text = "Tutorial Enabled";
         _isTutorial = true;
@@ -223,9 +240,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         cb.disabledColor = new Color(0.7f, 0.0f, 0.0f);
         tutorialButton.colors = cb;
 
-        // To re-enable the hover-over highlight.
-        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
-        eventSystem.SetSelectedGameObject(null);
         tutorialTextNormal.text = "Tutorial Disabled";
         tutorialTextPressed.text = "Tutorial Disabled";
         _isTutorial = false;

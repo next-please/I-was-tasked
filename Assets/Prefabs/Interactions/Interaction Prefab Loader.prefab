@@ -56,7 +56,7 @@ MonoBehaviour:
     type: 3}
   EviscerateBleed: {fileID: 2231283222839007319, guid: 4060437c8047ec846a82ff395b3e5fb9,
     type: 3}
-  Fireblast: {fileID: 2368481067273882786, guid: c9599095096809747be9c2a3e8d6a140,
+  Fireblast: {fileID: 8476661144598102313, guid: 2162a24867d0ae4438dc5a2c95b7511a,
     type: 3}
   ForestSpirits: {fileID: 8325048556619474201, guid: 8a381d23a12fc894f8f4193b37594a46,
     type: 3}

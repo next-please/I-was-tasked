@@ -38,7 +38,6 @@ public class DeselectPieceEvent : GameEvent { }
 public abstract class InteractablePiece :
     MonoBehaviour,
     IDragHandler,
-    IEndDragHandler,
     IPointerUpHandler,
     IPointerDownHandler,
     IPointerEnterHandler,
@@ -59,7 +58,7 @@ public abstract class InteractablePiece :
     public virtual void OnTrashDrop() { }
     public virtual void OnEmptyDrop() { }
 
-    public virtual void OnEndDrag(PointerEventData eventData)
+    public virtual void OnPointerUp(PointerEventData eventData)
     {
         eventData.selectedObject = null;
 
@@ -81,13 +80,9 @@ public abstract class InteractablePiece :
             default:
                 break;
         }
+        EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = false });
         EventManager.Instance.Raise(new DragEndEvent{});
     }
-
-    public virtual void OnPointerUp(PointerEventData eventData)
-    {
-        EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = false });
-    } 
 
     public virtual void OnPointerDown(PointerEventData eventData)
     {

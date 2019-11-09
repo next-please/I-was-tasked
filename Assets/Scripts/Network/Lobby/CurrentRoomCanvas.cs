@@ -28,7 +28,7 @@ public class CurrentRoomCanvas : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
-        SetRoomInfo(PhotonNetwork.CurrentRoom);
+        UpdateRoomInfo();
     }
 
     public void Hide()
@@ -36,8 +36,8 @@ public class CurrentRoomCanvas : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetRoomInfo(RoomInfo roomInfo)
+    public void UpdateRoomInfo()
     {
-        roomNameAndDetails.text = String.Format("{0} ({1})", roomInfo.Name, roomInfo.MaxPlayers);
+        roomNameAndDetails.text = String.Format("{0} ({1}/{2})", PhotonNetwork.CurrentRoom.Name, PhotonNetwork.PlayerList.Length, PhotonNetwork.CurrentRoom.MaxPlayers);
     }
 }

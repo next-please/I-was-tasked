@@ -22,6 +22,14 @@ public class MoveState : State
         destination = pieceView.piece.GetLockedTile();
         Vector3 tilePos = ViewManager.CalculateTileWorldPosition(destination);
         tilePos.y = 0.5f;
+        if (pieceView.piece.size == Enums.Size.Small)
+        {
+            tilePos.y = -0.4f;
+        }
+        else if (pieceView.piece.size == Enums.Size.Big)
+        {
+            tilePos.y = 1.3f;
+        }
         float distanceTotile = (tilePos - pieceView.transform.position).magnitude;
         float timeToReachTile = ticksRemaining * FixedClock.Instance.deltaTime;
         speedToTranslate = distanceTotile / timeToReachTile;
@@ -41,6 +49,14 @@ public class MoveState : State
         // estimate how fast we need to move
         Vector3 tilePos = ViewManager.CalculateTileWorldPosition(destination);
         tilePos.y = 0.5f;
+        if (pieceView.piece.size == Enums.Size.Small)
+        {
+            tilePos.y = -0.4f;
+        }
+        else if (pieceView.piece.size == Enums.Size.Big)
+        {
+            tilePos.y = 1.3f;
+        }
         pieceView.transform.position = tilePos;
         // pieceView.animator.Play("Idle", 0);
     }
