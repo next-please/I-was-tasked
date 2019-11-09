@@ -65,7 +65,6 @@ namespace Com.Nextplease.IWT
             }
             _tutorialMode = (bool)PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"];
             NumPlayersToStart = PhotonNetwork.CurrentRoom.MaxPlayers;
-            _playerMap = new Dictionary<string, int>();
             UpdatePlayerMap();
             UpdatePlayerList();
         }
@@ -88,6 +87,7 @@ namespace Com.Nextplease.IWT
         private void UpdatePlayerMap()
         {
             Debug.LogFormat("{0}: Updating Player Map", "RoomManager");
+            _playerMap = new Dictionary<string, int>();
             for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
             {
                 Photon.Realtime.Player player = PhotonNetwork.PlayerList[i];

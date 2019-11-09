@@ -45,7 +45,7 @@ namespace Com.Nextplease.IWT
 
         public string GetLocalPlayerID()
         {
-            return PhotonNetwork.LocalPlayer.NickName;
+            return PhotonNetwork.LocalPlayer.UserId;
         }
 
         public bool IsMasterClient()
