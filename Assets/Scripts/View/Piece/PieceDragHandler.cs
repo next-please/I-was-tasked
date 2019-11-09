@@ -74,11 +74,6 @@ public class PieceDragHandler : InteractablePiece
         }
     }
 
-    public override void OnEndDrag(PointerEventData eventData)
-    {
-        if (IsDragAllowed())
-            base.OnEndDrag(eventData);
-    }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
@@ -97,10 +92,7 @@ public class PieceDragHandler : InteractablePiece
     public override void OnPointerUp(PointerEventData eventData)
     {
         if (IsDragAllowed())
-        {
             base.OnPointerUp(eventData);
-            OnEmptyDrop();
-        }
     }
 
     public override void OnBenchDrop(BenchSlot slot)
