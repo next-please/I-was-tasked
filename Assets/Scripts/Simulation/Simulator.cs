@@ -86,7 +86,7 @@ public class Simulator : Tickable
             Debug.Log("Game has been resolved.");
 
             // Increase the rounds survived count for each piece.
-            if (numFriends > 0)
+            if (numEnemies == 0)
             {
                 foreach (Piece piece in piecesOnBoard.Where(piece => !piece.IsEnemy()))
                 {
