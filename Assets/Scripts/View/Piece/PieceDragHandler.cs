@@ -64,13 +64,11 @@ public class PieceDragHandler : InteractablePiece
         {
             transform.position = GetMouseWorldPosition();
             HitTarget target = GetHitTarget();
-            if (target == HitTarget.Tile || target == HitTarget.BenchSlot)
+            EventManager.Instance.Raise(new DragOverTileEvent
             {
-                EventManager.Instance.Raise(new DragOverTileEvent {
-                    hitTarget = target,
-                    targetObject = this.targetObject
-                });
-            }
+                hitTarget = target,
+                targetObject = this.targetObject
+            });
         }
     }
 

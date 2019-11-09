@@ -120,6 +120,10 @@ public class DragManager : MonoBehaviour
             bool isValidBenchSlot = benchSlot.Owner == RoomManager.GetLocalPlayer();
             Highlight.SetActive(isValidBenchSlot);
         }
+        else
+        {
+            Highlight.SetActive(false);
+        }
     }
 
     void OnDragEnd(DragEndEvent e)
