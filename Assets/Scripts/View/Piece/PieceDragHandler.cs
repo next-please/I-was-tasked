@@ -92,7 +92,7 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnBenchDrop(BenchSlot slot)
     {
-        if (slot.isOccupied || inCombat || slot.Owner != RoomManager.GetLocalPlayer())
+        if (slot.IsOccupied() || inCombat || slot.Owner != RoomManager.GetLocalPlayer())
         {
             OnEmptyDrop();
             return;

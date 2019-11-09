@@ -6,7 +6,7 @@ public class BenchSlot : MonoBehaviour
 {
     public Player Owner;
     public GameObject BenchItemPrefab;
-    public bool isOccupied;
+    private bool isOccupied;
     public int index;
     public BenchItem benchItem;
 
@@ -34,5 +34,12 @@ public class BenchSlot : MonoBehaviour
         isOccupied = false;
         if (benchItem)
             Destroy(benchItem.gameObject);
+    }
+
+    public bool IsOccupied()
+    {
+        if (benchItem == null)
+            isOccupied = false;
+        return isOccupied;
     }
 }

@@ -66,7 +66,7 @@ public class BenchManager : MonoBehaviour
             slot.SetEmpty();
             return;
         }
-        if (slot.isOccupied)
+        if (slot.IsOccupied())
         {
             slot.benchItem.piece = piece;
             return;

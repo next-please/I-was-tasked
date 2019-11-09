@@ -81,7 +81,7 @@ public class BenchItem : InteractablePiece
 
     public override void OnBenchDrop(BenchSlot targetSlot)
     {
-        if (targetSlot.isOccupied || targetSlot.Owner != RoomManager.GetLocalPlayer())
+        if (targetSlot.IsOccupied() || targetSlot.Owner != RoomManager.GetLocalPlayer())
         {
             OnEmptyDrop();
             return;
