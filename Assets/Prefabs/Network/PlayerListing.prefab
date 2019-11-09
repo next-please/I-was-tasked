@@ -643,6 +643,8 @@ MonoBehaviour:
   _avatar: {fileID: 1057334287929269430}
   _status: {fileID: 4466267554577851371}
   readyButton: {fileID: 8407276859765395877}
+  textNormal: {fileID: 5626911905613948319}
+  textPressed: {fileID: 6165724795602472578}
 --- !u!1 &4466267554577851371
 GameObject:
   m_ObjectHideFlags: 0
