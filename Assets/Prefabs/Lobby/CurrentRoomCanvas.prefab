@@ -281,7 +281,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1607402959786191388}
         m_MethodName: OnClick_Tutorial
         m_Mode: 1
         m_Arguments:
@@ -2141,6 +2141,21 @@ PrefabInstance:
       propertyPath: _startGameButton
       value: 
       objectReference: {fileID: 1607402960081222010}
+    - target: {fileID: 5991137515564091468, guid: 078a9dc1a538c1e4792c3698f94234b8,
+        type: 3}
+      propertyPath: tutorialButton
+      value: 
+      objectReference: {fileID: 1607402958831388149}
+    - target: {fileID: 5991137515564091468, guid: 078a9dc1a538c1e4792c3698f94234b8,
+        type: 3}
+      propertyPath: tutorialTextNormal
+      value: 
+      objectReference: {fileID: 1607402959295729031}
+    - target: {fileID: 5991137515564091468, guid: 078a9dc1a538c1e4792c3698f94234b8,
+        type: 3}
+      propertyPath: tutorialTextPressed
+      value: 
+      objectReference: {fileID: 1607402959756946060}
     - target: {fileID: 5991137515037217301, guid: 078a9dc1a538c1e4792c3698f94234b8,
         type: 3}
       propertyPath: m_AnchorMax.x

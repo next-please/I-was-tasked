@@ -16,17 +16,20 @@ public class FontPressedTMPro : MonoBehaviour
 
     public void OnClickDownBtn()
     {
-
-        NormalBtn.gameObject.SetActive(false);
-        PressedBtn.gameObject.SetActive(true);
-        GetComponent<Image>().sprite = PressedBtnSprite;
-
+        if (GetComponent<Button>().interactable)
+        {
+            NormalBtn.gameObject.SetActive(false);
+            PressedBtn.gameObject.SetActive(true);
+            GetComponent<Image>().sprite = PressedBtnSprite;
+        }
     }
     public void OnClickUpBtn()
     {
-
-        NormalBtn.gameObject.SetActive(true);
-        PressedBtn.gameObject.SetActive(false);
-        GetComponent<Image>().sprite = releasedBtnSprite;
+        if (GetComponent<Button>().interactable)
+        {
+            NormalBtn.gameObject.SetActive(true);
+            PressedBtn.gameObject.SetActive(false);
+            GetComponent<Image>().sprite = releasedBtnSprite;
+        }
     }
 }

@@ -19,7 +19,10 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject _startGameButton;
 
-
+    public Button tutorialButton;
+    public TextMeshProUGUI tutorialTextNormal;
+    public TextMeshProUGUI tutorialTextPressed;
+    private bool _isTutorial;
     private bool _ready;
 
     private List<PlayerListing> _listings = new List<PlayerListing>();
@@ -29,6 +32,9 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         _startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
+        _isTutorial = (bool) PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"];
+        tutorialButton.interactable = PhotonNetwork.IsMasterClient;
+        RPC_ChangeTutorialState(_isTutorial);
         SetNotReady();
         GetCurrentRoomPlayers();
     }
@@ -44,7 +50,6 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     public void FirstInitialize(CanvasesManager mg)
     {
         _canvasesManager = mg;
-
     }
 
     private void GetCurrentRoomPlayers()
@@ -159,5 +164,67 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         {
             _listings[index].ToggleReady(ready);
         }
+    }
+
+    [PunRPC]
+    private void RPC_ChangeTutorialState(bool isTutorial)
+    {
+        if (isTutorial)
+        {
+            EnableTutorial();
+        }
+        else
+        {
+            DisableTutorial();
+        }
+    }
+
+    public void OnClick_Tutorial()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
+        _isTutorial = !_isTutorial;
+        PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"] = _isTutorial;
+        base.photonView.RPC("RPC_ChangeTutorialState", RpcTarget.All, _isTutorial);
+    }
+
+    void EnableTutorial()
+    {
+        ColorBlock cb = tutorialButton.colors;
+        cb.normalColor = new Color(0.0f, 0.7f, 0.0f);
+        cb.selectedColor = cb.normalColor;
+        cb.highlightedColor = Color.green;
+        cb.pressedColor = new Color(0.0f, 0.7f, 0.0f);
+        cb.disabledColor = new Color(0.0f, 0.7f, 0.0f);
+        tutorialButton.colors = cb;
+
+        // To re-enable the hover-over highlight.
+        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        eventSystem.SetSelectedGameObject(null);
+        tutorialTextNormal.text = "Tutorial Enabled";
+        tutorialTextPressed.text = "Tutorial Enabled";
+        _isTutorial = true;
+        Debug.Log("Tutorial has been enabled!");
+    }
+
+    void DisableTutorial()
+    {
+        ColorBlock cb = tutorialButton.colors;
+        cb.normalColor = new Color(0.7f, 0.0f, 0.0f);
+        cb.selectedColor = cb.normalColor;
+        cb.highlightedColor = Color.red;
+        cb.pressedColor = new Color(0.7f, 0.0f, 0.0f);
+        cb.disabledColor = new Color(0.7f, 0.0f, 0.0f);
+        tutorialButton.colors = cb;
+
+        // To re-enable the hover-over highlight.
+        EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        eventSystem.SetSelectedGameObject(null);
+        tutorialTextNormal.text = "Tutorial Disabled";
+        tutorialTextPressed.text = "Tutorial Disabled";
+        _isTutorial = false;
+        Debug.Log("Tutorial has been disabled!");
     }
 }
