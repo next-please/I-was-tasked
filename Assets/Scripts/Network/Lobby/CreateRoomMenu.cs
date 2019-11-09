@@ -9,7 +9,8 @@ using UnityEngine.EventSystems;
 public class CreateRoomMenu : MonoBehaviourPunCallbacks
 {
     public Button tutorialButton;
-    public TextMeshProUGUI tutorialText;
+    public TextMeshProUGUI tutorialTextNormal;
+    public TextMeshProUGUI tutorialTextPressed;
 
     private readonly string CLASS_NAME = "CreateRoom";
 
@@ -87,12 +88,14 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         cb.normalColor = new Color(0.0f, 0.7f, 0.0f);
         cb.selectedColor = cb.normalColor;
         cb.highlightedColor = Color.green;
+        cb.pressedColor = new Color(0.0f, 0.7f, 0.0f);
         tutorialButton.colors = cb;
 
         // To re-enable the hover-over highlight.
         EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         eventSystem.SetSelectedGameObject(null);
-        tutorialText.text = "Tutorial Enabled";
+        tutorialTextNormal.text = "Tutorial Enabled";
+        tutorialTextPressed.text = "Tutorial Enabled";
         _isTutorial = true;
     }
 
@@ -102,12 +105,14 @@ public class CreateRoomMenu : MonoBehaviourPunCallbacks
         cb.normalColor = new Color(0.7f, 0.0f, 0.0f);
         cb.selectedColor = cb.normalColor;
         cb.highlightedColor = Color.red;
+        cb.pressedColor = new Color(0.7f, 0.0f, 0.0f);
         tutorialButton.colors = cb;
 
         // To re-enable the hover-over highlight.
         EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
         eventSystem.SetSelectedGameObject(null);
-        tutorialText.text = "Tutorial Disabled";
+        tutorialTextNormal.text = "Tutorial Disabled";
+        tutorialTextPressed.text = "Tutorial Disabled";
         _isTutorial = false;
 
     }

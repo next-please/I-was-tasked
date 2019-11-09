@@ -656,8 +656,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0, g: 0.7, b: 0, a: 1}
-    m_HighlightedColor: {r: 0, g: 0.7, b: 0, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0, g: 1, b: 0, a: 1}
+    m_PressedColor: {r: 0, g: 0.69803923, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1748,7 +1748,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialButton: {fileID: 160370317}
-  tutorialText: {fileID: 305809151}
+  tutorialTextNormal: {fileID: 305809151}
+  tutorialTextPressed: {fileID: 918086132}
   _roomName: {fileID: 1101423623}
   _numPlayersInput: {fileID: 582868900}
 --- !u!1 &543550554
@@ -3191,7 +3192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -10}
+  m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &785536407
@@ -4292,7 +4293,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -10}
+  m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &918086132
@@ -4315,7 +4316,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Create Room
+  m_text: Tutorial Enabled
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ee5d7adc215e4f8c91a35252b337a43, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: c5b69af742d8b42d2a91dee40138b14a, type: 2}
@@ -4381,7 +4382,7 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -12.528959, z: 0, w: 0}
+  m_margin: {x: -48.86219, y: -12.528959, z: -44.42022, w: 0}
   m_textInfo:
     textComponent: {fileID: 918086132}
     characterCount: 11
