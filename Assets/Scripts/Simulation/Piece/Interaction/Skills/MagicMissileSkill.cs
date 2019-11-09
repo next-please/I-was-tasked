@@ -10,6 +10,7 @@ public class MagicMissileSkill : Interaction
     private Board board;
     public int magicMissileDefaultCount = GameLogicManager.Inst.Data.Skills.MagicMissileCount;
     public int magicMissileDefaultDamage = GameLogicManager.Inst.Data.Skills.MagicMissileDamage;
+    public int damage;
     private Vector3 attackSource;
     private Vector3 attackDestination;
     private int ticksTilActivation = GameLogicManager.Inst.Data.Skills.MagicMissileTicks;
@@ -23,10 +24,12 @@ public class MagicMissileSkill : Interaction
         this.board = board;
         this.countRemaining = magicMissileDefaultCount;
         this.ticksTotal = 50;
+        this.damage = magicMissileDefaultDamage;
         if (infinite)
         {
             this.ticksTotal = 999999999;
             this.countRemaining = 999999999;
+            this.damage = (int)(magicMissileDefaultDamage * 0.65);
         }
         this.ticksRemaining = ticksTilActivation;
         interactionPrefab = Enums.InteractionPrefab.MagicMissile;
@@ -110,7 +113,6 @@ public class MagicMissileSkill : Interaction
 
     private void ApplyDamageToInflict()
     {
-        int damage = (int)Math.Floor(magicMissileDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.MagicMissileRarityMultiplier, caster.GetRarity()));
         if (!target.IsDead() && !target.invulnerable)
         {
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - damage);
