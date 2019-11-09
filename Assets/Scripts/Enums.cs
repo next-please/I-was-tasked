@@ -133,6 +133,7 @@
         CurseOfAgonyLingering,
         FrostArmourLingering,
         GuidingSpiritSynergy,
+        GuidingSpiritLingering,
         ProtectAllyLingering,
         RampageLingering,
         RetributionSynergy,

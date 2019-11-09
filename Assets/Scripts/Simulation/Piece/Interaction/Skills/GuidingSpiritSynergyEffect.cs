@@ -70,7 +70,7 @@ public class GuidingSpiritSynergyEffect : Interaction
             skill.attackSpeed += attackSpeed;
         }
 
-        List<Interaction> lingers = (List<Interaction>)caster.interactions.FindAll(x => x.identifier == Enums.Interaction.GuidingSpiritSynergy);
+        List<Interaction> lingers = (List<Interaction>)caster.interactions.FindAll(x => x.identifier == Enums.Interaction.GuidingSpiritLingering);
 
         if (lingers.Count > 0)
         {
@@ -97,7 +97,7 @@ public class GuidingSpiritLingeringEffect : Interaction
     public GuidingSpiritLingeringEffect(Tile startingTile, Piece targetPiece)
     {
         SetPath(startingTile, targetPiece);
-        this.identifier = Enums.Interaction.GuidingSpiritSynergy;
+        this.identifier = Enums.Interaction.GuidingSpiritLingering;
         interactionPrefab = Enums.InteractionPrefab.GuidingSpirits;
         this.ticksRemaining = ticksTilActivation;
     }
