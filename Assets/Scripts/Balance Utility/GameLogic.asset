@@ -157,7 +157,7 @@ MonoBehaviour:
     UndeadRequirement1: 1
     UndeadRequirement2: 6
     HumanGoldAmount1: 2
-    HumanGoldAmount2: 10
+    HumanGoldAmount2: 7
     RogueDamageMultiplier: 3
     RogueHitPointMultiplier: 0.33
     MageStartingManaPercentage: 0.25

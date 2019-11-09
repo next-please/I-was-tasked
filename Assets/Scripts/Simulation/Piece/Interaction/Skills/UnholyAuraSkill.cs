@@ -12,7 +12,8 @@ public class UnholyAuraSkill : Interaction
     public int countRemaining;
     public int unholyAuraDefaultRadius = GameLogicManager.Inst.Data.Skills.UnholyAuraRadius;
     public static int unholyAuraDefaultCount = GameLogicManager.Inst.Data.Skills.UnholyAuraCount;
-    public int unholyAuraDefaultDamage = GameLogicManager.Inst.Data.Skills.UnholyAuraDamage;
+    public static int unholyAuraDefaultDamage = GameLogicManager.Inst.Data.Skills.UnholyAuraDamage;
+    public int damage;
 
     public UnholyAuraSkill(Piece caster, Board board)
     {
@@ -33,6 +34,31 @@ public class UnholyAuraSkill : Interaction
 
             attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
             attackSource.y += 1f;
+            this.damage = unholyAuraDefaultDamage;
+            caster.interactions.Add(this);
+        }
+    }
+
+    public UnholyAuraSkill(Piece caster, Board board, int damage, int countRemaining)
+    {
+        if (caster.interactions.Find(x => x.identifier == Enums.Interaction.UnholyAuraLingering) != null)
+        {
+            UnholyAuraSkill skill = (UnholyAuraSkill)caster.interactions.Find(x => x.identifier == Enums.Interaction.UnholyAuraLingering);
+            skill.countRemaining = UnholyAuraSkill.unholyAuraDefaultCount;
+        }
+        else
+        {
+            this.identifier = Enums.Interaction.UnholyAuraLingering;
+            this.caster = caster;
+            this.board = board;
+            this.countRemaining = countRemaining;
+            this.ticksTotal = 50;
+            this.ticksRemaining = ticksTilActivation;
+            interactionPrefab = Enums.InteractionPrefab.UnholyAura;
+
+            attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
+            attackSource.y += 1f;
+            this.damage = damage;
             caster.interactions.Add(this);
         }
     }
@@ -100,7 +126,6 @@ public class UnholyAuraSkill : Interaction
         {
             return;
         }
-        int damage = (int)Math.Floor(unholyAuraDefaultDamage * Math.Pow(GameLogicManager.Inst.Data.Skills.UnholyAuraRarityMultiplier, caster.GetRarity()));
 
         if (!caster.IsEnemy())
         {
