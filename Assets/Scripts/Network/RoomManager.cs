@@ -92,7 +92,7 @@ namespace Com.Nextplease.IWT
             {
                 Photon.Realtime.Player player = PhotonNetwork.PlayerList[i];
                 _playerMap.Add(player.UserId, i);
-                Debug.LogFormat("{0}: Added {1} to playerMap as index {1}", "RoomManager", player.NickName, i);
+                Debug.LogFormat("{0}: Added {1} to playerMap as index {2}", "RoomManager", player.UserId, i);
             }
             return;
         }
@@ -126,7 +126,7 @@ namespace Com.Nextplease.IWT
         {
             if (IsOffline)
                 return 0;
-            return _playerMap[PhotonNetwork.LocalPlayer.NickName];
+            return _playerMap[PhotonNetwork.LocalPlayer.UserId];
         }
         public static Player GetLocalPlayer()
         {
