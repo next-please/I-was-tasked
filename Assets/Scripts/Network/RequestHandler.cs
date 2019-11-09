@@ -244,16 +244,6 @@ namespace Com.Nextplease.IWT
         #endregion
 
         #region Private Methods
-        private IEnumerator PhaseFailSafe(int phaseID, Request req)
-        {
-            yield return new WaitForSecondsRealtime(15);
-            if (_currentPhaseID == phaseID)
-            {
-                Debug.LogFormat("{0}: Fail Safe Activated", CLASS_NAME);
-                req.Approve();
-                this.networkManager.ProcessRequest(req);
-            }
-        }
 
         private void incrementPhaseID()
         {
