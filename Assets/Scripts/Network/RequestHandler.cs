@@ -146,6 +146,13 @@ namespace Com.Nextplease.IWT
             if (!req.IsApproved())
             {
                 LogRejectedRequest(req);
+                switch (req.GetActionType())
+                {
+                     case MOVE_FROM_BENCH_TO_BOARD:
+                        PieceMovementData data_0 = req.GetData() as PieceMovementData;
+                        arrangementManager.ReverseBenchToBoard(data_0.player, data_0.piece, data_0.tile);
+                        break;
+                }
                 return;
             }
 

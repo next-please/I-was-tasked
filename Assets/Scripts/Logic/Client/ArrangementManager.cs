@@ -16,8 +16,8 @@ public class ArrangementManager : MonoBehaviour
     {
         Tile actualTile = boardManager.GetActualTile(player, tile);
         Piece actualPiece = inventoryManager.GetActualBenchPiece(player, piece);
-        return phaseManager.IsMovablePhase() 
-            && inventoryManager.BenchContainsPiece(player, actualPiece) 
+        return phaseManager.IsMovablePhase()
+            && inventoryManager.BenchContainsPiece(player, actualPiece)
             && !actualTile.IsOccupied();
     }
 
@@ -39,13 +39,25 @@ public class ArrangementManager : MonoBehaviour
         inventoryManager.AddToArmy(player, actualPiece);
         boardManager.AddPieceToBoard(player, actualPiece, tile.GetRow(), tile.GetCol());
     }
+
+    public void ReverseBenchToBoard(Player player, Piece piece, Tile tile)
+    {
+        if (RoomManager.GetLocalPlayer() == player)
+        {
+            // currently BenchItem is destroyed when request is sent, so just reload it
+            // since try move bench to board doesn't remove the item, it actually exists in the inventory
+            // to trigger the reloading of the prefab, just throw InventoryChangeEvent
+            PlayerInventory pInventory = inventoryManager.GetPlayerInventory(player);
+            EventManager.Instance.Raise(new InventoryChangeEvent { inventory = pInventory });
+        }
+    }
     #endregion
 
     #region Board To Bench
     public bool CanMoveBoardToBench(Player player, Piece piece, int slotIndex)
     {
-        return phaseManager.IsMovablePhase() 
-            && !inventoryManager.IsBenchFull(player) 
+        return phaseManager.IsMovablePhase()
+            && !inventoryManager.IsBenchFull(player)
             && inventoryManager.IsBenchSlotVacant(player, slotIndex);
     }
 
@@ -76,8 +88,8 @@ public class ArrangementManager : MonoBehaviour
     {
         Tile actualNextTile = boardManager.GetActualTile(player, nextTile);
         Piece actualPiece = boardManager.GetActualPiece(player, piece);
-        return phaseManager.IsMovablePhase() 
-            && inventoryManager.ArmyContainsPiece(player, actualPiece) 
+        return phaseManager.IsMovablePhase()
+            && inventoryManager.ArmyContainsPiece(player, actualPiece)
             && !actualNextTile.IsOccupied();
     }
 
