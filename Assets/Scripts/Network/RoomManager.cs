@@ -91,6 +91,7 @@ namespace Com.Nextplease.IWT
             for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
             {
                 Photon.Realtime.Player player = PhotonNetwork.PlayerList[i];
+                Debug.Assert(player.UserId != null);
                 _playerMap.Add(player.UserId, i);
                 Debug.LogFormat("{0}: Added {1} to playerMap as index {2}", "RoomManager", player.UserId, i);
             }
