@@ -5,6 +5,8 @@ using Com.Nextplease.IWT;
 
 public class InventoryManager : MonoBehaviour
 {
+    private readonly string CLASS_NAME = "InventoryManager";
+
     public int StartingGold = 0;
     public int StartingArmySize = 2;
     [SerializeField]
@@ -268,8 +270,11 @@ public class InventoryManager : MonoBehaviour
     {
         for (int i = 0; i < playerInventories.Length; i++)
             if (playerInventories[i].GetGold() != gold[i])
-                playerInventories[i].AddGold(gold[i] - playerInventories[i].GetGold());
-    }
+            {
+                Debug.LogFormat("{0}: Player {1}'s gold is not properly calculated, force setting gold...", CLASS_NAME, i);
+                SetGold((Player)i, gold[i]);
+            }
+     }
 }
 
 public class InventoryChangeEvent : GameEvent
