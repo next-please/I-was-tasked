@@ -32,8 +32,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         _startGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient);
-        _isTutorial = (bool) PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"];
         tutorialButton.interactable = PhotonNetwork.IsMasterClient;
+        _isTutorial = (bool)PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"];
         RPC_ChangeTutorialState(_isTutorial);
         SetNotReady();
         GetCurrentRoomPlayers();
@@ -177,6 +177,7 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         {
             DisableTutorial();
         }
+        PhotonNetwork.CurrentRoom.CustomProperties["isTutorial"] = _isTutorial;
     }
 
     public void OnClick_Tutorial()
