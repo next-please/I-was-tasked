@@ -7,19 +7,23 @@ public class RoundSummaryUIManager : MonoBehaviour
 {
     public Canvas roundSummaryCanvas;
     public SoundManager soundManager;
+    public RoomManager roomManager;
     public Animator roundSummaryAnimator;
     public Animator[] playerBadgeAnimators;
 
-    private int playerNum;
-
-    void Awake()
+    void Start()
     {
         roundSummaryCanvas.enabled = false;
-        playerNum = (int)RoomManager.GetLocalPlayer();
-
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        if (!roomManager.IsOffline)
         {
-            playerBadgeAnimators[i].gameObject.SetActive(true);
+            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            {
+                playerBadgeAnimators[i].gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            playerBadgeAnimators[0].gameObject.SetActive(true);
         }
     }
 
@@ -50,7 +54,7 @@ public class RoundSummaryUIManager : MonoBehaviour
 
         // play win/lose
         bool win = true;
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        for (int i = 0; i < 3; i++)
         {
             if (PhaseManager.damageResults[i])
             {

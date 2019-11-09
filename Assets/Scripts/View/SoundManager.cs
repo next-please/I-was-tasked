@@ -16,6 +16,9 @@ public class SoundManager : MonoBehaviour
     public AudioSource PiecePurchase = null;
     public AudioSource PieceTrash = null;
 
+    public AudioSource RoundPreStart = null;
+    public AudioSource RoundBattleDuration = null;
+
     public Image VolumeHandle;
     public Sprite[] VolumeSprites;
 
@@ -87,6 +90,16 @@ public class SoundManager : MonoBehaviour
         {
             PieceTrash = Instantiate(PieceTrash, transform);
         }
+
+        if (RoundPreStart != null)
+        {
+            RoundPreStart = Instantiate(RoundPreStart, transform);
+        }
+
+        if (RoundBattleDuration != null)
+        {
+            RoundBattleDuration = Instantiate(RoundBattleDuration, transform);
+        }
     }
 
     public void PlayPieceSound(string type)
@@ -117,6 +130,30 @@ public class SoundManager : MonoBehaviour
                     PieceTrash.Play();
                 }
                 break;
+        }
+    }
+
+    public void PlayRoundPreStartSound()
+    {
+        return; // For pre-alpha build.
+
+        if (RoundPreStart != null)
+        {
+            RoundPreStart.Play();
+        }
+    }
+
+    public void PlayRoundBattleDurationSound(bool play)
+    {
+        return; // For pre-alpha build.
+
+        if (play && RoundBattleDuration != null)
+        {
+            RoundBattleDuration.Play();
+        }
+        else if (!play && RoundBattleDuration != null)
+        {
+            RoundBattleDuration.Stop();
         }
     }
 

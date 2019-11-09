@@ -163,6 +163,12 @@ public class PhaseManager : MonoBehaviour
             CurrentTimeText.text = time.ToString();
             yield return new WaitForSecondsRealtime(1);
             time -= 1;
+
+            if (time == 5 && GetCurrentPhase() == Phase.PreCombat)
+            {
+                soundManager.PlayRoundPreStartSound();
+            }
+
             if (time == 20 && round == 1)
             {
                 tutorialPopUp.enabled = false;
@@ -378,6 +384,7 @@ public class PhaseManager : MonoBehaviour
     IEnumerator Combat()
     {
         ChangePhase(Phase.Combat);
+        soundManager.PlayRoundBattleDurationSound(true);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
         synergyManager.ApplySynergiesToArmies(numPlayers);
         CurrentTimeText.text = "";
@@ -422,6 +429,7 @@ public class PhaseManager : MonoBehaviour
     public void StartPostCombat()
     {
         StopAllCoroutines();
+        soundManager.PlayRoundBattleDurationSound(false);
         StartCoroutine(PostCombatToStartRound());
     }
 

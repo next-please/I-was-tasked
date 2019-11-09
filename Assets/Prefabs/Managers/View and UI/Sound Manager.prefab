@@ -57,6 +57,10 @@ MonoBehaviour:
     type: 3}
   PieceTrash: {fileID: 8847024611521510778, guid: 1d04e546f69e2584c9d5bdb5bf4606cb,
     type: 3}
+  RoundPreStart: {fileID: 3565869004639985075, guid: 406ba4db85b34c4439ead5c94eb256fb,
+    type: 3}
+  RoundBattleDuration: {fileID: 8819880031619419792, guid: 34767f6141e480d4daa16ebb6c7db7fb,
+    type: 3}
   VolumeHandle: {fileID: 0}
   VolumeSprites:
   - {fileID: 21300000, guid: f0005f9264d61da49b424ddc7cc57e9e, type: 3}

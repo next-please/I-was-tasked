@@ -43,3 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ec65adb94074c4da6e639cec08cfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roundSummaryCanvas: {fileID: 0}
+  soundManager: {fileID: 0}
+  roomManager: {fileID: 3239980119739348025, guid: 0d3f632c100d38f4eb013f93d315261a,
+    type: 3}
+  roundSummaryAnimator: {fileID: 0}
+  playerBadgeAnimators: []
