@@ -63,6 +63,7 @@ public class ChargeSkill : Interaction
             targetTile = caster.GetCurrentTile();
             Vector3 currentTilePos = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
             targetTilePos = ViewManager.CalculateTileWorldPosition(targetTile);
+            this.totalDamage = 0;
         }
         else
         {
@@ -73,6 +74,8 @@ public class ChargeSkill : Interaction
             targetTilePos = ViewManager.CalculateTileWorldPosition(targetTile);
             float distanceToTile = Vector3.Distance(currentTilePos, targetTilePos);
             float timeToReachTile = this.ticksTotal * FixedClock.Instance.deltaTime;
+            Debug.Log("Charge Calculation - Time to reach tile: " + timeToReachTile);
+            if (timeToReachTile == 0) timeToReachTile = 0.2f;
             speedToTranslate = distanceToTile / timeToReachTile;
 
             PieceView pieceView = caster.GetPieceView();
@@ -109,6 +112,7 @@ public class ChargeSkill : Interaction
         PieceView pv = caster.GetPieceView();
         targetTilePos.y = 0.5f;
         pv.transform.position = targetTilePos;
+
         if (!target.IsDead())
         {
             pv.LookAtTile(target.GetCurrentTile());
@@ -135,8 +139,15 @@ public class ChargeSkill : Interaction
             return;
         if (!target.invulnerable)
         {
-            caster.SetTarget(target);
             target.SetCurrentHitPoints(target.GetCurrentHitPoints() - totalDamage);
+            if (target.GetCurrentHitPoints() > 0)
+            {
+                caster.SetTarget(target);
+            }
+            else
+            {
+                caster.SetTarget(board.FindNearestTarget(caster));
+            }
         }
         Debug.Log(caster.GetName() + " has Charge-ed " + target.GetName() + " for " + totalDamage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
     }
