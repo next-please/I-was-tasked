@@ -243,7 +243,20 @@ public class PhaseManager : MonoBehaviour
 
     IEnumerator ShowNewRoundPopUpScreen()
     {
-        PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = "Round " + round + " begins!";
+        string roundText = "Round " + round + " begins!"
+            + "<size=50%>\n" + incomeManager.GetIncome(round, roomManager.GetLocalPlayerIndex()) + " Gold Received!";
+        roundText += "<size=30%>\n+ " + incomeManager.GetIncomeFromRound(round, roomManager.GetLocalPlayerIndex()) + " Gold From Round";
+        if (incomeManager.GetIncomeFromSynergy(round, roomManager.GetLocalPlayerIndex()) > 0)
+        {
+            roundText += "\n+ " + incomeManager.GetIncomeFromSynergy(round, roomManager.GetLocalPlayerIndex()) + " Gold From Synergy";
+        }
+        if (incomeManager.GetIncomeFromVictory(round, roomManager.GetLocalPlayerIndex()) > 0)
+        {
+            roundText += "\n+ " + incomeManager.GetIncomeFromVictory(round, roomManager.GetLocalPlayerIndex()) + " Gold From Win";
+        }
+
+        roundText += "</size>";
+        PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = roundText;
         PopUpScreen.enabled = true;
         yield return new WaitForSeconds(4f);
         PopUpScreen.enabled = false;
