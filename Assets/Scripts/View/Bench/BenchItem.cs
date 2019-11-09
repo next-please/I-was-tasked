@@ -39,7 +39,7 @@ public class BenchItem : InteractablePiece
             rarity.SetActive(false);
         }
         rarityParent.transform.LookAt(rarityParent.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
-        rarityParent.transform.eulerAngles = new Vector3(rarityParent.transform.eulerAngles.x, 45.0f * (int) player, 0.0f);
+        rarityParent.transform.eulerAngles = new Vector3(rarityParent.transform.eulerAngles.x, 45.0f * (int)player, 0.0f);
         rarities[piece.GetRarity() - 1].SetActive(true);
     }
 
@@ -52,8 +52,9 @@ public class BenchItem : InteractablePiece
         animator = modelPrefab.GetComponent<Animator>();
     }
 
-    public override void OnBeginDrag(PointerEventData eventData)
+    public override void OnPointerDown(PointerEventData eventData)
     {
+        base.OnPointerDown(eventData);
         if (IsDragAllowed())
         {
             SetDraggedState();
@@ -64,15 +65,25 @@ public class BenchItem : InteractablePiece
             eventData.pointerDrag = null;
         }
     }
+    public override void OnPointerUp(PointerEventData eventData)
+    {
+        if (IsDragAllowed())
+        {
+            base.OnPointerUp(eventData);
+            OnEmptyDrop();
+        }
+    }
 
     public override void OnDrag(PointerEventData eventData)
     {
         rarityParent.transform.LookAt(rarityParent.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
         transform.position = GetMouseWorldPosition();
+
         HitTarget target = GetHitTarget();
         if (target == HitTarget.Tile || target == HitTarget.BenchSlot)
         {
-            EventManager.Instance.Raise(new DragOverTileEvent {
+            EventManager.Instance.Raise(new DragOverTileEvent
+            {
                 hitTarget = target,
                 targetObject = this.targetObject
             });
@@ -120,6 +131,8 @@ public class BenchItem : InteractablePiece
 
     private void SetDraggedState()
     {
+        rarityParent.transform.LookAt(rarityParent.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        transform.position = GetMouseWorldPosition();
         animator.Play("Walk");
     }
 
