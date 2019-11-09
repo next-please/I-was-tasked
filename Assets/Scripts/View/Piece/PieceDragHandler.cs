@@ -55,9 +55,7 @@ public class PieceDragHandler : InteractablePiece
     {
         inCombat = e.phase == Phase.Combat;
         if (inCombat)
-        {
             OnEmptyDrop();
-        }
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -76,17 +74,32 @@ public class PieceDragHandler : InteractablePiece
         }
     }
 
-    public override void OnBeginDrag(PointerEventData eventData)
+    public override void OnEndDrag(PointerEventData eventData)
+    {
+        if (IsDragAllowed())
+            base.OnEndDrag(eventData);
+    }
+
+    public override void OnPointerDown(PointerEventData eventData)
+    {
+        base.OnPointerDown(eventData);
+        if (IsDragAllowed())
+        {
+
+            EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = true });
+            SetDraggedState();
+        } else
+        {
+            eventData.pointerDrag = null;
+        }
+    }
+
+    public override void OnPointerUp(PointerEventData eventData)
     {
         if (IsDragAllowed())
         {
-            originalPos = transform.position;
-            SetDraggedState();
-            EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = true });
-        }
-        else
-        {
-            eventData.pointerDrag = null;
+            base.OnPointerUp(eventData);
+            OnEmptyDrop();
         }
     }
 
@@ -138,6 +151,8 @@ public class PieceDragHandler : InteractablePiece
 
     private void SetDraggedState()
     {
+        originalPos = transform.position;
+        transform.position = GetMouseWorldPosition();
         animator.Play("Walk");
     }
 

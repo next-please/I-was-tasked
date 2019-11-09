@@ -1,12 +1,11 @@
-﻿using System.Collections;
+﻿using Com.Nextplease.IWT;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Assertions;
 using TMPro;
-
-using Com.Nextplease.IWT;
+using UnityEngine;
+using UnityEngine.Assertions;
+using UnityEngine.UI;
 
 public enum Phase
 {
@@ -273,8 +272,8 @@ public class PhaseManager : MonoBehaviour
                     newMarketPieces = newMarketPieces.Skip(0).Take(3).ToList();
                     break;
                 case 2:
-                    newMarketPieces = new List<int>() { 0, 0, 0}.Select(
-                        placeholder =>  new Piece(
+                    newMarketPieces = new List<int>() { 0, 0, 0 }.Select(
+                        placeholder => new Piece(
                             NameGenerator.GenerateName(Enums.Job.Mage, Enums.Race.Human),
                             NameGenerator.GetTitle(Enums.Race.Human, Enums.Job.Mage),
                             Enums.Race.Human,
@@ -387,7 +386,7 @@ public class PhaseManager : MonoBehaviour
         boardManager.StartSim(numPlayers);
         yield return Countdown(combatDuration);
         if (currentPhase == Phase.Combat)
-            boardManager.ForceAllBoardsToResolve();
+            boardManager.ForceAllBoardsToResolve(numPlayers);
     }
 
     void TryPostCombat()
@@ -445,7 +444,7 @@ public class PhaseManager : MonoBehaviour
 
     public void OnPieceAdded(AddPieceToBoardEvent e)
     {
-        if(!roomManager.IsTutorial)
+        if (!roomManager.IsTutorial)
             return;
 
         if (currentPhase != Phase.Market)
@@ -459,7 +458,7 @@ public class PhaseManager : MonoBehaviour
             totalPiecesOnBoard += inventoryManager.GetPlayerInventory((Player)i).GetArmyCount();
 
         int piecesNecessary = 0;
-        switch(round)
+        switch (round)
         {
             case 1:
                 piecesNecessary = numPlayers;
@@ -473,6 +472,50 @@ public class PhaseManager : MonoBehaviour
 
         if (totalPiecesOnBoard >= piecesNecessary)
             TryPreCombat();
+    }
+
+    private IEnumerator StartFailSafe(int failSafeRound, Phase fsPhase)
+    {
+        int failSafeTime = GameLogicManager.Inst.Data.CombatDuration;
+        switch (fsPhase)
+        {
+            case Phase.Market:
+                failSafeTime = GameLogicManager.Inst.Data.MarketDuration;
+                break;
+            case Phase.PreCombat:
+                failSafeTime = GameLogicManager.Inst.Data.PreCombatDuration;
+                break;
+            case Phase.Combat:
+                failSafeTime = GameLogicManager.Inst.Data.CombatDuration;
+                break;
+            case Phase.PostCombat:
+                failSafeTime = 10;
+                break;
+            default:
+                break;
+        }
+        yield return new WaitForSecondsRealtime(failSafeTime);
+
+        if (failSafeRound == this.round && fsPhase == currentPhase)
+        {
+            Debug.LogFormat("{0}: Fail Safe Activated for {1}", "PhaseManager", fsPhase.ToString());
+            switch (fsPhase)
+            {
+                case Phase.Market:
+                    TryPreCombat();
+                    break;
+                case Phase.PreCombat:
+                    TryCombat();
+                    break;
+                case Phase.Combat:
+                    TryPostCombat();
+                    break;
+                case Phase.PostCombat:
+                    TryMarketPhase();
+                    break;
+            }
+
+        }
     }
 }
 
