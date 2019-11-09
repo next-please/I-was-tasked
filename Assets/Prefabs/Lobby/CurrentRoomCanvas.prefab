@@ -2156,6 +2156,11 @@ PrefabInstance:
       propertyPath: tutorialTextPressed
       value: 
       objectReference: {fileID: 1607402959756946060}
+    - target: {fileID: 5991137515564091468, guid: 078a9dc1a538c1e4792c3698f94234b8,
+        type: 3}
+      propertyPath: startGameTextNormal
+      value: 
+      objectReference: {fileID: 1607402958771706969}
     - target: {fileID: 5991137515037217301, guid: 078a9dc1a538c1e4792c3698f94234b8,
         type: 3}
       propertyPath: m_AnchorMax.x

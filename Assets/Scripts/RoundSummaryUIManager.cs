@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
-
 using Com.Nextplease.IWT;
+using Photon.Pun;
 
 public class RoundSummaryUIManager : MonoBehaviour
 {
@@ -16,6 +16,11 @@ public class RoundSummaryUIManager : MonoBehaviour
     {
         roundSummaryCanvas.enabled = false;
         playerNum = (int)RoomManager.GetLocalPlayer();
+
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            playerBadgeAnimators[i].gameObject.SetActive(true);
+        }
     }
 
     void OnEnable()
@@ -45,7 +50,7 @@ public class RoundSummaryUIManager : MonoBehaviour
 
         // play win/lose
         bool win = true;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
             if (PhaseManager.damageResults[i])
             {

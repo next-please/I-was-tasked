@@ -100,7 +100,6 @@ public class PhaseManager : MonoBehaviour
     {
         phasesRunning = false;
         boardManager.RemoveAllPieces();
-        inventoryManager.ResetInventories();
         EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
         // StopAllCoroutines();
         StartCoroutine(TransitionToFullGame());
@@ -116,6 +115,7 @@ public class PhaseManager : MonoBehaviour
             incomeManager.SetIncomeGeneratedByPlayer((Player)i, 0);
         yield return Countdown(10);
         roomManager.SetFullGameMode();
+        inventoryManager.ResetInventories();
         TryStartRound();
     }
 
