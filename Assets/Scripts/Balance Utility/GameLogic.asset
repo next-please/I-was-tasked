@@ -176,11 +176,11 @@ MonoBehaviour:
     KnightTicksOfUnstoppable: 350
   HumanDruid:
     HitPoints: 900
-    ManaPoints: 100
-    AttackDamage: 12
+    ManaPoints: 85
+    AttackDamage: 15
     AttackRange: 1
-    AttackSpeed: 4
-    MovementSpeed: 5
+    AttackSpeed: 5
+    MovementSpeed: 6
   HumanKnight:
     HitPoints: 300
     ManaPoints: 100
