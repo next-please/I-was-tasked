@@ -71,7 +71,7 @@ public class ViewManager : MonoBehaviour
         }
         if (piece.size == Enums.Size.Big)
         {
-            tileWorldPos.y = 0.8f;
+            tileWorldPos.y = 1.3f;
         }
         GameObject pieceObj = Instantiate(pieceViewPrefab, tileWorldPos, Quaternion.identity);
         PieceView pieceView = pieceObj.GetComponent<PieceView>();

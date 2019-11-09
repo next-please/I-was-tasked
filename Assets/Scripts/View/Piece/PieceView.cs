@@ -256,6 +256,14 @@ public class PieceView : MonoBehaviour
     {
         Vector3 pos = ViewManager.CalculateTileWorldPosition(tile);
         pos.y = 0.5f;
+        if (piece.size == Enums.Size.Small)
+        {
+            pos.y = -0.4f;
+        }
+        else if (piece.size == Enums.Size.Big)
+        {
+            pos.y = 1.3f;
+        }
         transform.LookAt(pos);
     }
 }
