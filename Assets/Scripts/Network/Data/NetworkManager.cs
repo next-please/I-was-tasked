@@ -6,6 +6,11 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using Random = System.Random;
 
+using System.Collections.Generic;
+
+using static Com.Nextplease.IWT.ActionTypes;
+
+
 namespace Com.Nextplease.IWT
 {
     public class NetworkManager : MonoBehaviour, IOnEventCallback
@@ -19,6 +24,7 @@ namespace Com.Nextplease.IWT
 
         // Setting for TCP Preference
         private readonly SendOptions SEND_OPTIONS = new SendOptions { Reliability = true };
+        public HashSet<string> requestsSent = new HashSet<string>();
         #endregion
 
         #region Public Methods
@@ -53,6 +59,7 @@ namespace Com.Nextplease.IWT
         {
             byte[] content = Serialization.serializeObject(r);
             RaiseEventOptions raiseEventOptions;
+            requestsSent.Add(r.GetGuid());
             switch (code)
             {
                 case VALIDATE_ACTION_WITH_MASTER:
@@ -79,7 +86,7 @@ namespace Com.Nextplease.IWT
             byte[] content = (byte[])photonEvent.CustomData;
 
             Request req = (Request)Serialization.deserializeData(content);
-
+            requestsSent.Remove(req.GetGuid());
             switch (photonEvent.Code)
             {
                 case UPDATE_STATE:

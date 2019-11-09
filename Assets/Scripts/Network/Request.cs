@@ -7,6 +7,7 @@ namespace Com.Nextplease.IWT
         private string requester;
         private readonly byte actionType;
         private bool approved;
+        private string guid;
         private readonly Data data;
 
         public Request(byte actionType, Data data)
@@ -14,6 +15,8 @@ namespace Com.Nextplease.IWT
             this.actionType = actionType;
             this.approved = false;
             this.data = data;
+            this.guid = Guid.NewGuid().ToString();
+
         }
 
         public void Approve()
@@ -46,5 +49,9 @@ namespace Com.Nextplease.IWT
             return this.data;
         }
 
+        public string GetGuid()
+        {
+            return guid;
+        }
     }
 }

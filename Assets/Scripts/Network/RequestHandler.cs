@@ -21,7 +21,6 @@ namespace Com.Nextplease.IWT
         public InventoryManager inventoryManager;
         public TransactionManager transactionManager;
         public MarketManager marketManager;
-
         #endregion
 
         #region Public Methods
@@ -36,8 +35,15 @@ namespace Com.Nextplease.IWT
                 ExecuteRequest(ValidateRequest(req));
                 return;
             }
+
             req.SetRequester(this.networkManager.GetLocalPlayerID());
             this.networkManager.ProcessRequest(req);
+        }
+
+        public bool ReadyToGo()
+        {
+            Debug.LogFormat(" Waiting for {0} of request to be received", networkManager.requestsSent.Count);
+            return networkManager.requestsSent.Count == 0;
         }
 
         /// <summary>
@@ -260,11 +266,11 @@ namespace Com.Nextplease.IWT
             {
                 if (req.IsApproved())
                 {
-                    Debug.LogFormat("{0}: Request to '{1}' from  {2} is approved", CLASS_NAME, GetActionName(req.GetActionType()), req.GetRequester());
+                    Debug.LogFormat("{0}: Request to '{1}' from  {2} {3} is approved", CLASS_NAME, GetActionName(req.GetActionType()), req.GetRequester(), req.GetGuid());
                 }
                 else
                 {
-                    Debug.LogFormat("{0}: Request to '{1}' from  {2} is rejected", CLASS_NAME, GetActionName(req.GetActionType()), req.GetRequester());
+                    Debug.LogFormat("{0}: Request to '{1}' from  {2} {3} is rejected", CLASS_NAME, GetActionName(req.GetActionType()), req.GetRequester(), req.GetGuid());
                 }
             }
 
@@ -274,7 +280,7 @@ namespace Com.Nextplease.IWT
         {
             if (DEBUG_MODE)
             {
-                Debug.LogFormat("{0}: Executing '{1}' by {2}", CLASS_NAME, GetActionName(req.GetActionType()), req.GetRequester());
+                Debug.LogFormat("{0}: Executing '{1}' by {2} {3}", CLASS_NAME, GetActionName(req.GetActionType()), req.GetRequester(), req.GetGuid());
             }
 
         }
@@ -283,7 +289,7 @@ namespace Com.Nextplease.IWT
         {
             if (DEBUG_MODE)
             {
-                Debug.LogFormat("{0}: Request to execute '{1}' from {2} is rejected", CLASS_NAME, GetActionName(req.GetActionType()), req.GetRequester());
+                Debug.LogFormat("{0}: Request to execute '{1}' from {2} is rejected {3}", CLASS_NAME, GetActionName(req.GetActionType()), req.GetRequester(), req.GetGuid());
             }
 
         }
