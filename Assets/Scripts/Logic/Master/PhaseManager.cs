@@ -341,6 +341,19 @@ public class PhaseManager : MonoBehaviour
         ChangePhase(Phase.PreCombat);
         summonManager.SummonEnemies(enemies);
         yield return Countdown(preCombatDuration);
+        TryCombat();
+
+    }
+
+    void TryCombat()
+    {
+        Data data = new CombatData();
+        Request req = new Request(ActionTypes.COMBAT_PHASE, data);
+        requestHandler.SendRequest(req);
+    }
+
+    public void StartCombat()
+    {
         StartCoroutine(Combat());
     }
 

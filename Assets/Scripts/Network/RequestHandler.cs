@@ -80,6 +80,7 @@ namespace Com.Nextplease.IWT
                 case MARKET_PHASE:
                 case PRECOMBAT_PHASE:
                 case POSTCOMBAT_PHASE:
+                case COMBAT_PHASE:
                     if (roomManager.IsOffline)
                     {
                         req.Approve();
@@ -199,6 +200,10 @@ namespace Com.Nextplease.IWT
                     PostCombatData data_13 = req.GetData() as PostCombatData;
                     phaseManager.SetPostCombatData(data_13.health, data_13.gold);
                     phaseManager.StartPostCombat();
+                    break;
+                case COMBAT_PHASE:
+                    CombatData data_15 = req.GetData() as CombatData;
+                    phaseManager.StartCombat();
                     break;
                 case BUY_PIECE:
                     PieceTransactionData data_5 = req.GetData() as PieceTransactionData;

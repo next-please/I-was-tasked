@@ -13,6 +13,5 @@ namespace Com.Nextplease.IWT
             this.health = health;
             this.gold = gold;
         }
-
     }
 }

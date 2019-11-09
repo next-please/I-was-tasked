@@ -63,7 +63,9 @@ public class TransactionManager : MonoBehaviour
     public bool CanSellBoardPiece(Player player, Piece piece)
     {
         Piece actualPiece = inventoryManager.GetActualArmyPiece(player, piece);
-        return inventoryManager.ArmyContainsPiece(player, actualPiece);
+        Phase currentPhase = PhaseManager.GetCurrentPhase();
+        bool isValidPhase = !(currentPhase == Phase.Combat || currentPhase == Phase.PostCombat);
+        return isValidPhase && inventoryManager.ArmyContainsPiece(player, actualPiece);
     }
 
     public void TrySellBoardPiece(Player player, Piece piece)
