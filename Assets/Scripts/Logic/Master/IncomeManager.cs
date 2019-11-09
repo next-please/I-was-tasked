@@ -39,6 +39,11 @@ public class IncomeManager : MonoBehaviour
 
     public int GetIncome(int round, int playerIndex)
     {
+        if (round == 1)
+        {
+            return 4;
+        }
+
         round -= 1;
         int goldToGive = round;
         if (inventoryManager.synergyManager.HasSynergy(Enums.Race.Human))
@@ -62,6 +67,11 @@ public class IncomeManager : MonoBehaviour
 
     public int GetIncomeFromRound(int round, int playerIndex)
     {
+        if (round == 1)
+        {
+            return 4;
+        }
+
         round -= 1;
         int goldToGive = round;
         if (round % 2 == 0)
