@@ -58,6 +58,15 @@ public abstract class InteractablePiece :
     public virtual void OnTrashDrop() { }
     public virtual void OnEmptyDrop() { }
 
+    void Update()
+    {
+        if (!CameraController.IsViewingOwnBoard())
+        {
+            OnEmptyDrop();
+            EventManager.Instance.Raise(new DragEndEvent{});
+        }
+    }
+
     public virtual void OnPointerUp(PointerEventData eventData)
     {
         eventData.selectedObject = null;

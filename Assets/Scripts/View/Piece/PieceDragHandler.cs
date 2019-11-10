@@ -130,6 +130,8 @@ public class PieceDragHandler : InteractablePiece
 
     public override void OnEmptyDrop()
     {
+        if (inCombat)
+            return;
         SetBoardState();
         transform.position = originalPos;
     }
