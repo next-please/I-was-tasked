@@ -164,9 +164,17 @@ public class PhaseManager : MonoBehaviour
             yield return new WaitForSecondsRealtime(1);
             time -= 1;
 
-            if (time == 5 && GetCurrentPhase() == Phase.PreCombat)
+            // Play sounds at the correct time.
+            if (GetCurrentPhase() == Phase.PreCombat)
             {
-                soundManager.PlayRoundPreStartSound();
+                if (time == 4)
+                {
+                    soundManager.PlayRoundPreStartSound();
+                }
+                else if (time == 2)
+                {
+                    soundManager.PlayRoundBattleDurationSound(true);
+                }
             }
 
             if (time == 20 && round == 1)
@@ -384,7 +392,6 @@ public class PhaseManager : MonoBehaviour
     IEnumerator Combat()
     {
         ChangePhase(Phase.Combat);
-        soundManager.PlayRoundBattleDurationSound(true);
         summonManager.RemoveExcessPlayerPieces(numPlayers);
         synergyManager.ApplySynergiesToArmies(numPlayers);
         CurrentTimeText.text = "";

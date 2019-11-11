@@ -10,14 +10,18 @@ public class SoundManager : MonoBehaviour
     public AudioSource LoseWave = null;
     public AudioSource WinGame = null;
     public AudioSource LoseGame = null;
+    private const float EndWaveFadeInDuration = 0.125f;
 
     public AudioSource PieceDrop = null;
     public AudioSource PiecePickUp = null;
     public AudioSource PiecePurchase = null;
     public AudioSource PieceTrash = null;
+    private const float PieceVolume = 0.625f;
 
     public AudioSource RoundPreStart = null;
     public AudioSource RoundBattleDuration = null;
+    public AudioSource AmbientBackground = null;
+    private const float MusicVolume = 0.225f;
 
     public Image VolumeHandle;
     public Sprite[] VolumeSprites;
@@ -74,21 +78,25 @@ public class SoundManager : MonoBehaviour
         if (PieceDrop != null)
         {
             PieceDrop = Instantiate(PieceDrop, transform);
+            PieceDrop.volume = PieceVolume;
         }
 
         if (PiecePickUp != null)
         {
             PiecePickUp = Instantiate(PiecePickUp, transform);
+            PiecePickUp.volume = PieceVolume;
         }
 
         if (PiecePurchase != null)
         {
             PiecePurchase = Instantiate(PiecePurchase, transform);
+            PiecePurchase.volume = PieceVolume;
         }
 
         if (PieceTrash != null)
         {
             PieceTrash = Instantiate(PieceTrash, transform);
+            PieceTrash.volume = PieceVolume;
         }
 
         if (RoundPreStart != null)
@@ -99,6 +107,14 @@ public class SoundManager : MonoBehaviour
         if (RoundBattleDuration != null)
         {
             RoundBattleDuration = Instantiate(RoundBattleDuration, transform);
+        }
+
+        if (AmbientBackground != null)
+        {
+            AmbientBackground = Instantiate(AmbientBackground, transform);
+            AmbientBackground.loop = true;
+            IEnumerator fadeIn = FadeInAudioSource(AmbientBackground, 3.0f, 0.05f);
+            StartCoroutine(fadeIn);
         }
     }
 
@@ -135,25 +151,24 @@ public class SoundManager : MonoBehaviour
 
     public void PlayRoundPreStartSound()
     {
-        return; // For pre-alpha build.
-
         if (RoundPreStart != null)
         {
-            RoundPreStart.Play();
+            IEnumerator fadeIn = FadeInAudioSource(RoundPreStart, 1.0f, MusicVolume);
+            StartCoroutine(fadeIn);
         }
     }
 
     public void PlayRoundBattleDurationSound(bool play)
     {
-        return; // For pre-alpha build.
-
         if (play && RoundBattleDuration != null)
         {
-            RoundBattleDuration.Play();
+            IEnumerator fadeIn = FadeInAudioSource(RoundBattleDuration, 3.0f, MusicVolume);
+            StartCoroutine(fadeIn);
         }
         else if (!play && RoundBattleDuration != null)
         {
-            RoundBattleDuration.Stop();
+            IEnumerator fadeOut = FadeOutAudioSource(RoundBattleDuration, 10.0f);
+            StartCoroutine(fadeOut);
         }
     }
 
@@ -161,11 +176,13 @@ public class SoundManager : MonoBehaviour
     {
         if (win && WinWave != null)
         {
-            WinWave.Play();
+            IEnumerator fadeIn = FadeInAudioSource(WinWave, EndWaveFadeInDuration, MusicVolume);
+            StartCoroutine(fadeIn);
         }
         else if (!win && LoseWave != null)
         {
-            LoseWave.Play();
+            IEnumerator fadeIn = FadeInAudioSource(LoseWave, EndWaveFadeInDuration, MusicVolume);
+            StartCoroutine(fadeIn);
         }
     }
 
@@ -173,12 +190,39 @@ public class SoundManager : MonoBehaviour
     {
         if (win && WinGame != null)
         {
-            WinGame.Play();
+            IEnumerator fadeIn = FadeInAudioSource(WinGame, EndWaveFadeInDuration, MusicVolume);
+            StartCoroutine(fadeIn);
         }
         else if (!win && LoseGame != null)
         {
-            LoseGame.Play();
+            IEnumerator fadeIn = FadeInAudioSource(LoseGame, EndWaveFadeInDuration, MusicVolume);
+            StartCoroutine(fadeIn);
         }
+    }
+
+    private IEnumerator FadeInAudioSource(AudioSource audioSource, float fadeTimeDuration, float maxVolume)
+    {
+        audioSource.volume = 0.0f;
+        audioSource.Play();
+        float startTime = Time.time;
+        while (audioSource.volume < maxVolume)
+        {
+            float t = (Time.time - startTime) / fadeTimeDuration;
+            audioSource.volume = Mathf.Lerp(audioSource.volume, maxVolume, t);
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeOutAudioSource(AudioSource audioSource, float fadeTimeDuration)
+    {
+        float startTime = Time.time;
+        while (audioSource.volume > 0)
+        {
+            float t = (Time.time - startTime) / fadeTimeDuration;
+            audioSource.volume = Mathf.Lerp(audioSource.volume, 0.0f, t);
+            yield return null;
+        }
+        audioSource.Stop();
     }
 
     void OnMovePieceOnBoard(MoveOnBoardEvent e)

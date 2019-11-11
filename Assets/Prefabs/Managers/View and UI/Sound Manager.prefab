@@ -61,6 +61,8 @@ MonoBehaviour:
     type: 3}
   RoundBattleDuration: {fileID: 8819880031619419792, guid: 34767f6141e480d4daa16ebb6c7db7fb,
     type: 3}
+  AmbientBackground: {fileID: 3888009771658569252, guid: 6114cfc80e8b9894992c423cdf18b0f7,
+    type: 3}
   VolumeHandle: {fileID: 0}
   VolumeSprites:
   - {fileID: 21300000, guid: f0005f9264d61da49b424ddc7cc57e9e, type: 3}
