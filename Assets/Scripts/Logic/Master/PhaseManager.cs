@@ -173,7 +173,7 @@ public class PhaseManager : MonoBehaviour
                 }
                 else if (time == 2)
                 {
-                    soundManager.PlayRoundBattleDurationSound(true);
+                    //soundManager.PlayRoundBattleDurationSound(true);
                 }
             }
 
@@ -436,7 +436,7 @@ public class PhaseManager : MonoBehaviour
     public void StartPostCombat()
     {
         StopAllCoroutines();
-        soundManager.PlayRoundBattleDurationSound(false);
+        //soundManager.PlayRoundBattleDurationSound(false);
         StartCoroutine(PostCombatToStartRound());
     }
 
