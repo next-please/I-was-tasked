@@ -22,6 +22,10 @@ public class FontPressedTMPro : MonoBehaviour
             NormalBtn.gameObject.SetActive(false);
             PressedBtn.gameObject.SetActive(true);
             GetComponent<Image>().sprite = PressedBtnSprite;
+            if (SoundManager.Instance.LobbyButtonClick != null)
+            {
+                SoundManager.Instance.LobbyButtonClick.Play();
+            }
         }
     }
     public void OnClickUpBtn()

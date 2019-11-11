@@ -65,6 +65,8 @@ MonoBehaviour:
     type: 3}
   LobbySoundTrack: {fileID: 2533884028672573518, guid: 32324978e319492488c3c6c7bc067024,
     type: 3}
+  LobbyButtonClick: {fileID: 5098752667673324331, guid: 682f314574e1b6b49b60dd76690692f9,
+    type: 3}
   VolumeHandle: {fileID: 0}
   VolumeSprites:
   - {fileID: 21300000, guid: f0005f9264d61da49b424ddc7cc57e9e, type: 3}

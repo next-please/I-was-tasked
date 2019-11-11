@@ -22,6 +22,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource AmbientBackground = null;
     public AudioSource GameSoundTrack = null;
     public AudioSource LobbySoundTrack = null;
+    public AudioSource LobbyButtonClick = null;
     private const float LobbySoundTrackVolume = 0.5f;
     private bool firstLoadLobby = true;
 
@@ -175,6 +176,12 @@ public class SoundManager : MonoBehaviour
             LobbySoundTrack.loop = true;
             LobbySoundTrack.volume = LobbySoundTrackVolume;
         }
+
+        if (LobbyButtonClick != null)
+        {
+            LobbyButtonClick = Instantiate(LobbyButtonClick, transform);
+            LobbyButtonClick.volume = 1.0f;
+        }
     }
 
     private void PlayGameplayMusic(bool play)
@@ -240,13 +247,13 @@ public class SoundManager : MonoBehaviour
         if (win && WinWave != null)
         {
             WinWave.Play();
-            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(WinWave.clip.length), 0.1f);
+            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(WinWave.clip.length), 0.05f);
             
         }
         else if (!win && LoseWave != null)
         {
             LoseWave.Play();
-            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(LoseWave.clip.length), 0.1f);
+            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(LoseWave.clip.length), 0.05f);
         }
         StartCoroutine(fadeOutAndIn);
     }
@@ -257,12 +264,12 @@ public class SoundManager : MonoBehaviour
         if (win && WinGame != null)
         {
             WinGame.Play();
-            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(WinGame.clip.length), 0.1f);
+            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(WinGame.clip.length), 0.05f);
         }
         else if (!win && LoseGame != null)
         {
             LoseGame.Play();
-            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(LoseGame.clip.length), 0.1f);
+            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(LoseGame.clip.length), 0.05f);
 
         }
         StartCoroutine(fadeOutAndIn);
