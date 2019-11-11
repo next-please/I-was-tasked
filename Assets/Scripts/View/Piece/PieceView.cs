@@ -68,7 +68,8 @@ public class PieceView : MonoBehaviour
             }
         }
 
-        int numDividers = Mathf.CeilToInt(piece.GetMaximumHitPoints() / 25.0f);
+        float healthInterval = 50.0f;
+        int numDividers = Mathf.CeilToInt(piece.GetMaximumHitPoints() / healthInterval);
         float spacingWidth = 11.5f / numDividers;
         int incrementCount = 1;
 
