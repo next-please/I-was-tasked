@@ -28,6 +28,9 @@ public class ConnectCanvas : MonoBehaviourPunCallbacks
 
     public void OnClick_SinglePlayer()
     {
+        _connectMenu.gameObject.SetActive(false);
+        _connectingText.SetActive(true);
+        _connectingText.GetComponent<TextMeshProUGUI>().text = "Loading...";
         SceneManager.LoadScene("Main Scene MP");
     }
 
