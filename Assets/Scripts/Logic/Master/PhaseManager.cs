@@ -171,10 +171,6 @@ public class PhaseManager : MonoBehaviour
                 {
                     soundManager.PlayRoundPreStartSound();
                 }
-                else if (time == 2)
-                {
-                    //soundManager.PlayRoundBattleDurationSound(true);
-                }
             }
 
             if (time == 20 && round == 1)

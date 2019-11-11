@@ -19,7 +19,6 @@ public class SoundManager : MonoBehaviour
     private const float PieceVolume = 0.625f;
 
     public AudioSource RoundPreStart = null;
-    public AudioSource RoundBattleDuration = null;
     public AudioSource AmbientBackground = null;
     public AudioSource GameSoundTrack = null;
 
@@ -104,11 +103,6 @@ public class SoundManager : MonoBehaviour
             RoundPreStart = Instantiate(RoundPreStart, transform);
         }
 
-        if (RoundBattleDuration != null)
-        {
-            RoundBattleDuration = Instantiate(RoundBattleDuration, transform);
-        }
-
         if (AmbientBackground != null)
         {
             AmbientBackground = Instantiate(AmbientBackground, transform);
@@ -163,21 +157,6 @@ public class SoundManager : MonoBehaviour
         {
             IEnumerator fadeIn = FadeInAudioSource(RoundPreStart, 1.0f, 0.875f);
             StartCoroutine(fadeIn);
-        }
-    }
-
-    public void PlayRoundBattleDurationSound(bool play)
-    {
-        // Currently unused.
-        if (play && RoundBattleDuration != null)
-        {
-            IEnumerator fadeIn = FadeInAudioSource(RoundBattleDuration, 3.0f, 1.0f);
-            StartCoroutine(fadeIn);
-        }
-        else if (!play && RoundBattleDuration != null)
-        {
-            IEnumerator fadeOut = FadeOutAudioSource(RoundBattleDuration, 10.0f);
-            StartCoroutine(fadeOut);
         }
     }
 
