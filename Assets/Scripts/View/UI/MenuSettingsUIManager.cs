@@ -5,7 +5,6 @@ using UnityEngine;
 public class MenuSettingsUIManager : MonoBehaviour
 {
     public Canvas menuSettingsCanvas;
-    public SoundManager soundManager;
 
     private bool visibility;
 
@@ -30,6 +29,6 @@ public class MenuSettingsUIManager : MonoBehaviour
 
     public void SetAudioListenerVolume(float volume)
     {
-        soundManager.SetAudioListenerVolume(volume);
+        SoundManager.Instance.SetAudioListenerVolume(volume);
     }
 }

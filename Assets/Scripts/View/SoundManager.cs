@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -10,7 +9,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource LoseWave = null;
     public AudioSource WinGame = null;
     public AudioSource LoseGame = null;
-    private const float EndWaveFadeInDuration = 0.0125f;
+    private const float WinLoseWaveGameVolume = 0.625f;
+    private const float QuickFadeTime = 0.0125f;
 
     public AudioSource PieceDrop = null;
     public AudioSource PiecePickUp = null;
@@ -21,13 +21,35 @@ public class SoundManager : MonoBehaviour
     public AudioSource RoundPreStart = null;
     public AudioSource AmbientBackground = null;
     public AudioSource GameSoundTrack = null;
+    public AudioSource LobbySoundTrack = null;
+    private const float LobbySoundTrackVolume = 0.5f;
+    private bool firstLoadLobby = true;
 
     public Image VolumeHandle;
     public Sprite[] VolumeSprites;
 
-    private void Start()
+    private static SoundManager instance = null;
+
+    public static SoundManager Instance
     {
-        InstantiateSounds();
+        get
+        {
+            return instance;
+        }
+    }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+            InstantiateSounds();
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
     private void OnEnable()
@@ -39,6 +61,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.AddListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.AddListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
         EventManager.Instance.AddListener<ShowTrashCanEvent>(OnPiecePickUp);
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
@@ -50,6 +73,32 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.RemoveListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.RemoveListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
         EventManager.Instance.RemoveListener<ShowTrashCanEvent>(OnPiecePickUp);
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StopAllCoroutines();
+        if (scene.name == "Lobby")
+        {
+            PlayGameplayMusic(false);
+            if (firstLoadLobby)
+            {
+                LobbySoundTrack.Play();
+                firstLoadLobby = false;
+            }
+            else
+            {
+                IEnumerator fadeInLobbyMusic = FadeInAudioSource(LobbySoundTrack, 3.0f, LobbySoundTrackVolume);
+                StartCoroutine(fadeInLobbyMusic);
+            }
+        }
+        else if (scene.name == "Main Scene MP")
+        {
+            PlayGameplayMusic(true);
+            IEnumerator fadeOutLobbyMusic = FadeOutAudioSource(LobbySoundTrack, 5.0f, 0.0f);
+            StartCoroutine(fadeOutLobbyMusic);
+        }
     }
 
     public void InstantiateSounds()
@@ -57,21 +106,25 @@ public class SoundManager : MonoBehaviour
         if (WinWave != null)
         {
             WinWave = Instantiate(WinWave, transform);
+            WinWave.volume = WinLoseWaveGameVolume;
         }
 
         if (LoseWave != null)
         {
             LoseWave = Instantiate(LoseWave, transform);
+            LoseWave.volume = WinLoseWaveGameVolume;
         }
 
         if (WinGame != null)
         {
             WinGame = Instantiate(WinGame, transform);
+            WinGame.volume = WinLoseWaveGameVolume;
         }
 
         if (WinGame != null)
         {
             LoseGame = Instantiate(LoseGame, transform);
+            LoseGame.volume = WinLoseWaveGameVolume;
         }
 
         if (PieceDrop != null)
@@ -101,22 +154,44 @@ public class SoundManager : MonoBehaviour
         if (RoundPreStart != null)
         {
             RoundPreStart = Instantiate(RoundPreStart, transform);
+            RoundPreStart.volume = 1.0f;
         }
 
         if (AmbientBackground != null)
         {
             AmbientBackground = Instantiate(AmbientBackground, transform);
             AmbientBackground.loop = true;
-            IEnumerator fadeIn = FadeInAudioSource(AmbientBackground, 3.0f, 0.25f);
-            StartCoroutine(fadeIn);
         }
 
         if (GameSoundTrack != null)
         {
             GameSoundTrack = Instantiate(GameSoundTrack, transform);
             GameSoundTrack.loop = true;
-            IEnumerator fadeIn = FadeInAudioSource(GameSoundTrack, 3.0f, 0.25f);
-            StartCoroutine(fadeIn);
+        }
+
+        if (LobbySoundTrack != null)
+        {
+            LobbySoundTrack = Instantiate(LobbySoundTrack, transform);
+            LobbySoundTrack.loop = true;
+            LobbySoundTrack.volume = LobbySoundTrackVolume;
+        }
+    }
+
+    private void PlayGameplayMusic(bool play)
+    {
+        if (play)
+        {
+            IEnumerator fadeInAmbientBackground = FadeInAudioSource(AmbientBackground, 3.0f, 0.25f);
+            StartCoroutine(fadeInAmbientBackground);
+            IEnumerator fadeInGameSoundTrack = FadeInAudioSource(GameSoundTrack, 3.0f, 0.25f);
+            StartCoroutine(fadeInGameSoundTrack);
+        }
+        else
+        {
+            IEnumerator fadeOutAmbientBackground = FadeOutAudioSource(AmbientBackground, 3.0f, 0.0f);
+            StartCoroutine(fadeOutAmbientBackground);
+            IEnumerator fadeOutGameSoundTrack = FadeOutAudioSource(GameSoundTrack, 3.0f, 0.0f);
+            StartCoroutine(fadeOutGameSoundTrack);
         }
     }
 
@@ -153,97 +228,132 @@ public class SoundManager : MonoBehaviour
 
     public void PlayRoundPreStartSound()
     {
-        if (RoundPreStart != null)
-        {
-            IEnumerator fadeIn = FadeInAudioSource(RoundPreStart, 1.0f, 0.875f);
-            StartCoroutine(fadeIn);
-        }
+        IEnumerator fadeIn = FadeInAudioSource(RoundPreStart, QuickFadeTime, 1.0f);
+        StartCoroutine(fadeIn);
+        IEnumerator fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, RoundPreStart.clip.length, 0.05f);
+        StartCoroutine(fadeOutAndIn);
     }
 
     public void PlayEndWaveSound(bool win)
     {
+        IEnumerator fadeOutAndIn = null;
         if (win && WinWave != null)
         {
-            IEnumerator fadeIn = FadeInAudioSource(WinWave, EndWaveFadeInDuration, 0.625f);
-            StartCoroutine(fadeIn);
+            WinWave.Play();
+            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(WinWave.clip.length), 0.1f);
+            
         }
         else if (!win && LoseWave != null)
         {
-            IEnumerator fadeIn = FadeInAudioSource(LoseWave, EndWaveFadeInDuration, 0.625f);
-            StartCoroutine(fadeIn);
+            LoseWave.Play();
+            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(LoseWave.clip.length), 0.1f);
         }
+        StartCoroutine(fadeOutAndIn);
     }
 
     public void PlayEndGameSound(bool win)
     {
+        IEnumerator fadeOutAndIn = null;
         if (win && WinGame != null)
         {
-            IEnumerator fadeIn = FadeInAudioSource(WinGame, EndWaveFadeInDuration, 0.75f);
-            StartCoroutine(fadeIn);
+            WinGame.Play();
+            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(WinGame.clip.length), 0.1f);
         }
         else if (!win && LoseGame != null)
         {
-            IEnumerator fadeIn = FadeInAudioSource(LoseGame, EndWaveFadeInDuration, 0.75f);
-            StartCoroutine(fadeIn);
+            LoseGame.Play();
+            fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(LoseGame.clip.length), 0.1f);
+
         }
+        StartCoroutine(fadeOutAndIn);
     }
 
     private IEnumerator FadeInAudioSource(AudioSource audioSource, float fadeTimeDuration, float maxVolume)
     {
+        if (audioSource == null)
+        {
+            yield break;
+        }
+
         audioSource.volume = 0.1f;
         audioSource.Play();
         float startTime = Time.time;
         while (audioSource.volume < maxVolume)
         {
             float t = (Time.time - startTime) / fadeTimeDuration;
-            audioSource.volume = Mathf.Lerp(audioSource.volume, maxVolume, t);
+            audioSource.volume = Mathf.SmoothStep(audioSource.volume, maxVolume, t);
             yield return null;
         }
     }
 
-    private IEnumerator FadeOutAudioSource(AudioSource audioSource, float fadeTimeDuration)
+    private IEnumerator FadeOutAudioSource(AudioSource audioSource, float fadeTimeDuration, float minVolume)
     {
+        if (audioSource == null)
+        {
+            yield break;
+        }
+
         float startTime = Time.time;
-        while (audioSource.volume > 0)
+        while (audioSource.volume > minVolume)
         {
             float t = (Time.time - startTime) / fadeTimeDuration;
-            audioSource.volume = Mathf.Lerp(audioSource.volume, 0.0f, t);
+            audioSource.volume = Mathf.SmoothStep(audioSource.volume, minVolume, t);
             yield return null;
         }
         audioSource.Stop();
     }
 
-    void OnMovePieceOnBoard(MoveOnBoardEvent e)
+    private IEnumerator FadeOutAndInAudioSource(AudioSource audioSource, float fadeTimeDuration, float minVolume)
+    {
+        if (audioSource == null)
+        {
+            yield break;
+        }
+
+        float initialVolume = audioSource.volume;
+        float timeElapsed = 0.0f;
+        while (timeElapsed < fadeTimeDuration)
+        {
+            float timeFraction = timeElapsed / fadeTimeDuration;
+            float newVolume = initialVolume * Mathf.Cos(timeFraction * 2.0f * Mathf.PI);
+            audioSource.volume = (newVolume > minVolume) ? newVolume : minVolume;
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+        audioSource.volume = initialVolume;
+    }
+
+    private void OnMovePieceOnBoard(MoveOnBoardEvent e)
     {
         PlayPieceSound("Drop");
     }
 
-    void OnMoveFromBoardToBench(MoveFromBoardToBenchEvent e)
+    private void OnMoveFromBoardToBench(MoveFromBoardToBenchEvent e)
     {
         PlayPieceSound("Drop");
     }
 
-    void OnMoveFromBenchToBoard(MoveFromBenchToBoardEvent e)
+    private void OnMoveFromBenchToBoard(MoveFromBenchToBoardEvent e)
     {
         PlayPieceSound("Drop");
     }
 
-    void OnMoveOnBench(MoveOnBenchEvent e)
+    private void OnMoveOnBench(MoveOnBenchEvent e)
     {
         PlayPieceSound("Drop");
     }
 
-    void OnTrashPieceOnBoardEvent(TrashPieceOnBoardEvent e)
+    private void OnTrashPieceOnBoardEvent(TrashPieceOnBoardEvent e)
     {
         PlayPieceSound("Trash");
     }
 
-    void OnTrashPieceOnBenchEvent(TrashPieceOnBenchEvent e)
+    private void OnTrashPieceOnBenchEvent(TrashPieceOnBenchEvent e)
     {
         PlayPieceSound("Trash");
     }
 
-    void OnPiecePickUp(ShowTrashCanEvent e)
+    private void OnPiecePickUp(ShowTrashCanEvent e)
     {
         if (e.showTrashCan)
         {
@@ -254,11 +364,16 @@ public class SoundManager : MonoBehaviour
     public void SetAudioListenerVolume(float volume)
     {
         AudioListener.volume = volume;
-        if (volume <= 0)
+        if (VolumeHandle == null)
+        {
+            VolumeHandle = GameObject.Find("Volume Handle").GetComponent<Image>();
+        }
+
+        if (VolumeHandle != null && volume <= 0)
         {
             VolumeHandle.sprite = VolumeSprites[0];
         }
-        else
+        else if (VolumeHandle != null && volume > 0)
         {
             VolumeHandle.sprite = VolumeSprites[1];
         }

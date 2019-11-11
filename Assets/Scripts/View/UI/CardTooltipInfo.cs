@@ -15,7 +15,6 @@ public class CardTooltipInfo : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerEnter(PointerEventData data)
     {
-        Debug.Log("Hello?");
         cardTooltipInfo.SetActive(true);
     }
 

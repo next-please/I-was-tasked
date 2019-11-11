@@ -6,7 +6,6 @@ using Photon.Pun;
 public class RoundSummaryUIManager : MonoBehaviour
 {
     public Canvas roundSummaryCanvas;
-    public SoundManager soundManager;
     public RoomManager roomManager;
     public Animator roundSummaryAnimator;
     public Animator[] playerBadgeAnimators;
@@ -67,7 +66,7 @@ public class RoundSummaryUIManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(0.3f);
         }
-        soundManager.PlayEndWaveSound(win);
+        SoundManager.Instance.PlayEndWaveSound(win);
 
         yield return new WaitForSeconds(3.3f);
         roundSummaryAnimator.Play("Exit");

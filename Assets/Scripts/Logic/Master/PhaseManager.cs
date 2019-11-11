@@ -40,7 +40,6 @@ public class PhaseManager : MonoBehaviour
     public RequestHandler requestHandler;
     public RoomManager roomManager;
     public SynergyManager synergyManager;
-    public SoundManager soundManager;
 
     public readonly int marketDuration = GameLogicManager.Inst.Data.MarketDuration;
     public readonly int preCombatDuration = GameLogicManager.Inst.Data.PreCombatDuration;
@@ -135,7 +134,7 @@ public class PhaseManager : MonoBehaviour
         {
             GameOverScreen.GetComponent<Animator>().Play("Lose");
         }
-        soundManager.PlayEndGameSound(win);
+        SoundManager.Instance.PlayEndGameSound(win);
         yield return null;
     }
 
@@ -169,7 +168,7 @@ public class PhaseManager : MonoBehaviour
             {
                 if (time == 4)
                 {
-                    soundManager.PlayRoundPreStartSound();
+                    SoundManager.Instance.PlayRoundPreStartSound();
                 }
             }
 
@@ -432,7 +431,6 @@ public class PhaseManager : MonoBehaviour
     public void StartPostCombat()
     {
         StopAllCoroutines();
-        //soundManager.PlayRoundBattleDurationSound(false);
         StartCoroutine(PostCombatToStartRound());
     }
 

@@ -59,11 +59,11 @@ MonoBehaviour:
     type: 3}
   RoundPreStart: {fileID: 3565869004639985075, guid: 406ba4db85b34c4439ead5c94eb256fb,
     type: 3}
-  RoundBattleDuration: {fileID: 8819880031619419792, guid: 34767f6141e480d4daa16ebb6c7db7fb,
-    type: 3}
   AmbientBackground: {fileID: 3888009771658569252, guid: 6114cfc80e8b9894992c423cdf18b0f7,
     type: 3}
   GameSoundTrack: {fileID: 9149947623220472522, guid: 994174e95ece92f4eaa613b684a6e871,
+    type: 3}
+  LobbySoundTrack: {fileID: 2533884028672573518, guid: 32324978e319492488c3c6c7bc067024,
     type: 3}
   VolumeHandle: {fileID: 0}
   VolumeSprites:
