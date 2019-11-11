@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.15739834, g: 0.12776825, b: 0.24630171, a: 1}
+  m_IndirectSpecularColor: {r: 0.15739834, g: 0.12776682, b: 0.24630183, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -37598,7 +37598,7 @@ PrefabInstance:
         type: 3}
       propertyPath: soundManager
       value: 
-      objectReference: {fileID: 358672375097412832}
+      objectReference: {fileID: 0}
     - target: {fileID: 6326346262150069990, guid: 72254f4c0096ee541806bf7716a87726,
         type: 3}
       propertyPath: sellCanvas
@@ -53034,6 +53034,11 @@ PrefabInstance:
       propertyPath: playerBadgeAnimators.Array.data[2]
       value: 
       objectReference: {fileID: 1626126758}
+    - target: {fileID: 6888485531841202851, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: roomManager
+      value: 
+      objectReference: {fileID: 1904457109}
     - target: {fileID: 358672373870651954, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: VolumeSprites.Array.size
@@ -53082,18 +53087,6 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb924d3f4e127794c9dfc5fc10c21d58, type: 3}
---- !u!114 &358672375097412832 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 358672373870651954, guid: cb924d3f4e127794c9dfc5fc10c21d58,
-    type: 3}
-  m_PrefabInstance: {fileID: 358672375097412831}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ddaa17752a18545ac30cf002d4ea25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &358672375097412833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 358672373647474001, guid: cb924d3f4e127794c9dfc5fc10c21d58,
