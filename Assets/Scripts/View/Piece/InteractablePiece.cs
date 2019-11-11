@@ -63,7 +63,7 @@ public abstract class InteractablePiece :
         if (!CameraController.IsViewingOwnBoard())
         {
             OnEmptyDrop();
-            EventManager.Instance.Raise(new DragEndEvent{});
+            EventManager.Instance.Raise(new DragEndEvent { });
         }
     }
 
@@ -90,7 +90,7 @@ public abstract class InteractablePiece :
                 break;
         }
         EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = false });
-        EventManager.Instance.Raise(new DragEndEvent{});
+        EventManager.Instance.Raise(new DragEndEvent { });
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
@@ -128,7 +128,7 @@ public abstract class InteractablePiece :
                 targetObject = h.gameObject;
                 return HitTarget.BenchSlot;
             }
-            if (h.gameObject.name == "Trash")
+            if (h.gameObject.tag == "Trash")
             {
                 return HitTarget.Trash;
             }
