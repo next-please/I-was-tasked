@@ -81,7 +81,6 @@ public class CameraController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Debug.Log("Hello");
             ToggleCameras();
             return;
         }
@@ -102,16 +101,14 @@ public class CameraController : MonoBehaviour
                 playerPosition--;
                 EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
             }
-
-            if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && playerPosition != -1)
+            else if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && playerPosition != -1)
             {
                 StopAllCoroutines();
                 StartCoroutine(LerpToTransform(CameraTransforms[3]));
                 playerPosition = -1;
                 EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
             }
-
-            if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
+            else if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
             {
                 StopAllCoroutines();
                 StartCoroutine(LerpToTransform(playerTransform));
