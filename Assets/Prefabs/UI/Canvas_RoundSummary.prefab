@@ -2577,6 +2577,7 @@ GameObject:
   - component: {fileID: 2916718260302715257}
   - component: {fileID: 2916718260302715258}
   - component: {fileID: 2916718260302715259}
+  - component: {fileID: 1736256120104184133}
   m_Layer: 5
   m_Name: Panel_RoundSummary
   m_TagString: Untagged
@@ -2674,6 +2675,19 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &1736256120104184133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2916718260302715261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e6d772de32ed64f870b87b541dab5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roundSummaryUIManager: {fileID: 0}
 --- !u!1 &2916718260315204706
 GameObject:
   m_ObjectHideFlags: 0

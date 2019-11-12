@@ -66,8 +66,6 @@ public class RoundSummaryUIManager : MonoBehaviour
             }
             yield return new WaitForSecondsRealtime(0.3f);
         }
-        SoundManager.Instance.PlayEndWaveSound(win);
-
         yield return new WaitForSeconds(3.3f);
         roundSummaryAnimator.Play("Exit");
         yield return new WaitForSeconds(1f);
@@ -75,6 +73,16 @@ public class RoundSummaryUIManager : MonoBehaviour
         // reset state
         roundSummaryCanvas.enabled = false;
         resetBadges();
+    }
+
+    public void PlayEndWaveSound()
+    {
+        bool win = true;
+        for (int i = 0; i < 3; i++)
+        {
+            win = win && !PhaseManager.damageResults[i];
+        }
+        SoundManager.Instance.PlayEndWaveSound(win);
     }
 
     private void resetBadges()
