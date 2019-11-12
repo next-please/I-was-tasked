@@ -116,7 +116,6 @@ public class UnholyAuraSkill : Interaction
             projectile.transform.localPosition = pos;
         }
 
-        projectile.transform.position = attackSource;
         return (ticksRemaining > 0 && !caster.IsDead());
     }
 
