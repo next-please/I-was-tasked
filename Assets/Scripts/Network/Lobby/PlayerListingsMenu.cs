@@ -22,6 +22,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     public TextMeshProUGUI tutorialTextNormal;
     public TextMeshProUGUI tutorialTextPressed;
     public TextMeshProUGUI startGameTextNormal;
+    public GameObject CurrentRoomRoot;
+    public GameObject LoadingText;
     private bool _isTutorial;
     private bool _ready;
 
@@ -40,6 +42,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
         GetCurrentRoomPlayers();
         Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         GetComponentInParent<CurrentRoomCanvas>().UpdateRoomInfo();
+        CurrentRoomRoot.SetActive(true);
+        LoadingText.SetActive(false);
     }
 
     public override void OnDisable()
@@ -111,6 +115,8 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
                     return;
                 }
             }
+            CurrentRoomRoot.SetActive(false);
+            LoadingText.SetActive(true);
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel("Main Scene MP");
