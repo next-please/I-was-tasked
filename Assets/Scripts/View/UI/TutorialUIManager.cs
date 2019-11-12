@@ -17,9 +17,6 @@ public class TutorialUIManager : MonoBehaviour
     public GameObject SynergyCanvas;
     public GameObject EndCanvas;
 
-    [Header("Game Board Items")]
-    public List<GameObject> PanToBoardArrows;
-
     private bool waitingForPurchase = false;
     private bool waitingForPan = false;
     private bool waitingForDrag = false;
@@ -145,17 +142,13 @@ public class TutorialUIManager : MonoBehaviour
 
     void ShowPanToBoard()
     {
-        GameObject arrow = PanToBoardArrows[(int)RoomManager.GetLocalPlayer()];
         PanToBoardCanvas.SetActive(true);
-        arrow.SetActive(true);
         waitingForPan = true;
     }
 
     void ClosePanToBoard()
     {
-        GameObject arrow = PanToBoardArrows[(int)RoomManager.GetLocalPlayer()];
         PanToBoardCanvas.SetActive(false);
-        arrow.SetActive(false);
         waitingForPan = false;
     }
 
