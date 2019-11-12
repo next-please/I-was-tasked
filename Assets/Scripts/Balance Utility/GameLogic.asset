@@ -209,6 +209,20 @@ MonoBehaviour:
     AttackRange: 1
     AttackSpeed: 5
     MovementSpeed: 6
+  HumanSpearman:
+    HitPoints: 150
+    ManaPoints: 150
+    AttackDamage: 18
+    AttackRange: 2
+    AttackSpeed: 4
+    MovementSpeed: 5
+  HumanArcher:
+    HitPoints: 150
+    ManaPoints: 180
+    AttackDamage: 25
+    AttackRange: 4
+    AttackSpeed: 5
+    MovementSpeed: 5
   ElfDruid:
     HitPoints: 220
     ManaPoints: 70

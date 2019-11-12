@@ -16,7 +16,7 @@ public class AttackState : State
         if (!target.IsDead())
         {
             Interaction attack;
-            if (piece.GetAttackRange() > 1)
+            if (piece.GetAttackRange() > 1 && piece.GetClass() != Enums.Job.Spearman)
             {
                 // Projectiles take 10 ticks to move 1 Tile. This should change later
                 // when we know how fast each projectile is supposed to travel.

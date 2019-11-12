@@ -83,46 +83,46 @@ public class CharacterGenerator
 
     public readonly int[,,] tiersRaceJobPoolMax = {
         {
-            { 0, 0, 5, 0, 5 },
-            { 0, 5, 0, 5, 0 },
-            { 5, 5, 0, 0, 5 },
-            { 5, 0, 5, 0, 0 }
+            { 0, 0, 5, 0, 5, 0, 0 },
+            { 0, 5, 0, 5, 0, 0, 0 },
+            { 5, 5, 0, 0, 5, 0, 0 },
+            { 5, 0, 5, 0, 0, 0, 0 }
         },
         {
-            { 0, 3, 0, 3, 0 },
-            { 3, 0, 3, 0, 0 },
-            { 0, 0, 0, 3, 0 },
-            { 0, 3, 0, 0, 3 }
+            { 0, 3, 0, 3, 0, 0, 0 },
+            { 3, 0, 3, 0, 0, 0, 0 },
+            { 0, 0, 0, 3, 0, 0, 0 },
+            { 0, 3, 0, 0, 3, 0, 0 }
         },
         {
-            { 2, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 2 },
-            { 0, 0, 2, 0, 0 },
-            { 0, 0, 0, 2, 0 }
+            { 2, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 2, 0, 0 },
+            { 0, 0, 2, 0, 0, 0, 0 },
+            { 0, 0, 0, 2, 0, 0, 0 }
         },
         {
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 }
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 }
         },
         {
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 }
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 }
         },
         {
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 }
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 }
         },
         {
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 },
-            { 0, 0, 0, 0, 0 }
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 0, 0, 0, 0, 0, 0 }
         }
     };
 
@@ -257,7 +257,15 @@ public class CharacterGenerator
         int currentAttackRange = defaultAttackRange;
         int currentAttackSpeed = defaultAttackSpeed;
         int currentMovementSpeed = defaultMovementSpeed;
-        Enums.Spell currentSpell = GetSpell(race, job);
+        Enums.Spell currentSpell;
+        if (job == Enums.Job.Archer || job == Enums.Job.Spearman)
+        {
+            currentSpell = Enums.Spell.NoSkill;
+        }
+        else
+        {
+            currentSpell = GetSpell(race, job);
+        }
 
         //calculate stats
         switch (job)
@@ -375,6 +383,14 @@ public class CharacterGenerator
                 else if (job == Enums.Job.Rogue)
                 {
                     pv = GetVariablesFromRaceClassCombo(gameData.HumanRogue);
+                }
+                else if (job == Enums.Job.Spearman)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.HumanSpearman);
+                }
+                else if (job == Enums.Job.Archer)
+                {
+                    pv = GetVariablesFromRaceClassCombo(gameData.HumanArcher);
                 }
             }
             else if (race == Enums.Race.Orc)

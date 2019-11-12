@@ -71,10 +71,12 @@ public static class NameGenerator
             new string[] { "Wretched", "Vile", "Ghastly", "Distrought", "Broken", "Deformed", "Misshapen", "Forgotten", "Hopeless", "Lost", "Forsaken" });
         
         raceJobTitles = new string[,] {
-            { "Druid of the Wild", "Crusader", "Fire Mage", "Cleric", "Trickster" },
-            { "Nature Spirit", "Nature Guardian", "Wild Magician", "Nephilim", "Assassin" },
-            { "Protector of the Earth", "Warrior", "Thundercaller", "Inquisitor", "Swashbuckler" },
-            { "Druid of the Moon", "Berserker", "Lich", "Death Prophet", "Zero" },
+            { "Druid of the Wild", "Crusader", "Fire Mage", "Cleric", "Trickster", "", "" },
+            { "Nature Spirit", "Nature Guardian", "Wild Magician", "Nephilim", "Assassin", "", "" },
+            { "Protector of the Earth", "Warrior", "Thundercaller", "Inquisitor", "Swashbuckler", "", "" },
+            { "Druid of the Moon", "Berserker", "Lich", "Death Prophet", "Zero", "", "" },
+            { "", "", "", "", "", "", "" },
+            { "", "", "", "", "", "", "" }
         };
 
         initialized = true;
