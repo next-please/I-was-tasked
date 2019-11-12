@@ -57,6 +57,8 @@ public class SkillState : State
         {
             if (piece.spell == Enums.Spell.CheapShot)
                 skill = new CheapShotSkill(piece, board.FindNearestTarget(piece), board);
+            else if (piece.spell == Enums.Spell.Charge)
+                skill = new ChargeSkill(piece, board.FindFarthestTarget(piece), board);
             else if (piece.spell == Enums.Spell.Evicerate)
                 skill = new EvicerateSkill(piece, board.FindNearestTarget(piece), board);
             else if (piece.spell == Enums.Spell.Shapeshift)
@@ -69,7 +71,6 @@ public class SkillState : State
                 skill = new ShadowStrikeSkill(piece, board.FindFarthestTarget(piece), board, (int)(ShadowStrikeSkill.shadowStrikeDefaultDamage * 0.6));
             else if (piece.spell == Enums.Spell.UnholyAura)
                 skill = new UnholyAuraSkill(piece, board, (int)(UnholyAuraSkill.unholyAuraDefaultDamage * 0.5), UnholyAuraSkill.unholyAuraDefaultCount);
-            //skill = new RaiseDeadSkill(piece, board);
             else if (piece.spell == Enums.Spell.ForestSpirits)
                 skill = new ForestSpiritsSkill(piece, board);
             else if (piece.spell == Enums.Spell.BlessingOfNature)
