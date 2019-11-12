@@ -273,7 +273,7 @@ public class PhaseManager : MonoBehaviour
         PopUpScreen.GetComponentInChildren<Animator>().Play("PopUp_Enter");
         PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = roundText;
         PopUpScreen.enabled = true;
-        yield return new WaitForSeconds(4.1f);
+        yield return new WaitForSeconds(4.0f);
         PopUpScreen.enabled = false;
     }
 
@@ -361,7 +361,7 @@ public class PhaseManager : MonoBehaviour
         PopUpScreen.GetComponentInChildren<Animator>().Play("PopUp_Enter");
         PopUpScreen.GetComponentInChildren<TextMeshProUGUI>().text = "Round " + round + ":\n" + summonManager.GetWaveName(round, randomRoundIndex);
         PopUpScreen.enabled = true;
-        yield return new WaitForSeconds(4.1f);
+        yield return new WaitForSeconds(4.0f);
         PopUpScreen.enabled = false;
     }
 
