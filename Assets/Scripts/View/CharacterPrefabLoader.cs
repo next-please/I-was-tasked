@@ -17,6 +17,8 @@ public class CharacterPrefabLoader : MonoBehaviour
     public GameObject HumanMagePrefab;
     public GameObject HumanPriestPrefab;
     public GameObject HumanRoguePrefab;
+    public GameObject HumanArcherPrefab;
+    public GameObject HumanSpearmanPrefab;
 
     public GameObject OrcDruidPrefab;
     public GameObject OrcKnightPrefab;
@@ -80,10 +82,6 @@ public class CharacterPrefabLoader : MonoBehaviour
 
     public GameObject GetPrefab(Piece piece)
     {
-        //if (piece.IsEnemy())
-        //{
-        //    return EnemyPrefab;
-        //}
         if (piece.size == Enums.Size.Big)
         {
             return bigCharacterPrefabMap[(piece.GetRace(), piece.GetClass())];

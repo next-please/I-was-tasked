@@ -65,6 +65,10 @@ MonoBehaviour:
     type: 3}
   HumanRoguePrefab: {fileID: 7655288745425940841, guid: d42fcb26dbeaf43dda1c09e50404109a,
     type: 3}
+  HumanArcherPrefab: {fileID: 7655288745425940841, guid: ebb48581bf728ca4e86c09c0ce04d306,
+    type: 3}
+  HumanSpearmanPrefab: {fileID: 7655288745425940841, guid: e4888c255ca9f0f478307c873b257c3a,
+    type: 3}
   OrcDruidPrefab: {fileID: 7655288745425940841, guid: bc4acdb77bf50464da976c71cad64528,
     type: 3}
   OrcKnightPrefab: {fileID: 7655288745425940841, guid: 9c581dd41aacd4d89a94fa867228df14,
