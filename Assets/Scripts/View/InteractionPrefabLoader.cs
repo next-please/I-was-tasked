@@ -28,6 +28,7 @@ public class InteractionPrefabLoader : MonoBehaviour
     public GameObject Rot;
     public GameObject ShadowStrike;
     public GameObject ShapeShift;
+    public GameObject Stun;
     public GameObject ThunderStorm;
     public GameObject ThunderStormLightning;
     public GameObject UnholyAura;
@@ -74,6 +75,7 @@ public class InteractionPrefabLoader : MonoBehaviour
             { PrefabEnum.Rot, Rot },
             { PrefabEnum.ShadowStrike, ShadowStrike },
             { PrefabEnum.ShapeShift, ShapeShift },
+            { PrefabEnum.Stun, Stun },
             { PrefabEnum.ThunderStorm, ThunderStorm },
             { PrefabEnum.ThunderStormLightning, ThunderStormLightning },
             { PrefabEnum.UnholyAura, UnholyAura },

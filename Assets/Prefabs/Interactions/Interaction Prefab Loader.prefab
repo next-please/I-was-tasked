@@ -82,6 +82,7 @@ MonoBehaviour:
     type: 3}
   ShapeShift: {fileID: 4593032799540356023, guid: fa88b913ace16a04b9761ebeb181fdcf,
     type: 3}
+  Stun: {fileID: 896938891397940621, guid: 3b0fed3f32872184c9c491c2cbe0251b, type: 3}
   ThunderStorm: {fileID: 4484730273484225776, guid: 67cd16c5b0bd4534d808c25551649b5f,
     type: 3}
   ThunderStormLightning: {fileID: 7385476253302904792, guid: 6a114592cec5dcc4a82fc7ea0792fcdd,

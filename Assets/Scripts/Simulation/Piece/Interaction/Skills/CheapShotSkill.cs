@@ -83,20 +83,14 @@ public class CheapShotSkill : Interaction
 
 public class CheapShotLingeringEffect : Interaction
 {
-    private Vector3 effectPosition;
     private Piece target;
     public int ticksTilActivation = GameLogicManager.Inst.Data.Skills.CheapShotLingerTicks;
 
     public CheapShotLingeringEffect(Piece target, Piece caster)
     {
         this.target = target;
-        if (!target.IsDead())
-        {
-            effectPosition = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-            effectPosition.y = 2f;
-        }
-        int ticks = (int)Math.Floor(ticksTilActivation * Math.Pow(GameLogicManager.Inst.Data.Skills.CheapShotRarityMultiplier, caster.GetRarity()));
-        this.ticksRemaining = ticks;
+        interactionPrefab = Enums.InteractionPrefab.Stun;
+        this.ticksRemaining = ticksTilActivation;
     }
 
     public override bool ProcessInteraction()
@@ -130,9 +124,7 @@ public class CheapShotLingeringEffect : Interaction
         Transform targetT = target.GetPieceView().transform;
         projectile.transform.parent =  targetT;
         Vector3 pos = Vector3.zero;
-        pos.y = 2;
         projectile.transform.localPosition = pos;
-
         return true;
     }
 }

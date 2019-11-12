@@ -46,6 +46,7 @@
         Rot,
         ShadowStrike,
         ShapeShift,
+        Stun,
         ThunderStorm,
         ThunderStormLightning,
         UnholyAura,
