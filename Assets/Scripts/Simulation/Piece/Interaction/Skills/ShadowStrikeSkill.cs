@@ -169,6 +169,11 @@ public class ShadowStrikeSkill : Interaction
         if (caster.IsDead())
             return;
 
+        if (!targetTile.IsOccupied() && caster.GetCurrentTile() != targetTile)
+        {
+            board.MovePieceToTile(caster, targetTile);
+        }
+
         int damage = (int)Math.Floor(this.damage * Math.Pow(GameLogicManager.Inst.Data.Skills.ShadowStrikeRarityMultiplier, caster.GetRarity()));
         if (!target.IsDead() && !target.invulnerable)
         {
@@ -184,10 +189,6 @@ public class ShadowStrikeSkill : Interaction
             Debug.Log(caster.GetName() + " has ShadowStrike-ed " + target.GetName() + " for " + damage + " DMG, whose HP has fallen to " + target.GetCurrentHitPoints() + " HP.");
         }
 
-        if (!targetTile.IsOccupied() && caster.GetCurrentTile() != targetTile)
-        {
-            board.MovePieceToTile(caster, targetTile);
-        }
     }
 }
 
