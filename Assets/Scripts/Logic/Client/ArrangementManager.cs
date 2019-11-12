@@ -76,8 +76,8 @@ public class ArrangementManager : MonoBehaviour
             return;
         // must be master client
         Piece actualPiece = boardManager.GetActualPiece(player, piece);
-        boardManager.RemovePieceFromBoard(player, actualPiece);
         inventoryManager.RemoveFromArmy(player, actualPiece);
+        boardManager.RemovePieceFromBoard(player, actualPiece);
         inventoryManager.AddToBench(player, actualPiece);
         inventoryManager.MoveBenchPieceToIndex(player, actualPiece, slotIndex);
     }
