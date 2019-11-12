@@ -5,7 +5,6 @@ using UnityEngine;
 public class CharacterPrefabLoader : MonoBehaviour
 {
     public GameObject EnemyPrefab;
-    public GameObject HorsemanPrefab;
 
     public GameObject ElfDruidPrefab;
     public GameObject ElfKnightPrefab;
@@ -85,10 +84,6 @@ public class CharacterPrefabLoader : MonoBehaviour
 
     public GameObject GetPrefab(Piece piece)
     {
-        if (piece.GetTitle().Equals("Horseman"))
-        {
-            return HorsemanPrefab;
-        }
         if (piece.size == Enums.Size.Big)
         {
             return bigCharacterPrefabMap[(piece.GetRace(), piece.GetClass())];

@@ -16,7 +16,6 @@ public class HorsemenSynergyView : MonoBehaviour
     {
         pieceView = GetComponentInParent<PieceView>();
         vfxArray = new VisualEffect[] { vfxWar, vfxLife, vfxEssence, vfxUnity };
-
         if (pieceView == null)
         {
             Destroy(this);
@@ -24,27 +23,29 @@ public class HorsemenSynergyView : MonoBehaviour
         }
 
         Piece piece = pieceView.piece;
-        int index = 0;
-        switch (piece.GetName())
+        if (piece.GetTitle().Equals("Horseman"))
         {
-            case "Horseman of War":
-                index = 0;
-                break;
-            case "Horseman of Life":
-                index = 1;
-                break;
-            case "Horseman of Essence":
-                index = 2;
-                break;
-            case "Horseman of Unity3D":
-                index = 3;
-                break;
-            default:
-                index = 0;
-                break;
+            int index;
+            switch (piece.GetName())
+            {
+                case "Horseman of War":
+                    index = 0;
+                    break;
+                case "Horseman of Life":
+                    index = 1;
+                    break;
+                case "Horseman of Essence":
+                    index = 2;
+                    break;
+                case "Horseman of Unity3D":
+                    index = 3;
+                    break;
+                default:
+                    index = 0;
+                    break;
+            }
+            ToggleVfx(index);
         }
-
-        ToggleVfx(index);
     }
 
     void ToggleVfx(int index)
