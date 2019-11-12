@@ -45,6 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyPrefab: {fileID: 2024255396978456684, guid: cd8a43a084a2b473e84e039b572e39b2,
     type: 3}
+  HorsemanPrefab: {fileID: 7655288745425940841, guid: 38cc918cbe0c85640b4c1fe577d2664c,
+    type: 3}
   ElfDruidPrefab: {fileID: 7655288745425940841, guid: d8ec2e709149c46fb85060baa94e1940,
     type: 3}
   ElfKnightPrefab: {fileID: 7655288745425940841, guid: 80e4f92f778e2412dae15c3daf67f023,
