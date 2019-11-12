@@ -123,6 +123,7 @@ public class MarketManager : MonoBehaviour
         //reactive upgrades
         EventManager.Instance.Raise(new GlobalMessageEvent { message = "Market tier has been upgraded! New mercenaries may be stronger!" });
         EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
+        EventManager.Instance.Raise(new MarketUpgradedEvent { upgradeType = MarketUpgradedEvent.UpgradeType.IncreaseMarketTier });
     }
 
     public List<Piece> UpgradePiecesWithTier(int marketTier)
@@ -165,6 +166,7 @@ public class MarketManager : MonoBehaviour
             EventManager.Instance.Raise(new GlobalMessageEvent { message = "Market space increased! A new mercenary has entered the market." });
             market.MarketPieces.Add(piece);
             EventManager.Instance.Raise(new MarketUpdateEvent { readOnlyMarket = market });
+            EventManager.Instance.Raise(new MarketUpgradedEvent { upgradeType = MarketUpgradedEvent.UpgradeType.IncreaseMarketSize });
         }
         return success;
     }
@@ -197,4 +199,15 @@ public class MarketUpdateEvent : GameEvent
 public class DamageTakenEvent : GameEvent
 {
     public int currentHealth;
+}
+
+public class MarketUpgradedEvent : GameEvent
+{
+    public enum UpgradeType
+    {
+        IncreaseMarketTier,
+        IncreaseMarketSize
+    }
+
+    public UpgradeType upgradeType;
 }

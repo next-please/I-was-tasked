@@ -26,6 +26,8 @@ public class SoundManager : MonoBehaviour
     private const float LobbySoundTrackVolume = 0.5f;
     private bool firstLoadLobby = true;
 
+    public AudioSource UpgradedMarketPing;
+
     public Image VolumeHandle;
     public Sprite[] VolumeSprites;
 
@@ -62,6 +64,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.AddListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.AddListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
         EventManager.Instance.AddListener<ShowTrashCanEvent>(OnPiecePickUp);
+        EventManager.Instance.AddListener<MarketUpgradedEvent>(OnMarketUpgraded);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -74,6 +77,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.RemoveListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.RemoveListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
         EventManager.Instance.RemoveListener<ShowTrashCanEvent>(OnPiecePickUp);
+        EventManager.Instance.RemoveListener<MarketUpgradedEvent>(OnMarketUpgraded);
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
@@ -181,6 +185,12 @@ public class SoundManager : MonoBehaviour
         {
             LobbyButtonClick = Instantiate(LobbyButtonClick, transform);
             LobbyButtonClick.volume = 1.0f;
+        }
+        
+        if (UpgradedMarketPing != null)
+        {
+            UpgradedMarketPing = Instantiate(UpgradedMarketPing, transform);
+            UpgradedMarketPing.volume = 1.0f;
         }
     }
 
@@ -365,6 +375,14 @@ public class SoundManager : MonoBehaviour
         if (e.showTrashCan)
         {
             PlayPieceSound("Pick Up");
+        }
+    }
+
+    private void OnMarketUpgraded(MarketUpgradedEvent e)
+    {
+        if (UpgradedMarketPing != null)
+        {
+            UpgradedMarketPing.Play();
         }
     }
 
