@@ -64,7 +64,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.AddListener<MoveOnBenchEvent>(OnMoveOnBench);
         EventManager.Instance.AddListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.AddListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
-        EventManager.Instance.AddListener<ShowTrashCanEvent>(OnPiecePickUp);
+        EventManager.Instance.AddListener<PieceHandleEvent>(OnPiecePickUp);
         EventManager.Instance.AddListener<MarketUpgradedEvent>(OnMarketUpgraded);
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
@@ -77,7 +77,7 @@ public class SoundManager : MonoBehaviour
         EventManager.Instance.RemoveListener<MoveOnBenchEvent>(OnMoveOnBench);
         EventManager.Instance.RemoveListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.RemoveListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
-        EventManager.Instance.RemoveListener<ShowTrashCanEvent>(OnPiecePickUp);
+        EventManager.Instance.RemoveListener<PieceHandleEvent>(OnPiecePickUp);
         EventManager.Instance.RemoveListener<MarketUpgradedEvent>(OnMarketUpgraded);
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -193,7 +193,7 @@ public class SoundManager : MonoBehaviour
             LobbyButtonHover = Instantiate(LobbyButtonHover, transform);
             LobbyButtonHover.volume = 1.0f;
         }
-        
+
         if (UpgradedMarketPing != null)
         {
             UpgradedMarketPing = Instantiate(UpgradedMarketPing, transform);
@@ -265,7 +265,7 @@ public class SoundManager : MonoBehaviour
         {
             WinWave.Play();
             fadeOutAndIn = FadeOutAndInAudioSource(GameSoundTrack, Mathf.Floor(WinWave.clip.length), 0.05f);
-            
+
         }
         else if (!win && LoseWave != null)
         {
@@ -377,9 +377,9 @@ public class SoundManager : MonoBehaviour
         PlayPieceSound("Trash");
     }
 
-    private void OnPiecePickUp(ShowTrashCanEvent e)
+    private void OnPiecePickUp(PieceHandleEvent e)
     {
-        if (e.showTrashCan)
+        if (e.isHeld)
         {
             PlayPieceSound("Pick Up");
         }

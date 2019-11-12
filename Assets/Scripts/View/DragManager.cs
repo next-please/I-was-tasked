@@ -20,7 +20,7 @@ public class DragManager : MonoBehaviour
         EventManager.Instance.AddListener<MoveOnBenchEvent>(OnMoveOnBench);
         EventManager.Instance.AddListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.AddListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
-        EventManager.Instance.AddListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
+        EventManager.Instance.AddListener<PieceHandleEvent>(OnShowTrashCanEvent);
         EventManager.Instance.AddListener<DragOverTileEvent>(OnDragOverTile);
         EventManager.Instance.AddListener<DragEndEvent>(OnDragEnd);
 
@@ -35,7 +35,7 @@ public class DragManager : MonoBehaviour
         EventManager.Instance.RemoveListener<MoveOnBenchEvent>(OnMoveOnBench);
         EventManager.Instance.RemoveListener<TrashPieceOnBoardEvent>(OnTrashPieceOnBoardEvent);
         EventManager.Instance.RemoveListener<TrashPieceOnBenchEvent>(OnTrashPieceOnBenchEvent);
-        EventManager.Instance.RemoveListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
+        EventManager.Instance.RemoveListener<PieceHandleEvent>(OnShowTrashCanEvent);
         EventManager.Instance.RemoveListener<DragOverTileEvent>(OnDragOverTile);
         EventManager.Instance.RemoveListener<DragEndEvent>(OnDragEnd);
     }
@@ -47,11 +47,11 @@ public class DragManager : MonoBehaviour
     }
 
 
-    void OnShowTrashCanEvent(ShowTrashCanEvent e)
+    void OnShowTrashCanEvent(PieceHandleEvent e)
     {
         if (!roomManager.IsTutorial)
         {
-            trashCan.enabled = e.showTrashCan;
+            trashCan.enabled = e.isHeld;
         }
     }
 

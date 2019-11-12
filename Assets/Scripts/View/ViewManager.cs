@@ -36,6 +36,8 @@ public class ViewManager : MonoBehaviour
         EventManager.Instance.AddListener<AddPieceToBoardEvent>(OnAddPiece);
         EventManager.Instance.AddListener<RemovePieceFromBoardEvent>(OnRemovePiece);
         EventManager.Instance.AddListener<PieceMoveEvent>(OnPieceMove);
+        EventManager.Instance.AddListener<PieceHandleEvent>(OnPieceHeld);
+        EventManager.Instance.AddListener<InventoryChangeEvent>(OnInventoryChange);
     }
 
     void OnDisable()
@@ -45,6 +47,8 @@ public class ViewManager : MonoBehaviour
         EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnAddPiece);
         EventManager.Instance.RemoveListener<RemovePieceFromBoardEvent>(OnRemovePiece);
         EventManager.Instance.RemoveListener<PieceMoveEvent>(OnPieceMove);
+        EventManager.Instance.RemoveListener<PieceHandleEvent>(OnPieceHeld);
+        EventManager.Instance.RemoveListener<InventoryChangeEvent>(OnInventoryChange);
     }
 
     public void OnBoardCreated(Board gameBoard, Player player)
@@ -138,7 +142,7 @@ public class ViewManager : MonoBehaviour
 
     private void OnRemovePiece(RemovePieceFromBoardEvent e)
     {
-        UpdateHighlights(e.player);
+        UpdateHighlights(e.player, e.piece);
     }
 
     private void OnPieceMove(PieceMoveEvent e)
@@ -146,7 +150,21 @@ public class ViewManager : MonoBehaviour
         UpdateHighlights(e.tile.GetBoard().GetOwner());
     }
 
-    void UpdateHighlights(Player player)
+    private void OnPieceHeld(PieceHandleEvent e)
+    {
+        if (e.isHeld)
+        {
+            // Hack: event only happens when a local piece is picked up
+            UpdateHighlights(RoomManager.GetLocalPlayer(), e.piece);
+        }
+    }
+
+    private void OnInventoryChange(InventoryChangeEvent e)
+    {
+        UpdateHighlights(e.inventory.GetOwner());
+    }
+
+    void UpdateHighlights(Player player, Piece ignore = null)
     {
         if (player == RoomManager.GetLocalPlayer())
         {
@@ -155,6 +173,7 @@ public class ViewManager : MonoBehaviour
                 highlight.SetActive(false);
             }
             List<Piece> pieces = inventoryManager.GetExcessPieces(player);
+            pieces.Remove(ignore);
             if (highlightPool.Count < pieces.Count)
             {
                 GameObject highlight = GameObject.Instantiate(HighlightPrefab);

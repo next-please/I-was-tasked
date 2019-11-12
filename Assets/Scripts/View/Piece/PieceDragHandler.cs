@@ -78,8 +78,7 @@ public class PieceDragHandler : InteractablePiece
         base.OnPointerDown(eventData);
         if (IsDragAllowed())
         {
-
-            EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = true });
+            EventManager.Instance.Raise(new PieceHandleEvent { piece = piece, isHeld = true });
             SetDraggedState();
         } else
         {
