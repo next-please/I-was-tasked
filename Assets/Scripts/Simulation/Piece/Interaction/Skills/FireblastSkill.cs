@@ -22,9 +22,9 @@ public class FireblastSkill : Interaction
         interactionPrefab = Enums.InteractionPrefab.Fireblast;
 
         attackSource = ViewManager.CalculateTileWorldPosition(caster.GetCurrentTile());
-        attackSource.y = 1.0f;
+        attackSource.y = 1.5f;
         attackDestination = ViewManager.CalculateTileWorldPosition(target.GetCurrentTile());
-        attackDestination.y = 1.0f;
+        attackDestination.y = 1.5f;
     }
 
     public override bool ProcessInteraction()
@@ -61,7 +61,7 @@ public class FireblastSkill : Interaction
         if (!target.IsDead())
         {
              attackDestination = target.GetPieceView().transform.position;
-            attackDestination.y = 1.0f;
+            attackDestination.y = 1.5f;
         }
 
         float fracJourney = (float)(ticksTilActivation - ticksRemaining) / ticksTilActivation;
