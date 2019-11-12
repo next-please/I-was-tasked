@@ -20,10 +20,10 @@ public class TrashPieceOnBenchEvent : GameEvent
     public Piece piece;
 }
 
-public class ShowTrashCanEvent : GameEvent
+public class PieceHandleEvent : GameEvent
 {
     public Piece piece;
-    public bool showTrashCan;
+    public bool isHeld;
 }
 
 public class BenchItem : InteractablePiece
@@ -59,7 +59,7 @@ public class BenchItem : InteractablePiece
         if (IsDragAllowed())
         {
             SetDraggedState();
-            EventManager.Instance.Raise(new ShowTrashCanEvent { piece = piece, showTrashCan = true });
+            EventManager.Instance.Raise(new PieceHandleEvent { piece = piece, isHeld = true });
         }
         else
         {

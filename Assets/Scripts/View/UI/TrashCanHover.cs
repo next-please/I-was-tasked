@@ -18,15 +18,15 @@ public class TrashCanHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnEnable()
     {
-        EventManager.Instance.AddListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
+        EventManager.Instance.AddListener<PieceHandleEvent>(OnShowTrashCanEvent);
     }
 
     public void OnDisable()
     {
-        EventManager.Instance.RemoveListener<ShowTrashCanEvent>(OnShowTrashCanEvent);
+        EventManager.Instance.RemoveListener<PieceHandleEvent>(OnShowTrashCanEvent);
     }
 
-    private void OnShowTrashCanEvent(ShowTrashCanEvent e)
+    private void OnShowTrashCanEvent(PieceHandleEvent e)
     {
         if (e.piece != null)
         {
