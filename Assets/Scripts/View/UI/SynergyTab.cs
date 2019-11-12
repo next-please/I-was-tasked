@@ -12,6 +12,8 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private readonly float OUTLINE_OPACITY_MIN_VALUE = 0.1f;
     private readonly float OUTLINE_OPACITY_MAX_VALUE = 0.7f;
 
+    private readonly Color OUTLINE_COLOR_TIER_TWO = new Color(1f, 0.6f, 0f); // #FF9900
+
     [SerializeField]
     private Image _icon;
     [SerializeField]
@@ -91,7 +93,6 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private void setIcon()
     {
-        Debug.Log("SynergyTab: Setting Icon");
         switch (_synergyName)
         {
             case "Human":
@@ -128,18 +129,25 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private void setIndicatorStatus()
     {
-        float status = (float)_count / (float)_requirementCounts[_requirementPointer];
+        float status = (float)_count / (float)_maxRequirementCount;
+        setPercentageStatus(status);
 
         _outline.gameObject.SetActive(false);
         setOpacity(_icon, BLUR_OPACITY_VALUE);
         setOpacity(_outline, OUTLINE_OPACITY_MIN_VALUE);
+
         if (_count >= _minRequirementCount)
         {
             _outline.gameObject.SetActive(true);
             setOpacity(_icon, CLEAR_OPACTITY_VALUE);
             setOpacity(_outline, OUTLINE_OPACITY_MIN_VALUE);
         }
-        setPercentageStatus(status);
+
+        if (_count == _maxRequirementCount)
+        {
+            _outline.color = OUTLINE_COLOR_TIER_TWO;
+            _indicator.color = OUTLINE_COLOR_TIER_TWO;
+        }
     }
 
     private void setPercentageStatus(float status)
