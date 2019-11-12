@@ -67,6 +67,8 @@ MonoBehaviour:
     type: 3}
   LobbyButtonClick: {fileID: 5098752667673324331, guid: 682f314574e1b6b49b60dd76690692f9,
     type: 3}
+  LobbyButtonHover: {fileID: 2807881813088849532, guid: da283303b1037434982e0aa05c96dd54,
+    type: 3}
   UpgradedMarketPing: {fileID: 1956018836472201014, guid: 0747aa5c744bc4346894d6796bc68cda,
     type: 3}
   VolumeHandle: {fileID: 0}

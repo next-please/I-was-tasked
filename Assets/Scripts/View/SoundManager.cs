@@ -23,6 +23,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource GameSoundTrack = null;
     public AudioSource LobbySoundTrack = null;
     public AudioSource LobbyButtonClick = null;
+    public AudioSource LobbyButtonHover = null;
     private const float LobbySoundTrackVolume = 0.5f;
     private bool firstLoadLobby = true;
 
@@ -185,6 +186,12 @@ public class SoundManager : MonoBehaviour
         {
             LobbyButtonClick = Instantiate(LobbyButtonClick, transform);
             LobbyButtonClick.volume = 1.0f;
+        }
+
+        if (LobbyButtonHover != null)
+        {
+            LobbyButtonHover = Instantiate(LobbyButtonHover, transform);
+            LobbyButtonHover.volume = 1.0f;
         }
         
         if (UpgradedMarketPing != null)

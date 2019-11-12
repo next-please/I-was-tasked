@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class FontPressedTMPro : MonoBehaviour
+public class FontPressedTMPro : MonoBehaviour, IPointerEnterHandler
 {
 
     public GameObject NormalBtn;
@@ -39,6 +39,14 @@ public class FontPressedTMPro : MonoBehaviour
             // To re-enable the hover-over highlight.
             EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
             eventSystem.SetSelectedGameObject(null);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (SoundManager.Instance.LobbyButtonHover != null)
+        {
+            SoundManager.Instance.LobbyButtonHover.Play();
         }
     }
 }
