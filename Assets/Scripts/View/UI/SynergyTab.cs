@@ -12,6 +12,7 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     private readonly float OUTLINE_OPACITY_MIN_VALUE = 0.1f;
     private readonly float OUTLINE_OPACITY_MAX_VALUE = 0.7f;
 
+    private readonly Color OUTLINE_COLOR_TIER_ONE = new Color(1f, 1f, 1f);
     private readonly Color OUTLINE_COLOR_TIER_TWO = new Color(1f, 0.6f, 0f); // #FF9900
 
     [SerializeField]
@@ -19,7 +20,9 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField]
     private Image _outline;
     [SerializeField]
-    private Image _indicator;
+    private Image _indicatorTierOne;
+    [SerializeField]
+    private Image _indicatorTierTwo;
 
     public Sprite humanIcon;
     public Sprite orcIcon;
@@ -129,30 +132,35 @@ public class SynergyTab : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     private void setIndicatorStatus()
     {
-        float status = (float)_count / (float)_maxRequirementCount;
-        setPercentageStatus(status);
-
+        // less than min requirements
         _outline.gameObject.SetActive(false);
-        setOpacity(_icon, BLUR_OPACITY_VALUE);
-        setOpacity(_outline, OUTLINE_OPACITY_MIN_VALUE);
+        _indicatorTierTwo.gameObject.SetActive(false);
 
         if (_count >= _minRequirementCount)
         {
             _outline.gameObject.SetActive(true);
-            setOpacity(_icon, CLEAR_OPACTITY_VALUE);
-            setOpacity(_outline, OUTLINE_OPACITY_MIN_VALUE);
+            _outline.color = OUTLINE_COLOR_TIER_ONE;
+            _indicatorTierTwo.gameObject.SetActive(true);
         }
 
         if (_count == _maxRequirementCount)
         {
             _outline.color = OUTLINE_COLOR_TIER_TWO;
-            _indicator.color = OUTLINE_COLOR_TIER_TWO;
         }
+
+        setPercentageStatus();
     }
 
-    private void setPercentageStatus(float status)
+    private void setPercentageStatus()
     {
-        _indicator.fillAmount = status;
+        float status = (float)_count / (float)_minRequirementCount;
+        _indicatorTierOne.fillAmount = status;
+
+        if (_count >= _minRequirementCount)
+        {
+            status = (float)(_count - _minRequirementCount) / (float)(_maxRequirementCount - _minRequirementCount);
+            _indicatorTierTwo.fillAmount = status;
+        }
     }
 
     private void setOpacity(Image image, float opacity)
