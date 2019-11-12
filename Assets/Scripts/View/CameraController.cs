@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Com.Nextplease.IWT;
+using UnityEngine.Rendering;
+using UnityEngine.Experimental.Rendering.HDPipeline;
 
 public enum CameraView
 {
@@ -29,6 +31,11 @@ public class CameraController : MonoBehaviour
     private Transform playerTransform;
     private float speed = 1f;
 
+    public Camera MainCamera;
+    public Camera FreeRoamCamera;
+    public GameObject UI;
+    public Volume volume;
+
     static public LayerMask _layerMask;
 
     static int playerPosition = 0;
@@ -38,39 +45,79 @@ public class CameraController : MonoBehaviour
         playerTransform = CameraTransforms[(int)RoomManager.GetLocalPlayer()];
         playerPosition = -1; // -1 is the market
         _layerMask = layerMask;
+        FreeRoamCamera.enabled = false;
+        UI.SetActive(true);
+    }
+
+    void ToggleCameras()
+    {
+        FreeRoamCamera.enabled = !FreeRoamCamera.enabled;
+        UI.SetActive(!UI.activeSelf);
+
+        DepthOfField dof = null;
+        if (volume.profile.TryGet<DepthOfField>(out dof))
+        {
+            dof.active = !FreeRoamCamera.enabled;
+        }
+
+        GameObject[] allObjects = (GameObject[]) FindObjectsOfType(typeof(GameObject));
+        foreach (GameObject gameObject in allObjects)
+        {
+            if (gameObject.GetComponent<PieceView>() != null)
+            {
+                PieceView pv = gameObject.GetComponent<PieceView>();
+                float toggleX = (FreeRoamCamera.enabled) ? 0 : 0.07f;
+                pv.statusBars.transform.localScale = new Vector3(toggleX, pv.statusBars.transform.localScale.y, pv.statusBars.transform.localScale.z);
+                GameObject[] rarities = gameObject.GetComponent<PieceView>().rarities;
+                if (rarities != null && rarities[pv.piece.GetRarity() - 1] != null)
+                {
+                    rarities[pv.piece.GetRarity() - 1].SetActive(!FreeRoamCamera.enabled);
+                }
+            }
+        }
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && playerPosition + 1 < 3 && playerPosition >= 0)
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            StopAllCoroutines();
-            StartCoroutine(LerpToTransform(CameraTransforms[playerPosition + 1]));
-            playerPosition++;
-            EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
-        }
-        else if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && playerPosition - 1 >= 0)
-        {
-            StopAllCoroutines();
-            StartCoroutine(LerpToTransform(CameraTransforms[playerPosition - 1]));
-            playerPosition--;
-            EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
+            Debug.Log("Hello");
+            ToggleCameras();
+            return;
         }
 
-        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && playerPosition != -1)
+        if (MainCamera.enabled)
         {
-            StopAllCoroutines();
-            StartCoroutine(LerpToTransform(CameraTransforms[3]));
-            playerPosition = -1;
-            EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
-        }
+            if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && playerPosition + 1 < 3 && playerPosition >= 0)
+            {
+                StopAllCoroutines();
+                StartCoroutine(LerpToTransform(CameraTransforms[playerPosition + 1]));
+                playerPosition++;
+                EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
+            }
+            else if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && playerPosition - 1 >= 0)
+            {
+                StopAllCoroutines();
+                StartCoroutine(LerpToTransform(CameraTransforms[playerPosition - 1]));
+                playerPosition--;
+                EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
+            }
 
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
-        {
-            StopAllCoroutines();
-            StartCoroutine(LerpToTransform(playerTransform));
-            playerPosition = (int)RoomManager.GetLocalPlayer();
-            EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
+            if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && playerPosition != -1)
+            {
+                StopAllCoroutines();
+                StartCoroutine(LerpToTransform(CameraTransforms[3]));
+                playerPosition = -1;
+                EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
+            }
+
+            if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
+            {
+                StopAllCoroutines();
+                StartCoroutine(LerpToTransform(playerTransform));
+                playerPosition = (int)RoomManager.GetLocalPlayer();
+                EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
+            }
         }
     }
 

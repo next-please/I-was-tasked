@@ -58,9 +58,11 @@ MonoBehaviour:
   - {fileID: 0}
   piece:
     spell: 0
+    size: 0
     multicast: 0
     invulnerable: 0
     taunting: 0
+    rotting: 0
   pieceSounds: {fileID: 0}
 --- !u!114 &-228607176018012935
 MonoBehaviour:
@@ -76,9 +78,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   piece:
     spell: 0
+    size: 0
     multicast: 0
     invulnerable: 0
     taunting: 0
+    rotting: 0
   rarities: []
   rarityParent: {fileID: 0}
 --- !u!1 &1283241703397704063
@@ -120,6 +124,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9115015172270155692}
     m_Modifications:
+    - target: {fileID: 4855660549573039490, guid: fc346f163c984414294995744131fa23,
+        type: 3}
+      propertyPath: m_Name
+      value: HP Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855660549573039490, guid: fc346f163c984414294995744131fa23,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5142782745114205904, guid: fc346f163c984414294995744131fa23,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -175,11 +189,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4855660549573039490, guid: fc346f163c984414294995744131fa23,
-        type: 3}
-      propertyPath: m_Name
-      value: HP Bar
-      objectReference: {fileID: 0}
     - target: {fileID: 4721234433348153860, guid: fc346f163c984414294995744131fa23,
         type: 3}
       propertyPath: m_Color.r
@@ -233,6 +242,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9115015172270155692}
     m_Modifications:
+    - target: {fileID: 1359021304896469787, guid: 00c39b6a602bbaa418d85a75d8569eb7,
+        type: 3}
+      propertyPath: m_Name
+      value: MP Bar
+      objectReference: {fileID: 0}
     - target: {fileID: 1648359857095258185, guid: 00c39b6a602bbaa418d85a75d8569eb7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -287,11 +301,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1359021304896469787, guid: 00c39b6a602bbaa418d85a75d8569eb7,
-        type: 3}
-      propertyPath: m_Name
-      value: MP Bar
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00c39b6a602bbaa418d85a75d8569eb7, type: 3}
