@@ -115,12 +115,18 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
                     return;
                 }
             }
-            CurrentRoomRoot.SetActive(false);
-            LoadingText.SetActive(true);
+            base.photonView.RPC("RPC_ShowLoadingText", RpcTarget.All);
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.LoadLevel("Main Scene MP");
         }
+    }
+
+    [PunRPC]
+    public void RPC_ShowLoadingText()
+    {
+        CurrentRoomRoot.SetActive(false);
+        LoadingText.SetActive(true);
     }
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
