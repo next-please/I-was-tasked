@@ -61,7 +61,7 @@ public class MarkForDeathSkill : Interaction
 
     private void ApplyEffect()
     {
-        if (target.IsDead())
+        if (target.IsDead() || target.invulnerable == true)
         {
             return;
         }
