@@ -12,8 +12,6 @@ public class PieceUIManager : MonoBehaviour
     public Image raceIcon;
     public Sprite[] classIcons;
     public Sprite[] raceIcons;
-    public Image foregroundClass;
-    public Image foregroundRace;
 
     public TextMeshProUGUI healthFraction;
     public TextMeshProUGUI damage;
@@ -124,13 +122,7 @@ public class PieceUIManager : MonoBehaviour
 
     private void SetClassRace(Enums.Job job, Enums.Race race)
     {
-        Color[] classColors = { Color.green, Color.magenta, Color.cyan, Color.white, Color.grey };
-        Color[] raceColors = { Color.blue, Color.yellow, Color.red, Color.black };
-
         classIcon.sprite = classIcons[(int)job];
-        Color classColor = classColors[(int)job];
-        classColor.a = 0.4f;
-        foregroundClass.color = classColor;
         switch (job)
         {
             case Enums.Job.Druid:
@@ -151,9 +143,6 @@ public class PieceUIManager : MonoBehaviour
         }
 
         raceIcon.sprite = raceIcons[(int)race];
-        Color raceColor = raceColors[(int)race];
-        raceColor.a = 0.4f;
-        foregroundRace.color = raceColor;
         switch (race)
         {
             case Enums.Race.Elf:
