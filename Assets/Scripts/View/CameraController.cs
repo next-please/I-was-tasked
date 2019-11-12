@@ -24,9 +24,12 @@ public class CameraViewOwnBoardEvent : GameEvent
 public class CameraController : MonoBehaviour
 {
     public Transform[] CameraTransforms;
+    public LayerMask layerMask;
 
     private Transform playerTransform;
     private float speed = 1f;
+
+    static public LayerMask _layerMask;
 
     static int playerPosition = 0;
 
@@ -34,6 +37,7 @@ public class CameraController : MonoBehaviour
     {
         playerTransform = CameraTransforms[(int)RoomManager.GetLocalPlayer()];
         playerPosition = -1; // -1 is the market
+        _layerMask = layerMask;
     }
 
     void Update()
@@ -52,14 +56,16 @@ public class CameraController : MonoBehaviour
             playerPosition--;
             EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
-        else if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && playerPosition != -1)
+
+        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && playerPosition != -1)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(CameraTransforms[3]));
             playerPosition = -1;
             EventManager.Instance.Raise(new CameraPanEvent { targetView = (CameraView)playerPosition });
         }
-        else if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
+
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && playerPosition == -1)
         {
             StopAllCoroutines();
             StartCoroutine(LerpToTransform(playerTransform));
@@ -83,5 +89,18 @@ public class CameraController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(currentTransform.rotation, newTransform.rotation, t / duration);
             yield return 0;
         }
+    }
+
+    public static Vector3 GetMousePositionOnBoard(ref bool wasHit)
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, 1000, _layerMask))
+        {
+            wasHit = true;
+            return hit.point;
+        }
+        wasHit = false;
+        return Vector3.zero;
     }
 }

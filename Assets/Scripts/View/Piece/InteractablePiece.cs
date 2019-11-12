@@ -141,7 +141,9 @@ public abstract class InteractablePiece :
     {
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = zPosOnDrag;
-        return Camera.main.ScreenToWorldPoint(mousePosition);
+        bool hit = false;
+        Vector3 pos = CameraController.GetMousePositionOnBoard(ref hit);
+        return hit ? pos : Camera.main.ScreenToWorldPoint(mousePosition);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
