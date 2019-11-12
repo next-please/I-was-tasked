@@ -54,7 +54,7 @@ public class PieceView : MonoBehaviour
 
     private void SetHealthDividers()
     {
-        if (maximumHP == piece.GetMaximumHitPoints())
+        if (maximumHP == piece.GetMaximumHitPoints() && dividers != null)
         {
             return;
         }
