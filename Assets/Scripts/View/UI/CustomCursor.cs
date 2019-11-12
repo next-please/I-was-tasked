@@ -5,7 +5,6 @@ public class CustomCursor : MonoBehaviour
 {
     public Texture2D defaultCursor;
     public Texture2D clickCursor;
-    public Texture2D dragCursor;
 
     private float offset = 30.0f;
     private bool mouseDown = false;
@@ -13,6 +12,7 @@ public class CustomCursor : MonoBehaviour
     private void Start()
     {
         Cursor.SetCursor(defaultCursor, Vector2.right * offset, CursorMode.Auto);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Update()
