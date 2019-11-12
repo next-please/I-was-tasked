@@ -64,6 +64,7 @@ public class PhaseManager : MonoBehaviour
     {
         SwordImage.enabled = false;
         damageResults = new bool[3];
+        CurrentPhaseText.text = "Loading...";
     }
 
     private void Start()
