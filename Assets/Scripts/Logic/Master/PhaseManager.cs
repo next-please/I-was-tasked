@@ -235,19 +235,24 @@ public class PhaseManager : MonoBehaviour
             }
             CurrentRoundText.text = "Tutorial";
             CurrentTimeText.text = "-";
+            summonManager.RemoveAllEnemyPieces(numPlayers);
+            TryMarketPhase();
         }
         else
         {
-            StartCoroutine(ShowNewRoundPopUpScreen());
             if (round > RoundsNeededToSurvive)
             {
                 OnGameOver();
                 yield break;
             }
-            CurrentRoundText.text = "Round " + round;
+            else
+            {
+                StartCoroutine(ShowNewRoundPopUpScreen());
+                CurrentRoundText.text = "Round " + round;
+                summonManager.RemoveAllEnemyPieces(numPlayers);
+                TryMarketPhase();
+            }
         }
-        summonManager.RemoveAllEnemyPieces(numPlayers);
-        TryMarketPhase();
     }
 
     IEnumerator ShowNewRoundPopUpScreen()
