@@ -81,7 +81,6 @@ public class MarketUIManager : MonoBehaviour
         Piece pieceToPurchase = e.piece;
         Player player = RoomManager.GetLocalPlayer();
         transactionManager.TryToPurchaseMarketPieceToBench(player, pieceToPurchase);
-        SoundManager.Instance.PlayPieceSound("Purchase");
     }
 
     void UpdateMarketButtons(MarketUpdateEvent e)

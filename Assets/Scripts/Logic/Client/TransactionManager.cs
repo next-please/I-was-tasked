@@ -35,6 +35,7 @@ public class TransactionManager : MonoBehaviour
         marketManager.RemoveMarketPiece(actualPiece);
         inventoryManager.AddToBench(player, actualPiece);
         inventoryManager.DeductGold(player, actualPiece.GetPrice());
+        SoundManager.Instance.PlayPieceSound("Purchase");
     }
 
     public void TrySellBenchPiece(Player player, Piece piece)
