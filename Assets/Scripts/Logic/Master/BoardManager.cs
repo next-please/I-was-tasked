@@ -16,6 +16,7 @@ public class AddPieceToBoardEvent : GameEvent
 public class RemovePieceFromBoardEvent : GameEvent
 {
     public Piece piece;
+    public Player player;
 }
 
 public class PieceMoveEvent : GameEvent
@@ -103,7 +104,7 @@ public class BoardManager : MonoBehaviour
     {
         for(int i = 0; i < boards.Length; i++)
         {
-            RemoveAllPiecesFromBoard((Player)i); 
+            RemoveAllPiecesFromBoard((Player)i);
         }
     }
 
@@ -131,7 +132,7 @@ public class BoardManager : MonoBehaviour
     {
         Board board = GetBoard(player);
         board.RemovePieceFromBoard(piece);
-        EventManager.Instance.Raise(new RemovePieceFromBoardEvent { piece = piece });
+        EventManager.Instance.Raise(new RemovePieceFromBoardEvent { piece = piece, player = player});
     }
 
     public void AddPieceToBoard(Player player, Piece piece, int i, int j)

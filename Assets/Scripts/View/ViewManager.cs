@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Com.Nextplease.IWT;
 
 public class ViewManager : MonoBehaviour
 {
+    public InventoryManager inventoryManager;
     public CharacterPrefabLoader characterPrefabLoader;
     public InteractionPrefabLoader interactionPrefabLoader;
     public GameObject FriendlyPieceViewPrefab;
@@ -12,6 +14,9 @@ public class ViewManager : MonoBehaviour
     public GameObject BoardPlayerTwo;
     public GameObject BoardPlayerThree;
     public Transform[] TileOriginTransforms;
+    public GameObject HighlightPrefab;
+
+    private List<GameObject> highlightPool = new List<GameObject>();
 
     static float TileSize = 1;
     static float boardOffset = 20;
@@ -28,12 +33,18 @@ public class ViewManager : MonoBehaviour
     {
         EventManager.Instance.AddListener<AddPieceToBoardEvent>(OnPieceAdded);
         EventManager.Instance.AddListener<AddInteractionToProcessEvent>(OnInteractionAdded);
+        EventManager.Instance.AddListener<AddPieceToBoardEvent>(OnAddPiece);
+        EventManager.Instance.AddListener<RemovePieceFromBoardEvent>(OnRemovePiece);
+        EventManager.Instance.AddListener<PieceMoveEvent>(OnPieceMove);
     }
 
     void OnDisable()
     {
         EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnPieceAdded);
         EventManager.Instance.RemoveListener<AddInteractionToProcessEvent>(OnInteractionAdded);
+        EventManager.Instance.RemoveListener<AddPieceToBoardEvent>(OnAddPiece);
+        EventManager.Instance.RemoveListener<RemovePieceFromBoardEvent>(OnRemovePiece);
+        EventManager.Instance.RemoveListener<PieceMoveEvent>(OnPieceMove);
     }
 
     public void OnBoardCreated(Board gameBoard, Player player)
@@ -117,6 +128,53 @@ public class ViewManager : MonoBehaviour
                 return BoardPlayerThree;
             default:
                 return BoardPlayerOne;
+        }
+    }
+
+    private void OnAddPiece(AddPieceToBoardEvent e)
+    {
+        UpdateHighlights(e.player);
+    }
+
+    private void OnRemovePiece(RemovePieceFromBoardEvent e)
+    {
+        UpdateHighlights(e.player);
+    }
+
+    private void OnPieceMove(PieceMoveEvent e)
+    {
+        UpdateHighlights(e.tile.GetBoard().GetOwner());
+    }
+
+    void UpdateHighlights(Player player)
+    {
+        if (player == RoomManager.GetLocalPlayer())
+        {
+            foreach (GameObject highlight in highlightPool)
+            {
+                highlight.SetActive(false);
+            }
+            List<Piece> pieces = inventoryManager.GetExcessPieces(player);
+            if (highlightPool.Count < pieces.Count)
+            {
+                GameObject highlight = GameObject.Instantiate(HighlightPrefab);
+                highlight.SetActive(false);
+                highlightPool.Add(highlight);
+                highlight.transform.Rotate(Vector3.up, 45 * (int)player, Space.World);
+            }
+
+            for (int i = 0; i < pieces.Count; ++i)
+            {
+                Piece piece = pieces[i];
+                Tile tile = piece.GetCurrentTile();
+                if (tile == null)
+                    continue;
+                Vector3 position = CalculateTileWorldPosition(tile);
+                position.y = 0.75f;
+                GameObject highlight = highlightPool[i];
+                highlight.SetActive(true);
+                highlight.transform.position = position;
+            }
         }
     }
 }

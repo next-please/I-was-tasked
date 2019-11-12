@@ -31,7 +31,14 @@ public class InventoryUIManager : MonoBehaviour
         {
             GoldText.text = inv.GetGold().ToString();
             ArmySizeText.text = inv.GetArmySize().ToString();
-            CurrentArmySizeText.text = inv.GetArmyCount() + "/" + inv.GetArmySize();
+            if (inv.GetArmyCount() > inv.GetArmySize())
+            {
+                CurrentArmySizeText.text = "<color=\"red\">" + "<size=120%>" + inv.GetArmyCount() + "</size>" + "</color>" + "/" + inv.GetArmySize();
+            }
+            else
+            {
+                CurrentArmySizeText.text = inv.GetArmyCount() + "/" + inv.GetArmySize();
+            }
         }
     }
 }

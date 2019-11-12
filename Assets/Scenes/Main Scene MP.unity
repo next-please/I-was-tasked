@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.15739834, g: 0.12776682, b: 0.24630183, a: 1}
+  m_IndirectSpecularColor: {r: 0.15739834, g: 0.12776825, b: 0.24630171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18099,7 +18099,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bc1fd310dcc9a1741a5af827987b033d, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: bc1fd310dcc9a1741a5af827987b033d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -52707,7 +52707,7 @@ PrefabInstance:
     - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: TileOriginTransforms.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
@@ -52717,6 +52717,11 @@ PrefabInstance:
     - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: White.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: BoardHighlights.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
@@ -52779,6 +52784,38 @@ PrefabInstance:
       propertyPath: White.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: be39f34dd045c664f8d72879b0670fbd, type: 2}
+    - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: BoardHighlights.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: BoardHighlights.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: BoardHighlights.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: TileOriginTransforms.Array.data[3]
+      value: 
+      objectReference: {fileID: 8547032237866190549, guid: 90f6561fea0642e4c8b14d48f8c79238,
+        type: 3}
+    - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: HighlightPrefab
+      value: 
+      objectReference: {fileID: 8547032237866190553, guid: 90f6561fea0642e4c8b14d48f8c79238,
+        type: 3}
+    - target: {fileID: 358672374405703791, guid: cb924d3f4e127794c9dfc5fc10c21d58,
+        type: 3}
+      propertyPath: inventoryManager
+      value: 
+      objectReference: {fileID: 1852614661}
     - target: {fileID: 358672374018443721, guid: cb924d3f4e127794c9dfc5fc10c21d58,
         type: 3}
       propertyPath: menuSettingsCanvas
