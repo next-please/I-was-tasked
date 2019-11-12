@@ -149,4 +149,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effect: {fileID: 6200085901392628930}
-  SecondsTillDespawn: 3
+  SecondsTillDespawn: 6
