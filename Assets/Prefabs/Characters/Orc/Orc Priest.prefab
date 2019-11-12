@@ -4354,7 +4354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48878f6aed57b3146aacea3d9ac55ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAudioSource: {fileID: 8571228628355606716, guid: 6a5d770d7f6dd1842b5e5e397754a955,
+  attackAudioSource: {fileID: 4904456793418740575, guid: 5ed2551e014710c4e9caf0be9f701216,
     type: 3}
   skillCastAudioSource: {fileID: 2726372799021484550, guid: e15b0ebfa725e1f44a223741acbbda45,
     type: 3}

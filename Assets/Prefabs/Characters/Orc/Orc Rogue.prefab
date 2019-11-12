@@ -4433,7 +4433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48878f6aed57b3146aacea3d9ac55ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackAudioSource: {fileID: 848881499994822456, guid: 27ccff784251548428f54de26b5199b3,
+  attackAudioSource: {fileID: 8843802531626136726, guid: be9c1f65a26962c4f94b00b47202dc1c,
     type: 3}
   skillCastAudioSource: {fileID: 1538749242736797113, guid: 2b7928d7d639ae947a2e063d530a5e32,
     type: 3}
