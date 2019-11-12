@@ -105,7 +105,7 @@ public class UpgradeUIManager : MonoBehaviour
         if (rarityButton == null)
             return;
         TextMeshProUGUI text = rarityButton.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = transactionManager.GetMarketRarityCost().ToString();
+        text.text = "-" + transactionManager.GetMarketRarityCost().ToString();
     }
 
     void UpdateArmySizeButtonsText(InventoryChangeEvent e /*unused and is a hack*/)
@@ -114,7 +114,7 @@ public class UpgradeUIManager : MonoBehaviour
             return;
         TextMeshProUGUI text = armyButton.GetComponentInChildren<TextMeshProUGUI>();
         Player localPlayer = RoomManager.GetLocalPlayer();
-        text.text = transactionManager.GetArmySizeCost(localPlayer).ToString();
+        text.text = "-" + transactionManager.GetArmySizeCost(localPlayer).ToString();
     }
 
     void SetMarketRarityButtons()
@@ -128,7 +128,7 @@ public class UpgradeUIManager : MonoBehaviour
         sizeButton = UpgradeMarketSize.GetComponentInChildren<Button>(true);
         sizeButton.onClick.AddListener(() => transactionManager.TryPurchaseIncreaseMarketSize(RoomManager.GetLocalPlayer()));
         TextMeshProUGUI text = sizeButton.GetComponentInChildren<TextMeshProUGUI>();
-        text.text = transactionManager.UpgradeMarketSizeCost.ToString();
+        text.text = "-" + transactionManager.UpgradeMarketSizeCost.ToString();
     }
 
     void SetArmySizeButtons()
