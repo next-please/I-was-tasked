@@ -55,6 +55,8 @@ public class CharacterPrefabLoader : MonoBehaviour
             {(Enums.Race.Human, Enums.Job.Mage), HumanMagePrefab},
             {(Enums.Race.Human, Enums.Job.Priest), HumanPriestPrefab},
             {(Enums.Race.Human, Enums.Job.Rogue), HumanRoguePrefab},
+            {(Enums.Race.Human, Enums.Job.Spearman), HumanSpearmanPrefab},
+            {(Enums.Race.Human, Enums.Job.Archer), HumanArcherPrefab},
 
             {(Enums.Race.Orc, Enums.Job.Druid), OrcDruidPrefab},
             {(Enums.Race.Orc, Enums.Job.Knight), OrcKnightPrefab},

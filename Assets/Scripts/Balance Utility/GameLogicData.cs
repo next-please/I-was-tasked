@@ -19,6 +19,8 @@ public class GameLogicData : ScriptableObject
     public UniquePieceData HumanMage;
     public UniquePieceData HumanPriest;
     public UniquePieceData HumanRogue;
+    public UniquePieceData HumanSpearman;
+    public UniquePieceData HumanArcher;
     public UniquePieceData ElfDruid;
     public UniquePieceData ElfKnight;
     public UniquePieceData ElfMage;

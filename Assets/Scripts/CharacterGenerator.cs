@@ -170,12 +170,12 @@ public class CharacterGenerator
         rngesus = new System.Random();
 
         //creating pools for race and job limits
-        TierRaceJobPoolSize = new int[tiersRaceJobPoolMax.GetLength(0), Enum.GetNames(typeof(Enums.Race)).Length, Enum.GetNames(typeof(Enums.Job)).Length];
+        TierRaceJobPoolSize = new int[tiersRaceJobPoolMax.GetLength(0), tiersRaceJobPoolMax.GetLength(1), tiersRaceJobPoolMax.GetLength(2)];
         for (int i = 0; i < tiersRaceJobPoolMax.GetLength(0); i++)
         {
-            for (int j = 0; j < Enum.GetNames(typeof(Enums.Race)).Length; j++)
+            for (int j = 0; j < tiersRaceJobPoolMax.GetLength(1); j++)
             {
-                for (int k = 0; k < Enum.GetNames(typeof(Enums.Job)).Length; k++)
+                for (int k = 0; k < tiersRaceJobPoolMax.GetLength(2); k++)
                 {
                     TierRaceJobPoolSize[i, j, k] = tiersRaceJobPoolMax[i, j, k];
                 }
@@ -206,8 +206,8 @@ public class CharacterGenerator
 
         //calculate race and job
         int totalPool = 0;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++) {
-            for (int j = 0; j < Enum.GetNames(typeof(Enums.Job)).Length; j++) {
+        for (int i = 0; i < tiersRaceJobPoolMax.GetLength(1); i++) {
+            for (int j = 0; j < tiersRaceJobPoolMax.GetLength(2); j++) {
                 totalPool += TierRaceJobPoolSize[characterRarity,i,j];
             }
         }
@@ -215,9 +215,9 @@ public class CharacterGenerator
         //in case all units are bought out from the current rarity tier, repopulate one in each
         if (totalPool < 1)
         {
-            for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++)
+            for (int i = 0; i < tiersRaceJobPoolMax.GetLength(1); i++)
             {
-                for (int j = 0; j < Enum.GetNames(typeof(Enums.Job)).Length; j++)
+                for (int j = 0; j < tiersRaceJobPoolMax.GetLength(2); j++)
                 {
                     TierRaceJobPoolSize[characterRarity, i, j] = tiersRaceJobPoolMax[characterRarity, i, j];
                     if (tiersRaceJobPoolMax[characterRarity, i, j] > 0)
@@ -230,8 +230,8 @@ public class CharacterGenerator
         Enums.Race race = 0;
         Enums.Job job = 0;
         bool decided = false;
-        for (int i = 0; i < Enum.GetNames(typeof(Enums.Race)).Length; i++) {
-            for (int j = 0; j < Enum.GetNames(typeof(Enums.Job)).Length; j++) {
+        for (int i = 0; i < tiersRaceJobPoolMax.GetLength(1); i++) {
+            for (int j = 0; j < tiersRaceJobPoolMax.GetLength(2); j++) {
                 poolNumber -= TierRaceJobPoolSize[characterRarity,i,j];
                 if (poolNumber <= 0)
                 {

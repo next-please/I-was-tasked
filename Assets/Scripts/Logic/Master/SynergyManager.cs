@@ -16,8 +16,8 @@ public class SynergyManager : MonoBehaviour
     private int elfGuidingSpiritAttackDamage = GameLogicManager.Inst.Data.Synergy.ElfGuidingSpiritAttackDamage;
     private int elfGuidingSpiritAttackSpeed = GameLogicManager.Inst.Data.Synergy.ElfGuidingSpiritAttackSpeed;
 
-    private int[] jobSynergyCount = new int[Enum.GetNames(typeof(Enums.Job)).Length];
-    private int[] raceSynergyCount = new int[Enum.GetNames(typeof(Enums.Race)).Length];
+    private int[] jobSynergyCount = new int[5];
+    private int[] raceSynergyCount = new int[4];
     public static int[] jobSynergyRequirement = new int[]
     {
         GameLogicManager.Inst.Data.Synergy.DruidRequirement1,

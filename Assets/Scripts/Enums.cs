@@ -6,7 +6,9 @@
         Knight,
         Mage,
         Priest,
-        Rogue
+        Rogue,
+        Spearman,
+        Archer
     }
     public enum Race
     {
