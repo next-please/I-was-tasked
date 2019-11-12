@@ -920,7 +920,6 @@ public class EnemyGenerator
                 enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Archer, Enums.Race.Human, true);
                 enemy.SetClass(Enums.Job.Archer);
                 enemy.spell = Enums.Spell.Evicerate;
-                enemy.SetLifestealPercentage(0.1);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #7");
                 enemy.SetDamageIfSurvive(1);
@@ -929,7 +928,6 @@ public class EnemyGenerator
                 enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Archer, Enums.Race.Human, true);
                 enemy.SetClass(Enums.Job.Archer);
                 enemy.spell = Enums.Spell.Evicerate;
-                enemy.SetLifestealPercentage(0.1);
                 enemy.SetIsEnemy(true);
                 enemy.SetName("Enemy #8");
                 enemy.SetDamageIfSurvive(1);
@@ -944,7 +942,7 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                return "Your friends? (unimplemented)";
+                return "The Four Horsemen";
             default:
                 return "";
         }
@@ -956,48 +954,50 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Orc, false);
+                enemy.SetMaximumHitPoints(400);
+                enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetAttackDamage(40);
+                enemy.SetArmourPercentage(100);
                 enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #1");
+                enemy.SetName("Horseman of Essence");
                 enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(0, 7);
+                enemy.SetDamageIfSurvive(2);
+                enemy.startingSpot = new Tuple<int, int>(0, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Druid, Enums.Race.Orc, false);
+                enemy.SetMaximumHitPoints(4000);
+                enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetAttackDamage(40);
+                enemy.SetArmourPercentage(-900);
                 enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #2");
+                enemy.SetName("Horseman of War");
                 enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(1, 4);
+                enemy.SetDamageIfSurvive(2);
+                enemy.startingSpot = new Tuple<int, int>(3, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead, false);
+                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Druid, Enums.Race.Orc, false);
+                enemy.SetMaximumHitPoints(200);
+                enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetLifestealPercentage(500);
+                enemy.SetAttackDamage(40);
                 enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #3");
+                enemy.SetName("Horseman of Life");
                 enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(2, 5);
+                enemy.SetDamageIfSurvive(2);
+                enemy.startingSpot = new Tuple<int, int>(7, 4);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(0, Enums.Job.Rogue, Enums.Race.Undead, false);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Druid, Enums.Race.Orc, false);
+                enemy.SetMaximumHitPoints(400);
+                enemy.SetCurrentHitPoints(enemy.GetMaximumHitPoints());
+                enemy.SetAttackDamage(40);
                 enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #4");
+                enemy.SetName("Horseman of Unity3D");
                 enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(3, 7);
+                enemy.SetDamageIfSurvive(2);
+                enemy.startingSpot = new Tuple<int, int>(4, 7);
                 enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
-                enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #5");
-                enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(5, 5);
-                enemies.Add(enemy);
-                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Rogue, Enums.Race.Undead, false);
-                enemy.SetIsEnemy(true);
-                enemy.SetName("Enemy #6");
-                enemy.SetTitle("");
-                enemy.SetDamageIfSurvive(1);
-                enemy.startingSpot = new Tuple<int, int>(6, 6);
-                enemies.Add(enemy);
+                //enemy.interactions.Add(new horsemanInvulnerabilityEffect(enemies));
                 break;
         }
         return enemies;
