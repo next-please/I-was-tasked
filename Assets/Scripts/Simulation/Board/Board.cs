@@ -219,11 +219,11 @@ public class Board
 
         if (!piece.IsEnemy())
         {
-            enemyPiecesOnBoard = GetActiveEnemiesOnBoard();
+            enemyPiecesOnBoard = GetActiveEnemiesOnBoard().FindAll(x => x.GetCurrentHitPoints() > 0);
         }
         else
         {
-            enemyPiecesOnBoard = GetActiveFriendliesOnBoard();
+            enemyPiecesOnBoard = GetActiveFriendliesOnBoard().FindAll(x => x.GetCurrentHitPoints() > 0);
         }
 
         if (enemyPiecesOnBoard.Find(x => x.taunting == true) != null)
