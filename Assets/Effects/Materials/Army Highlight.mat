@@ -75,7 +75,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - Color_80C01B41: {r: 244.7101, g: 0, b: 0, a: 0}
+    - Color_80C01B41: {r: 15.849056, g: 0.74759686, b: 0.74759686, a: 0}
     - Color_8DEF84B: {r: 0, g: 7.152941, b: 12.172549, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
