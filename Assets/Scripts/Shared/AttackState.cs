@@ -3,6 +3,7 @@ using System;
 
 public class AttackState : State
 {
+    Tile damagedTile;
     public override void OnStart(Piece piece, Board board)
     {
         Piece target = piece.GetTarget();
@@ -15,6 +16,7 @@ public class AttackState : State
 
         if (!target.IsDead())
         {
+            damagedTile = target.GetCurrentTile();
             Interaction attack;
             if (piece.GetAttackRange() > 1 && piece.GetClass() != Enums.Job.Spearman)
             {
@@ -53,19 +55,26 @@ public class AttackState : State
     public override void OnViewStart(PieceView pieceView)
     {
         Piece target = pieceView.piece.GetTarget();
-        Tile targetTile = target.GetCurrentTile();
+        Tile targetTile = damagedTile;
+
         if (targetTile == null)
         {
             targetTile = target.GetLockedTile();
         }
-
         if (targetTile == null)
         {
             Debug.Log("No target to look at, See AttackState.cs");
-            return;
         }
-        pieceView.LookAtTile(targetTile);
-        pieceView.animator.Play("Attack", 0);
+        if (targetTile != null)
+        {
+            pieceView.LookAtTile(targetTile);
+        }
+        int attackSpeed = pieceView.piece.GetAttackSpeed();
+        int ticks = 250 / attackSpeed;
+        float seconds = (float)ticks * FixedClock.Instance.deltaTime;
+        Debug.LogFormat("{0} {1} {2}", ticks, seconds, 1f / (float) seconds);
+        pieceView.animator.Play("Attack", 0, 0);
+        pieceView.animator.speed = 1f / seconds;
         pieceView.pieceSounds.PlayAttackSound();
     }
 
