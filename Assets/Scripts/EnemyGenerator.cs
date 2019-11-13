@@ -826,7 +826,7 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                enemy = characterGenerator.GenerateCharacter(4, Enums.Job.Knight, Enums.Race.Undead, false);
+                enemy = characterGenerator.GenerateCharacter(1, Enums.Job.Knight, Enums.Race.Orc, true);
                 enemy.SetIsEnemy(true);
                 enemy.SetRace(Enums.Race.Orc);
                 enemy.spell = Enums.Spell.Berserk;
