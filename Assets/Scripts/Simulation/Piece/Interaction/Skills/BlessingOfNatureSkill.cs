@@ -162,7 +162,6 @@ public class BlessingOfNatureLingeringEffect : Interaction
             Vector3 pos = Vector3.zero;
             pos.y = 1f;
             projectile.transform.localPosition = pos;
-            projectile.transform.position = attackDestination;
         }
 
         if (ticksRemaining <= 0 || target.IsDead())
