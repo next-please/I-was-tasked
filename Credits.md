@@ -1,22 +1,32 @@
-Lead Programmer: Nicholas Chua Yun Zhi<br/>
-
-Network Engineer: Yeo Junkai<br/>
-
-Game Design: Koh Lewis<br/>
-
-Gameplay Programmer: Stanley Tay<br/>
-                     Koh Lewis<br/>
-                     Nicholas Chua Yun Zhi<br/>
-
-Producer: Yeo Junkai<br/>
-
-UI/UX Engineer: Tan Yi Jing, Jolyn<br/>
-                Stanley Tay<br/>
-
-Q/A Lead: Nicholas Chua Yun Zhi<br/>
-
-Audio Design: Stanley Tay<br/>
-
-Assets: Everywhere<br/>
-
-Special Thanks: Anand Bhojan<br/>
+<b>Lead Programmer:</b><br/>
+Nicholas Chua Yun Zhi<br/>
+<br/>
+<b>Network Engineer:</b><br/>
+Yeo Junkai<br/>
+<br/>
+<b>Game Design:</b><br/>
+Koh Lewis<br/>
+<br/>
+<b>Gameplay Programmer:</b><br/>
+Stanley Tay<br/>
+Koh Lewis<br/>
+Nicholas Chua Yun Zhi<br/>
+<br/>
+<b>Producer:</b><br/>
+Yeo Junkai<br/>
+<br/>
+<b>UI/UX Engineer:</b><br/>
+Tan Yi Jing, Jolyn<br/>
+Stanley Tay<br/>
+<br/>
+<b>Q/A Lead:</b><br/>
+Nicholas Chua Yun Zhi<br/>
+<br/>
+<b>Audio Design:</b><br/>
+Stanley Tay<br/>
+<br/>
+<b>Assets:</b><br/>
+Everywhere<br/>
+<br/>
+<b>Special Thanks:</b><br/>
+Anand Bhojan<br/>
