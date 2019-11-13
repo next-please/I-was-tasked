@@ -410,7 +410,7 @@ public class Piece : ISerializable
                 nextState
             );
 
-            skill.SetNextState(nextState);
+            skill.SetNextState(entryState);
             TransitIntoState(board, canCastSkill);
             while (this.state.hasFinished())
             {
