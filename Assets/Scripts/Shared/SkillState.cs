@@ -119,7 +119,7 @@ public class SkillState : State
             piece.SetCurrentManaPoints((int)Math.Floor(piece.GetMaximumManaPoints() * MoonfireSkill.moonfireDefaultManaRetainPercentage));
         }
         Piece target = piece.GetTarget();
-        if (target.IsDead())
+        if (target != null && target.IsDead())
         {
             board.DeactivatePieceOnBoard(target);
             Debug.Log(target.GetName() + " has died and " + piece.GetName() + " is no longer attacking it.");
