@@ -157,6 +157,10 @@ public class ViewManager : MonoBehaviour
             // Hack: event only happens when a local piece is picked up
             UpdateHighlights(RoomManager.GetLocalPlayer(), e.piece);
         }
+        else
+        {
+            UpdateHighlights(RoomManager.GetLocalPlayer());
+        }
     }
 
     private void OnInventoryChange(InventoryChangeEvent e)
