@@ -117,7 +117,7 @@ namespace UnityTemplateProjects
             //  #endif
             //}
             // Hide and lock cursor when right mouse button pressed
-            if (Input.GetMouseButtonDown(1))
+            /*if (Input.GetMouseButtonDown(1))
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
@@ -128,6 +128,7 @@ namespace UnityTemplateProjects
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
             }
+            */
 
             // Rotation
             if (Input.GetMouseButton(1))
@@ -139,7 +140,6 @@ namespace UnityTemplateProjects
                 m_TargetCameraState.yaw += mouseMovement.x * mouseSensitivityFactor;
                 m_TargetCameraState.pitch += mouseMovement.y * mouseSensitivityFactor;
             }
-            
             // Translation
             var translation = GetInputTranslationDirection() * Time.deltaTime;
 
