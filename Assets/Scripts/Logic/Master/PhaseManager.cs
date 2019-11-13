@@ -49,7 +49,7 @@ public class PhaseManager : MonoBehaviour
 
     private int round = 0;
     public int randomRoundIndex = 0;
-    private int RoundsNeededToSurvive = 15;
+    private int RoundsNeededToSurvive = 14;
     private int simulationPlayerCount = 0;
 
     private int numPlayers = 1;
