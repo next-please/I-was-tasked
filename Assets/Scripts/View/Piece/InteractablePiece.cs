@@ -96,6 +96,12 @@ public abstract class InteractablePiece :
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         eventData.selectedObject = gameObject;
+        HitTarget target = GetHitTarget();
+        EventManager.Instance.Raise(new DragOverTileEvent
+        {
+            hitTarget = target,
+            targetObject = this.targetObject
+        });
     }
 
     public void OnSelect(BaseEventData eventData)

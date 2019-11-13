@@ -23,7 +23,6 @@ public class DragManager : MonoBehaviour
         EventManager.Instance.AddListener<PieceHandleEvent>(OnShowTrashCanEvent);
         EventManager.Instance.AddListener<DragOverTileEvent>(OnDragOverTile);
         EventManager.Instance.AddListener<DragEndEvent>(OnDragEnd);
-
         trashCan.enabled = false;
     }
 
@@ -108,7 +107,8 @@ public class DragManager : MonoBehaviour
             tilePosition.y = 0.75f;
             Highlight.transform.position = tilePosition;
             bool isValidTile = !tile.IsEnemyTile() &&
-                tile.GetBoard().GetOwner() == RoomManager.GetLocalPlayer();
+                tile.GetBoard().GetOwner() == RoomManager.GetLocalPlayer() &&
+                PhaseManager.GetCurrentPhase() != Phase.Combat;
             Highlight.SetActive(isValidTile);
         }
         else if (target == HitTarget.BenchSlot)

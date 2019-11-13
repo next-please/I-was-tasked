@@ -28,6 +28,7 @@ public class PieceDragHandler : InteractablePiece
     private Animator animator;
 
     bool inCombat = false;
+    bool isHeld = false;
 
     void OnEnable()
     {
@@ -55,7 +56,18 @@ public class PieceDragHandler : InteractablePiece
     {
         inCombat = e.phase == Phase.Combat;
         if (inCombat)
-            OnEmptyDrop();
+        {
+            SetBoardState();
+            transform.position = originalPos;
+            if (isHeld)
+            {
+                EventManager.Instance.Raise(new DragOverTileEvent
+                {
+                    hitTarget = HitTarget.Empty,
+                    targetObject = null
+                });
+            }
+        }
     }
 
     public override void OnDrag(PointerEventData eventData)
@@ -80,7 +92,9 @@ public class PieceDragHandler : InteractablePiece
         {
             EventManager.Instance.Raise(new PieceHandleEvent { piece = piece, isHeld = true });
             SetDraggedState();
-        } else
+            isHeld = true;
+        }
+        else
         {
             eventData.pointerDrag = null;
         }
@@ -90,6 +104,7 @@ public class PieceDragHandler : InteractablePiece
     {
         if (IsDragAllowed())
             base.OnPointerUp(eventData);
+        isHeld = false;
     }
 
     public override void OnBenchDrop(BenchSlot slot)
