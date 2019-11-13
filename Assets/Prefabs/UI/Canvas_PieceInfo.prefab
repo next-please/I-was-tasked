@@ -3563,7 +3563,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 58bf14415ce9f6e4fb950751801a4598, type: 3}
   - {fileID: 21300000, guid: 89615f2e855094b43b95a90e84173fe2, type: 3}
   raceIcons:
-  - {fileID: 21300000, guid: 5dbdd2bff55044047b12e9f3d3128917, type: 3}
+  - {fileID: 21300000, guid: 94c2f48da3be928448e658ec8a12d73a, type: 3}
   - {fileID: 21300000, guid: 3dbaa92e83b68d8469c6a57a544d83c1, type: 3}
   - {fileID: 21300000, guid: 5dbdd2bff55044047b12e9f3d3128917, type: 3}
   - {fileID: 21300000, guid: 4310512d9f6d20244a094ffecbbbd2c6, type: 3}
