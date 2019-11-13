@@ -11,6 +11,7 @@ public class PlayersUIManager : MonoBehaviour
     public GameObject[] PlayerAvatars;
     public Image HealthBar;
     public Animator coreAnimator;
+    public GameObject[] arrows;
 
     private readonly float lerpSpeed = 1f;
     private readonly int fullHealth = MarketManager.StartingCastleHealth;
@@ -38,6 +39,7 @@ public class PlayersUIManager : MonoBehaviour
         {
             playerAvatarAnimators.Add(avatar.GetComponent<Animator>());
         }
+        setPlayerArrow();
     }
 
     void Update()
@@ -64,6 +66,11 @@ public class PlayersUIManager : MonoBehaviour
 
         DeselectPreviousAvatar();
         SelectAvatar(playerNum);
+    }
+
+    private void setPlayerArrow()
+    {
+        arrows[(int)RoomManager.GetLocalPlayer()].SetActive(true);
     }
 
     private void SelectAvatar(int playerNum)
