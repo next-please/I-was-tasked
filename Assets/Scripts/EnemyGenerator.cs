@@ -853,7 +853,7 @@ public class EnemyGenerator
         switch (index)
         {
             case 0:
-                return "Organised Army";
+                return "Organised Battalion";
             default:
                 return "";
         }
